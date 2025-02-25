@@ -1,0 +1,45 @@
+@prefix : <https://onto.vaimee.com/msg#> .
+@prefix schema: <https://schema.org/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+#################################################################
+#    Message with text (ContentBlock)
+#################################################################
+
+:message1 rdf:type schema:Message ;
+          schema:dateCreated "2025-02-25T12:00:00Z"^^xsd:dateTime ;
+          schema:dateSent "2025-02-25T12:05:00Z"^^xsd:dateTime ;
+          schema:recipient :webid1 ;
+          schema:messageAttachment :contentBlock1 .
+
+:contentBlock1 rdf:type :ContentBlock ;
+               schema:text "Ciao! Questa è una notifica importante." ;
+               schema:about :queryId123 .
+
+#################################################################
+#    Message with template
+#################################################################
+
+:message2 rdf:type schema:Message ;
+          schema:dateCreated "2025-02-25T14:00:00Z"^^xsd:dateTime ;
+          schema:dateSent "2025-02-25T14:05:00Z"^^xsd:dateTime ;
+          schema:recipient :webid2 ;
+          schema:messageAttachment :template1 .
+
+:template1 rdf:type :Template ;
+           schema:text "Ciao [name], oggi la temperatura è di [temp]°C." ;
+           schema:about :queryId456 ;
+           :hasVariableSet :variableSet1 .
+
+:variableSet1 rdf:type :VariableSet ;
+              :hasVariable :variable1 ;
+              :hasVariable :variable2 .
+
+:variable1 rdf:type :Variable ;
+           schema:name "name" ;
+           :hasValue "Gregorio"^^xsd:string .
+
+:variable2 rdf:type :Variable ;
+           schema:name "temp" ;
+           :hasValue "22.5"^^xsd:float .
