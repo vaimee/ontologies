@@ -1,0 +1,251 @@
+@prefix : <http://www.semanticweb.org/vaime/ontologies/2025/1/untitled-ontology-8/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <https://schema.org> .
+@base <http://www.semanticweb.org/vaime/ontologies/2025/1/untitled-ontology-8/> .
+
+<https://onto.vaimee.com/msg> rdf:type owl:Ontology ;
+                               rdfs:comment "This is an ontolgy for messages by VAIMEE. It includes Schema.org classes and properties." ;
+                               owl:versionInfo 1.0 .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  https://schema.org/domainIncludes
+<https://schema.org/domainIncludes> rdf:type owl:AnnotationProperty .
+
+
+###  https://schema.org/rangeIncludes
+<https://schema.org/rangeIncludes> rdf:type owl:AnnotationProperty .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  https://onto.vaimee.com/msg#hasVariable
+:hasVariable rdf:type owl:ObjectProperty ;
+             rdfs:domain [ rdf:type owl:Class ;
+                           owl:unionOf ( <https://schema.org/CreativeWork>
+                                         <https://schema.org/Text>
+                                       )
+                         ] ;
+             rdfs:range <https://onot.vaimee.com/msg#Variable> ;
+             rdfs:comment "Links a template or message to its variables." ;
+             rdfs:isDefinedBy :hasVariable ;
+             rdfs:label "hasVariable" .
+
+
+###  https://onto.vaimee.com/msg#usesTemplate
+:usesTemplate rdf:type owl:ObjectProperty ;
+              rdfs:domain <https://schema.org/CreativeWork> ;
+              rdfs:range :Template ;
+              rdfs:comment "Links a message to a predefined template that structures its content." ;
+              rdfs:isDefinedBy :usesTemplate ;
+              rdfs:label "usesTemplate" .
+
+
+###  https://schema.org/about
+<https://schema.org/about> rdf:type owl:ObjectProperty ;
+                           rdfs:domain <https://schema.org/CreativeWork> ;
+                           rdfs:range <https://schema.org/Text> ;
+                           rdfs:comment "The subject matter of the content."@en ;
+                           rdfs:isDefinedBy <https://schema.org/about> ;
+                           rdfs:label "about"@en .
+
+
+###  https://schema.org/messageAttachment
+<https://schema.org/messageAttachment> rdf:type owl:ObjectProperty ;
+                                       rdfs:domain [ rdf:type owl:Class ;
+                                                     owl:unionOf ( <https://schema.org/Message>
+                                                                 )
+                                                   ] ;
+                                       rdfs:range [ rdf:type owl:Class ;
+                                                    owl:unionOf ( <https://schema.org/CreativeWork>
+                                                                  <https://schema.org/Text>
+                                                                )
+                                                  ] ;
+                                       rdfs:comment "A CreativeWork attached to the message."@en ;
+                                       rdfs:isDefinedBy <https://schema.org/messageAttachment> ;
+                                       rdfs:label "messageAttachment"@en .
+
+
+###  https://schema.org/name
+<https://schema.org/name> rdf:type owl:ObjectProperty ;
+                          rdfs:domain [ rdf:type owl:Class ;
+                                        owl:unionOf ( <https://schema.org/Thing>
+                                                    )
+                                      ] ;
+                          rdfs:range [ rdf:type owl:Class ;
+                                       owl:unionOf ( <https://schema.org/Text>
+                                                     <https://schema.org/URL>
+                                                   )
+                                     ] ;
+                          rdfs:comment "The name of the item."@en ;
+                          rdfs:isDefinedBy <https://schema.org/name> ;
+                          rdfs:label "name"@en .
+
+
+###  https://schema.org/participant
+<https://schema.org/participant> rdf:type owl:ObjectProperty ;
+                                 rdfs:range [ rdf:type owl:Class ;
+                                              owl:unionOf ( <https://schema.org/Person>
+                                                            <https://schema.org/Text>
+                                                          )
+                                            ] ;
+                                 rdfs:comment "Other co-agents that participated in the action indirectly. E.g. John wrote a book with <em>Steve</em>." ;
+                                 rdfs:isDefinedBy <https://schema.org/participant> ;
+                                 rdfs:label "participant" .
+
+
+###  https://schema.org/recipient
+<https://schema.org/recipient> rdf:type owl:ObjectProperty ;
+                               rdfs:subPropertyOf <https://schema.org/participant> ;
+                               rdfs:domain <https://schema.org/Message> ;
+                               rdfs:range [ rdf:type owl:Class ;
+                                            owl:unionOf ( <https://schema.org/Person>
+                                                          <https://schema.org/Text>
+                                                        )
+                                          ] ;
+                               rdfs:comment "A sub property of participant. The participant who is at the receiving end of the action."@en ,
+                                            "A sub property of participant. The participant who is at the receiving end of the action." ;
+                               rdfs:isDefinedBy <https://schema.org/recipient> ;
+                               rdfs:label "recipient"@en ,
+                                          "recipient" ;
+                               <https://schema.org/domainIncludes> <https://schema.org/Message> ;
+                               <https://schema.org/rangeIncludes> <https://schema.org/Person> .
+
+
+###  https://schema.org/text
+<https://schema.org/text> rdf:type owl:ObjectProperty ;
+                          rdfs:domain [ rdf:type owl:Class ;
+                                        owl:unionOf ( <https://schema.org/CreativeWork>
+                                                    )
+                                      ] ;
+                          rdfs:range <https://schema.org/Text> ;
+                          rdfs:comment "The textual content of this CreativeWork."@en ;
+                          rdfs:isDefinedBy <https://schema.org/text> ;
+                          rdfs:label "text"@en .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  https://onto.vaimee.com#hasValue
+<https://onto.vaimee.com#hasValue> rdf:type owl:DatatypeProperty ;
+                                   rdfs:comment "Associates a variable with its value." ;
+                                   rdfs:isDefinedBy <https://onto.vaimee.com#hasValue> ;
+                                   rdfs:label "hasValue" .
+
+
+###  https://schema.org/dateCreated
+<https://schema.org/dateCreated> rdf:type owl:DatatypeProperty ;
+                                 rdfs:domain <https://schema.org/Message> ;
+                                 rdfs:range xsd:dateTime ;
+                                 rdfs:comment "The date on which the CreativeWork was created or the item was added to a DataFeed."@en ;
+                                 rdfs:isDefinedBy <https://schema.org/dateCreated> ;
+                                 rdfs:label "dateCreated"@en .
+
+
+###  https://schema.org/dateSent
+<https://schema.org/dateSent> rdf:type owl:DatatypeProperty ;
+                              rdfs:domain <https://schema.org/Message> ;
+                              rdfs:range xsd:dateTime ;
+                              rdfs:comment "The date/time at which the message was sent."@en ;
+                              rdfs:isDefinedBy <https://schema.org/dateSent> ;
+                              rdfs:label "dateSent"@en .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.w3.org/2000/01/rdf-schema#Class
+rdfs:Class rdf:type owl:Class .
+
+
+###  https://onot.vaimee.com/msg#Variable
+<https://onot.vaimee.com/msg#Variable> rdf:type owl:Class ;
+                                       rdfs:subClassOf <https://schema.org/Thing> ;
+                                       rdfs:comment "A symbolic placeholder representing a value that can be assigned dynamically in different contexts." ;
+                                       rdfs:isDefinedBy <https://onot.vaimee.com/msg#Variable> ;
+                                       rdfs:label "Variable" .
+
+
+###  https://onto.vaimee.com/msg#Body
+:Body rdf:type owl:Class ;
+      rdfs:subClassOf <https://schema.org/Message> ;
+      rdfs:comment "The main content of a message, containing the textual or structured information intended for the recipient." ;
+      rdfs:isDefinedBy :Body ;
+      rdfs:label "Body" .
+
+
+###  https://onto.vaimee.com/msg#Template
+:Template rdf:type owl:Class ;
+          rdfs:subClassOf <https://schema.org/CreativeWork> ;
+          rdfs:comment "A text-based template with placeholders for variables." ;
+          rdfs:isDefinedBy :Template ;
+          rdfs:label "Template" .
+
+
+###  https://schema.org/CreativeWork
+<https://schema.org/CreativeWork> rdf:type owl:Class ;
+                                  rdfs:subClassOf <https://schema.org/Thing> ;
+                                  rdfs:comment "The most generic kind of creative work, including books, movies, photographs, software programs, etc." ;
+                                  rdfs:isDefinedBy <https://schema.org/CreativeWork> ;
+                                  rdfs:label "CreativeWork" .
+
+
+###  https://schema.org/DataType
+<https://schema.org/DataType> rdf:type owl:Class ;
+                              rdfs:subClassOf rdfs:Class ;
+                              rdfs:comment "The basic data types such as Integers, Strings, etc." ;
+                              rdfs:isDefinedBy <https://schema.org/DataType> ;
+                              rdfs:label "DataType" .
+
+
+###  https://schema.org/Message
+<https://schema.org/Message> rdf:type owl:Class ;
+                             rdfs:subClassOf <https://schema.org/CreativeWork> ;
+                             rdfs:comment "A single message from a sender to one or more organizations or people."@en ;
+                             rdfs:isDefinedBy <https://schema.org/Message> ;
+                             rdfs:label "Message"@en .
+
+
+###  https://schema.org/Person
+<https://schema.org/Person> rdf:type owl:Class ;
+                            rdfs:subClassOf <https://schema.org/Thing> ;
+                            rdfs:comment "A person (alive, dead, undead, or fictional)." ;
+                            rdfs:isDefinedBy <https://schema.org/Person> ;
+                            rdfs:label "Person" .
+
+
+###  https://schema.org/Text
+<https://schema.org/Text> rdf:type owl:Class ;
+                          rdfs:subClassOf <https://schema.org/DataType> ;
+                          rdfs:comment "Data type: Text."@en ;
+                          rdfs:isDefinedBy <https://schema.org/Text> ;
+                          rdfs:label "Text"@en .
+
+
+###  https://schema.org/Thing
+<https://schema.org/Thing> rdf:type owl:Class ;
+                           rdfs:comment "The most generic type of item." ;
+                           rdfs:isDefinedBy <https://schema.org/Thing> ;
+                           rdfs:label "Thing" .
+
+
+###  https://schema.org/URL
+<https://schema.org/URL> rdf:type owl:Class ;
+                         rdfs:subClassOf <https://schema.org/Text> ;
+                         rdfs:comment "Data type: URL." ;
+                         rdfs:isDefinedBy <https://schema.org/URL> ;
+                         rdfs:label "URL" .
+
+
+###  Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi
