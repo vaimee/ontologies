@@ -27,7 +27,16 @@
 #    Object Properties
 #################################################################
 
-###  http://www.semanticweb.org/vaime/ontologies/2025/1/untitled-ontology-8/hasVariableSet
+###  https://onto.vaimee.com/msg#hasVariable
+:hasVariable rdf:type owl:ObjectProperty ;
+             rdfs:domain :VariableSet ;
+             rdfs:range :Variable ;
+             rdfs:comment "Links a VariableSet to individual variables it contains." ;
+             rdfs:isDefinedBy :hasVariable ;
+             rdfs:label "hasVariable" .
+
+
+###  https://onto.vaimee.com/msg#hasVariableSet
 :hasVariableSet rdf:type owl:ObjectProperty ;
                 rdfs:domain <https://schema.org/CreativeWork> ;
                 rdfs:range :VariableSet ;
@@ -36,22 +45,13 @@
                 rdfs:label "hasVariableSet" .
 
 
-###  http://www.semanticweb.org/vaime/ontologies/2025/1/untitled-ontology-8/usesTemplate
+###  https://onto.vaimee.com/msg#usesTemplate
 :usesTemplate rdf:type owl:ObjectProperty ;
               rdfs:domain <https://schema.org/CreativeWork> ;
               rdfs:range :Template ;
               rdfs:comment "Links a message to a predefined template that structures its content." ;
               rdfs:isDefinedBy :usesTemplate ;
               rdfs:label "usesTemplate" .
-
-
-###  https://onto.vaimee.com/msg#hasVariable
-:hasVariable rdf:type owl:ObjectProperty ;
-             rdfs:domain :VariableSet ;
-             rdfs:range :Variable ;
-             rdfs:comment "Links a VariableSet to individual variables it contains." ;
-             rdfs:isDefinedBy :hasVariable ;
-             rdfs:label "hasVariable" .
 
 
 ###  https://schema.org/about
@@ -183,7 +183,11 @@
 #    Classes
 #################################################################
 
-###  http://www.semanticweb.org/vaime/ontologies/2025/1/untitled-ontology-8/ContentBlock
+###  http://www.w3.org/2000/01/rdf-schema#Class
+rdfs:Class rdf:type owl:Class .
+
+
+###  https://onto.vaimee.com/msg#ContentBlock
 :ContentBlock rdf:type owl:Class ;
               rdfs:subClassOf <https://schema.org/CreativeWork> ;
               rdfs:comment "A piece of text content that can be used within a message." ;
@@ -191,7 +195,7 @@
               rdfs:label "ContentBlock" .
 
 
-###  http://www.semanticweb.org/vaime/ontologies/2025/1/untitled-ontology-8/Template
+###  https://onto.vaimee.com/msg#Template
 :Template rdf:type owl:Class ;
           rdfs:subClassOf <https://schema.org/CreativeWork> ;
           rdfs:comment "A text-based template with placeholders for variables." ;
@@ -199,16 +203,12 @@
           rdfs:label "Template" .
 
 
-###  http://www.semanticweb.org/vaime/ontologies/2025/1/untitled-ontology-8/Variable
+###  https://onto.vaimee.com/msg#Variable
 :Variable rdf:type owl:Class ;
           rdfs:subClassOf <https://schema.org/Thing> ;
           rdfs:comment "A symbolic placeholder representing a value that can be assigned dynamically in different contexts." ;
           rdfs:isDefinedBy :Variable ;
           rdfs:label "Variable" .
-
-
-###  http://www.w3.org/2000/01/rdf-schema#Class
-rdfs:Class rdf:type owl:Class .
 
 
 ###  https://onto.vaimee.com/msg#VariableSet
