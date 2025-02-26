@@ -7,9 +7,9 @@
 @prefix schema: <https://schema.org> .
 @base <http://www.semanticweb.org/vaime/ontologies/2025/1/untitled-ontology-8/> .
 
-<https://onto.vaimee.com/msg> rdf:type owl:Ontology ;
-                               rdfs:comment "This is an ontolgy for messages by VAIMEE. It includes Schema.org classes and properties." ;
-                               owl:versionInfo 1.0 .
+<https://onto.vaimee.com/msg#> rdf:type owl:Ontology ;
+                                rdfs:comment "This is an ontolgy for messages by VAIMEE. It includes Schema.org classes and properties." ;
+                                owl:versionInfo 1.0 .
 
 #################################################################
 #    Annotation properties
