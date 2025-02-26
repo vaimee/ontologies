@@ -27,7 +27,7 @@
 #    Object Properties
 #################################################################
 
-###  https://onto.vaimee.com/msg#hasVariable
+###  http://www.semanticweb.org/vaime/ontologies/2025/1/untitled-ontology-8/hasVariable
 :hasVariable rdf:type owl:ObjectProperty ;
              rdfs:domain :VariableSet ;
              rdfs:range :Variable ;
@@ -36,7 +36,7 @@
              rdfs:label "hasVariable" .
 
 
-###  https://onto.vaimee.com/msg#hasVariableSet
+###  http://www.semanticweb.org/vaime/ontologies/2025/1/untitled-ontology-8/hasVariableSet
 :hasVariableSet rdf:type owl:ObjectProperty ;
                 rdfs:domain <https://schema.org/CreativeWork> ;
                 rdfs:range :VariableSet ;
@@ -45,7 +45,7 @@
                 rdfs:label "hasVariableSet" .
 
 
-###  https://onto.vaimee.com/msg#usesTemplate
+###  http://www.semanticweb.org/vaime/ontologies/2025/1/untitled-ontology-8/usesTemplate
 :usesTemplate rdf:type owl:ObjectProperty ;
               rdfs:domain <https://schema.org/CreativeWork> ;
               rdfs:range :Template ;
@@ -116,13 +116,9 @@
                                                           <https://schema.org/Text>
                                                         )
                                           ] ;
-                               rdfs:comment "A sub property of participant. The participant who is at the receiving end of the action."@en ,
-                                            "A sub property of participant. The participant who is at the receiving end of the action." ;
+                               rdfs:comment "A sub property of participant. The participant who is at the receiving end of the action." ;
                                rdfs:isDefinedBy <https://schema.org/recipient> ;
-                               rdfs:label "recipient"@en ,
-                                          "recipient" ;
-                               <https://schema.org/domainIncludes> <https://schema.org/Message> ;
-                               <https://schema.org/rangeIncludes> <https://schema.org/Person> .
+                               rdfs:label "recipient"@en .
 
 
 ###  https://schema.org/text
@@ -183,11 +179,7 @@
 #    Classes
 #################################################################
 
-###  http://www.w3.org/2000/01/rdf-schema#Class
-rdfs:Class rdf:type owl:Class .
-
-
-###  https://onto.vaimee.com/msg#ContentBlock
+###  http://www.semanticweb.org/vaime/ontologies/2025/1/untitled-ontology-8/ContentBlock
 :ContentBlock rdf:type owl:Class ;
               rdfs:subClassOf <https://schema.org/CreativeWork> ;
               rdfs:comment "A piece of text content that can be used within a message." ;
@@ -195,7 +187,7 @@ rdfs:Class rdf:type owl:Class .
               rdfs:label "ContentBlock" .
 
 
-###  https://onto.vaimee.com/msg#Template
+###  http://www.semanticweb.org/vaime/ontologies/2025/1/untitled-ontology-8/Template
 :Template rdf:type owl:Class ;
           rdfs:subClassOf <https://schema.org/CreativeWork> ;
           rdfs:comment "A text-based template with placeholders for variables." ;
@@ -203,7 +195,7 @@ rdfs:Class rdf:type owl:Class .
           rdfs:label "Template" .
 
 
-###  https://onto.vaimee.com/msg#Variable
+###  http://www.semanticweb.org/vaime/ontologies/2025/1/untitled-ontology-8/Variable
 :Variable rdf:type owl:Class ;
           rdfs:subClassOf <https://schema.org/Thing> ;
           rdfs:comment "A symbolic placeholder representing a value that can be assigned dynamically in different contexts." ;
@@ -211,12 +203,16 @@ rdfs:Class rdf:type owl:Class .
           rdfs:label "Variable" .
 
 
-###  https://onto.vaimee.com/msg#VariableSet
+###  http://www.semanticweb.org/vaime/ontologies/2025/1/untitled-ontology-8/VariableSet
 :VariableSet rdf:type owl:Class ;
              rdfs:subClassOf <https://schema.org/Thing> ;
              rdfs:comment "A collection of variables used in a template or message." ;
              rdfs:isDefinedBy :VariableSet ;
              rdfs:label "VariableSet" .
+
+
+###  http://www.w3.org/2000/01/rdf-schema#Class
+rdfs:Class rdf:type owl:Class .
 
 
 ###  https://schema.org/CreativeWork
