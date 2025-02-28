@@ -27,7 +27,7 @@
 #    Object Properties
 #################################################################
 
-###  https://onto.vaimee.com/msg#hasVariable
+###  http://www.semanticweb.org/vaime/ontologies/2025/1/untitled-ontology-8/hasVariable
 :hasVariable rdf:type owl:ObjectProperty ;
              rdfs:domain :FilledTemplate ;
              rdfs:range :Variable ;
@@ -36,16 +36,16 @@
              rdfs:label "hasVariable"@en .
 
 
-###  https://onto.vaimee.com/msg#source
+###  http://www.semanticweb.org/vaime/ontologies/2025/1/untitled-ontology-8/source
 :source rdf:type owl:ObjectProperty ;
         rdfs:domain <https://schema.org/Message> ;
-        rdfs:range <https://onto.vaimee.com/jsap#AppPAC> ;
+        rdfs:range <https://onto.vaimee.com/jsap#ComponentPAC> ;
         rdfs:comment "Indicates the entity responsible for generating the message."@en ;
         rdfs:isDefinedBy :source ;
         rdfs:label "source"@en .
 
 
-###  https://onto.vaimee.com/msg#usesTemplate
+###  http://www.semanticweb.org/vaime/ontologies/2025/1/untitled-ontology-8/usesTemplate
 :usesTemplate rdf:type owl:ObjectProperty ;
               rdfs:domain :FilledTemplate ;
               rdfs:range :Template ;
@@ -125,7 +125,7 @@
 #    Data properties
 #################################################################
 
-###  https://onto.vaimee.com/msg#hasValue
+###  http://www.semanticweb.org/vaime/ontologies/2025/1/untitled-ontology-8/hasValue
 :hasValue rdf:type owl:DatatypeProperty ;
           rdfs:domain :Variable ;
           rdfs:range [ rdf:type rdfs:Datatype ;
@@ -167,15 +167,7 @@
 #    Classes
 #################################################################
 
-###  http://www.w3.org/2000/01/rdf-schema#Class
-rdfs:Class rdf:type owl:Class .
-
-
-###  https://onto.vaimee.com/jsap#AppPAC
-<https://onto.vaimee.com/jsap#AppPAC> rdf:type owl:Class .
-
-
-###  https://onto.vaimee.com/msg#FilledTemplate
+###  http://www.semanticweb.org/vaime/ontologies/2025/1/untitled-ontology-8/FilledTemplate
 :FilledTemplate rdf:type owl:Class ;
                 rdfs:subClassOf <https://schema.org/CreativeWork> ;
                 rdfs:comment "Represents a specific instance of a Template where variables have been assigned concrete values. It acts as an intermediary between a generic template and its personalized usage in a Message."@en ;
@@ -183,7 +175,7 @@ rdfs:Class rdf:type owl:Class .
                 rdfs:label "FilledTemplate"@en .
 
 
-###  https://onto.vaimee.com/msg#Template
+###  http://www.semanticweb.org/vaime/ontologies/2025/1/untitled-ontology-8/Template
 :Template rdf:type owl:Class ;
           rdfs:subClassOf <https://schema.org/CreativeWork> ;
           rdfs:comment "A text-based template with placeholders for variables."@en ;
@@ -191,12 +183,20 @@ rdfs:Class rdf:type owl:Class .
           rdfs:label "Template" .
 
 
-###  https://onto.vaimee.com/msg#Variable
+###  http://www.semanticweb.org/vaime/ontologies/2025/1/untitled-ontology-8/Variable
 :Variable rdf:type owl:Class ;
           rdfs:subClassOf <https://schema.org/Thing> ;
           rdfs:comment "A symbolic placeholder representing a value that can be assigned dynamically in different contexts."@en ;
           rdfs:isDefinedBy :Variable ;
           rdfs:label "Variable"@en .
+
+
+###  http://www.w3.org/2000/01/rdf-schema#Class
+rdfs:Class rdf:type owl:Class .
+
+
+###  https://onto.vaimee.com/jsap#ComponentPAC
+<https://onto.vaimee.com/jsap#ComponentPAC> rdf:type owl:Class .
 
 
 ###  https://schema.org/Airline

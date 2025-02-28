@@ -23,7 +23,7 @@ rdf:type rdf:type owl:ObjectProperty .
                      rdfs:domain :NotificationPreference ;
                      rdfs:range <https://schema.org/ContactPoint> ;
                      rdfs:comment "Indicates the preferred communication channel through which the user wants to receive notifications about a topic. This can be a ContactPoint such as WhatsApp, Email, or Telegram."@en ;
-                     rdfs:isDefinedBy :notificationChannel ;
+                     rdfs:isDefinedBy <https://onto.vaimee.com/users#> ;
                      rdfs:label "notificationChannel"@en .
 
 
@@ -36,14 +36,25 @@ rdf:type rdf:type owl:ObjectProperty .
                                     ] ;
                         rdfs:range :NotificationPreference ;
                         rdfs:comment "Indicates the notification preferences set by a user or organization. This property links a Person or Organization to their NotificationPreference, which specifies a topic of interest and the preferred communication channels for receiving notifications about this topic."@en ;
-                        rdfs:isDefinedBy :notificationPreference ;
+                        rdfs:isDefinedBy <https://onto.vaimee.com/users#> ;
                         rdfs:label "notificationPreference"@en .
+
+
+###  https://onto.vaimee.com/users#notificationSource
+:notificationSource rdf:type owl:ObjectProperty ;
+                    rdfs:domain :NotificationPreference ;
+                    rdfs:range <https://onto.vaimee.com/jsap#ComponentPAC> ;
+                    rdfs:comment "Links a NotificationPreference with the desidered source of the notifications."@en ;
+                    rdfs:isDefinedBy <https://onto.vaimee.com/users#> ;
+                    rdfs:label "notificationSource"@en .
 
 
 ###  https://onto.vaimee.com/users#notificationTopic
 :notificationTopic rdf:type owl:ObjectProperty ;
                    rdfs:domain :NotificationPreference ;
+                   rdfs:range <https://onto.vaimee.org/jsap#Query> ;
                    rdfs:comment "Defines the topic of interest for which the user wants to receive notifications. This could be the URI of a specific event, category, or query whose result the user wants to receive."@en ;
+                   rdfs:isDefinedBy <https://onto.vaimee.com/users#> ;
                    rdfs:label "notificationTopic"@en .
 
 
@@ -72,12 +83,7 @@ rdf:type rdf:type owl:ObjectProperty .
                                                               <https://schema.org/Person>
                                                             )
                                               ] ;
-                                  rdfs:range [ rdf:type owl:Class ;
-                                               owl:unionOf ( <https://schema.org/ContactPoint>
-                                                             <https://schema.org/Text>
-                                                             <https://schema.org/URL>
-                                                           )
-                                             ] ;
+                                  rdfs:range <https://schema.org/ContactPoint> ;
                                   rdfs:comment "A contact point for a person or organization."@en ;
                                   rdfs:isDefinedBy <https://schema.org/contactPoint> ;
                                   rdfs:label "contactPoint"@en .
@@ -107,6 +113,10 @@ rdf:type rdf:type owl:ObjectProperty .
 rdfs:Class rdf:type owl:Class .
 
 
+###  https://onto.vaimee.com/jsap#ComponentPAC
+<https://onto.vaimee.com/jsap#ComponentPAC> rdf:type owl:Class .
+
+
 ###  https://onto.vaimee.com/users#NotificationPreference
 :NotificationPreference rdf:type owl:Class ;
                         owl:equivalentClass [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
@@ -124,7 +134,7 @@ rdfs:Class rdf:type owl:Class .
                                             ] ;
                         rdfs:subClassOf <https://schema.org/Intangible> ;
                         rdfs:comment "Represents a user's or organization's notification preferences. This class defines a topic of interest and the preferred communication channels through which the user wants to receive notifications about that topic. Each instance of NotificationPreference is associated with a query or event and one or more designated contact point."@en ;
-                        rdfs:isDefinedBy :NotificationPreference ;
+                        rdfs:isDefinedBy <https://onto.vaimee.com/users#> ;
                         rdfs:label "NotificationPreference"@en .
 
 
