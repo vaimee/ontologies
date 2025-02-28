@@ -27,37 +27,41 @@
 #    Object Properties
 #################################################################
 
-###  http://www.semanticweb.org/vaime/ontologies/2025/1/untitled-ontology-8/hasVariable
+###  https://onto.vaimee.com/msg#hasVariable
 :hasVariable rdf:type owl:ObjectProperty ;
-             rdfs:domain :VariableSet ;
+             rdfs:domain :FilledTemplate ;
              rdfs:range :Variable ;
-             rdfs:comment "Links a VariableSet to individual variables it contains."@en ;
+             rdfs:comment "Links a InstantiatedTemplate to individual variables it contains."@en ;
              rdfs:isDefinedBy :hasVariable ;
              rdfs:label "hasVariable"@en .
 
 
-###  http://www.semanticweb.org/vaime/ontologies/2025/1/untitled-ontology-8/hasVariableSet
-:hasVariableSet rdf:type owl:ObjectProperty ;
-                rdfs:domain <https://schema.org/CreativeWork> ;
-                rdfs:range :VariableSet ;
-                rdfs:comment "Links a template or message to its set of variables."@en ;
-                rdfs:isDefinedBy :hasVariableSet ;
-                rdfs:label "hasVariableSet"@en .
+###  https://onto.vaimee.com/msg#source
+:source rdf:type owl:ObjectProperty ;
+        rdfs:domain <https://schema.org/Message> ;
+        rdfs:range <https://onto.vaimee.com/jsap#AppPAC> ;
+        rdfs:comment "Indicates the entity responsible for generating the message."@en ;
+        rdfs:isDefinedBy :source ;
+        rdfs:label "source"@en .
 
 
-###  http://www.semanticweb.org/vaime/ontologies/2025/1/untitled-ontology-8/usesTemplate
+###  https://onto.vaimee.com/msg#usesTemplate
 :usesTemplate rdf:type owl:ObjectProperty ;
-              rdfs:domain <https://schema.org/CreativeWork> ;
+              rdfs:domain :FilledTemplate ;
               rdfs:range :Template ;
-              rdfs:comment "Links a message to a predefined template that structures its content."@en ;
+              rdfs:comment "Links an InstantiatedTemplate to its corresponding Template. This property indicates that a specific template has been used as the base structure for a personalized message."@en ;
               rdfs:isDefinedBy :usesTemplate ;
-              rdfs:label "usesTemplate"@en .
+              rdfs:label "usesTemplate" .
 
 
 ###  https://schema.org/about
 <https://schema.org/about> rdf:type owl:ObjectProperty ;
                            rdfs:domain <https://schema.org/CreativeWork> ;
-                           rdfs:range <https://schema.org/Text> ;
+                           rdfs:range [ rdf:type owl:Class ;
+                                        owl:unionOf ( <https://schema.org/Text>
+                                                      <https://schema.org/Thing>
+                                                    )
+                                      ] ;
                            rdfs:comment "The subject matter of the content."@en ;
                            rdfs:isDefinedBy <https://schema.org/about> ;
                            rdfs:label "about"@en .
@@ -77,22 +81,6 @@
                                        rdfs:comment "A CreativeWork attached to the message."@en ;
                                        rdfs:isDefinedBy <https://schema.org/messageAttachment> ;
                                        rdfs:label "messageAttachment"@en .
-
-
-###  https://schema.org/name
-<https://schema.org/name> rdf:type owl:ObjectProperty ;
-                          rdfs:domain [ rdf:type owl:Class ;
-                                        owl:unionOf ( <https://schema.org/Thing>
-                                                    )
-                                      ] ;
-                          rdfs:range [ rdf:type owl:Class ;
-                                       owl:unionOf ( <https://schema.org/Text>
-                                                     <https://schema.org/URL>
-                                                   )
-                                     ] ;
-                          rdfs:comment "The name of the item."@en ;
-                          rdfs:isDefinedBy <https://schema.org/name> ;
-                          rdfs:label "name"@en .
 
 
 ###  https://schema.org/participant
@@ -137,24 +125,24 @@
 #    Data properties
 #################################################################
 
-###  https://onto.vaimee.com#hasValue
-<https://onto.vaimee.com#hasValue> rdf:type owl:DatatypeProperty ;
-                                   rdfs:domain :Variable ;
-                                   rdfs:range [ rdf:type rdfs:Datatype ;
-                                                owl:unionOf ( xsd:anyURI
-                                                              xsd:boolean
-                                                              xsd:dateTime
-                                                              xsd:dateTimeStamp
-                                                              xsd:decimal
-                                                              xsd:double
-                                                              xsd:float
-                                                              xsd:integer
-                                                              xsd:string
-                                                            )
-                                              ] ;
-                                   rdfs:comment "Associates a variable with its value."@en ;
-                                   rdfs:isDefinedBy <https://onto.vaimee.com#hasValue> ;
-                                   rdfs:label "hasValue"@en .
+###  https://onto.vaimee.com/msg#hasValue
+:hasValue rdf:type owl:DatatypeProperty ;
+          rdfs:domain :Variable ;
+          rdfs:range [ rdf:type rdfs:Datatype ;
+                       owl:unionOf ( xsd:anyURI
+                                     xsd:boolean
+                                     xsd:dateTime
+                                     xsd:dateTimeStamp
+                                     xsd:decimal
+                                     xsd:double
+                                     xsd:float
+                                     xsd:integer
+                                     xsd:string
+                                   )
+                     ] ;
+          rdfs:comment "Associates a variable with its value."@en ;
+          rdfs:isDefinedBy "https://onto.vaimee.com/msg#" ;
+          rdfs:label "hasValue"@en .
 
 
 ###  https://schema.org/dateCreated
@@ -179,24 +167,31 @@
 #    Classes
 #################################################################
 
-###  http://www.semanticweb.org/vaime/ontologies/2025/1/untitled-ontology-8/ContentBlock
-:ContentBlock rdf:type owl:Class ;
-              rdfs:subClassOf <https://schema.org/CreativeWork> ;
-              rdfs:comment "A piece of text content that can be used within a message."@en ;
-              rdfs:isDefinedBy :ContentBlock ;
-              rdfs:label "ContentBlock"@en .
+###  http://www.w3.org/2000/01/rdf-schema#Class
+rdfs:Class rdf:type owl:Class .
 
 
-###  http://www.semanticweb.org/vaime/ontologies/2025/1/untitled-ontology-8/Template
+###  https://onto.vaimee.com/jsap#AppPAC
+<https://onto.vaimee.com/jsap#AppPAC> rdf:type owl:Class .
+
+
+###  https://onto.vaimee.com/msg#FilledTemplate
+:FilledTemplate rdf:type owl:Class ;
+                rdfs:subClassOf <https://schema.org/CreativeWork> ;
+                rdfs:comment "Represents a specific instance of a Template where variables have been assigned concrete values. It acts as an intermediary between a generic template and its personalized usage in a Message."@en ;
+                rdfs:isDefinedBy :FilledTemplate ;
+                rdfs:label "FilledTemplate"@en .
+
+
+###  https://onto.vaimee.com/msg#Template
 :Template rdf:type owl:Class ;
           rdfs:subClassOf <https://schema.org/CreativeWork> ;
-          rdfs:comment ""@en ,
-                       "A text-based template with placeholders for variables."@en ;
+          rdfs:comment "A text-based template with placeholders for variables."@en ;
           rdfs:isDefinedBy :Template ;
           rdfs:label "Template" .
 
 
-###  http://www.semanticweb.org/vaime/ontologies/2025/1/untitled-ontology-8/Variable
+###  https://onto.vaimee.com/msg#Variable
 :Variable rdf:type owl:Class ;
           rdfs:subClassOf <https://schema.org/Thing> ;
           rdfs:comment "A symbolic placeholder representing a value that can be assigned dynamically in different contexts."@en ;
@@ -204,16 +199,28 @@
           rdfs:label "Variable"@en .
 
 
-###  http://www.semanticweb.org/vaime/ontologies/2025/1/untitled-ontology-8/VariableSet
-:VariableSet rdf:type owl:Class ;
-             rdfs:subClassOf <https://schema.org/Thing> ;
-             rdfs:comment "A collection of variables used in a template or message."@en ;
-             rdfs:isDefinedBy :VariableSet ;
-             rdfs:label "VariableSet"@en .
+###  https://schema.org/Airline
+<https://schema.org/Airline> rdf:type owl:Class ;
+                             rdfs:subClassOf <https://schema.org/Organization> ;
+                             rdfs:comment "An organization that provides flights for passengers."@en ;
+                             rdfs:isDefinedBy <https://schema.org/Airline> ;
+                             rdfs:label "Airline"@en .
 
 
-###  http://www.w3.org/2000/01/rdf-schema#Class
-rdfs:Class rdf:type owl:Class .
+###  https://schema.org/Consortium
+<https://schema.org/Consortium> rdf:type owl:Class ;
+                                rdfs:subClassOf <https://schema.org/Organization> ;
+                                rdfs:comment "A Consortium is a membership <a class=\"localLink\" href=\"/Organization\">Organization</a> whose members are typically Organizations."@en ;
+                                rdfs:isDefinedBy <https://pending.schema.org/Consortium> ;
+                                rdfs:label "Consortium"@en .
+
+
+###  https://schema.org/Corporation
+<https://schema.org/Corporation> rdf:type owl:Class ;
+                                 rdfs:subClassOf <https://schema.org/Organization> ;
+                                 rdfs:comment "Organization: A business corporation."@en ;
+                                 rdfs:isDefinedBy <https://schema.org/Corporation> ;
+                                 rdfs:label "Corporation"@en .
 
 
 ###  https://schema.org/CreativeWork
@@ -232,6 +239,56 @@ rdfs:Class rdf:type owl:Class .
                               rdfs:label "DataType" .
 
 
+###  https://schema.org/EducationalOrganization
+<https://schema.org/EducationalOrganization> rdf:type owl:Class ;
+                                             rdfs:subClassOf <https://schema.org/Organization> ;
+                                             rdfs:comment "An educational organization."@en ;
+                                             rdfs:isDefinedBy <https://schema.org/EducationalOrganization> ;
+                                             rdfs:label "EducationalOrganization"@en .
+
+
+###  https://schema.org/FundingScheme
+<https://schema.org/FundingScheme> rdf:type owl:Class ;
+                                   rdfs:subClassOf <https://schema.org/Organization> ;
+                                   rdfs:comment """A FundingScheme combines organizational, project and policy aspects of grant-based funding
+    that sets guidelines, principles and mechanisms to support other kinds of projects and activities.
+    Funding is typically organized via <a class=\"localLink\" href=\"/Grant\">Grant</a> funding. Examples of funding schemes: Swiss Priority Programmes (SPPs); EU Framework 7 (FP7); Horizon 2020; the NIH-R01 Grant Program; Wellcome institutional strategic support fund. For large scale public sector funding, the management and administration of grant awards is often handled by other, dedicated, organizations - <a class=\"localLink\" href=\"/FundingAgency\">FundingAgency</a>s such as ERC, REA, ..."""@en ;
+                                   rdfs:isDefinedBy <https://pending.schema.org/FundingScheme> ;
+                                   rdfs:label "FundingScheme"@en .
+
+
+###  https://schema.org/GovernmentOrganization
+<https://schema.org/GovernmentOrganization> rdf:type owl:Class ;
+                                            rdfs:subClassOf <https://schema.org/Organization> ;
+                                            rdfs:comment "A governmental organization or agency."@en ;
+                                            rdfs:isDefinedBy <https://schema.org/GovernmentOrganization> ;
+                                            rdfs:label "GovernmentOrganization"@en .
+
+
+###  https://schema.org/LibrarySystem
+<https://schema.org/LibrarySystem> rdf:type owl:Class ;
+                                   rdfs:subClassOf <https://schema.org/Organization> ;
+                                   rdfs:comment "A <a class=\"localLink\" href=\"/LibrarySystem\">LibrarySystem</a> is a collaborative system amongst several libraries."@en ;
+                                   rdfs:isDefinedBy <https://pending.schema.org/LibrarySystem> ;
+                                   rdfs:label "LibrarySystem"@en .
+
+
+###  https://schema.org/LocalBusiness
+<https://schema.org/LocalBusiness> rdf:type owl:Class ;
+                                   rdfs:subClassOf <https://schema.org/Organization> ;
+                                   rdfs:comment "A particular physical business or branch of an organization. Examples of LocalBusiness include a restaurant, a particular branch of a restaurant chain, a branch of a bank, a medical practice, a club, a bowling alley, etc."@en ;
+                                   rdfs:isDefinedBy <https://schema.org/LocalBusiness> ;
+                                   rdfs:label "LocalBusiness"@en .
+
+
+###  https://schema.org/MedicalOrganization
+<https://schema.org/MedicalOrganization> rdf:type owl:Class ;
+                                         rdfs:subClassOf <https://schema.org/Organization> ;
+                                         rdfs:comment "A medical organization (physical or not), such as hospital, institution or clinic."@en ;
+                                         rdfs:isDefinedBy <https://schema.org/MedicalOrganization> ;
+                                         rdfs:label "MedicalOrganization"@en .
+
+
 ###  https://schema.org/Message
 <https://schema.org/Message> rdf:type owl:Class ;
                              rdfs:subClassOf <https://schema.org/CreativeWork> ;
@@ -240,12 +297,93 @@ rdfs:Class rdf:type owl:Class .
                              rdfs:label "Message"@en .
 
 
+###  https://schema.org/NGO
+<https://schema.org/NGO> rdf:type owl:Class ;
+                         rdfs:subClassOf <https://schema.org/Organization> ;
+                         rdfs:comment "Organization: Non-governmental Organization."@en ;
+                         rdfs:isDefinedBy <https://schema.org/NGO> ;
+                         rdfs:label "NGO"@en .
+
+
+###  https://schema.org/NewsMediaOrganization
+<https://schema.org/NewsMediaOrganization> rdf:type owl:Class ;
+                                           rdfs:subClassOf <https://schema.org/Organization> ;
+                                           rdfs:comment "A News/Media organization such as a newspaper or TV station."@en ;
+                                           rdfs:isDefinedBy <https://pending.schema.org/NewsMediaOrganization> ;
+                                           rdfs:label "NewsMediaOrganization"@en .
+
+
+###  https://schema.org/OnlineBusiness
+<https://schema.org/OnlineBusiness> rdf:type owl:Class ;
+                                    rdfs:subClassOf <https://schema.org/Organization> ;
+                                    rdfs:comment "A particular online business, either standalone or the online part of a broader organization. Examples include an eCommerce site, an online travel booking site, an online learning site, an online logistics and shipping provider, an online (virtual) doctor, etc."@en ;
+                                    rdfs:isDefinedBy <https://pending.schema.org/OnlineBusiness> ;
+                                    rdfs:label "OnlineBusiness"@en .
+
+
+###  https://schema.org/Organization
+<https://schema.org/Organization> rdf:type owl:Class ;
+                                  rdfs:subClassOf <https://schema.org/Thing> ;
+                                  rdfs:comment "An organization such as a school, NGO, corporation, club, etc."@en ;
+                                  rdfs:isDefinedBy <https://schema.org/Organization> ;
+                                  rdfs:label "Organization"@en .
+
+
+###  https://schema.org/PerformingGroup
+<https://schema.org/PerformingGroup> rdf:type owl:Class ;
+                                     rdfs:subClassOf <https://schema.org/Organization> ;
+                                     rdfs:comment "A performance group, such as a band, an orchestra, or a circus."@en ;
+                                     rdfs:isDefinedBy <https://schema.org/PerformingGroup> ;
+                                     rdfs:label "PerformingGroup"@en .
+
+
 ###  https://schema.org/Person
 <https://schema.org/Person> rdf:type owl:Class ;
                             rdfs:subClassOf <https://schema.org/Thing> ;
                             rdfs:comment "A person (alive, dead, undead, or fictional)." ;
                             rdfs:isDefinedBy <https://schema.org/Person> ;
                             rdfs:label "Person" .
+
+
+###  https://schema.org/PoliticalParty
+<https://schema.org/PoliticalParty> rdf:type owl:Class ;
+                                    rdfs:subClassOf <https://schema.org/Organization> ;
+                                    rdfs:comment "Organization: Political Party."@en ;
+                                    rdfs:isDefinedBy <https://schema.org/PoliticalParty> ;
+                                    rdfs:label "PoliticalParty"@en .
+
+
+###  https://schema.org/Project
+<https://schema.org/Project> rdf:type owl:Class ;
+                             rdfs:subClassOf <https://schema.org/Organization> ;
+                             rdfs:comment """An enterprise (potentially individual but typically collaborative), planned to achieve a particular aim.
+Use properties from <a class=\"localLink\" href=\"/Organization\">Organization</a>, <a class=\"localLink\" href=\"/subOrganization\">subOrganization</a>/<a class=\"localLink\" href=\"/parentOrganization\">parentOrganization</a> to indicate project sub-structures."""@en ;
+                             rdfs:isDefinedBy <https://pending.schema.org/Project> ;
+                             rdfs:label "Project"@en .
+
+
+###  https://schema.org/ResearchOrganization
+<https://schema.org/ResearchOrganization> rdf:type owl:Class ;
+                                          rdfs:subClassOf <https://schema.org/Organization> ;
+                                          rdfs:comment "A Research Organization (e.g. scientific institute, research company)."@en ;
+                                          rdfs:isDefinedBy <https://pending.schema.org/ResearchOrganization> ;
+                                          rdfs:label "ResearchOrganization"@en .
+
+
+###  https://schema.org/SearchRescueOrganization
+<https://schema.org/SearchRescueOrganization> rdf:type owl:Class ;
+                                              rdfs:subClassOf <https://schema.org/Organization> ;
+                                              rdfs:comment "A Search and Rescue organization of some kind."@en ;
+                                              rdfs:isDefinedBy <https://pending.schema.org/SearchRescueOrganization> ;
+                                              rdfs:label "SearchRescueOrganization"@en .
+
+
+###  https://schema.org/SportsOrganization
+<https://schema.org/SportsOrganization> rdf:type owl:Class ;
+                                        rdfs:subClassOf <https://schema.org/Organization> ;
+                                        rdfs:comment "Represents the collection of all sports organizations, including sports teams, governing bodies, and sports associations."@en ;
+                                        rdfs:isDefinedBy <https://schema.org/SportsOrganization> ;
+                                        rdfs:label "SportsOrganization"@en .
 
 
 ###  https://schema.org/Text
@@ -269,6 +407,14 @@ rdfs:Class rdf:type owl:Class .
                          rdfs:comment "Data type: URL." ;
                          rdfs:isDefinedBy <https://schema.org/URL> ;
                          rdfs:label "URL" .
+
+
+###  https://schema.org/WorkersUnion
+<https://schema.org/WorkersUnion> rdf:type owl:Class ;
+                                  rdfs:subClassOf <https://schema.org/Organization> ;
+                                  rdfs:comment "A Workers Union (also known as a Labor Union, Labour Union, or Trade Union) is an organization that promotes the interests of its worker members by collectively bargaining with management, organizing, and political lobbying."@en ;
+                                  rdfs:isDefinedBy <https://schema.org/WorkersUnion> ;
+                                  rdfs:label "WorkersUnion"@en .
 
 
 ###  Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi
