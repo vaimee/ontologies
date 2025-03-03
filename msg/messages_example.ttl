@@ -1,4 +1,6 @@
 @prefix : <https://onto.vaimee.com/msg#> .
+@prefix jsap: <https://onto.vaimee.com/jsap#> .
+@prefix query: <https://onto.vaimee.com/query#> .
 @prefix schema: <https://schema.org/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -10,10 +12,10 @@
 :message1 rdf:type schema:Message ;
           schema:dateCreated "2025-02-25T12:00:00Z"^^xsd:dateTime ;
           schema:dateSent "2025-02-25T12:05:00Z"^^xsd:dateTime ;
-          schema:recipient :webid1 ;
-          schema:messageAttachment "Ciao! Questa è una notifica importante." ;
-          schema:about query:queryId123 ;
-	  :source jsap:aggregatorId123.
+          :receiver :webid1 ; 
+          :text "Hi!" ; 
+          :about query:queryId123 ; 
+          :source jsap:aggregatorId123 . 
 
 #################################################################
 #    Message with template-based content
@@ -22,26 +24,24 @@
 :message2 rdf:type schema:Message ;
           schema:dateCreated "2025-02-25T14:00:00Z"^^xsd:dateTime ;
           schema:dateSent "2025-02-25T14:05:00Z"^^xsd:dateTime ;
-          schema:recipient :webid2 ;
-          schema:messageAttachment :filledTemplate1 ;
-          schema:about :queryId456 ;
-          :source jsap:aggregatorId456.
+          :receiver :webid2 ;  
+          :templateAttachment :filledTemplate1 ;  
+          :about query:queryId456 ; 
+          :source jsap:aggregatorId456 .  
 
-# The filled template
 :filledTemplate1 rdf:type :FilledTemplate ;
-                 :usesTemplate :template1 ;
+                 :usesTemplate :template1 ;  
                  :hasVariable :variable1 ;
                  :hasVariable :variable2 .
 
-# The base template
 :template1 rdf:type :Template ;
-           schema:text "Ciao [name], oggi la temperatura è di [temp]°C." .
+           :text "Hi [name], the temperature is [temp]°C." ;
+           :language "en"^^xsd:string .  
 
-# Variables used in the instantiated template
 :variable1 rdf:type :Variable ;
-           schema:name "name" ;
-           :hasValue "Gregorio"^^xsd:string .
+           :name "name" ; 
+           :hasValue "Gregorio"^^xsd:string .  
 
 :variable2 rdf:type :Variable ;
-           schema:name "temp" ;
-           :hasValue "22.5"^^xsd:float .
+           :name "temp" ;  
+           :hasValue "22.5"^^xsd:float .  

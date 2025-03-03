@@ -1,9 +1,9 @@
 @prefix : <https://onto.vaimee.com/users#> .
+@prefix jsap: <https://onto.vaimee.com/jsap#> .
+@prefix social: <https://onto.vaimee.com/social#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix jsap: <https://onto.vaimee.com/jsap#> .
-@prefix channels: <https://onto.vaimee.com/channels#> .
 @prefix schema: <https://schema.org/> .
 
 #################################################################
@@ -11,20 +11,20 @@
 #################################################################
 
 :webid1 rdf:type schema:Person ;
-        :notificationPreference :preference1 ;
-        schema:contactPoint :contact1 , :contact2 . 
+        :notificationPreference :preference1 ; 
+        schema:contactPoint :contact1 , :contact2 .
 
 #################################################################
 #    User contact points
 #################################################################
 
 :contact1 rdf:type schema:ContactPoint ;
-          schema:additionalType channels:Whatsapp ;
-          schema:identifier "+1234567890" .
+          :contactPlatform social:WhatsApp ;
+          :identifier "+1234567890" . 
 
 :contact2 rdf:type schema:ContactPoint ;
-          schema:additionalType channels:Telegram ; 
-          schema:identifier "user1" .
+          :contactPlatform social:Telegram ;
+          :identifier "user1" . 
 
 #################################################################
 #    User notification preferences
@@ -32,6 +32,5 @@
 
 :preference1 rdf:type :NotificationPreference ;
              :notificationTopic jsap:query1 ;
-	     :notificationSource jsap:aggregator1; 
+             :notificationSource jsap:aggregator1 ;
              :notificationChannel :contact1 .
-

@@ -14,13 +14,13 @@
 #    Object Properties
 #################################################################
 
-###  https://onto.vaimee.com/users#contactPlatforn
-:contactPlatforn rdf:type owl:ObjectProperty ;
+###  https://onto.vaimee.com/users#contactPlatform
+:contactPlatform rdf:type owl:ObjectProperty ;
                  rdfs:domain <https://schema.org/ContactPoint> ;
                  rdfs:range <https://onto.vaimee.com/social#Social> ;
                  rdfs:comment "Specifies the platform or service used for the contact. This property indicates the communication channel or application through which the contact can be reached, such as WhatsApp, Telegram, Discord, Email... It helps distinguish between different types of contact points based on the platform they use."@en ;
                  rdfs:isDefinedBy <https://onto.vaimee.com/users#> ;
-                 rdfs:label "contactPlatforn"@en .
+                 rdfs:label "contactPlatform"@en .
 
 
 ###  https://onto.vaimee.com/users#notificationChannel
