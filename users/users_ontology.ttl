@@ -14,8 +14,13 @@
 #    Object Properties
 #################################################################
 
-###  http://www.w3.org/1999/02/22-rdf-syntax-ns#type
-rdf:type rdf:type owl:ObjectProperty .
+###  https://onto.vaimee.com/users#contactPlatforn
+:contactPlatforn rdf:type owl:ObjectProperty ;
+                 rdfs:domain <https://schema.org/ContactPoint> ;
+                 rdfs:range <https://onto.vaimee.com/social#Social> ;
+                 rdfs:comment "Specifies the platform or service used for the contact. This property indicates the communication channel or application through which the contact can be reached, such as WhatsApp, Telegram, Discord, Email... It helps distinguish between different types of contact points based on the platform they use."@en ;
+                 rdfs:isDefinedBy <https://onto.vaimee.com/users#> ;
+                 rdfs:label "contactPlatforn"@en .
 
 
 ###  https://onto.vaimee.com/users#notificationChannel
@@ -58,24 +63,6 @@ rdf:type rdf:type owl:ObjectProperty .
                    rdfs:label "notificationTopic"@en .
 
 
-###  https://schema.org/additionalType
-<https://schema.org/additionalType> rdf:type owl:ObjectProperty ;
-                                    rdfs:subPropertyOf rdf:type ;
-                                    rdfs:domain [ rdf:type owl:Class ;
-                                                  owl:unionOf ( <https://schema.org/Thing>
-                                                              )
-                                                ] ;
-                                    rdfs:range [ rdf:type owl:Class ;
-                                                 owl:unionOf ( <https://schema.org/Text>
-                                                               <https://schema.org/URL>
-                                                             )
-                                               ] ;
-                                    rdfs:comment """An additional type for the item, typically used for adding more specific types from external vocabularies in microdata syntax. This is a relationship between something and a class that the thing is in. Typically the value is a URI-identified RDF class, and in this case corresponds to the
-    use of rdf:type in RDF. Text values can be used sparingly, for cases where useful information can be added without their being an appropriate schema to reference. In the case of text values, the class label should follow the schema.org <a href=\"https://schema.org/docs/styleguide.html\">style guide</a>."""@en ;
-                                    rdfs:isDefinedBy <https://schema.org/additionalType> ;
-                                    rdfs:label "additionalType"@en .
-
-
 ###  https://schema.org/contactPoint
 <https://schema.org/contactPoint> rdf:type owl:ObjectProperty ;
                                   rdfs:domain [ rdf:type owl:Class ;
@@ -89,32 +76,29 @@ rdf:type rdf:type owl:ObjectProperty .
                                   rdfs:label "contactPoint"@en .
 
 
-###  https://schema.org/identifier
-<https://schema.org/identifier> rdf:type owl:ObjectProperty ;
-                                rdfs:domain [ rdf:type owl:Class ;
-                                              owl:unionOf ( <https://schema.org/Thing>
-                                                          )
-                                            ] ;
-                                rdfs:range [ rdf:type owl:Class ;
-                                             owl:unionOf ( <https://schema.org/Text>
-                                                           <https://schema.org/URL>
-                                                         )
-                                           ] ;
-                                rdfs:comment "The identifier property represents any kind of identifier for any kind of <a class=\"localLink\" href=\"/Thing\">Thing</a>, such as ISBNs, GTIN codes, UUIDs etc. Schema.org provides dedicated properties for representing many of these, either as textual strings or as URL (URI) links. See <a href=\"/docs/datamodel.html#identifierBg\">background notes</a> for more details."@en ;
-                                rdfs:isDefinedBy <https://schema.org/identifier> ;
-                                rdfs:label "identifier"@en .
+#################################################################
+#    Data properties
+#################################################################
+
+###  https://onto.vaimee.com/users#identifier
+:identifier rdf:type owl:DatatypeProperty ;
+            rdfs:domain <https://schema.org/ContactPoint> ;
+            rdfs:range xsd:string ;
+            rdfs:comment "Specifies the unique identifier for the contact on a specific platform. This property is used to store the platform-specific identifier, such as a phone number for WhatsApp, a username for Telegram, or an email address for Email. It works in conjunction with the 'contactPlatform' property to fully describe how the contact can be reached."@en ;
+            rdfs:isDefinedBy <https://onto.vaimee.com/users#> ;
+            rdfs:label "identifier"@en .
 
 
 #################################################################
 #    Classes
 #################################################################
 
-###  http://www.w3.org/2000/01/rdf-schema#Class
-rdfs:Class rdf:type owl:Class .
-
-
 ###  https://onto.vaimee.com/jsap#ComponentPAC
 <https://onto.vaimee.com/jsap#ComponentPAC> rdf:type owl:Class .
+
+
+###  https://onto.vaimee.com/social#Social
+<https://onto.vaimee.com/social#Social> rdf:type owl:Class .
 
 
 ###  https://onto.vaimee.com/users#NotificationPreference
@@ -172,14 +156,6 @@ rdfs:Class rdf:type owl:Class .
                                  rdfs:comment "Organization: A business corporation."@en ;
                                  rdfs:isDefinedBy <https://schema.org/Corporation> ;
                                  rdfs:label "Corporation"@en .
-
-
-###  https://schema.org/DataType
-<https://schema.org/DataType> rdf:type owl:Class ;
-                              rdfs:subClassOf rdfs:Class ;
-                              rdfs:comment "The basic data types such as Integers, Strings, etc."@en ;
-                              rdfs:isDefinedBy <https://schema.org/DataType> ;
-                              rdfs:label "DataType"@en .
 
 
 ###  https://schema.org/EducationalOrganization
@@ -334,27 +310,11 @@ Use properties from <a class=\"localLink\" href=\"/Organization\">Organization</
                                      rdfs:subClassOf <https://schema.org/Intangible> .
 
 
-###  https://schema.org/Text
-<https://schema.org/Text> rdf:type owl:Class ;
-                          rdfs:subClassOf <https://schema.org/DataType> ;
-                          rdfs:comment "Data type: text."@en ;
-                          rdfs:isDefinedBy <https://schema.org/Text> ;
-                          rdfs:label "Text"@en .
-
-
 ###  https://schema.org/Thing
 <https://schema.org/Thing> rdf:type owl:Class ;
                            rdfs:comment "The most generic type of item."@en ;
                            rdfs:isDefinedBy <https://schema.org/Thing> ;
                            rdfs:label "Thing"@en .
-
-
-###  https://schema.org/URL
-<https://schema.org/URL> rdf:type owl:Class ;
-                         rdfs:subClassOf <https://schema.org/Text> ;
-                         rdfs:comment <https://schema.org/URL> ,
-                                      "Data type: URL."@en ;
-                         rdfs:label "URL"@en .
 
 
 ###  https://schema.org/WorkersUnion
