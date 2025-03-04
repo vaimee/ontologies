@@ -14,15 +14,6 @@
 #    Object Properties
 #################################################################
 
-###  https://onto.vaimee.com/users#contactPlatform
-:contactPlatform rdf:type owl:ObjectProperty ;
-                 rdfs:domain <https://schema.org/ContactPoint> ;
-                 rdfs:range <https://onto.vaimee.com/social#Social> ;
-                 rdfs:comment "Specifies the platform or service used for the contact. This property indicates the communication channel or application through which the contact can be reached, such as WhatsApp, Telegram, Discord, Email... It helps distinguish between different types of contact points based on the platform they use."@en ;
-                 rdfs:isDefinedBy <https://onto.vaimee.com/users#> ;
-                 rdfs:label "contactPlatform"@en .
-
-
 ###  https://onto.vaimee.com/users#notificationChannel
 :notificationChannel rdf:type owl:ObjectProperty ;
                      rdfs:domain :NotificationPreference ;
@@ -49,7 +40,7 @@
 :notificationSource rdf:type owl:ObjectProperty ;
                     rdfs:domain :NotificationPreference ;
                     rdfs:range <https://onto.vaimee.com/jsap#ComponentPAC> ;
-                    rdfs:comment "Links a NotificationPreference with the desidered source of the notifications."@en ;
+                    rdfs:comment "Links a NotificationPreference with the desired source of the notifications."@en ;
                     rdfs:isDefinedBy <https://onto.vaimee.com/users#> ;
                     rdfs:label "notificationSource"@en .
 
@@ -101,6 +92,30 @@
 <https://onto.vaimee.com/social#Social> rdf:type owl:Class .
 
 
+###  https://onto.vaimee.com/users#Channel
+:Channel rdf:type owl:Class ;
+         rdfs:subClassOf <https://schema.org/ContactPoint> ;
+         rdfs:comment "A digital contact point through which a user can receive notifications or communicate."@en ;
+         rdfs:isDefinedBy <https://onto.vaimee.com/users#> ;
+         rdfs:label "Channel"@en .
+
+
+###  https://onto.vaimee.com/users#Discord
+:Discord rdf:type owl:Class ;
+         rdfs:subClassOf :Channel ;
+         rdfs:comment "A communication channel for voice, text, and video chat within Discord servers."@en ;
+         rdfs:isDefinedBy <https://onto.vaimee.com/users#> ;
+         rdfs:label "Discord"@en .
+
+
+###  https://onto.vaimee.com/users#Email
+:Email rdf:type owl:Class ;
+       rdfs:subClassOf :Channel ;
+       rdfs:comment "A communication channel based on sending and receiving emails."@en ;
+       rdfs:isDefinedBy <https://onto.vaimee.com/users#> ;
+       rdfs:label "Email"@en .
+
+
 ###  https://onto.vaimee.com/users#NotificationPreference
 :NotificationPreference rdf:type owl:Class ;
                         owl:equivalentClass [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
@@ -120,6 +135,22 @@
                         rdfs:comment "Represents a user's or organization's notification preferences. This class defines a topic of interest and the preferred communication channels through which the user wants to receive notifications about that topic. Each instance of NotificationPreference is associated with a query or event and one or more designated contact point."@en ;
                         rdfs:isDefinedBy <https://onto.vaimee.com/users#> ;
                         rdfs:label "NotificationPreference"@en .
+
+
+###  https://onto.vaimee.com/users#Telegram
+:Telegram rdf:type owl:Class ;
+          rdfs:subClassOf :Channel ;
+          rdfs:comment "A communication channel that uses Telegram for messages, calls, and notifications."@en ;
+          rdfs:isDefinedBy <https://onto.vaimee.com/users#> ;
+          rdfs:label "Telegram"@en .
+
+
+###  https://onto.vaimee.com/users#WhatsApp
+:WhatsApp rdf:type owl:Class ;
+          rdfs:subClassOf :Channel ;
+          rdfs:comment "A communication channel based on instant messaging via the WhatsApp application."@en ;
+          rdfs:isDefinedBy <https://onto.vaimee.com/users#> ;
+          rdfs:label "Whatsapp"@en .
 
 
 ###  https://onto.vaimee.org/jsap#Query
