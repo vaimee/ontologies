@@ -18,12 +18,10 @@
 #    User contact points
 #################################################################
 
-:contact1 rdf:type schema:ContactPoint ;
-          :contactPlatform social:WhatsApp ;
+:contact1 rdf:type :WhatsApp ;
           :identifier "+1234567890" . 
 
-:contact2 rdf:type schema:ContactPoint ;
-          :contactPlatform social:Telegram ;
+:contact2 rdf:type :Telegram ;
           :identifier "user1" . 
 
 #################################################################
