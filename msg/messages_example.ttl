@@ -13,9 +13,12 @@
           schema:dateCreated "2025-02-25T12:00:00Z"^^xsd:dateTime ;
           schema:dateSent "2025-02-25T12:05:00Z"^^xsd:dateTime ;
           :receiver :webid1 ; 
-          :text "Hi!" ; 
+          schema:messageAttachment :textContent1 ; 
           :about query:queryId123 ; 
           :source jsap:aggregatorId123 . 
+
+:textContent1 rdf:type :TextContent ;
+              :text "Hi!"^^xsd:string .
 
 #################################################################
 #    Message with template-based content
@@ -25,14 +28,14 @@
           schema:dateCreated "2025-02-25T14:00:00Z"^^xsd:dateTime ;
           schema:dateSent "2025-02-25T14:05:00Z"^^xsd:dateTime ;
           :receiver :webid2 ;  
-          :templateAttachment :filledTemplate1 ;  
+          schema:messageAttachment :templateContent1 ;  
           :about query:queryId456 ; 
           :source jsap:aggregatorId456 .  
 
-:filledTemplate1 rdf:type :FilledTemplate ;
-                 :usesTemplate :template1 ;  
-                 :hasVariable :variable1 ;
-                 :hasVariable :variable2 .
+:templateContent1 rdf:type :TemplateContent ;
+                  :usesTemplate :template1 ;  
+                  :hasVariable :variable1 ;
+                  :hasVariable :variable2 .
 
 :template1 rdf:type :Template ;
            :text "Hi [name], the temperature is [temp]°C." ;
@@ -44,4 +47,4 @@
 
 :variable2 rdf:type :Variable ;
            :name "temp" ;  
-           :hasValue "22.5"^^xsd:float .  
+           :hasValue "22.5"^^xsd:float .
