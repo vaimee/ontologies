@@ -36,11 +36,24 @@
        rdfs:label "about"@en .
 
 
+###  https://onto.vaimee.com/msg#hasAttachment
+:hasAttachment rdf:type owl:ObjectProperty ;
+               rdfs:domain :Content ;
+               rdfs:range owl:Thing ;
+               rdfs:comment "Associates a content with its attachments."@en ;
+               rdfs:isDefinedBy <https://onto.vaimee.com/msg#> ;
+               rdfs:label "hasAttachment"@en .
+
+
 ###  https://onto.vaimee.com/msg#hasVariable
 :hasVariable rdf:type owl:ObjectProperty ;
-             rdfs:domain :Template ;
+             rdfs:domain [ rdf:type owl:Class ;
+                           owl:unionOf ( :Template
+                                         :TemplateContent
+                                       )
+                         ] ;
              rdfs:range :Variable ;
-             rdfs:comment "Links a Template or a FilledTemplate to individual variables it contains."@en ;
+             rdfs:comment "Links a Template or a TemplateContent to individual variables it contains."@en ;
              rdfs:isDefinedBy <https://onto.vaimee.com/msg#> ;
              rdfs:label "hasVariable"@en .
 
@@ -67,20 +80,11 @@
         rdfs:label "source"@en .
 
 
-###  https://onto.vaimee.com/msg#templateAttachment
-:templateAttachment rdf:type owl:ObjectProperty ;
-                    rdfs:domain <https://schema.org/Message> ;
-                    rdfs:range :Template ;
-                    rdfs:comment "Represents a template-based attachment, such as a predefined structure or format."@en ;
-                    rdfs:isDefinedBy <https://onto.vaimee.com/msg#> ;
-                    rdfs:label "templateAttachment"@en .
-
-
 ###  https://onto.vaimee.com/msg#usesTemplate
 :usesTemplate rdf:type owl:ObjectProperty ;
-              rdfs:domain :FilledTemplate ;
+              rdfs:domain :TemplateContent ;
               rdfs:range :Template ;
-              rdfs:comment "Links an InstantiatedTemplate to its corresponding Template. This property indicates that a specific template has been used as the base structure for a personalized message."@en ;
+              rdfs:comment "Links an TemplateContent to its corresponding Template. This property indicates that a specific template has been used as the base structure for a personalized message."@en ;
               rdfs:isDefinedBy <https://onto.vaimee.com/msg#> ;
               rdfs:label "usesTemplate" .
 
@@ -124,11 +128,7 @@
 
 ###  https://onto.vaimee.com/msg#name
 :name rdf:type owl:DatatypeProperty ;
-      rdfs:domain [ rdf:type owl:Class ;
-                    owl:unionOf ( :Template
-                                  <https://schema.org/Message>
-                                )
-                  ] ;
+      rdfs:domain :Template ;
       rdfs:range xsd:string ;
       rdfs:comment "Links a resource with its name."@en ;
       rdfs:isDefinedBy <https://onto.vaimee.com/msg#> ;
@@ -137,7 +137,11 @@
 
 ###  https://onto.vaimee.com/msg#text
 :text rdf:type owl:DatatypeProperty ;
-      rdfs:domain :Template ;
+      rdfs:domain [ rdf:type owl:Class ;
+                    owl:unionOf ( :Template
+                                  :TextContent
+                                )
+                  ] ;
       rdfs:range xsd:string ;
       rdfs:comment "A string of text associated with a resource."@en ;
       rdfs:isDefinedBy <https://onto.vaimee.com/msg#> ;
@@ -170,12 +174,12 @@
 <https://onto.vaimee.com/jsap#ComponentPAC> rdf:type owl:Class .
 
 
-###  https://onto.vaimee.com/msg#FilledTemplate
-:FilledTemplate rdf:type owl:Class ;
-                rdfs:subClassOf :Template ;
-                rdfs:comment "Represents a specific instance of a Template where variables have been assigned concrete values. It acts as an intermediary between a generic template and its personalized usage in a Message."@en ;
-                rdfs:isDefinedBy <https://onto.vaimee.com/msg#> ;
-                rdfs:label "FilledTemplate"@en .
+###  https://onto.vaimee.com/msg#Content
+:Content rdf:type owl:Class ;
+         rdfs:subClassOf <https://schema.org/CreativeWork> ;
+         rdfs:comment "A generic class representing any kind of content, which can be either a text message or a template message with attachments."@en ;
+         rdfs:isDefinedBy <https://onto.vaimee.com/msg#> ;
+         rdfs:label "Content"@en .
 
 
 ###  https://onto.vaimee.com/msg#Template
@@ -184,6 +188,22 @@
           rdfs:comment "A text-based template with placeholders for variables."@en ;
           rdfs:isDefinedBy <https://onto.vaimee.com/msg#> ;
           rdfs:label "Template" .
+
+
+###  https://onto.vaimee.com/msg#TemplateContent
+:TemplateContent rdf:type owl:Class ;
+                 rdfs:subClassOf :Content ;
+                 rdfs:comment "Represents a content that is based on a template, including variables and optional attachments."@en ;
+                 rdfs:isDefinedBy <https://onto.vaimee.com/msg#> ;
+                 rdfs:label "TemplateContent"@en .
+
+
+###  https://onto.vaimee.com/msg#TextContent
+:TextContent rdf:type owl:Class ;
+             rdfs:subClassOf :Content ;
+             rdfs:comment "Represents a content that is a text message, which can also have attachments."@en ;
+             rdfs:isDefinedBy <https://onto.vaimee.com/msg#> ;
+             rdfs:label "TextContent"@en .
 
 
 ###  https://onto.vaimee.com/msg#Variable
