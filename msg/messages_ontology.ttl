@@ -62,6 +62,13 @@
         rdfs:label "source"@en .
 
 
+###  https://onto.vaimee.com/msg#toMultipleRecipients
+:toMultipleRecipients rdf:type owl:ObjectProperty ;
+                      rdfs:subPropertyOf <https://schema.org/toRecipient> ;
+                      rdfs:domain <https://schema.org/Message> ;
+                      rdfs:comment "The group of recipients who was directly sent the message."@en .
+
+
 ###  https://onto.vaimee.com/msg#usesTemplate
 :usesTemplate rdf:type owl:ObjectProperty ;
               rdfs:domain :TemplateContent ;

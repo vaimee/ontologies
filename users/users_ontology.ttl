@@ -88,10 +88,6 @@
 <https://onto.vaimee.com/jsap#ComponentPAC> rdf:type owl:Class .
 
 
-###  https://onto.vaimee.com/social#Social
-<https://onto.vaimee.com/social#Social> rdf:type owl:Class .
-
-
 ###  https://onto.vaimee.com/users#Channel
 :Channel rdf:type owl:Class ;
          rdfs:subClassOf <https://schema.org/ContactPoint> ;
@@ -114,6 +110,14 @@
        rdfs:comment "A communication channel based on sending and receiving emails."@en ;
        rdfs:isDefinedBy <https://onto.vaimee.com/users#> ;
        rdfs:label "Email"@en .
+
+
+###  https://onto.vaimee.com/users#NotificationGroup
+:NotificationGroup rdf:type owl:Class ;
+                   rdfs:subClassOf <https://schema.org/ContactPoint> ;
+                   rdfs:comment "A collection of recipients grouped together for notification purposes, which may represent a broadcast list, a mailing list, or a messaging group."@en ;
+                   rdfs:isDefinedBy <https://onto.vaimee.com/users#> ;
+                   rdfs:label "NotificationGroup"@en .
 
 
 ###  https://onto.vaimee.com/users#NotificationPreference
