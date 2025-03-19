@@ -60,7 +60,7 @@
 
 ###  https://onto.vaimee.com/msg#receiver
 :receiver rdf:type owl:ObjectProperty ;
-          rdfs:domain <https://schema.org/Message> ;
+          rdfs:domain :Message ;
           rdfs:range [ rdf:type owl:Class ;
                        owl:unionOf ( <https://schema.org/Organization>
                                      <https://schema.org/Person>
@@ -73,7 +73,7 @@
 
 ###  https://onto.vaimee.com/msg#source
 :source rdf:type owl:ObjectProperty ;
-        rdfs:domain <https://schema.org/Message> ;
+        rdfs:domain :Message ;
         rdfs:range <https://onto.vaimee.com/jsap#ComponentPAC> ;
         rdfs:comment "Indicates the entity responsible for generating the message."@en ;
         rdfs:isDefinedBy <https://onto.vaimee.com/msg#> ;
@@ -87,6 +87,54 @@
               rdfs:comment "Links an TemplateContent to its corresponding Template. This property indicates that a specific template has been used as the base structure for a personalized message."@en ;
               rdfs:isDefinedBy <https://onto.vaimee.com/msg#> ;
               rdfs:label "usesTemplate" .
+
+
+###  https://schema.org/participant
+<https://schema.org/participant> rdf:type owl:ObjectProperty ;
+                                 rdfs:domain [ rdf:type owl:Class ;
+                                               owl:unionOf ( <https://schema.org/Action>
+                                                           )
+                                             ] ;
+                                 rdfs:range [ rdf:type owl:Class ;
+                                              owl:unionOf ( <https://schema.org/Organization>
+                                                            <https://schema.org/Person>
+                                                          )
+                                            ] ;
+                                 rdfs:comment "Other co-agents that participated in the action indirectly. E.g. John wrote a book with <em>Steve</em>."@en ;
+                                 rdfs:isDefinedBy <https://schema.org/participant> ;
+                                 rdfs:label "participant"@en .
+
+
+###  https://schema.org/recipient
+<https://schema.org/recipient> rdf:type owl:ObjectProperty ;
+                               rdfs:subPropertyOf <https://schema.org/participant> ;
+                               rdfs:range [ rdf:type owl:Class ;
+                                            owl:unionOf ( <https://schema.org/ContactPoint>
+                                                          <https://schema.org/Organization>
+                                                          <https://schema.org/Person>
+                                                        )
+                                          ] ;
+                               rdfs:comment "A sub property of participant. The participant who is at the receiving end of the action."@en ;
+                               rdfs:isDefinedBy <https://schema.org/recipient> ;
+                               rdfs:label "recipient"@en .
+
+
+###  https://schema.org/toRecipient
+<https://schema.org/toRecipient> rdf:type owl:ObjectProperty ;
+                                 rdfs:subPropertyOf <https://schema.org/recipient> ;
+                                 rdfs:domain [ rdf:type owl:Class ;
+                                               owl:unionOf ( <https://schema.org/Message>
+                                                           )
+                                             ] ;
+                                 rdfs:range [ rdf:type owl:Class ;
+                                              owl:unionOf ( <https://schema.org/ContactPoint>
+                                                            <https://schema.org/Organization>
+                                                            <https://schema.org/Person>
+                                                          )
+                                            ] ;
+                                 rdfs:comment "A sub property of recipient. The recipient who was directly sent the message."@en ;
+                                 rdfs:isDefinedBy <https://schema.org/toRecipient> ;
+                                 rdfs:label "toRecipient"@en .
 
 
 #################################################################
@@ -182,6 +230,14 @@
          rdfs:label "Content"@en .
 
 
+###  https://onto.vaimee.com/msg#Message
+:Message rdf:type owl:Class ;
+         rdfs:subClassOf <https://schema.org/Message> ;
+         rdfs:comment "An extension of schema:Message with additional properties specific to VAIMEE's messaging system."@en ;
+         rdfs:isDefinedBy <https://onto.vaimee.com/msg#> ;
+         rdfs:label "Message"@en .
+
+
 ###  https://onto.vaimee.com/msg#Template
 :Template rdf:type owl:Class ;
           rdfs:subClassOf <https://schema.org/CreativeWork> ;
@@ -213,12 +269,38 @@
           rdfs:label "Variable"@en .
 
 
+###  https://schema.org/AchieveAction
+<https://schema.org/AchieveAction> rdf:type owl:Class ;
+                                   rdfs:subClassOf <https://schema.org/Action> ;
+                                   rdfs:comment "The act of accomplishing something via previous efforts. It is an instantaneous action rather than an ongoing process."@en ;
+                                   rdfs:isDefinedBy <https://schema.org/AchieveAction> ;
+                                   rdfs:label "AchieveAction"@en .
+
+
+###  https://schema.org/Action
+<https://schema.org/Action> rdf:type owl:Class ;
+                            rdfs:subClassOf <https://schema.org/Thing> ;
+                            rdfs:comment """An action performed by a direct agent and indirect participants upon a direct object. Optionally happens at a location with the help of an inanimate instrument. The execution of the action may produce a result. Specific action sub-type documentation specifies the exact expectation of each argument/role.<br/><br/>
+
+See also <a href=\"http://blog.schema.org/2014/04/announcing-schemaorg-actions.html\">blog post</a> and <a href=\"https://schema.org/docs/actions.html\">Actions overview document</a>."""@en ;
+                            rdfs:isDefinedBy <https://schema.org/Action> ;
+                            rdfs:label "Action"@en .
+
+
 ###  https://schema.org/Airline
 <https://schema.org/Airline> rdf:type owl:Class ;
                              rdfs:subClassOf <https://schema.org/Organization> ;
                              rdfs:comment "An organization that provides flights for passengers."@en ;
                              rdfs:isDefinedBy <https://schema.org/Airline> ;
                              rdfs:label "Airline"@en .
+
+
+###  https://schema.org/AssessAction
+<https://schema.org/AssessAction> rdf:type owl:Class ;
+                                  rdfs:subClassOf <https://schema.org/Action> ;
+                                  rdfs:comment "The act of forming one's opinion, reaction or sentiment."@en ;
+                                  rdfs:isDefinedBy <https://schema.org/AssessAction> ;
+                                  rdfs:label "AssessAction"@en .
 
 
 ###  https://schema.org/Consortium
@@ -229,12 +311,40 @@
                                 rdfs:label "Consortium"@en .
 
 
+###  https://schema.org/ConsumeAction
+<https://schema.org/ConsumeAction> rdf:type owl:Class ;
+                                   rdfs:subClassOf <https://schema.org/Action> ;
+                                   rdfs:comment "The act of ingesting information/resources/food."@en ;
+                                   rdfs:isDefinedBy <https://schema.org/ConsumeAction> ;
+                                   rdfs:label "ConsumeAction"@en .
+
+
+###  https://schema.org/ContactPoint
+<https://schema.org/ContactPoint> rdf:type owl:Class .
+
+
+###  https://schema.org/ControlAction
+<https://schema.org/ControlAction> rdf:type owl:Class ;
+                                   rdfs:subClassOf <https://schema.org/Action> ;
+                                   rdfs:comment "An agent controls a device or application."@en ;
+                                   rdfs:isDefinedBy <https://schema.org/ControlAction> ;
+                                   rdfs:label "ControlAction"@en .
+
+
 ###  https://schema.org/Corporation
 <https://schema.org/Corporation> rdf:type owl:Class ;
                                  rdfs:subClassOf <https://schema.org/Organization> ;
                                  rdfs:comment "Organization: A business corporation."@en ;
                                  rdfs:isDefinedBy <https://schema.org/Corporation> ;
                                  rdfs:label "Corporation"@en .
+
+
+###  https://schema.org/CreateAction
+<https://schema.org/CreateAction> rdf:type owl:Class ;
+                                  rdfs:subClassOf <https://schema.org/Action> ;
+                                  rdfs:comment "The act of deliberately creating/producing/generating/building a result out of the agent."@en ;
+                                  rdfs:isDefinedBy <https://schema.org/CreateAction> ;
+                                  rdfs:label "CreateAction"@en .
 
 
 ###  https://schema.org/CreativeWork
@@ -253,6 +363,21 @@
                                              rdfs:label "EducationalOrganization"@en .
 
 
+###  https://schema.org/FindAction
+<https://schema.org/FindAction> rdf:type owl:Class ;
+                                rdfs:subClassOf <https://schema.org/Action> ;
+                                rdfs:comment """The act of finding an object.<br/><br/>
+
+Related actions:<br/><br/>
+
+<ul>
+<li><a class=\"localLink\" href=\"/SearchAction\">SearchAction</a>: FindAction is generally lead by a SearchAction, but not necessarily.</li>
+</ul>
+"""@en ;
+                                rdfs:isDefinedBy <https://schema.org/FindAction> ;
+                                rdfs:label "FindAction"@en .
+
+
 ###  https://schema.org/FundingScheme
 <https://schema.org/FundingScheme> rdf:type owl:Class ;
                                    rdfs:subClassOf <https://schema.org/Organization> ;
@@ -269,6 +394,14 @@
                                             rdfs:comment "A governmental organization or agency."@en ;
                                             rdfs:isDefinedBy <https://schema.org/GovernmentOrganization> ;
                                             rdfs:label "GovernmentOrganization"@en .
+
+
+###  https://schema.org/InteractAction
+<https://schema.org/InteractAction> rdf:type owl:Class ;
+                                    rdfs:subClassOf <https://schema.org/Action> ;
+                                    rdfs:comment "The act of interacting with another person or organization."@en ;
+                                    rdfs:isDefinedBy <https://schema.org/InteractAction> ;
+                                    rdfs:label "InteractAction"@en .
 
 
 ###  https://schema.org/LibrarySystem
@@ -303,6 +436,21 @@
                              rdfs:label "Message"@en .
 
 
+###  https://schema.org/MoveAction
+<https://schema.org/MoveAction> rdf:type owl:Class ;
+                                rdfs:subClassOf <https://schema.org/Action> ;
+                                rdfs:comment """The act of an agent relocating to a place.<br/><br/>
+
+Related actions:<br/><br/>
+
+<ul>
+<li><a class=\"localLink\" href=\"/TransferAction\">TransferAction</a>: Unlike TransferAction, the subject of the move is a living Person or Organization rather than an inanimate object.</li>
+</ul>
+"""@en ;
+                                rdfs:isDefinedBy <https://schema.org/MoveAction> ;
+                                rdfs:label "MoveAction"@en .
+
+
 ###  https://schema.org/NGO
 <https://schema.org/NGO> rdf:type owl:Class ;
                          rdfs:subClassOf <https://schema.org/Organization> ;
@@ -335,6 +483,14 @@
                                   rdfs:label "Organization"@en .
 
 
+###  https://schema.org/OrganizeAction
+<https://schema.org/OrganizeAction> rdf:type owl:Class ;
+                                    rdfs:subClassOf <https://schema.org/Action> ;
+                                    rdfs:comment "The act of manipulating/administering/supervising/controlling one or more objects."@en ;
+                                    rdfs:isDefinedBy <https://schema.org/OrganizeAction> ;
+                                    rdfs:label "OrganizeAction"@en .
+
+
 ###  https://schema.org/PerformingGroup
 <https://schema.org/PerformingGroup> rdf:type owl:Class ;
                                      rdfs:subClassOf <https://schema.org/Organization> ;
@@ -349,6 +505,22 @@
                             rdfs:comment "A person (alive, dead, undead, or fictional)." ;
                             rdfs:isDefinedBy <https://schema.org/Person> ;
                             rdfs:label "Person" .
+
+
+###  https://schema.org/PlayAction
+<https://schema.org/PlayAction> rdf:type owl:Class ;
+                                rdfs:subClassOf <https://schema.org/Action> ;
+                                rdfs:comment """The act of playing/exercising/training/performing for enjoyment, leisure, recreation, competition or exercise.<br/><br/>
+
+Related actions:<br/><br/>
+
+<ul>
+<li><a class=\"localLink\" href=\"/ListenAction\">ListenAction</a>: Unlike ListenAction (which is under ConsumeAction), PlayAction refers to performing for an audience or at an event, rather than consuming music.</li>
+<li><a class=\"localLink\" href=\"/WatchAction\">WatchAction</a>: Unlike WatchAction (which is under ConsumeAction), PlayAction refers to showing/displaying for an audience or at an event, rather than consuming visual content.</li>
+</ul>
+"""@en ;
+                                rdfs:isDefinedBy <https://schema.org/PlayAction> ;
+                                rdfs:label "PlayAction"@en .
 
 
 ###  https://schema.org/PoliticalParty
@@ -376,12 +548,43 @@ Use properties from <a class=\"localLink\" href=\"/Organization\">Organization</
                                           rdfs:label "ResearchOrganization"@en .
 
 
+###  https://schema.org/SearchAction
+<https://schema.org/SearchAction> rdf:type owl:Class ;
+                                  rdfs:subClassOf <https://schema.org/Action> ;
+                                  rdfs:comment """The act of searching for an object.<br/><br/>
+
+Related actions:<br/><br/>
+
+<ul>
+<li><a class=\"localLink\" href=\"/FindAction\">FindAction</a>: SearchAction generally leads to a FindAction, but not necessarily.</li>
+</ul>
+"""@en ;
+                                  rdfs:isDefinedBy <https://schema.org/SearchAction> ;
+                                  rdfs:label "SearchAction"@en .
+
+
 ###  https://schema.org/SearchRescueOrganization
 <https://schema.org/SearchRescueOrganization> rdf:type owl:Class ;
                                               rdfs:subClassOf <https://schema.org/Organization> ;
                                               rdfs:comment "A Search and Rescue organization of some kind."@en ;
                                               rdfs:isDefinedBy <https://pending.schema.org/SearchRescueOrganization> ;
                                               rdfs:label "SearchRescueOrganization"@en .
+
+
+###  https://schema.org/SeekToAction
+<https://schema.org/SeekToAction> rdf:type owl:Class ;
+                                  rdfs:subClassOf <https://schema.org/Action> ;
+                                  rdfs:comment "This is the <a class=\"localLink\" href=\"/Action\">Action</a> of navigating to a specific <a class=\"localLink\" href=\"/startOffset\">startOffset</a> timestamp within a <a class=\"localLink\" href=\"/VideoObject\">VideoObject</a>, typically represented with a URL template structure."@en ;
+                                  rdfs:isDefinedBy <https://pending.schema.org/SeekToAction> ;
+                                  rdfs:label "SeekToAction"@en .
+
+
+###  https://schema.org/SolveMathAction
+<https://schema.org/SolveMathAction> rdf:type owl:Class ;
+                                     rdfs:subClassOf <https://schema.org/Action> ;
+                                     rdfs:comment "The action that takes in a math expression and directs users to a page potentially capable of solving/simplifying that expression."@en ;
+                                     rdfs:isDefinedBy <https://pending.schema.org/SolveMathAction> ;
+                                     rdfs:label "SolveMathAction"@en .
 
 
 ###  https://schema.org/SportsOrganization
@@ -397,6 +600,30 @@ Use properties from <a class=\"localLink\" href=\"/Organization\">Organization</
                            rdfs:comment "The most generic type of item." ;
                            rdfs:isDefinedBy <https://schema.org/Thing> ;
                            rdfs:label "Thing" .
+
+
+###  https://schema.org/TradeAction
+<https://schema.org/TradeAction> rdf:type owl:Class ;
+                                 rdfs:subClassOf <https://schema.org/Action> ;
+                                 rdfs:comment "The act of participating in an exchange of goods and services for monetary compensation. An agent trades an object, product or service with a participant in exchange for a one time or periodic payment."@en ;
+                                 rdfs:isDefinedBy <https://schema.org/TradeAction> ;
+                                 rdfs:label "TradeAction"@en .
+
+
+###  https://schema.org/TransferAction
+<https://schema.org/TransferAction> rdf:type owl:Class ;
+                                    rdfs:subClassOf <https://schema.org/Action> ;
+                                    rdfs:comment "The act of transferring/moving (abstract or concrete) animate or inanimate objects from one place to another."@en ;
+                                    rdfs:isDefinedBy <https://schema.org/TransferAction> ;
+                                    rdfs:label "TransferAction"@en .
+
+
+###  https://schema.org/UpdateAction
+<https://schema.org/UpdateAction> rdf:type owl:Class ;
+                                  rdfs:subClassOf <https://schema.org/Action> ;
+                                  rdfs:comment "The act of managing by changing/editing the state of the object."@en ;
+                                  rdfs:isDefinedBy <https://schema.org/UpdateAction> ;
+                                  rdfs:label "UpdateAction"@en .
 
 
 ###  https://schema.org/WorkersUnion

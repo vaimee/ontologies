@@ -9,10 +9,10 @@
 #    Message with plain text content
 #################################################################
 
-:message1 rdf:type schema:Message ;
+:message1 rdf:type :Message ;
           schema:dateCreated "2025-02-25T12:00:00Z"^^xsd:dateTime ;
           schema:dateSent "2025-02-25T12:05:00Z"^^xsd:dateTime ;
-          :receiver :webid1 ; 
+          schema:toRecipient :webid1 ; 
           schema:messageAttachment :textContent1 ; 
           :about query:queryId123 ; 
           :source jsap:aggregatorId123 . 
@@ -24,10 +24,10 @@
 #    Message with template-based content
 #################################################################
 
-:message2 rdf:type schema:Message ;
+:message2 rdf:type :Message ;
           schema:dateCreated "2025-02-25T14:00:00Z"^^xsd:dateTime ;
           schema:dateSent "2025-02-25T14:05:00Z"^^xsd:dateTime ;
-          :receiver :webid2 ;  
+          schema:toRecipient :webid2 ;  
           schema:messageAttachment :templateContent1 ;  
           :about query:queryId456 ; 
           :source jsap:aggregatorId456 .  
