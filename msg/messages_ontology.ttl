@@ -29,20 +29,15 @@
 
 ###  https://onto.vaimee.com/msg#about
 :about rdf:type owl:ObjectProperty ;
-       rdfs:domain <https://schema.org/CreativeWork> ;
+       rdfs:domain [ rdf:type owl:Class ;
+                     owl:unionOf ( <https://schema.org/CreativeWork>
+                                   <https://schema.org/Message>
+                                 )
+                   ] ;
        rdfs:range owl:Thing ;
-       rdfs:comment "The subject matter of the content, with range owl:Thing."@en ;
+       rdfs:comment "The subject matter of the content."@en ;
        rdfs:isDefinedBy <https://onto.vaimee.com/msg#> ;
        rdfs:label "about"@en .
-
-
-###  https://onto.vaimee.com/msg#hasAttachment
-:hasAttachment rdf:type owl:ObjectProperty ;
-               rdfs:domain :Content ;
-               rdfs:range owl:Thing ;
-               rdfs:comment "Associates a content with its attachments."@en ;
-               rdfs:isDefinedBy <https://onto.vaimee.com/msg#> ;
-               rdfs:label "hasAttachment"@en .
 
 
 ###  https://onto.vaimee.com/msg#hasVariable
@@ -56,19 +51,6 @@
              rdfs:comment "Links a Template or a TemplateContent to individual variables it contains."@en ;
              rdfs:isDefinedBy <https://onto.vaimee.com/msg#> ;
              rdfs:label "hasVariable"@en .
-
-
-###  https://onto.vaimee.com/msg#receiver
-:receiver rdf:type owl:ObjectProperty ;
-          rdfs:domain :Message ;
-          rdfs:range [ rdf:type owl:Class ;
-                       owl:unionOf ( <https://schema.org/Organization>
-                                     <https://schema.org/Person>
-                                   )
-                     ] ;
-          rdfs:comment "The recipient of a message."@en ;
-          rdfs:isDefinedBy <https://onto.vaimee.com/msg#> ;
-          rdfs:label "receiver"@en .
 
 
 ###  https://onto.vaimee.com/msg#source
@@ -87,6 +69,22 @@
               rdfs:comment "Links an TemplateContent to its corresponding Template. This property indicates that a specific template has been used as the base structure for a personalized message."@en ;
               rdfs:isDefinedBy <https://onto.vaimee.com/msg#> ;
               rdfs:label "usesTemplate" .
+
+
+###  https://schema.org/messageAttachment
+<https://schema.org/messageAttachment> rdf:type owl:ObjectProperty ;
+                                       rdfs:domain [ rdf:type owl:Class ;
+                                                     owl:unionOf ( <https://schema.org/Message>
+                                                                 )
+                                                   ] ;
+                                       rdfs:range [ rdf:type owl:Class ;
+                                                    owl:unionOf ( :Content
+                                                                  <https://schema.org/CreativeWork>
+                                                                )
+                                                  ] ;
+                                       rdfs:comment "A CreativeWork attached to the message."@en ;
+                                       rdfs:isDefinedBy <https://schema.org/messageAttachment> ;
+                                       rdfs:label "messageAttachment"@en .
 
 
 ###  https://schema.org/participant
@@ -108,6 +106,11 @@
 ###  https://schema.org/recipient
 <https://schema.org/recipient> rdf:type owl:ObjectProperty ;
                                rdfs:subPropertyOf <https://schema.org/participant> ;
+                               rdfs:domain [ rdf:type owl:Class ;
+                                             owl:unionOf ( <https://schema.org/Action>
+                                                           <https://schema.org/Message>
+                                                         )
+                                           ] ;
                                rdfs:range [ rdf:type owl:Class ;
                                             owl:unionOf ( <https://schema.org/ContactPoint>
                                                           <https://schema.org/Organization>
@@ -320,7 +323,11 @@ See also <a href=\"http://blog.schema.org/2014/04/announcing-schemaorg-actions.h
 
 
 ###  https://schema.org/ContactPoint
-<https://schema.org/ContactPoint> rdf:type owl:Class .
+<https://schema.org/ContactPoint> rdf:type owl:Class ;
+                                  rdfs:subClassOf <https://schema.org/StructuredValue> ;
+                                  rdfs:comment "A contact point&#x2014;for example, a Customer Complaints department."@en ;
+                                  rdfs:isDefinedBy <https://schema.org/ContactPoint> ;
+                                  rdfs:label "ContactPoint"@en .
 
 
 ###  https://schema.org/ControlAction
@@ -394,6 +401,14 @@ Related actions:<br/><br/>
                                             rdfs:comment "A governmental organization or agency."@en ;
                                             rdfs:isDefinedBy <https://schema.org/GovernmentOrganization> ;
                                             rdfs:label "GovernmentOrganization"@en .
+
+
+###  https://schema.org/Intangible
+<https://schema.org/Intangible> rdf:type owl:Class ;
+                                rdfs:subClassOf <https://schema.org/Thing> ;
+                                rdfs:comment "A utility class that serves as the umbrella for a number of 'intangible' things such as quantities, structured values, etc."@en ;
+                                rdfs:isDefinedBy <https://schema.org/Intangible> ;
+                                rdfs:label "Intangible"@en .
 
 
 ###  https://schema.org/InteractAction
@@ -593,6 +608,14 @@ Related actions:<br/><br/>
                                         rdfs:comment "Represents the collection of all sports organizations, including sports teams, governing bodies, and sports associations."@en ;
                                         rdfs:isDefinedBy <https://schema.org/SportsOrganization> ;
                                         rdfs:label "SportsOrganization"@en .
+
+
+###  https://schema.org/StructuredValue
+<https://schema.org/StructuredValue> rdf:type owl:Class ;
+                                     rdfs:subClassOf <https://schema.org/Intangible> ;
+                                     rdfs:comment "Structured values are used when the value of a property has a more complex structure than simply being a textual value or a reference to another thing."@en ;
+                                     rdfs:isDefinedBy <https://schema.org/StructuredValue> ;
+                                     rdfs:label "StructuredValue"@en .
 
 
 ###  https://schema.org/Thing
