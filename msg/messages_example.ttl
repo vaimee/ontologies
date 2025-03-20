@@ -48,3 +48,25 @@
 :variable2 rdf:type :Variable ;
            :name "temp" ;  
            :hasValue "22.5"^^xsd:float .
+
+#################################################################
+#    Message with plain text content sent to a notification group
+#################################################################
+
+:message3 rdf:type :Message ;
+          schema:dateCreated "2025-02-25T15:00:00Z"^^xsd:dateTime ;
+          schema:dateSent "2025-02-25T15:05:00Z"^^xsd:dateTime ;
+          msg:toMultipleRecipients :group1 ;  
+          schema:messageAttachment :textContent2 ;  
+          :about query:queryId789 ; 
+          :source jsap:aggregatorId789 .  
+
+:textContent2 rdf:type :TextContent ;
+              :text "Hello group!"^^xsd:string .
+
+#################################################################
+#    Notification group definition
+#################################################################
+
+:group1 rdf:type users:NotificationGroup ;
+        users:identifier "broadcast-whatsapp-123"^^xsd:string .

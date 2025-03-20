@@ -20,6 +20,7 @@
 
 :contact1 rdf:type :WhatsApp ;
           :identifier "+1234567890" . 
+          :linkedToGroup :group1 .  
 
 :contact2 rdf:type :Telegram ;
           :identifier "user1" . 
@@ -32,3 +33,10 @@
              :notificationTopic jsap:query1 ;
              :notificationSource jsap:aggregator1 ;
              :notificationChannel :contact1 .
+
+#################################################################
+#    Notification group definition
+#################################################################
+
+:group1 rdf:type :NotificationGroup ;
+        :identifier "broadcast-whatsapp-123"^^xsd:string .

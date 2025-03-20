@@ -14,6 +14,15 @@
 #    Object Properties
 #################################################################
 
+###  https://onto.vaimee.com/users#linkedToGroup
+:linkedToGroup rdf:type owl:ObjectProperty ;
+               rdfs:domain <https://schema.org/ContactPoint> ;
+               rdfs:range :NotificationGroup ;
+               rdfs:comment "Indicates the association between a contact point and a notification group to which it belongs, representing a structured grouping for message dissemination."@en ;
+               rdfs:isDefinedBy <https://onto.vaimee.com/users#> ;
+               rdfs:label "linkedToGroup"@en .
+
+
 ###  https://onto.vaimee.com/users#notificationChannel
 :notificationChannel rdf:type owl:ObjectProperty ;
                      rdfs:domain :NotificationPreference ;

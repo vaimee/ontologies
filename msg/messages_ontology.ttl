@@ -66,7 +66,10 @@
 :toMultipleRecipients rdf:type owl:ObjectProperty ;
                       rdfs:subPropertyOf <https://schema.org/toRecipient> ;
                       rdfs:domain <https://schema.org/Message> ;
-                      rdfs:comment "The group of recipients who was directly sent the message."@en .
+                      rdfs:range <https://onto.vaimee.com/users#NotificationGroup> ;
+                      rdfs:comment "The group of recipients who was directly sent the message."@en ;
+                      rdfs:isDefinedBy <https://onto.vaimee.com/users#> ;
+                      rdfs:label "toMultipleRecipients"@en .
 
 
 ###  https://onto.vaimee.com/msg#usesTemplate
@@ -277,6 +280,14 @@
           rdfs:comment "A symbolic placeholder representing a value that can be assigned dynamically in different contexts."@en ;
           rdfs:isDefinedBy <https://onto.vaimee.com/msg#> ;
           rdfs:label "Variable"@en .
+
+
+###  https://onto.vaimee.com/users#NotificationGroup
+<https://onto.vaimee.com/users#NotificationGroup> rdf:type owl:Class ;
+                                                  rdfs:subClassOf <https://schema.org/ContactPoint> ;
+                                                  rdfs:comment "A collection of recipients grouped together for notification purposes, which may represent a broadcast list, a mailing list, or a messaging group."@en ;
+                                                  rdfs:isDefinedBy <https://onto.vaimee.com/users#> ;
+                                                  rdfs:label "NotificationGroup"@en .
 
 
 ###  https://schema.org/AchieveAction
