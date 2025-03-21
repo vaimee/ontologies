@@ -23,6 +23,32 @@ prov:wasGeneratedBy rdf:type owl:AnnotationProperty .
 
 
 #################################################################
+#    Object Properties
+#################################################################
+
+###  https://onto.vaimee.com/jsap#usesNamespace
+:usesNamespace rdf:type owl:ObjectProperty ;
+               rdfs:domain :JSAP ;
+               rdfs:range :Namespace ;
+               rdfs:comment "Links a JSAP instance to one or more RDF namespaces."@en ;
+               rdfs:isDefinedBy <https://onto.vaimee.com/jsap#> ;
+               rdfs:label "usesNamespace"@en .
+
+
+###  https://onto.vaimee.com/jsap#usesProtocol
+:usesProtocol rdf:type owl:ObjectProperty ;
+              rdfs:domain [ rdf:type owl:Class ;
+                            owl:unionOf ( :Sparql11ProtocolConfiguration
+                                          :Sparql11SeProtocolConfiguration
+                                        )
+                          ] ;
+              rdfs:range :Protocol ;
+              rdfs:comment "Links a protocol configuration to a specific communication protocol (e.g., HTTP, WS)."@en ;
+              rdfs:isDefinedBy <https://onto.vaimee.com/jsap#> ;
+              rdfs:label "usesProtocol"@en .
+
+
+#################################################################
 #    Data properties
 #################################################################
 
@@ -57,6 +83,37 @@ prov:wasGeneratedBy rdf:type owl:AnnotationProperty .
 :host rdf:type owl:DatatypeProperty ;
       rdfs:domain :JSAP ;
       rdfs:range xsd:string .
+
+
+###  https://onto.vaimee.com/jsap#port
+:port rdf:type owl:DatatypeProperty ;
+      rdfs:domain [ rdf:type owl:Class ;
+                    owl:unionOf ( :Sparql11ProtocolConfiguration
+                                  :Sparql11SeProtocolConfiguration
+                                )
+                  ] ;
+      rdfs:range xsd:integer ;
+      rdfs:comment "Specifies the port number used in a protocol configuration."@en ;
+      rdfs:isDefinedBy <https://onto.vaimee.com/jsap#> ;
+      rdfs:label "port"@en .
+
+
+###  https://onto.vaimee.com/jsap#prefix
+:prefix rdf:type owl:DatatypeProperty ;
+        rdfs:domain :Namespace ;
+        rdfs:range xsd:string ;
+        rdfs:comment "Represents the shorthand prefix used for the namespace (e.g., 'rdf', 'schema')."@en ;
+        rdfs:isDefinedBy <https://onto.vaimee.com/jsap#> ;
+        rdfs:label "prefix"@en .
+
+
+###  https://onto.vaimee.com/jsap#reconnect
+:reconnect rdf:type owl:DatatypeProperty ;
+           rdfs:domain :Sparql11SeProtocolConfiguration ;
+           rdfs:range xsd:boolean ;
+           rdfs:comment "Specifies whether the SPARQL 1.1 Secure Event Protocol (SEPA) should attempt to reconnect automatically in case of disconnection."@en ;
+           rdfs:isDefinedBy <https://onto.vaimee.com/jsap#> ;
+           rdfs:label "reconnect"@en .
 
 
 ###  https://onto.vaimee.com/jsap#sparql
@@ -94,11 +151,23 @@ prov:wasGeneratedBy rdf:type owl:AnnotationProperty .
                rdfs:isDefinedBy "A class representing a forced binding, enables the developer to substitute at run-time a variable in a template with a custom value." .
 
 
+###  https://onto.vaimee.com/jsap#Http
+:Http rdf:type owl:Class ;
+      rdfs:subClassOf :Protocol .
+
+
 ###  https://onto.vaimee.com/jsap#JSAP
 :JSAP rdf:type owl:Class ;
       rdfs:comment "Defines a JSAP (JSON SPARQL Application Profile).  JSAP describes an application based on the SPARQL Event Processing Architecture (SEPA) and following the application design pattern named PAC (Producer-Aggregator-Consumer)." ;
       rdfs:isDefinedBy <https://onto.vaimee.com/jsap#> ;
       rdfs:label "JSAP" .
+
+
+###  https://onto.vaimee.com/jsap#Namespace
+:Namespace rdf:type owl:Class ;
+           rdfs:comment "Represents an RDF namespace. Namespaces are used to provide a shorthand notation for referencing resources."@en ;
+           rdfs:isDefinedBy <https://onto.vaimee.com/jsap#> ;
+           rdfs:label "Namespace"@en .
 
 
 ###  https://onto.vaimee.com/jsap#Operation
@@ -120,6 +189,18 @@ prov:wasGeneratedBy rdf:type owl:AnnotationProperty .
           rdfs:label "Producer"@en .
 
 
+###  https://onto.vaimee.com/jsap#Protocol
+:Protocol rdf:type owl:Class ;
+          rdfs:comment "Class representing different communication protocols (e.g., HTTP, WS) that can be used in protocol configurations."@en .
+
+
+###  https://onto.vaimee.com/jsap#ProtocolConfiguration
+:ProtocolConfiguration rdf:type owl:Class ;
+                       rdfs:comment "Class for defining protocol configurations within a SEPA broker."@en ;
+                       rdfs:isDefinedBy <https://onto.vaimee.com/jsap#> ;
+                       rdfs:label "ProtocolConfiguration"@en .
+
+
 ###  https://onto.vaimee.com/jsap#Query
 :Query rdf:type owl:Class ;
        rdfs:subClassOf :Operation .
@@ -128,6 +209,22 @@ prov:wasGeneratedBy rdf:type owl:AnnotationProperty .
 ###  https://onto.vaimee.com/jsap#Rule
 :Rule rdf:type owl:Class ;
       rdfs:subClassOf :Operation .
+
+
+###  https://onto.vaimee.com/jsap#Sparql11ProtocolConfiguration
+:Sparql11ProtocolConfiguration rdf:type owl:Class ;
+                               rdfs:subClassOf :ProtocolConfiguration ;
+                               rdfs:comment "Class for the SPARQL 1.1 protocol settings for a SEPA broker."@en ;
+                               rdfs:isDefinedBy <https://onto.vaimee.com/jsap#> ;
+                               rdfs:label "Sparql11ProtocolConfiguration"@en .
+
+
+###  https://onto.vaimee.com/jsap#Sparql11SeProtocolConfiguration
+:Sparql11SeProtocolConfiguration rdf:type owl:Class ;
+                                 rdfs:subClassOf :ProtocolConfiguration ;
+                                 rdfs:comment "Class for the SPARQL 1.1 Secure Event Protocol settings in a SEPA broker."@en ;
+                                 rdfs:isDefinedBy <https://onto.vaimee.com/jsap#> ;
+                                 rdfs:label "Sparql11SeProtocolConfiguration"@en .
 
 
 ###  https://onto.vaimee.com/jsap#Update
