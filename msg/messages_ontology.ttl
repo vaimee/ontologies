@@ -8,6 +8,7 @@
 @base <https://onto.vaimee.com/msg#> .
 
 <https://onto.vaimee.com/msg#> rdf:type owl:Ontology ;
+                                owl:imports <https://schema.org/version/latest/schemaorg-current-https.ttl> ;
                                 rdfs:comment "This is an ontology for messages developed by VAIMEE. It integrates classes and properties from Schema.org." ;
                                 owl:versionInfo 1.0 .
 
@@ -55,7 +56,6 @@
 
 ###  https://onto.vaimee.com/msg#source
 :source rdf:type owl:ObjectProperty ;
-        rdfs:domain :Message ;
         rdfs:range <https://onto.vaimee.com/jsap#ComponentPAC> ;
         rdfs:comment "Indicates the entity responsible for generating the message."@en ;
         rdfs:isDefinedBy <https://onto.vaimee.com/msg#> ;
@@ -241,14 +241,6 @@
          rdfs:comment "A generic class representing any kind of content, which can be either a text message or a template message with attachments."@en ;
          rdfs:isDefinedBy <https://onto.vaimee.com/msg#> ;
          rdfs:label "Content"@en .
-
-
-###  https://onto.vaimee.com/msg#Message
-:Message rdf:type owl:Class ;
-         rdfs:subClassOf <https://schema.org/Message> ;
-         rdfs:comment "An extension of schema:Message with additional properties specific to VAIMEE's messaging system."@en ;
-         rdfs:isDefinedBy <https://onto.vaimee.com/msg#> ;
-         rdfs:label "Message"@en .
 
 
 ###  https://onto.vaimee.com/msg#Template

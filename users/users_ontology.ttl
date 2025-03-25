@@ -7,6 +7,7 @@
 @base <https://onto.vaimee.com/users#> .
 
 <https://onto.vaimee.com/users#> rdf:type owl:Ontology ;
+                                  owl:imports <https://schema.org/version/latest/schemaorg-current-https.ttl> ;
                                   rdfs:comment "This is an ontology for users developed by VAIMEE. It integrates classes and properties from Schema.org." ;
                                   owl:versionInfo 1.0 .
 
