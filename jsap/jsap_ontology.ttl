@@ -18,6 +18,10 @@
 #    Annotation properties
 #################################################################
 
+###  http://www.w3.org/2003/06/sw-vocab-status/ns#term_status
+<http://www.w3.org/2003/06/sw-vocab-status/ns#term_status> rdf:type owl:AnnotationProperty .
+
+
 ###  http://www.w3.org/ns/prov#wasGeneratedBy
 prov:wasGeneratedBy rdf:type owl:AnnotationProperty .
 
@@ -25,6 +29,38 @@ prov:wasGeneratedBy rdf:type owl:AnnotationProperty .
 #################################################################
 #    Object Properties
 #################################################################
+
+###  https://onto.vaimee.com/jsap#makesQuery
+:makesQuery rdf:type owl:ObjectProperty ;
+            rdfs:domain [ rdf:type owl:Class ;
+                          owl:unionOf ( :Aggregator
+                                        :Consumer
+                                      )
+                        ] ;
+            rdfs:range :Query .
+
+
+###  https://onto.vaimee.com/jsap#makesSubscription
+:makesSubscription rdf:type owl:ObjectProperty ,
+                            owl:FunctionalProperty ;
+                   rdfs:domain [ rdf:type owl:Class ;
+                                 owl:unionOf ( :Aggregator
+                                               :Consumer
+                                             )
+                               ] ;
+                   rdfs:range :Query .
+
+
+###  https://onto.vaimee.com/jsap#makesUpdate
+:makesUpdate rdf:type owl:ObjectProperty ,
+                      owl:FunctionalProperty ;
+             rdfs:domain [ rdf:type owl:Class ;
+                           owl:unionOf ( :Aggregator
+                                         :Producer
+                                       )
+                         ] ;
+             rdfs:range :Update .
+
 
 ###  https://onto.vaimee.com/jsap#usesNamespace
 :usesNamespace rdf:type owl:ObjectProperty ;
@@ -130,6 +166,121 @@ prov:wasGeneratedBy rdf:type owl:AnnotationProperty .
 #    Classes
 #################################################################
 
+###  http://purl.org/dc/terms/Agent
+<http://purl.org/dc/terms/Agent> rdf:type owl:Class ;
+                                 owl:equivalentClass <http://xmlns.com/foaf/0.1/Agent> .
+
+
+###  http://spinrdf.org/sp#Add
+<http://spinrdf.org/sp#Add> rdf:type owl:Class ;
+                            rdfs:subClassOf <http://spinrdf.org/sp#Update> ;
+                            rdfs:comment "A SPARQL UPDATE ADD operation. Uses sp:source and sp:target to represent \"from\" and \"to\" graphs, respectively. Also sp:silent may be true." ;
+                            rdfs:label "Add" ;
+                            rdfs:seeAlso <https://www.w3.org/TR/sparql11-update/#add> .
+
+
+###  http://spinrdf.org/sp#Ask
+<http://spinrdf.org/sp#Ask> rdf:type owl:Class ;
+                            rdfs:subClassOf <http://spinrdf.org/sp#Query> ;
+                            rdfs:comment "An ASK query that returns true if the condition in the body is met by at least one result set." ;
+                            rdfs:label "Ask" .
+
+
+###  http://spinrdf.org/sp#Clear
+<http://spinrdf.org/sp#Clear> rdf:type owl:Class ;
+                              rdfs:subClassOf <http://spinrdf.org/sp#Update> ;
+                              rdfs:comment "An Update operation that removes all triples from a specified graph. Must specify the graph using sp:graphIRI, or sp:default, sp:named or sp:all. May have the SILENT flag, encoded using sp:silent." ;
+                              rdfs:label "Clear" .
+
+
+###  http://spinrdf.org/sp#Command
+<http://spinrdf.org/sp#Command> rdf:type owl:Class ;
+                                rdfs:subClassOf <http://spinrdf.org/sp#SystemClass> ;
+                                rdfs:comment "A shared superclass for sp:Query and sp:Update that can be used to specify that the range of property can be either one." ;
+                                rdfs:label "Command" .
+
+
+###  http://spinrdf.org/sp#Create
+<http://spinrdf.org/sp#Create> rdf:type owl:Class ;
+                               rdfs:subClassOf <http://spinrdf.org/sp#Update> ;
+                               rdfs:comment "An Update operation that creates a new empty graph with a name specified by sp:graphIRI. May have sp:silent set to true." ;
+                               rdfs:label "Create" .
+
+
+###  http://spinrdf.org/sp#DeleteData
+<http://spinrdf.org/sp#DeleteData> rdf:type owl:Class ;
+                                   rdfs:subClassOf <http://spinrdf.org/sp#Update> ;
+                                   rdfs:comment "An Update operation to delete specific triples. The graph triples are represented using sp:data, which points to an rdf:List of sp:Triples or sp:NamedGraphs." ;
+                                   rdfs:label "Delete data" .
+
+
+###  http://spinrdf.org/sp#Describe
+<http://spinrdf.org/sp#Describe> rdf:type owl:Class ;
+                                 rdfs:subClassOf <http://spinrdf.org/sp#Query> ;
+                                 rdfs:comment "A DESCRIBE-type Query." ;
+                                 rdfs:label "Describe" .
+
+
+###  http://spinrdf.org/sp#Drop
+<http://spinrdf.org/sp#Drop> rdf:type owl:Class ;
+                             rdfs:subClassOf <http://spinrdf.org/sp#Update> ;
+                             rdfs:comment "An Update operation that removes a specified graph from the Graph Store. Must specify the graph using sp:graphIRI, or sp:default, sp:named or sp:all. May have the SILENT flag, encoded using sp:silent." ;
+                             rdfs:label "Drop" .
+
+
+###  http://spinrdf.org/sp#InsertData
+<http://spinrdf.org/sp#InsertData> rdf:type owl:Class ;
+                                   rdfs:subClassOf <http://spinrdf.org/sp#Update> ;
+                                   rdfs:comment "An Update operation to insert specific triples. The graph triples are represented using sp:data, which points to an rdf:List of sp:Triples or sp:NamedGraphs." ;
+                                   rdfs:label "Insert data" .
+
+
+###  http://spinrdf.org/sp#Load
+<http://spinrdf.org/sp#Load> rdf:type owl:Class ;
+                             rdfs:subClassOf <http://spinrdf.org/sp#Update> ;
+                             rdfs:comment "A LOAD Update operation. The document to load is specified using sp:document, and the (optional) target graph using sp:into." ;
+                             rdfs:label "Load" .
+
+
+###  http://spinrdf.org/sp#Query
+<http://spinrdf.org/sp#Query> rdf:type owl:Class ;
+                              rdfs:subClassOf <http://spinrdf.org/sp#Command> ;
+                              rdfs:comment "Abstract base class of the various types of supported queries. Common to all types of queries is that they can have a body (\"WHERE clause\")." ;
+                              rdfs:label "Query" .
+
+
+###  http://spinrdf.org/sp#Select
+<http://spinrdf.org/sp#Select> rdf:type owl:Class ;
+                               rdfs:subClassOf <http://spinrdf.org/sp#Query> ;
+                               rdfs:comment "A SELECT-type query that returns variable bindings as its result." ;
+                               rdfs:label "Select query" .
+
+
+###  http://spinrdf.org/sp#SystemClass
+<http://spinrdf.org/sp#SystemClass> rdf:type owl:Class ;
+                                    rdfs:subClassOf rdfs:Resource ;
+                                    rdfs:comment "An \"artificial\" root class that groups all SP classes. This makes them look much less overwhelming in UI tools. Typical end users don't need to see those classes anyway." ;
+                                    rdfs:label "SP System class" .
+
+
+###  http://spinrdf.org/sp#Update
+<http://spinrdf.org/sp#Update> rdf:type owl:Class ;
+                               rdfs:subClassOf <http://spinrdf.org/sp#Command> ;
+                               rdfs:comment "Abstract base class to group the various SPARQL UPDATE commands." ;
+                               rdfs:label "Update" .
+
+
+###  http://www.w3.org/2000/01/rdf-schema#Resource
+rdfs:Resource rdf:type owl:Class .
+
+
+###  http://xmlns.com/foaf/0.1/Agent
+<http://xmlns.com/foaf/0.1/Agent> rdf:type owl:Class ;
+                                  rdfs:comment "An agent (eg. person, group, software or physical artifact)." ;
+                                  rdfs:label "Agent" ;
+                                  <http://www.w3.org/2003/06/sw-vocab-status/ns#term_status> "stable" .
+
+
 ###  https://onto.vaimee.com/jsap#Aggregator
 :Aggregator rdf:type owl:Class ;
             rdfs:subClassOf :PacComponent ;
@@ -149,11 +300,6 @@ prov:wasGeneratedBy rdf:type owl:AnnotationProperty .
 ###  https://onto.vaimee.com/jsap#ForcedBinding
 :ForcedBinding rdf:type owl:Class ;
                rdfs:isDefinedBy "A class representing a forced binding, enables the developer to substitute at run-time a variable in a template with a custom value." .
-
-
-###  https://onto.vaimee.com/jsap#Http
-:Http rdf:type owl:Class ;
-      rdfs:subClassOf :Protocol .
 
 
 ###  https://onto.vaimee.com/jsap#JSAP
@@ -176,6 +322,12 @@ prov:wasGeneratedBy rdf:type owl:AnnotationProperty .
 
 ###  https://onto.vaimee.com/jsap#PacComponent
 :PacComponent rdf:type owl:Class ;
+              owl:equivalentClass [ rdf:type owl:Restriction ;
+                                    owl:onProperty :makesUpdate ;
+                                    owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                    owl:onClass :Update
+                                  ] ;
+              rdfs:subClassOf <http://xmlns.com/foaf/0.1/Agent> ;
               rdfs:isDefinedBy <https://onto.vaimee.com/jsap#> ,
                                "A component of the PAC architecture, which can be a producer, aggregator, or consumer."@en ;
               rdfs:label "PacComponent"@en .
@@ -191,6 +343,11 @@ prov:wasGeneratedBy rdf:type owl:AnnotationProperty .
 
 ###  https://onto.vaimee.com/jsap#Protocol
 :Protocol rdf:type owl:Class ;
+          owl:equivalentClass [ rdf:type owl:Class ;
+                                owl:oneOf ( :Http
+                                            :Ws
+                                          )
+                              ] ;
           rdfs:comment "Class representing different communication protocols (e.g., HTTP, WS) that can be used in protocol configurations."@en .
 
 
@@ -203,7 +360,8 @@ prov:wasGeneratedBy rdf:type owl:AnnotationProperty .
 
 ###  https://onto.vaimee.com/jsap#Query
 :Query rdf:type owl:Class ;
-       rdfs:subClassOf :Operation .
+       rdfs:subClassOf :Operation ;
+       rdfs:comment "A SPARQL operation that retrieves information from a knowledge base without modifying it. Examples include SELECT, ASK, and CONSTRUCT queries."@en .
 
 
 ###  https://onto.vaimee.com/jsap#Rule
@@ -229,11 +387,24 @@ prov:wasGeneratedBy rdf:type owl:AnnotationProperty .
 
 ###  https://onto.vaimee.com/jsap#Update
 :Update rdf:type owl:Class ;
-        rdfs:subClassOf :Operation .
+        rdfs:subClassOf :Operation ;
+        rdfs:comment "A SPARQL operation that modifies the knowledge base by inserting, deleting, or updating triples. Examples include INSERT DATA, DELETE DATA, and DELETE/INSERT operations."@en .
 
 
 ###  https://onto.vaimee.com/jsap#Variable
 :Variable rdf:type owl:Class .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  https://onto.vaimee.com/jsap#Http
+:Http rdf:type owl:NamedIndividual .
+
+
+###  https://onto.vaimee.com/jsap#Ws
+:Ws rdf:type owl:NamedIndividual .
 
 
 ###  Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi
