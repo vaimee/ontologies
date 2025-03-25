@@ -19,8 +19,8 @@
 #################################################################
 
 :contact1 rdf:type :WhatsApp ;
-          :identifier "+1234567890" . 
-          :linkedToGroup :group1 .  
+          :identifier "+1234567890" ;
+          :memberOfGroup :group1 .  
 
 :contact2 rdf:type :Telegram ;
           :identifier "user1" . 

@@ -7,21 +7,19 @@
 @base <https://onto.vaimee.com/users#> .
 
 <https://onto.vaimee.com/users#> rdf:type owl:Ontology ;
-                                  owl:imports <https://schema.org/version/latest/schemaorg-current-https.ttl> ;
-                                  rdfs:comment "This is an ontology for users developed by VAIMEE. It integrates classes and properties from Schema.org." ;
-                                  owl:versionInfo 1.0 .
+                                  owl:imports <https://schema.org/> .
 
 #################################################################
 #    Object Properties
 #################################################################
 
-###  https://onto.vaimee.com/users#linkedToGroup
-:linkedToGroup rdf:type owl:ObjectProperty ;
+###  https://onto.vaimee.com/users#memberOfGroup
+:memberOfGroup rdf:type owl:ObjectProperty ;
                rdfs:domain <https://schema.org/ContactPoint> ;
                rdfs:range :NotificationGroup ;
-               rdfs:comment "Indicates the association between a contact point and a notification group to which it belongs, representing a structured grouping for message dissemination."@en ;
-               rdfs:isDefinedBy <https://onto.vaimee.com/users#> ;
-               rdfs:label "linkedToGroup"@en .
+               rdfs:comment "Indicates the association between a contact point and a notification group to which it belongs."@en ;
+               rdfs:isDefinedBy <https://onto.vaimee.com/users> ;
+               rdfs:label "member of group"@en .
 
 
 ###  https://onto.vaimee.com/users#notificationChannel
@@ -29,8 +27,8 @@
                      rdfs:domain :NotificationPreference ;
                      rdfs:range <https://schema.org/ContactPoint> ;
                      rdfs:comment "Indicates the preferred communication channel through which the user wants to receive notifications about a topic. This can be a ContactPoint such as WhatsApp, Email, or Telegram."@en ;
-                     rdfs:isDefinedBy <https://onto.vaimee.com/users#> ;
-                     rdfs:label "notificationChannel"@en .
+                     rdfs:isDefinedBy <https://onto.vaimee.com/users> ;
+                     rdfs:label "notification channel"@en .
 
 
 ###  https://onto.vaimee.com/users#notificationPreference
@@ -41,40 +39,27 @@
                                                   )
                                     ] ;
                         rdfs:range :NotificationPreference ;
-                        rdfs:comment "Indicates the notification preferences set by a user or organization. This property links a Person or Organization to their NotificationPreference, which specifies a topic of interest and the preferred communication channels for receiving notifications about this topic."@en ;
-                        rdfs:isDefinedBy <https://onto.vaimee.com/users#> ;
-                        rdfs:label "notificationPreference"@en .
+                        rdfs:comment "Indicates the notification preferences set by a user or organization. This property links a Person or Organization to their NotificationPreference, which specifies some aspects of the notification, for example: the topic of interest, the preferred communication channels for receiving notifications about this topic and the notification source."@en ;
+                        rdfs:isDefinedBy <https://onto.vaimee.com/users> ;
+                        rdfs:label "notification preference"@en .
 
 
 ###  https://onto.vaimee.com/users#notificationSource
 :notificationSource rdf:type owl:ObjectProperty ;
                     rdfs:domain :NotificationPreference ;
-                    rdfs:range <https://onto.vaimee.com/jsap#ComponentPAC> ;
+                    rdfs:range :Aggregator ;
                     rdfs:comment "Links a NotificationPreference with the desired source of the notifications."@en ;
-                    rdfs:isDefinedBy <https://onto.vaimee.com/users#> ;
-                    rdfs:label "notificationSource"@en .
+                    rdfs:isDefinedBy <https://onto.vaimee.com/users> ;
+                    rdfs:label "notification source"@en .
 
 
 ###  https://onto.vaimee.com/users#notificationTopic
 :notificationTopic rdf:type owl:ObjectProperty ;
                    rdfs:domain :NotificationPreference ;
-                   rdfs:range <https://onto.vaimee.org/jsap#Query> ;
+                   rdfs:range <https://onto.vaimee.com/users#DACAMBIARE/QUERY> ;
                    rdfs:comment "Defines the topic of interest for which the user wants to receive notifications. This could be the URI of a specific event, category, or query whose result the user wants to receive."@en ;
-                   rdfs:isDefinedBy <https://onto.vaimee.com/users#> ;
-                   rdfs:label "notificationTopic"@en .
-
-
-###  https://schema.org/contactPoint
-<https://schema.org/contactPoint> rdf:type owl:ObjectProperty ;
-                                  rdfs:domain [ rdf:type owl:Class ;
-                                                owl:unionOf ( <https://schema.org/Organization>
-                                                              <https://schema.org/Person>
-                                                            )
-                                              ] ;
-                                  rdfs:range <https://schema.org/ContactPoint> ;
-                                  rdfs:comment "A contact point for a person or organization."@en ;
-                                  rdfs:isDefinedBy <https://schema.org/contactPoint> ;
-                                  rdfs:label "contactPoint"@en .
+                   rdfs:isDefinedBy <https://onto.vaimee.com/users> ;
+                   rdfs:label "notification topic"@en .
 
 
 #################################################################
@@ -83,10 +68,19 @@
 
 ###  https://onto.vaimee.com/users#identifier
 :identifier rdf:type owl:DatatypeProperty ;
-            rdfs:domain <https://schema.org/ContactPoint> ;
-            rdfs:range xsd:string ;
-            rdfs:comment "Specifies the unique identifier for the contact on a specific platform. This property is used to store the platform-specific identifier, such as a phone number for WhatsApp, a username for Telegram, or an email address for Email. It works in conjunction with the 'contactPlatform' property to fully describe how the contact can be reached."@en ;
-            rdfs:isDefinedBy <https://onto.vaimee.com/users#> ;
+            rdfs:domain [ rdf:type owl:Class ;
+                          owl:unionOf ( :NotificationGroup
+                                        <https://schema.org/ContactPoint>
+                                      )
+                        ] ;
+            rdfs:range [ rdf:type rdfs:Datatype ;
+                         owl:unionOf ( xsd:decimal
+                                       xsd:integer
+                                       xsd:string
+                                     )
+                       ] ;
+            rdfs:comment "This property is used to store the specific identifier of a resource."@en ;
+            rdfs:isDefinedBy <https://onto.vaimee.com/users> ;
             rdfs:label "identifier"@en .
 
 
@@ -94,15 +88,16 @@
 #    Classes
 #################################################################
 
-###  https://onto.vaimee.com/jsap#ComponentPAC
-<https://onto.vaimee.com/jsap#ComponentPAC> rdf:type owl:Class .
+###  https://onto.vaimee.com/users#Aggregator
+:Aggregator rdf:type owl:Class ;
+            rdfs:subClassOf :JsapToCHANGE .
 
 
 ###  https://onto.vaimee.com/users#Channel
 :Channel rdf:type owl:Class ;
          rdfs:subClassOf <https://schema.org/ContactPoint> ;
          rdfs:comment "A digital contact point through which a user can receive notifications or communicate."@en ;
-         rdfs:isDefinedBy <https://onto.vaimee.com/users#> ;
+         rdfs:isDefinedBy <https://onto.vaimee.com/users> ;
          rdfs:label "Channel"@en .
 
 
@@ -110,7 +105,7 @@
 :Discord rdf:type owl:Class ;
          rdfs:subClassOf :Channel ;
          rdfs:comment "A communication channel for voice, text, and video chat within Discord servers."@en ;
-         rdfs:isDefinedBy <https://onto.vaimee.com/users#> ;
+         rdfs:isDefinedBy <https://onto.vaimee.com/users> ;
          rdfs:label "Discord"@en .
 
 
@@ -118,44 +113,48 @@
 :Email rdf:type owl:Class ;
        rdfs:subClassOf :Channel ;
        rdfs:comment "A communication channel based on sending and receiving emails."@en ;
-       rdfs:isDefinedBy <https://onto.vaimee.com/users#> ;
+       rdfs:isDefinedBy <https://onto.vaimee.com/users> ;
        rdfs:label "Email"@en .
+
+
+###  https://onto.vaimee.com/users#JsapToCHANGE
+:JsapToCHANGE rdf:type owl:Class .
 
 
 ###  https://onto.vaimee.com/users#NotificationGroup
 :NotificationGroup rdf:type owl:Class ;
-                   rdfs:subClassOf <https://schema.org/ContactPoint> ;
+                   rdfs:subClassOf <https://schema.org/Audience> ;
                    rdfs:comment "A collection of recipients grouped together for notification purposes, which may represent a broadcast list, a mailing list, or a messaging group."@en ;
-                   rdfs:isDefinedBy <https://onto.vaimee.com/users#> ;
-                   rdfs:label "NotificationGroup"@en .
+                   rdfs:isDefinedBy <https://onto.vaimee.com/users> ;
+                   rdfs:label "Notification Group"@en .
 
 
 ###  https://onto.vaimee.com/users#NotificationPreference
 :NotificationPreference rdf:type owl:Class ;
-                        owl:equivalentClass [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
-                                                                     owl:onProperty :notificationChannel ;
-                                                                     owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                                     owl:onClass <https://schema.org/ContactPoint>
-                                                                   ]
-                                                                   [ rdf:type owl:Restriction ;
-                                                                     owl:onProperty :notificationTopic ;
-                                                                     owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                                     owl:onClass <https://onto.vaimee.org/jsap#Query>
-                                                                   ]
-                                                                 ) ;
-                                              rdf:type owl:Class
-                                            ] ;
-                        rdfs:subClassOf <https://schema.org/Intangible> ;
-                        rdfs:comment "Represents a user's or organization's notification preferences. This class defines a topic of interest and the preferred communication channels through which the user wants to receive notifications about that topic. Each instance of NotificationPreference is associated with a query or event and one or more designated contact point."@en ;
-                        rdfs:isDefinedBy <https://onto.vaimee.com/users#> ;
-                        rdfs:label "NotificationPreference"@en .
+                        rdfs:subClassOf <https://schema.org/StructuredValue> ,
+                                        [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                                 owl:onProperty :notificationChannel ;
+                                                                 owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                 owl:onClass <https://schema.org/ContactPoint>
+                                                               ]
+                                                               [ rdf:type owl:Restriction ;
+                                                                 owl:onProperty :notificationTopic ;
+                                                                 owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                                 owl:onClass <https://onto.vaimee.com/users#DACAMBIARE/QUERY>
+                                                               ]
+                                                             ) ;
+                                          rdf:type owl:Class
+                                        ] ;
+                        rdfs:comment "Represents a user's or organization's notification preferences. This class defines a topic of interest, the preferred communication channels through which the user wants to receive notifications about that topic and the notification source."@en ;
+                        rdfs:isDefinedBy <https://onto.vaimee.com/users> ;
+                        rdfs:label "Notification Preference"@en .
 
 
 ###  https://onto.vaimee.com/users#Telegram
 :Telegram rdf:type owl:Class ;
           rdfs:subClassOf :Channel ;
           rdfs:comment "A communication channel that uses Telegram for messages, calls, and notifications."@en ;
-          rdfs:isDefinedBy <https://onto.vaimee.com/users#> ;
+          rdfs:isDefinedBy <https://onto.vaimee.com/users> ;
           rdfs:label "Telegram"@en .
 
 
@@ -163,211 +162,13 @@
 :WhatsApp rdf:type owl:Class ;
           rdfs:subClassOf :Channel ;
           rdfs:comment "A communication channel based on instant messaging via the WhatsApp application."@en ;
-          rdfs:isDefinedBy <https://onto.vaimee.com/users#> ;
-          rdfs:label "Whatsapp"@en .
+          rdfs:isDefinedBy <https://onto.vaimee.com/users> ;
+          rdfs:label "WhatsApp"@en .
 
 
-###  https://onto.vaimee.org/jsap#Query
-<https://onto.vaimee.org/jsap#Query> rdf:type owl:Class .
-
-
-###  https://schema.org/Airline
-<https://schema.org/Airline> rdf:type owl:Class ;
-                             rdfs:subClassOf <https://schema.org/Organization> ;
-                             rdfs:comment "An organization that provides flights for passengers."@en ;
-                             rdfs:isDefinedBy <https://schema.org/Airline> ;
-                             rdfs:label "Airline"@en .
-
-
-###  https://schema.org/Consortium
-<https://schema.org/Consortium> rdf:type owl:Class ;
-                                rdfs:subClassOf <https://schema.org/Organization> ;
-                                rdfs:comment "A Consortium is a membership <a class=\"localLink\" href=\"/Organization\">Organization</a> whose members are typically Organizations."@en ;
-                                rdfs:isDefinedBy <https://pending.schema.org/Consortium> ;
-                                rdfs:label "Consortium"@en .
-
-
-###  https://schema.org/ContactPoint
-<https://schema.org/ContactPoint> rdf:type owl:Class ;
-                                  rdfs:subClassOf <https://schema.org/StructuredValue> ;
-                                  rdfs:comment "A contact point&#x2014;for example, a Customer Complaints department."@en ;
-                                  rdfs:isDefinedBy <https://schema.org/ContactPoint> ;
-                                  rdfs:label "ContactPoint"@en .
-
-
-###  https://schema.org/Corporation
-<https://schema.org/Corporation> rdf:type owl:Class ;
-                                 rdfs:subClassOf <https://schema.org/Organization> ;
-                                 rdfs:comment "Organization: A business corporation."@en ;
-                                 rdfs:isDefinedBy <https://schema.org/Corporation> ;
-                                 rdfs:label "Corporation"@en .
-
-
-###  https://schema.org/EducationalOrganization
-<https://schema.org/EducationalOrganization> rdf:type owl:Class ;
-                                             rdfs:subClassOf <https://schema.org/Organization> ;
-                                             rdfs:comment "An educational organization."@en ;
-                                             rdfs:isDefinedBy <https://schema.org/EducationalOrganization> ;
-                                             rdfs:label "EducationalOrganization"@en .
-
-
-###  https://schema.org/FundingScheme
-<https://schema.org/FundingScheme> rdf:type owl:Class ;
-                                   rdfs:subClassOf <https://schema.org/Organization> ;
-                                   rdfs:comment """A FundingScheme combines organizational, project and policy aspects of grant-based funding
-    that sets guidelines, principles and mechanisms to support other kinds of projects and activities.
-    Funding is typically organized via <a class=\"localLink\" href=\"/Grant\">Grant</a> funding. Examples of funding schemes: Swiss Priority Programmes (SPPs); EU Framework 7 (FP7); Horizon 2020; the NIH-R01 Grant Program; Wellcome institutional strategic support fund. For large scale public sector funding, the management and administration of grant awards is often handled by other, dedicated, organizations - <a class=\"localLink\" href=\"/FundingAgency\">FundingAgency</a>s such as ERC, REA, ..."""@en ;
-                                   rdfs:isDefinedBy <https://pending.schema.org/FundingScheme> ;
-                                   rdfs:label "FundingScheme"@en .
-
-
-###  https://schema.org/GovernmentOrganization
-<https://schema.org/GovernmentOrganization> rdf:type owl:Class ;
-                                            rdfs:subClassOf <https://schema.org/Organization> ;
-                                            rdfs:comment "A governmental organization or agency."@en ;
-                                            rdfs:isDefinedBy <https://schema.org/GovernmentOrganization> ;
-                                            rdfs:label "GovernmentOrganization"@en .
-
-
-###  https://schema.org/Intangible
-<https://schema.org/Intangible> rdf:type owl:Class ;
-                                rdfs:subClassOf <https://schema.org/Thing> ;
-                                rdfs:comment "A utility class that serves as the umbrella for a number of 'intangible' things such as quantities, structured values, etc."@en ;
-                                rdfs:isDefinedBy <https://schema.org/Intangible> ;
-                                rdfs:label "Intangible"@en .
-
-
-###  https://schema.org/LibrarySystem
-<https://schema.org/LibrarySystem> rdf:type owl:Class ;
-                                   rdfs:subClassOf <https://schema.org/Organization> ;
-                                   rdfs:comment "A <a class=\"localLink\" href=\"/LibrarySystem\">LibrarySystem</a> is a collaborative system amongst several libraries."@en ;
-                                   rdfs:isDefinedBy <https://pending.schema.org/LibrarySystem> ;
-                                   rdfs:label "LibrarySystem"@en .
-
-
-###  https://schema.org/LocalBusiness
-<https://schema.org/LocalBusiness> rdf:type owl:Class ;
-                                   rdfs:subClassOf <https://schema.org/Organization> ;
-                                   rdfs:comment "A particular physical business or branch of an organization. Examples of LocalBusiness include a restaurant, a particular branch of a restaurant chain, a branch of a bank, a medical practice, a club, a bowling alley, etc."@en ;
-                                   rdfs:isDefinedBy <https://schema.org/LocalBusiness> ;
-                                   rdfs:label "LocalBusiness"@en .
-
-
-###  https://schema.org/MedicalOrganization
-<https://schema.org/MedicalOrganization> rdf:type owl:Class ;
-                                         rdfs:subClassOf <https://schema.org/Organization> ;
-                                         rdfs:comment "A medical organization (physical or not), such as hospital, institution or clinic."@en ;
-                                         rdfs:isDefinedBy <https://schema.org/MedicalOrganization> ;
-                                         rdfs:label "MedicalOrganization"@en .
-
-
-###  https://schema.org/NGO
-<https://schema.org/NGO> rdf:type owl:Class ;
-                         rdfs:subClassOf <https://schema.org/Organization> ;
-                         rdfs:comment "Organization: Non-governmental Organization."@en ;
-                         rdfs:isDefinedBy <https://schema.org/NGO> ;
-                         rdfs:label "NGO"@en .
-
-
-###  https://schema.org/NewsMediaOrganization
-<https://schema.org/NewsMediaOrganization> rdf:type owl:Class ;
-                                           rdfs:subClassOf <https://schema.org/Organization> ;
-                                           rdfs:comment "A News/Media organization such as a newspaper or TV station."@en ;
-                                           rdfs:isDefinedBy <https://pending.schema.org/NewsMediaOrganization> ;
-                                           rdfs:label "NewsMediaOrganization"@en .
-
-
-###  https://schema.org/OnlineBusiness
-<https://schema.org/OnlineBusiness> rdf:type owl:Class ;
-                                    rdfs:subClassOf <https://schema.org/Organization> ;
-                                    rdfs:comment "A particular online business, either standalone or the online part of a broader organization. Examples include an eCommerce site, an online travel booking site, an online learning site, an online logistics and shipping provider, an online (virtual) doctor, etc."@en ;
-                                    rdfs:isDefinedBy <https://pending.schema.org/OnlineBusiness> ;
-                                    rdfs:label "OnlineBusiness"@en .
-
-
-###  https://schema.org/Organization
-<https://schema.org/Organization> rdf:type owl:Class ;
-                                  rdfs:subClassOf <https://schema.org/Thing> ;
-                                  rdfs:comment "An organization such as a school, NGO, corporation, club, etc."@en ;
-                                  rdfs:isDefinedBy <https://schema.org/Organization> ;
-                                  rdfs:label "Organization"@en .
-
-
-###  https://schema.org/PerformingGroup
-<https://schema.org/PerformingGroup> rdf:type owl:Class ;
-                                     rdfs:subClassOf <https://schema.org/Organization> ;
-                                     rdfs:comment "A performance group, such as a band, an orchestra, or a circus."@en ;
-                                     rdfs:isDefinedBy <https://schema.org/PerformingGroup> ;
-                                     rdfs:label "PerformingGroup"@en .
-
-
-###  https://schema.org/Person
-<https://schema.org/Person> rdf:type owl:Class ;
-                            rdfs:subClassOf <https://schema.org/Thing> ;
-                            rdfs:comment "A person (alive, dead, undead, or fictional)."@en ;
-                            rdfs:isDefinedBy <https://schema.org/Person> ;
-                            rdfs:label "Person"@en .
-
-
-###  https://schema.org/PoliticalParty
-<https://schema.org/PoliticalParty> rdf:type owl:Class ;
-                                    rdfs:subClassOf <https://schema.org/Organization> ;
-                                    rdfs:comment "Organization: Political Party."@en ;
-                                    rdfs:isDefinedBy <https://schema.org/PoliticalParty> ;
-                                    rdfs:label "PoliticalParty"@en .
-
-
-###  https://schema.org/Project
-<https://schema.org/Project> rdf:type owl:Class ;
-                             rdfs:subClassOf <https://schema.org/Organization> ;
-                             rdfs:comment """An enterprise (potentially individual but typically collaborative), planned to achieve a particular aim.
-Use properties from <a class=\"localLink\" href=\"/Organization\">Organization</a>, <a class=\"localLink\" href=\"/subOrganization\">subOrganization</a>/<a class=\"localLink\" href=\"/parentOrganization\">parentOrganization</a> to indicate project sub-structures."""@en ;
-                             rdfs:isDefinedBy <https://pending.schema.org/Project> ;
-                             rdfs:label "Project"@en .
-
-
-###  https://schema.org/ResearchOrganization
-<https://schema.org/ResearchOrganization> rdf:type owl:Class ;
-                                          rdfs:subClassOf <https://schema.org/Organization> ;
-                                          rdfs:comment "A Research Organization (e.g. scientific institute, research company)."@en ;
-                                          rdfs:isDefinedBy <https://pending.schema.org/ResearchOrganization> ;
-                                          rdfs:label "ResearchOrganization"@en .
-
-
-###  https://schema.org/SearchRescueOrganization
-<https://schema.org/SearchRescueOrganization> rdf:type owl:Class ;
-                                              rdfs:subClassOf <https://schema.org/Organization> ;
-                                              rdfs:comment "A Search and Rescue organization of some kind."@en ;
-                                              rdfs:isDefinedBy <https://pending.schema.org/SearchRescueOrganization> ;
-                                              rdfs:label "SearchRescueOrganization"@en .
-
-
-###  https://schema.org/SportsOrganization
-<https://schema.org/SportsOrganization> rdf:type owl:Class ;
-                                        rdfs:subClassOf <https://schema.org/Organization> ;
-                                        rdfs:comment "Represents the collection of all sports organizations, including sports teams, governing bodies, and sports associations."@en ;
-                                        rdfs:isDefinedBy <https://schema.org/SportsOrganization> ;
-                                        rdfs:label "SportsOrganization"@en .
-
-
-###  https://schema.org/StructuredValue
-<https://schema.org/StructuredValue> rdf:type owl:Class ;
-                                     rdfs:subClassOf <https://schema.org/Intangible> .
-
-
-###  https://schema.org/Thing
-<https://schema.org/Thing> rdf:type owl:Class ;
-                           rdfs:comment "The most generic type of item."@en ;
-                           rdfs:isDefinedBy <https://schema.org/Thing> ;
-                           rdfs:label "Thing"@en .
-
-
-###  https://schema.org/WorkersUnion
-<https://schema.org/WorkersUnion> rdf:type owl:Class ;
-                                  rdfs:subClassOf <https://schema.org/Organization> ;
-                                  rdfs:comment "A Workers Union (also known as a Labor Union, Labour Union, or Trade Union) is an organization that promotes the interests of its worker members by collectively bargaining with management, organizing, and political lobbying."@en ;
-                                  rdfs:isDefinedBy <https://schema.org/WorkersUnion> ;
-                                  rdfs:label "WorkersUnion"@en .
+###  https://onto.vaimee.com/users#DACAMBIARE/QUERY
+<https://onto.vaimee.com/users#DACAMBIARE/QUERY> rdf:type owl:Class ;
+                                                 rdfs:subClassOf :JsapToCHANGE .
 
 
 ###  Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi
