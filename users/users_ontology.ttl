@@ -71,8 +71,8 @@
 ###  https://onto.vaimee.com/users#identifier
 :identifier rdf:type owl:DatatypeProperty ;
             rdfs:domain [ rdf:type owl:Class ;
-                          owl:unionOf ( :NotificationGroup
-                                        <https://schema.org/ContactPoint>
+                          owl:unionOf ( :Channel
+                                        :NotificationGroup
                                       )
                         ] ;
             rdfs:range [ rdf:type rdfs:Datatype ;

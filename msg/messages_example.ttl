@@ -10,8 +10,8 @@
 #################################################################
 
 :message1 rdf:type :Message ;
-          schema:dateCreated "2025-02-25T12:00:00Z"^^xsd:dateTime ;
-          schema:dateSent "2025-02-25T12:05:00Z"^^xsd:dateTime ;
+          :dateCreated "2025-02-25T12:00:00Z"^^xsd:dateTime ;
+          :dateSent "2025-02-25T12:05:00Z"^^xsd:dateTime ;
           schema:toRecipient :webid1 ; 
           schema:messageAttachment :textContent1 ; 
           :about query:queryId123 ; 
@@ -25,8 +25,8 @@
 #################################################################
 
 :message2 rdf:type :Message ;
-          schema:dateCreated "2025-02-25T14:00:00Z"^^xsd:dateTime ;
-          schema:dateSent "2025-02-25T14:05:00Z"^^xsd:dateTime ;
+          :dateCreated "2025-02-25T14:00:00Z"^^xsd:dateTime ;
+          :dateSent "2025-02-25T14:05:00Z"^^xsd:dateTime ;
           schema:toRecipient :webid2 ;  
           schema:messageAttachment :templateContent1 ;  
           :about query:queryId456 ; 
@@ -54,19 +54,12 @@
 #################################################################
 
 :message3 rdf:type :Message ;
-          schema:dateCreated "2025-02-25T15:00:00Z"^^xsd:dateTime ;
-          schema:dateSent "2025-02-25T15:05:00Z"^^xsd:dateTime ;
-          msg:toMultipleRecipients :group1 ;  
+          :dateCreated "2025-02-25T15:00:00Z"^^xsd:dateTime ;
+          :dateSent "2025-02-25T15:05:00Z"^^xsd:dateTime ;
+          :toMultipleRecipients :group1 ;  
           schema:messageAttachment :textContent2 ;  
           :about query:queryId789 ; 
           :source jsap:aggregatorId789 .  
 
 :textContent2 rdf:type :TextContent ;
               :text "Hello group!"^^xsd:string .
-
-#################################################################
-#    Notification group definition
-#################################################################
-
-:group1 rdf:type users:NotificationGroup ;
-        users:identifier "broadcast-whatsapp-123"^^xsd:string .
