@@ -15,183 +15,183 @@
 #    Object Properties
 #################################################################
 
-###  http://newVersionMessage#hasVariable
-:hasVariable rdf:type owl:ObjectProperty ;
-             rdfs:domain :Content ;
-             rdfs:range :Variable ;
-             rdfs:comment "Links a Template or a TemplateContent to individual variables it contains."@en ;
-             rdfs:isDefinedBy <https://onto.vaimee.com/msg> ;
-             rdfs:label "has variable"@en .
+###  https://onto.vaimee.com/msg#about
+<https://onto.vaimee.com/msg#about> rdf:type owl:ObjectProperty ;
+                                    rdfs:domain <https://schema.org/CreativeWork> ;
+                                    rdfs:range owl:Thing ;
+                                    rdfs:comment "The subject matter of the content."@en ;
+                                    rdfs:isDefinedBy <https://onto.vaimee.com/msg> ;
+                                    rdfs:label "about"@en .
 
 
-###  http://newVersionMessage#usesTemplate
-:usesTemplate rdf:type owl:ObjectProperty ;
-              rdfs:domain :TemplateContent ;
-              rdfs:range :Template ;
-              rdfs:comment "Links an TemplateContent to its corresponding Template. This property indicates that a specific template has been used as the base structure for a personalized message."@en ;
-              rdfs:isDefinedBy <https://onto.vaimee.com/msg> ;
-              rdfs:label "uses template"@en .
+###  https://onto.vaimee.com/msg#hasVariable
+<https://onto.vaimee.com/msg#hasVariable> rdf:type owl:ObjectProperty ;
+                                          rdfs:domain <https://onto.vaimee.com/msg#Content> ;
+                                          rdfs:range <https://onto.vaimee.com/msg#Variable> ;
+                                          rdfs:comment "Links a Template or a TemplateContent to individual variables it contains."@en ;
+                                          rdfs:isDefinedBy <https://onto.vaimee.com/msg> ;
+                                          rdfs:label "has variable"@en .
 
 
-###  http://www.semanticweb.org/vaime/ontologies/2025/2/untitled-ontology-94/about
-:about rdf:type owl:ObjectProperty ;
-       rdfs:domain <https://schema.org/CreativeWork> ;
-       rdfs:range owl:Thing ;
-       rdfs:comment "The subject matter of the content."@en ;
-       rdfs:isDefinedBy <https://onto.vaimee.com/msg> ;
-       rdfs:label "about"@en .
+###  https://onto.vaimee.com/msg#source
+<https://onto.vaimee.com/msg#source> rdf:type owl:ObjectProperty ;
+                                     rdfs:domain <https://schema.org/CreativeWork> ;
+                                     rdfs:range <https://onto.vaimee.com/msg#DACAMBIAREAggregator> ;
+                                     rdfs:comment "Indicates the entity responsible for generating the message."@en ;
+                                     rdfs:isDefinedBy <https://onto.vaimee.com/msg> ;
+                                     rdfs:label "source"@en .
 
 
-###  http://www.semanticweb.org/vaime/ontologies/2025/2/untitled-ontology-94/source
-:source rdf:type owl:ObjectProperty ;
-        rdfs:domain <https://schema.org/CreativeWork> ;
-        rdfs:range :DACAMBIAREAggregator ;
-        rdfs:comment "Indicates the entity responsible for generating the message."@en ;
-        rdfs:isDefinedBy <https://onto.vaimee.com/msg> ;
-        rdfs:label "source"@en .
+###  https://onto.vaimee.com/msg#toMultipleRecipients
+<https://onto.vaimee.com/msg#toMultipleRecipients> rdf:type owl:ObjectProperty ;
+                                                   rdfs:subPropertyOf <https://schema.org/toRecipient> ;
+                                                   rdfs:domain <https://schema.org/Message> ;
+                                                   rdfs:range <https://onto.vaimee.com/msg#NotificationGroup> ;
+                                                   rdfs:comment "Specifies that the message is intended for multiple recipients, typically represented by an Audience or group."@en ;
+                                                   rdfs:isDefinedBy <https://onto.vaimee.com/msg> ;
+                                                   rdfs:label "to multiple recipients"@en .
 
 
-###  http://www.semanticweb.org/vaime/ontologies/2025/2/untitled-ontology-94/toMultipleRecipients
-:toMultipleRecipients rdf:type owl:ObjectProperty ;
-                      rdfs:subPropertyOf <https://schema.org/toRecipient> ;
-                      rdfs:domain <https://schema.org/Message> ;
-                      rdfs:range :NotificationGroup ;
-                      rdfs:comment "Specifies that the message is intended for multiple recipients, typically represented by an Audience or group."@en ;
-                      rdfs:isDefinedBy <https://onto.vaimee.com/msg> ;
-                      rdfs:label "to multiple recipients"@en .
+###  https://onto.vaimee.com/msg#usesTemplate
+<https://onto.vaimee.com/msg#usesTemplate> rdf:type owl:ObjectProperty ;
+                                           rdfs:domain <https://onto.vaimee.com/msg#TemplateContent> ;
+                                           rdfs:range <https://onto.vaimee.com/msg#Template> ;
+                                           rdfs:comment "Links an TemplateContent to its corresponding Template. This property indicates that a specific template has been used as the base structure for a personalized message."@en ;
+                                           rdfs:isDefinedBy <https://onto.vaimee.com/msg> ;
+                                           rdfs:label "uses template"@en .
 
 
 #################################################################
 #    Data properties
 #################################################################
 
-###  http://newVersionMessage#hasValue
-:hasValue rdf:type owl:DatatypeProperty ;
-          rdfs:domain :Variable ;
-          rdfs:range [ rdf:type rdfs:Datatype ;
-                       owl:unionOf ( xsd:anyURI
-                                     xsd:boolean
-                                     xsd:dateTime
-                                     xsd:dateTimeStamp
-                                     xsd:decimal
-                                     xsd:double
-                                     xsd:float
-                                     xsd:integer
-                                     xsd:string
-                                   )
-                     ] ;
-          rdfs:comment "Associates a variable with its value."@en ;
-          rdfs:isDefinedBy <https://onto.vaimee.com/msg> ;
-          rdfs:label "has value"@en .
+###  https://onto.vaimee.com/msg#dateCreated
+<https://onto.vaimee.com/msg#dateCreated> rdf:type owl:DatatypeProperty ;
+                                          rdfs:domain <https://schema.org/Message> ;
+                                          rdfs:range xsd:dateTime ;
+                                          rdfs:comment "Specifies the date and time when the message was created."@en ;
+                                          rdfs:isDefinedBy <https://onto.vaimee.com/msg> ;
+                                          rdfs:label "date created"@en .
 
 
-###  http://newVersionMessage#language
-:language rdf:type owl:DatatypeProperty ;
-          rdfs:domain :Template ;
-          rdfs:range [ rdf:type rdfs:Datatype ;
-                       owl:unionOf ( xsd:language
-                                     xsd:string
-                                   )
-                     ] ;
-          rdfs:comment "Specifies the language of the template."@en ;
-          rdfs:isDefinedBy <https://onto.vaimee.com/msg> ;
-          rdfs:label "langauge"@en .
+###  https://onto.vaimee.com/msg#dateSent
+<https://onto.vaimee.com/msg#dateSent> rdf:type owl:DatatypeProperty ;
+                                       rdfs:domain <https://schema.org/Message> ;
+                                       rdfs:range xsd:dateTime ;
+                                       rdfs:comment "Indicates the exact date and time when the message was sent."@en ;
+                                       rdfs:isDefinedBy <https://onto.vaimee.com/msg> ;
+                                       rdfs:label "date sent"@en .
 
 
-###  http://newVersionMessage#name
-:name rdf:type owl:DatatypeProperty ;
-      rdfs:domain owl:Thing ;
-      rdfs:range xsd:string ;
-      rdfs:comment "Links a resource with its name."@en ;
-      rdfs:isDefinedBy <https://onto.vaimee.com/msg> ;
-      rdfs:label "name"@en .
+###  https://onto.vaimee.com/msg#hasValue
+<https://onto.vaimee.com/msg#hasValue> rdf:type owl:DatatypeProperty ;
+                                       rdfs:domain <https://onto.vaimee.com/msg#Variable> ;
+                                       rdfs:range [ rdf:type rdfs:Datatype ;
+                                                    owl:unionOf ( xsd:anyURI
+                                                                  xsd:boolean
+                                                                  xsd:dateTime
+                                                                  xsd:dateTimeStamp
+                                                                  xsd:decimal
+                                                                  xsd:double
+                                                                  xsd:float
+                                                                  xsd:integer
+                                                                  xsd:string
+                                                                )
+                                                  ] ;
+                                       rdfs:comment "Associates a variable with its value."@en ;
+                                       rdfs:isDefinedBy <https://onto.vaimee.com/msg> ;
+                                       rdfs:label "has value"@en .
 
 
-###  http://newVersionMessage#text
-:text rdf:type owl:DatatypeProperty ;
-      rdfs:domain [ rdf:type owl:Class ;
-                    owl:unionOf ( :Content
-                                  :Template
-                                )
-                  ] ;
-      rdfs:range xsd:string ;
-      rdfs:comment "A string of text associated with a resource."@en ;
-      rdfs:isDefinedBy <https://onto.vaimee.com/msg> ;
-      rdfs:label "text" .
+###  https://onto.vaimee.com/msg#language
+<https://onto.vaimee.com/msg#language> rdf:type owl:DatatypeProperty ;
+                                       rdfs:domain <https://onto.vaimee.com/msg#Template> ;
+                                       rdfs:range [ rdf:type rdfs:Datatype ;
+                                                    owl:unionOf ( xsd:language
+                                                                  xsd:string
+                                                                )
+                                                  ] ;
+                                       rdfs:comment "Specifies the language of the template."@en ;
+                                       rdfs:isDefinedBy <https://onto.vaimee.com/msg> ;
+                                       rdfs:label "langauge"@en .
 
 
-###  http://www.semanticweb.org/vaime/ontologies/2025/2/untitled-ontology-94/dateCreated
-:dateCreated rdf:type owl:DatatypeProperty ;
-             rdfs:domain <https://schema.org/Message> ;
-             rdfs:range xsd:dateTime ;
-             rdfs:comment "Specifies the date and time when the message was created."@en ;
-             rdfs:isDefinedBy <https://onto.vaimee.com/msg> ;
-             rdfs:label "date created"@en .
+###  https://onto.vaimee.com/msg#name
+<https://onto.vaimee.com/msg#name> rdf:type owl:DatatypeProperty ;
+                                   rdfs:domain owl:Thing ;
+                                   rdfs:range xsd:string ;
+                                   rdfs:comment "Links a resource with its name."@en ;
+                                   rdfs:isDefinedBy <https://onto.vaimee.com/msg> ;
+                                   rdfs:label "name"@en .
 
 
-###  http://www.semanticweb.org/vaime/ontologies/2025/2/untitled-ontology-94/dateSent
-:dateSent rdf:type owl:DatatypeProperty ;
-          rdfs:domain <https://schema.org/Message> ;
-          rdfs:range xsd:dateTime ;
-          rdfs:comment "Indicates the exact date and time when the message was sent."@en ;
-          rdfs:isDefinedBy <https://onto.vaimee.com/msg> ;
-          rdfs:label "date sent"@en .
+###  https://onto.vaimee.com/msg#text
+<https://onto.vaimee.com/msg#text> rdf:type owl:DatatypeProperty ;
+                                   rdfs:domain [ rdf:type owl:Class ;
+                                                 owl:unionOf ( <https://onto.vaimee.com/msg#Content>
+                                                               <https://onto.vaimee.com/msg#Template>
+                                                             )
+                                               ] ;
+                                   rdfs:range xsd:string ;
+                                   rdfs:comment "A string of text associated with a resource."@en ;
+                                   rdfs:isDefinedBy <https://onto.vaimee.com/msg> ;
+                                   rdfs:label "text" .
 
 
 #################################################################
 #    Classes
 #################################################################
 
-###  http://newVersionMessage#Content
-:Content rdf:type owl:Class ;
-         rdfs:subClassOf <https://schema.org/CreativeWork> ;
-         rdfs:comment <https://onto.vaimee.com/msg> ,
-                      "A generic class representing any kind of content, which can be either a text message or a template message with attachments."@en ;
-         rdfs:label "Content"@en .
+###  https://onto.vaimee.com/msg#Content
+<https://onto.vaimee.com/msg#Content> rdf:type owl:Class ;
+                                      rdfs:subClassOf <https://schema.org/CreativeWork> ;
+                                      rdfs:comment <https://onto.vaimee.com/msg> ,
+                                                   "A generic class representing any kind of content, which can be either a text message or a template message with attachments."@en ;
+                                      rdfs:label "Content"@en .
 
 
-###  http://newVersionMessage#NotificationGroup
-:NotificationGroup rdf:type owl:Class ;
-                   rdfs:subClassOf <https://schema.org/Audience> ;
-                   rdfs:comment "A collection of recipients grouped together for notification purposes, which may represent a broadcast list, a mailing list, or a messaging group."@en ;
-                   rdfs:isDefinedBy <https://onto.vaimee.com/msg> ;
-                   rdfs:label "Notification Group"@en .
+###  https://onto.vaimee.com/msg#DACAMBIAREAggregator
+<https://onto.vaimee.com/msg#DACAMBIAREAggregator> rdf:type owl:Class .
 
 
-###  http://newVersionMessage#Template
-:Template rdf:type owl:Class ;
-          rdfs:subClassOf <https://schema.org/CreativeWork> ;
-          rdfs:comment "A text-based template with placeholders for variables."@en ;
-          rdfs:isDefinedBy <https://onto.vaimee.com/msg> ;
-          rdfs:label "Template"@en .
+###  https://onto.vaimee.com/msg#NotificationGroup
+<https://onto.vaimee.com/msg#NotificationGroup> rdf:type owl:Class ;
+                                                rdfs:subClassOf <https://schema.org/Audience> ;
+                                                rdfs:comment "A collection of recipients grouped together for notification purposes, which may represent a broadcast list, a mailing list, or a messaging group."@en ;
+                                                rdfs:isDefinedBy <https://onto.vaimee.com/msg> ;
+                                                rdfs:label "Notification Group"@en .
 
 
-###  http://newVersionMessage#TemplateContent
-:TemplateContent rdf:type owl:Class ;
-                 rdfs:subClassOf :Content ;
-                 rdfs:comment "Represents a content that is based on a template, including variables and optional attachments."@en ;
-                 rdfs:isDefinedBy <https://onto.vaimee.com/msg> ;
-                 rdfs:label "Template Content"@en .
+###  https://onto.vaimee.com/msg#Template
+<https://onto.vaimee.com/msg#Template> rdf:type owl:Class ;
+                                       rdfs:subClassOf <https://schema.org/CreativeWork> ;
+                                       rdfs:comment "A text-based template with placeholders for variables."@en ;
+                                       rdfs:isDefinedBy <https://onto.vaimee.com/msg> ;
+                                       rdfs:label "Template"@en .
 
 
-###  http://newVersionMessage#TextContent
-:TextContent rdf:type owl:Class ;
-             rdfs:subClassOf :Content ;
-             rdfs:comment "Represents a content that is a text message, which can also have attachments."@en ;
-             rdfs:isDefinedBy <https://onto.vaimee.com/msg> ;
-             rdfs:label "Text Content"@en .
+###  https://onto.vaimee.com/msg#TemplateContent
+<https://onto.vaimee.com/msg#TemplateContent> rdf:type owl:Class ;
+                                              rdfs:subClassOf <https://onto.vaimee.com/msg#Content> ;
+                                              rdfs:comment "Represents a content that is based on a template, including variables and optional attachments."@en ;
+                                              rdfs:isDefinedBy <https://onto.vaimee.com/msg> ;
+                                              rdfs:label "Template Content"@en .
 
 
-###  http://newVersionMessage#Variable
-:Variable rdf:type owl:Class ;
-          rdfs:subClassOf <https://schema.org/Intangible> ;
-          rdfs:comment "A symbolic placeholder representing a value that can be assigned dynamically in different contexts."@en ;
-          rdfs:isDefinedBy <https://onto.vaimee.com/msg> ;
-          rdfs:label "Variable"@en .
+###  https://onto.vaimee.com/msg#TextContent
+<https://onto.vaimee.com/msg#TextContent> rdf:type owl:Class ;
+                                          rdfs:subClassOf <https://onto.vaimee.com/msg#Content> ;
+                                          rdfs:comment "Represents a content that is a text message, which can also have attachments."@en ;
+                                          rdfs:isDefinedBy <https://onto.vaimee.com/msg> ;
+                                          rdfs:label "Text Content"@en .
 
 
-###  http://www.semanticweb.org/vaime/ontologies/2025/2/untitled-ontology-94/DACAMBIAREAggregator
-:DACAMBIAREAggregator rdf:type owl:Class .
+###  https://onto.vaimee.com/msg#Variable
+<https://onto.vaimee.com/msg#Variable> rdf:type owl:Class ;
+                                       rdfs:subClassOf <https://schema.org/Intangible> ;
+                                       rdfs:comment "A symbolic placeholder representing a value that can be assigned dynamically in different contexts."@en ;
+                                       rdfs:isDefinedBy <https://onto.vaimee.com/msg> ;
+                                       rdfs:label "Variable"@en .
 
 
 ###  Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi
