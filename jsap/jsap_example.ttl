@@ -1,52 +1,66 @@
-@prefix : <https://onto.vaimee.com/jsap#> .
+@prefix : <https://onto.vaimee.com/jsap-instance#> .
+@prefix jsap: <https://onto.vaimee.com/jsap#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
 
 #################################################################
-#    JSAP Definition
+#    JSAP instance
 #################################################################
 
-:myJsap rdf:type jsap:JSAP ;
-        :hasOperation :query1,
-                      :update1 ;
-        :usesNamespace :exampleNs .
+:jsap1 a jsap:JSAP ;
+    jsap:hasNamespace <http://example.org> ;
+    jsap:includesOperation :op1, :op2, :op3 .
 
-#################################################################
-#    PAC Components
-#################################################################
-
-:aggregator1 rdf:type :Aggregator ;
-             :makesSubscription :query1 ;
-             :makesUpdate :update1 .
-
-:consumer1 rdf:type jsap:Consumer ;
-           :makesSubscription :query1 .
+<http://example.org> a jsap:Namespace ;
+    jsap:prefix "ex"^^xsd:string .
 
 #################################################################
 #    Operations
 #################################################################
 
-:query1 rdf:type :Query ;
-        :usesSnippet :commonSnippet .
+:op1 a jsap:Query ;
+    jsap:sparql "SELECT ?s WHERE { ?s a <http://example.org/Class> }" ;
+    jsap:usesSnippet :snippet1 ;
+    jsap:usesLiteralFB :fb1 .
 
-:update1 rdf:type :Update ;
-         :hasForcedBinding :forcedBinding1 .
+:op2 a jsap:Update ;
+    jsap:sparql "INSERT DATA { <http://example.org/inst1> a <http://example.org/Class> }" ;
+    jsap:usesUriFB :fb2 .
+
+:op3 a jsap:Rule ;
+    jsap:text "jsap:performsSubscription(?comp, ?query) ^ jsap:includesOperation(?jsap, ?query) → jsap:hasComponent(?jsap, ?comp)" .
 
 #################################################################
-#    Namespace
+#    Snippet
 #################################################################
 
-:exampleNs rdf:type :Namespace ;
-           :prefix "ex"^^xsd:string .
+:snippet1 a jsap:Snippet ;
+    jsap:snippetBody "FILTER (?value > 10)"^^xsd:string .
 
 #################################################################
-#    Snippet and Forced Binding
+#    Forced Bindings
 #################################################################
 
-:commonSnippet rdf:type :Snippet ;
-               :snippetBody "FILTER (?temp > 30)"^^xsd:string .
+:fb1 a jsap:LiteralFB ;
+    jsap:name "value" ;
+    jsap:dataValue "42"^^xsd:integer .
 
-:forcedBinding1 rdf:type jsap:ForcedBinding ;
-                :name "threshold"^^xsd:string ;
-                :value "30"^^xsd:integer ;
-                :type :Literal .
+:fb2 a jsap:UriFB ;
+    jsap:name "resource" .
+
+#################################################################
+#    PAC Components
+#################################################################
+
+:producer1 a jsap:Producer ;
+    foaf:name "Producer Agent" ;
+    jsap:performsUpdate :op2 .
+
+:consumer1 a jsap:Consumer ;
+    foaf:name "Consumer Agent" ;
+    jsap:performsSubscription :op1 .
+
+:aggregator1 a jsap:Aggregator ;
+    foaf:name "Aggregator Agent" ;
+    jsap:performsSubscription :op1 ;
+    jsap:performsUpdate :op2 .

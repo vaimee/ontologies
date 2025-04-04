@@ -19,8 +19,16 @@
 :hasComponent rdf:type owl:ObjectProperty ;
               rdfs:domain :JSAP ;
               rdfs:range :PacComponent ;
-              owl:propertyChainAxiom ( :hasOperation
-                                       [ owl:inverseOf :makesSubscription
+              owl:propertyChainAxiom ( :includesOperation
+                                       [ owl:inverseOf :performsQuery
+                                       ]
+                                     ) ,
+                                     ( :includesOperation
+                                       [ owl:inverseOf :performsSubscription
+                                       ]
+                                     ) ,
+                                     ( :includesOperation
+                                       [ owl:inverseOf :performsUpdate
                                        ]
                                      ) ;
               rdfs:comment "Inferred link: a JSAP is associated with a PAC component if the component uses an operation defined within the JSAP."@en ;
@@ -28,23 +36,23 @@
               rdfs:label "has component"@en .
 
 
-###  https://onto.vaimee.com/jsap#hasForcedBinding
-:hasForcedBinding rdf:type owl:ObjectProperty ;
-                  rdfs:domain :Operation ;
-                  rdfs:range :ForcedBinding ;
-                  rdfs:comment "Associates a SPARQL operation with a forced binding (a predefined variable-value pair)."@en ;
-                  rdfs:isDefinedBy <https://onto.vaimee.com/jsap> ;
-                  rdfs:label "has forced binding"@en .
-
-
-###  https://onto.vaimee.com/jsap#hasOperation
-:hasOperation rdf:type owl:ObjectProperty ;
-              owl:inverseOf :isOperationOf ;
+###  https://onto.vaimee.com/jsap#hasNamespace
+:hasNamespace rdf:type owl:ObjectProperty ;
               rdfs:domain :JSAP ;
-              rdfs:range :Operation ;
-              rdfs:comment "Associates a JSAP with the operations it contains,"@en ;
+              rdfs:range :Namespace ;
+              rdfs:comment "Links a JSAP instance to a RDF namespace."@en ;
               rdfs:isDefinedBy <https://onto.vaimee.com/jsap> ;
-              rdfs:label "has operation"@en .
+              rdfs:label "has namespace"@en .
+
+
+###  https://onto.vaimee.com/jsap#includesOperation
+:includesOperation rdf:type owl:ObjectProperty ;
+                   owl:inverseOf :isOperationOf ;
+                   rdfs:domain :JSAP ;
+                   rdfs:range :Operation ;
+                   rdfs:comment "Associates a JSAP with the operations it contains,"@en ;
+                   rdfs:isDefinedBy <https://onto.vaimee.com/jsap> ;
+                   rdfs:label "includes operation"@en .
 
 
 ###  https://onto.vaimee.com/jsap#isOperationOf
@@ -56,45 +64,41 @@
                           "is operation of"@en .
 
 
-###  https://onto.vaimee.com/jsap#makesQuery
-:makesQuery rdf:type owl:ObjectProperty ;
-            rdfs:comment "Associates a PAC component (Producer, Aggregator, or Consumer) with a SPARQL query operation it performs. This query retrieves information from the knowledge graph."@en ;
-            rdfs:isDefinedBy <https://onto.vaimee.com/jsap> ;
-            rdfs:label "makes query"@en .
-
-
-###  https://onto.vaimee.com/jsap#makesSubscription
-:makesSubscription rdf:type owl:ObjectProperty ,
-                            owl:FunctionalProperty ;
-                   rdfs:comment "Associates a PAC component (Aggregator or Consumer) with a SPARQL subscription it executes. Subscriptions continuously notify the component on the knowledge graph changes."@en ;
-                   rdfs:isDefinedBy <https://onto.vaimee.com/jsap> ;
-                   rdfs:label "makes subscription"@en .
-
-
-###  https://onto.vaimee.com/jsap#makesUpdate
-:makesUpdate rdf:type owl:ObjectProperty ,
-                      owl:FunctionalProperty ;
-             rdfs:comment "Links a PAC component (Producer or Aggregator) to a SPARQL update operation it is responsible for. Updates modify the knowledge graph."@en ;
-             rdfs:isDefinedBy <https://onto.vaimee.com/jsap> ;
-             rdfs:label "makes update"@en .
-
-
-###  https://onto.vaimee.com/jsap#type
-:type rdf:type owl:ObjectProperty ;
-      rdfs:domain :ForcedBinding ;
-      rdfs:range :ValueType ;
-      rdfs:comment "Specifies the type of value assigned in a forced binding, indicating whether it is a URI or a literal."@en ;
-      rdfs:isDefinedBy <https://onto.vaimee.com/jsap> ;
-      rdfs:label "type"@en .
-
-
-###  https://onto.vaimee.com/jsap#usesNamespace
-:usesNamespace rdf:type owl:ObjectProperty ;
-               rdfs:domain :JSAP ;
-               rdfs:range :Namespace ;
-               rdfs:comment "Links a JSAP instance to a RDF namespace."@en ;
+###  https://onto.vaimee.com/jsap#performsQuery
+:performsQuery rdf:type owl:ObjectProperty ;
+               rdfs:domain :PacComponent ;
+               rdfs:range :Query ;
+               rdfs:comment "Declares that the PAC component performs a SPARQL query operation to retrieve data from the knowledge graph."@en ;
                rdfs:isDefinedBy <https://onto.vaimee.com/jsap> ;
-               rdfs:label "uses namespace"@en .
+               rdfs:label "performs query"@en .
+
+
+###  https://onto.vaimee.com/jsap#performsSubscription
+:performsSubscription rdf:type owl:ObjectProperty ,
+                               owl:FunctionalProperty ;
+                      rdfs:domain :PacComponent ;
+                      rdfs:range :Query ;
+                      rdfs:comment "Declares that the PAC component performs a SPARQL subscription operation to continuously monitor changes in the knowledge graph. It is typically used to trigger reactive behavior."@en ;
+                      rdfs:isDefinedBy <https://onto.vaimee.com/jsap> ;
+                      rdfs:label "performs subscription"@en .
+
+
+###  https://onto.vaimee.com/jsap#performsUpdate
+:performsUpdate rdf:type owl:ObjectProperty ,
+                         owl:FunctionalProperty ;
+                rdfs:domain :PacComponent ;
+                rdfs:range :Update ;
+                rdfs:comment "Declares that the PAC component performs a SPARQL update operation that modifies the knowledge graph (e.g., INSERT, DELETE). Each component can make at most one update."@en ;
+                rdfs:isDefinedBy <https://onto.vaimee.com/jsap> ;
+                rdfs:label "performs update"@en .
+
+
+###  https://onto.vaimee.com/jsap#usesLiteralFB
+:usesLiteralFB rdf:type owl:ObjectProperty ;
+               rdfs:domain :Operation ;
+               rdfs:range :LiteralFB ;
+               rdfs:isDefinedBy <https://onto.vaimee.com/jsap> ;
+               rdfs:label "uses literal fb"@en .
 
 
 ###  https://onto.vaimee.com/jsap#usesSnippet
@@ -106,13 +110,34 @@
              rdfs:label "uses snippet"@en .
 
 
+###  https://onto.vaimee.com/jsap#usesUriFB
+:usesUriFB rdf:type owl:ObjectProperty ;
+           rdfs:domain :Operation ;
+           rdfs:range :UriFB ;
+           rdfs:comment "Associates the operation with a URI forced binding."@en ;
+           rdfs:isDefinedBy <https://onto.vaimee.com/jsap> ;
+           rdfs:label "uses URI fb"@en .
+
+
 #################################################################
 #    Data properties
 #################################################################
 
+###  https://onto.vaimee.com/jsap#dataValue
+:dataValue rdf:type owl:DatatypeProperty ;
+           rdfs:domain :LiteralFB ;
+           rdfs:comment "The value assigned to the variable in the binding."@en ;
+           rdfs:isDefinedBy <https://onto.vaimee.com/jsap> ;
+           rdfs:label "dataValue"@en .
+
+
 ###  https://onto.vaimee.com/jsap#name
 :name rdf:type owl:DatatypeProperty ;
-      rdfs:domain :ForcedBinding ;
+      rdfs:domain [ rdf:type owl:Class ;
+                    owl:unionOf ( :LiteralFB
+                                  :UriFB
+                                )
+                  ] ;
       rdfs:range xsd:string ;
       rdfs:comment "The name of the variable being bound."@en ;
       rdfs:isDefinedBy <https://onto.vaimee.com/jsap> ;
@@ -146,26 +171,6 @@
         rdfs:label "sparql"@en .
 
 
-###  https://onto.vaimee.com/jsap#value
-:value rdf:type owl:DatatypeProperty ;
-       rdfs:domain :ForcedBinding ;
-       rdfs:range [ rdf:type rdfs:Datatype ;
-                    owl:unionOf ( xsd:anyURI
-                                  xsd:boolean
-                                  xsd:dateTime
-                                  xsd:dateTimeStamp
-                                  xsd:decimal
-                                  xsd:double
-                                  xsd:float
-                                  xsd:integer
-                                  xsd:string
-                                )
-                  ] ;
-       rdfs:comment "The value assigned to the variable in the binding."@en ;
-       rdfs:isDefinedBy <https://onto.vaimee.com/jsap> ;
-       rdfs:label "value"@en .
-
-
 #################################################################
 #    Classes
 #################################################################
@@ -174,12 +179,12 @@
 :Aggregator rdf:type owl:Class ;
             owl:equivalentClass [ owl:intersectionOf ( :PacComponent
                                                        [ rdf:type owl:Restriction ;
-                                                         owl:onProperty :makesSubscription ;
-                                                         owl:someValuesFrom :SPARQLOperation
+                                                         owl:onProperty :performsSubscription ;
+                                                         owl:someValuesFrom :Query
                                                        ]
                                                        [ rdf:type owl:Restriction ;
-                                                         owl:onProperty :makesUpdate ;
-                                                         owl:someValuesFrom :SPARQLOperation
+                                                         owl:onProperty :performsUpdate ;
+                                                         owl:someValuesFrom :Update
                                                        ]
                                                      ) ;
                                   rdf:type owl:Class
@@ -193,8 +198,14 @@
 ###  https://onto.vaimee.com/jsap#Consumer
 :Consumer rdf:type owl:Class ;
           owl:equivalentClass [ owl:intersectionOf ( :PacComponent
+                                                     [ rdf:type owl:Class ;
+                                                       owl:complementOf [ rdf:type owl:Restriction ;
+                                                                          owl:onProperty :performsUpdate ;
+                                                                          owl:someValuesFrom :Update
+                                                                        ]
+                                                     ]
                                                      [ rdf:type owl:Restriction ;
-                                                       owl:onProperty :makesSubscription ;
+                                                       owl:onProperty :performsSubscription ;
                                                        owl:someValuesFrom :Query
                                                      ]
                                                    ) ;
@@ -221,9 +232,22 @@
       rdfs:label "JSAP"@en .
 
 
+###  https://onto.vaimee.com/jsap#LiteralFB
+:LiteralFB rdf:type owl:Class ;
+           owl:equivalentClass [ rdf:type owl:Restriction ;
+                                 owl:onProperty :dataValue ;
+                                 owl:cardinality "1"^^xsd:nonNegativeInteger
+                               ] ;
+           rdfs:subClassOf :ForcedBinding ;
+           owl:disjointWith :UriFB ;
+           rdfs:comment "A forced binding whose value is a literal."@en ;
+           rdfs:isDefinedBy <https://onto.vaimee.com/jsap> ;
+           rdfs:label "Literal FB"@en .
+
+
 ###  https://onto.vaimee.com/jsap#Namespace
 :Namespace rdf:type owl:Class ;
-           rdfs:comment "Represents an RDF namespace. Namespaces are used to provide a shorthand notation for referencing resources."@en ;
+           rdfs:comment "Represents an RDF namespace. They allow grouping related terms (classes and properties) under a common base URI."@en ;
            rdfs:isDefinedBy <https://onto.vaimee.com/jsap> ;
            rdfs:label "Namespace"@en .
 
@@ -237,15 +261,24 @@
 
 ###  https://onto.vaimee.com/jsap#PacComponent
 :PacComponent rdf:type owl:Class ;
-              rdfs:subClassOf <http://xmlns.com/foaf/0.1/Agent> .
+              rdfs:subClassOf <http://xmlns.com/foaf/0.1/Agent> ;
+              rdfs:comment "A component in a JSAP application following the PAC (Producer-Aggregator-Consumer) architectural pattern."@en ;
+              rdfs:isDefinedBy <https://onto.vaimee.com/jsap> ;
+              rdfs:label "Pac Component"@en .
 
 
 ###  https://onto.vaimee.com/jsap#Producer
 :Producer rdf:type owl:Class ;
           owl:equivalentClass [ owl:intersectionOf ( :PacComponent
+                                                     [ rdf:type owl:Class ;
+                                                       owl:complementOf [ rdf:type owl:Restriction ;
+                                                                          owl:onProperty :performsSubscription ;
+                                                                          owl:someValuesFrom :Query
+                                                                        ]
+                                                     ]
                                                      [ rdf:type owl:Restriction ;
-                                                       owl:onProperty :makesUpdate ;
-                                                       owl:someValuesFrom :SPARQLOperation
+                                                       owl:onProperty :performsUpdate ;
+                                                       owl:someValuesFrom :Update
                                                      ]
                                                    ) ;
                                 rdf:type owl:Class
@@ -303,63 +336,52 @@
         rdfs:label "Update"@en .
 
 
-###  https://onto.vaimee.com/jsap#ValueType
-:ValueType rdf:type owl:Class ;
-           owl:equivalentClass [ rdf:type owl:Class ;
-                                 owl:oneOf ( :Literal
-                                             :URI
-                                           )
-                               ] ;
-           rdfs:comment "Enumeration of valid forced binding types."@en ;
-           rdfs:isDefinedBy <https://onto.vaimee.com/jsap> ;
-           rdfs:label "Value Type"@en .
+###  https://onto.vaimee.com/jsap#UriFB
+:UriFB rdf:type owl:Class ;
+       rdfs:subClassOf :ForcedBinding ;
+       rdfs:comment "A URI forced binding: the identifier (URI) of the individual is the value itself."@en ;
+       rdfs:isDefinedBy <https://onto.vaimee.com/jsap> ;
+       rdfs:label "URI FB"@en .
 
 
 #################################################################
 #    Individuals
 #################################################################
 
-###  https://onto.vaimee.com/jsap#Literal
-:Literal rdf:type owl:NamedIndividual ,
-                  :ValueType ;
-         rdfs:comment "Represents a literal value used in forced bindings."@en ;
-         rdfs:isDefinedBy <https://onto.vaimee.com/jsap> ;
-         rdfs:label "Literal"@en .
+###  https://onto.vaimee.com/jsap#agg1
+:agg1 rdf:type owl:NamedIndividual ;
+      :performsSubscription :q1 .
 
 
-###  https://onto.vaimee.com/jsap#URI
-:URI rdf:type owl:NamedIndividual ,
-              :ValueType ;
-     rdfs:comment "Represents a URI value used in forced bindings."@en ;
-     rdfs:isDefinedBy <https://onto.vaimee.com/jsap> ;
-     rdfs:label "URI"@en .
+###  https://onto.vaimee.com/jsap#jsap1
+:jsap1 rdf:type owl:NamedIndividual ;
+       :includesOperation :q1 .
 
 
-###  https://onto.vaimee.com/jsap#aggregator
-:aggregator rdf:type owl:NamedIndividual ;
-            :makesSubscription :query1 ;
-            :makesUpdate :update1 .
+###  https://onto.vaimee.com/jsap#literalFB
+:literalFB rdf:type owl:NamedIndividual ;
+           :dataValue 30 .
 
 
-###  https://onto.vaimee.com/jsap#consumer
-:consumer rdf:type owl:NamedIndividual ;
-          :makesSubscription :query1 .
+###  https://onto.vaimee.com/jsap#q1
+:q1 rdf:type owl:NamedIndividual .
 
 
-###  https://onto.vaimee.com/jsap#jsap
-:jsap rdf:type owl:NamedIndividual ,
-               :JSAP ;
-      :hasOperation :query1 .
+###  https://onto.vaimee.com/jsap#urifb
+:urifb rdf:type owl:NamedIndividual ;
+       :name "carlo" .
 
 
-###  https://onto.vaimee.com/jsap#query1
-:query1 rdf:type owl:NamedIndividual ,
-                 :Query .
+#################################################################
+#    General axioms
+#################################################################
 
-
-###  https://onto.vaimee.com/jsap#update1
-:update1 rdf:type owl:NamedIndividual ,
-                  :Update .
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( :Aggregator
+                :Consumer
+                :Producer
+              )
+] .
 
 
 ###  Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi
