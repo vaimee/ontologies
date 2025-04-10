@@ -15,6 +15,13 @@
 #    Object Properties
 #################################################################
 
+###  https://onto.vaimee.com/jsap#dataType
+:dataType rdf:type owl:ObjectProperty ;
+          rdfs:domain :LiteralFB ;
+          rdfs:range :DataType ;
+          rdfs:label "data type"@en .
+
+
 ###  https://onto.vaimee.com/jsap#hasComponent
 :hasComponent rdf:type owl:ObjectProperty ;
               rdfs:domain :JSAP ;
@@ -34,6 +41,18 @@
               rdfs:comment "Inferred link: a JSAP is associated with a PAC component if the component uses an operation defined within the JSAP."@en ;
               rdfs:isDefinedBy <https://onto.vaimee.com/jsap> ;
               rdfs:label "has component"@en .
+
+
+###  https://onto.vaimee.com/jsap#hasFB
+:hasFB rdf:type owl:ObjectProperty ;
+       rdfs:domain :Operation ;
+       rdfs:range [ rdf:type owl:Class ;
+                    owl:unionOf ( :LiteralFB
+                                  :UriFB
+                                )
+                  ] ;
+       rdfs:isDefinedBy <https://onto.vaimee.com/jsap> ;
+       rdfs:label "has FB"@en .
 
 
 ###  https://onto.vaimee.com/jsap#hasNamespace
@@ -93,14 +112,6 @@
                 rdfs:label "performs update"@en .
 
 
-###  https://onto.vaimee.com/jsap#usesLiteralFB
-:usesLiteralFB rdf:type owl:ObjectProperty ;
-               rdfs:domain :Operation ;
-               rdfs:range :LiteralFB ;
-               rdfs:isDefinedBy <https://onto.vaimee.com/jsap> ;
-               rdfs:label "uses literal fb"@en .
-
-
 ###  https://onto.vaimee.com/jsap#usesSnippet
 :usesSnippet rdf:type owl:ObjectProperty ;
              rdfs:domain :Operation ;
@@ -110,25 +121,17 @@
              rdfs:label "uses snippet"@en .
 
 
-###  https://onto.vaimee.com/jsap#usesUriFB
-:usesUriFB rdf:type owl:ObjectProperty ;
-           rdfs:domain :Operation ;
-           rdfs:range :UriFB ;
-           rdfs:comment "Associates the operation with a URI forced binding."@en ;
-           rdfs:isDefinedBy <https://onto.vaimee.com/jsap> ;
-           rdfs:label "uses URI fb"@en .
-
-
 #################################################################
 #    Data properties
 #################################################################
 
-###  https://onto.vaimee.com/jsap#dataValue
-:dataValue rdf:type owl:DatatypeProperty ;
-           rdfs:domain :LiteralFB ;
-           rdfs:comment "The value assigned to the variable in the binding."@en ;
-           rdfs:isDefinedBy <https://onto.vaimee.com/jsap> ;
-           rdfs:label "dataValue"@en .
+###  https://onto.vaimee.com/jsap#defaultValue
+:defaultValue rdf:type owl:DatatypeProperty ;
+              rdfs:domain :LiteralFB ,
+                          :UriFB ;
+              rdfs:comment "The value assigned to the variable in the binding."@en ;
+              rdfs:isDefinedBy <https://onto.vaimee.com/jsap> ;
+              rdfs:label "default value"@en .
 
 
 ###  https://onto.vaimee.com/jsap#name
@@ -201,6 +204,36 @@
           rdfs:label "Consumer"@en .
 
 
+###  https://onto.vaimee.com/jsap#DataType
+:DataType rdf:type owl:Class ;
+          owl:equivalentClass [ rdf:type owl:Class ;
+                                owl:oneOf ( xsd:anyURI
+                                            xsd:boolean
+                                            xsd:byte
+                                            xsd:dateTime
+                                            xsd:decimal
+                                            xsd:double
+                                            xsd:float
+                                            xsd:int
+                                            xsd:integer
+                                            xsd:language
+                                            xsd:long
+                                            xsd:negativeInteger
+                                            xsd:nonNegativeInteger
+                                            xsd:normalizedString
+                                            xsd:positiveInteger
+                                            xsd:short
+                                            xsd:string
+                                            xsd:token
+                                            xsd:unsignedByte
+                                            xsd:unsignedInt
+                                            xsd:unsignedLong
+                                            xsd:unsignedShort
+                                          )
+                              ] ;
+          rdfs:label "Data Type"@en .
+
+
 ###  https://onto.vaimee.com/jsap#ForcedBinding
 :ForcedBinding rdf:type owl:Class ;
                rdfs:subClassOf :SPARQLFragment ;
@@ -218,11 +251,20 @@
 
 ###  https://onto.vaimee.com/jsap#LiteralFB
 :LiteralFB rdf:type owl:Class ;
-           owl:equivalentClass [ rdf:type owl:Restriction ;
-                                 owl:onProperty :dataValue ;
-                                 owl:cardinality "1"^^xsd:nonNegativeInteger
-                               ] ;
-           rdfs:subClassOf :ForcedBinding ;
+           rdfs:subClassOf :ForcedBinding ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty :dataType ;
+                             owl:someValuesFrom :DataType
+                           ] ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty :defaultValue ;
+                             owl:cardinality "1"^^xsd:nonNegativeInteger
+                           ] ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty :name ;
+                             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                             owl:onDataRange xsd:string
+                           ] ;
            owl:disjointWith :UriFB ;
            rdfs:comment "A forced binding whose value is a literal."@en ;
            rdfs:isDefinedBy <https://onto.vaimee.com/jsap> ;
@@ -316,8 +358,18 @@
 
 ###  https://onto.vaimee.com/jsap#UriFB
 :UriFB rdf:type owl:Class ;
-       rdfs:subClassOf :ForcedBinding ;
-       rdfs:comment "A URI forced binding: the identifier (URI) of the individual is the value itself."@en ;
+       rdfs:subClassOf :ForcedBinding ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :defaultValue ;
+                         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                         owl:onDataRange xsd:anyURI
+                       ] ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :name ;
+                         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                         owl:onDataRange xsd:string
+                       ] ;
+       rdfs:comment "A forced binding whose value is a URI."@en ;
        rdfs:isDefinedBy <https://onto.vaimee.com/jsap> ;
        rdfs:label "URI FB"@en .
 
@@ -326,33 +378,96 @@
 #    Individuals
 #################################################################
 
-###  https://onto.vaimee.com/jsap#agg1
-:agg1 rdf:type owl:NamedIndividual ;
-      :performsSubscription :q1 ;
-      :performsUpdate :up1 .
+###  http://www.w3.org/2001/XMLSchema#anyURI
+xsd:anyURI rdf:type owl:NamedIndividual .
 
 
-###  https://onto.vaimee.com/jsap#jsap1
-:jsap1 rdf:type owl:NamedIndividual ;
-       :includesOperation :q1 .
+###  http://www.w3.org/2001/XMLSchema#boolean
+xsd:boolean rdf:type owl:NamedIndividual .
 
 
-###  https://onto.vaimee.com/jsap#literalFB
-:literalFB rdf:type owl:NamedIndividual ;
-           :dataValue 30 .
+###  http://www.w3.org/2001/XMLSchema#byte
+xsd:byte rdf:type owl:NamedIndividual .
 
 
-###  https://onto.vaimee.com/jsap#q1
-:q1 rdf:type owl:NamedIndividual .
+###  http://www.w3.org/2001/XMLSchema#dateTime
+xsd:dateTime rdf:type owl:NamedIndividual .
 
 
-###  https://onto.vaimee.com/jsap#up1
-:up1 rdf:type owl:NamedIndividual .
+###  http://www.w3.org/2001/XMLSchema#dateTimeStamp
+xsd:dateTimeStamp rdf:type owl:NamedIndividual .
 
 
-###  https://onto.vaimee.com/jsap#urifb
-:urifb rdf:type owl:NamedIndividual ;
-       :name "carlo" .
+###  http://www.w3.org/2001/XMLSchema#decimal
+xsd:decimal rdf:type owl:NamedIndividual .
+
+
+###  http://www.w3.org/2001/XMLSchema#double
+xsd:double rdf:type owl:NamedIndividual .
+
+
+###  http://www.w3.org/2001/XMLSchema#float
+xsd:float rdf:type owl:NamedIndividual .
+
+
+###  http://www.w3.org/2001/XMLSchema#int
+xsd:int rdf:type owl:NamedIndividual .
+
+
+###  http://www.w3.org/2001/XMLSchema#integer
+xsd:integer rdf:type owl:NamedIndividual .
+
+
+###  http://www.w3.org/2001/XMLSchema#language
+xsd:language rdf:type owl:NamedIndividual .
+
+
+###  http://www.w3.org/2001/XMLSchema#long
+xsd:long rdf:type owl:NamedIndividual .
+
+
+###  http://www.w3.org/2001/XMLSchema#negativeInteger
+xsd:negativeInteger rdf:type owl:NamedIndividual .
+
+
+###  http://www.w3.org/2001/XMLSchema#nonNegativeInteger
+xsd:nonNegativeInteger rdf:type owl:NamedIndividual .
+
+
+###  http://www.w3.org/2001/XMLSchema#normalizedString
+xsd:normalizedString rdf:type owl:NamedIndividual .
+
+
+###  http://www.w3.org/2001/XMLSchema#positiveInteger
+xsd:positiveInteger rdf:type owl:NamedIndividual .
+
+
+###  http://www.w3.org/2001/XMLSchema#short
+xsd:short rdf:type owl:NamedIndividual .
+
+
+###  http://www.w3.org/2001/XMLSchema#string
+xsd:string rdf:type owl:NamedIndividual .
+
+
+###  http://www.w3.org/2001/XMLSchema#token
+xsd:token rdf:type owl:NamedIndividual .
+
+
+###  http://www.w3.org/2001/XMLSchema#unsignedByte
+xsd:unsignedByte rdf:type owl:NamedIndividual .
+
+
+###  http://www.w3.org/2001/XMLSchema#unsignedInt
+xsd:unsignedInt rdf:type owl:NamedIndividual .
+
+
+###  http://www.w3.org/2001/XMLSchema#unsignedLong
+xsd:unsignedLong rdf:type owl:NamedIndividual .
+
+
+###  http://www.w3.org/2001/XMLSchema#unsignedShort
+xsd:unsignedShort rdf:type owl:NamedIndividual .
 
 
 ###  Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi
