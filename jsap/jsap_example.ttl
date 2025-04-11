@@ -21,11 +21,11 @@
 :op1 a jsap:Query ;
     jsap:sparql "SELECT ?s WHERE { ?s a <http://example.org/Class> }" ;
     jsap:usesSnippet :snippet1 ;
-    jsap:usesLiteralFB :fb1 .
+    jsap:hasFB :fb1 .
 
 :op2 a jsap:Update ;
     jsap:sparql "INSERT DATA { <http://example.org/inst1> a <http://example.org/Class> }" ;
-    jsap:usesUriFB :fb2 .
+    jsap:hasFB :fb2 .
 
 :op3 a jsap:Rule ;
     jsap:text "jsap:performsSubscription(?comp, ?query) ^ jsap:includesOperation(?jsap, ?query) → jsap:hasComponent(?jsap, ?comp)" .
@@ -42,11 +42,13 @@
 #################################################################
 
 :fb1 a jsap:LiteralFB ;
-    jsap:name "value" ;
-    jsap:dataValue "42"^^xsd:integer .
+    jsap:name "età" ;
+    jsap:defaultValue "42"^^xsd:integer ;
+    jsap:dataType xsd:integer . 
 
 :fb2 a jsap:UriFB ;
-    jsap:name "resource" .
+    jsap:name "resource" ;
+    jsap:defaultValue  "http://onto.vaimee.com/unit"^^xsd:anyURI .
 
 #################################################################
 #    PAC Components
