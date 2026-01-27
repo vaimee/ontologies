@@ -4,12 +4,20 @@
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dct: <http://purl.org/dc/terms/> .
 @base <https://onto.vaimee.com/jsap#> .
 
 <https://onto.vaimee.com/jsap#> rdf:type owl:Ontology ;
                                  owl:imports <http://xmlns.com/foaf/0.1/> ;
                                  rdfs:comment "This is an ontology for JSAPs developed by VAIMEE. It integrates some classes and properties from FOAF."@en ;
-                                 owl:versionInfo 1.0 .
+                                 owl:versionInfo 1.0 ;
+                                 owl:title "JSAP Ontology"@en ;
+                                 dct:abstract "Ontology to describe JSAP files and related concepts."@en ;
+                                 dct:description "Longer intro text shown in the Introduction section."@en ;
+                                 dct:creator <http://creator>;
+                                 <http://creator> schema:name "Adelina Vivaldo" ; schema:affiliation <http://vaimee.com> ;
+                                 <http://vaimee.com> schema:name "VAIMEE" ; schema:url "https://vaimee.com" .
+
 
 #################################################################
 #    Object Properties
@@ -79,8 +87,7 @@
                rdfs:domain :Operation ;
                rdfs:range :JSAP ;
                rdfs:comment "Indicates that a given operation is used from a JSAP."@en ;
-               rdfs:label <https://onto.vaimee.com/jsap> ,
-                          "is operation of"@en .
+               rdfs:label "is operation of"@en .
 
 
 ###  https://onto.vaimee.com/jsap#performsQuery
