@@ -16,7 +16,7 @@
                                  dct:abstract "Ontology to describe JSAP files and related concepts."@en ;
                                  dct:description "Longer intro text shown in the Introduction section."@en ;
                                  dct:creator <http://adelinavivaldo> .
-                                 <<http://adelinavivaldo> foaf:name "Adelina Vivaldo" ; foaf:member <http://vaimee.com> .
+                                 <http://adelinavivaldo> foaf:name "Adelina Vivaldo" ; foaf:member <http://vaimee.com> .
                                  <http://vaimee.com> foaf:name "VAIMEE" ; foaf:homepage "https://vaimee.com" .
 
 
