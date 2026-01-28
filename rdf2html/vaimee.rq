@@ -5,6 +5,7 @@ prefix st: <http://ns.inria.fr/sparql-template/>
 prefix xsd: <http://www.w3.org/2001/XMLSchema#>
 prefix dct: <http://purl.org/dc/terms/>
 prefix : <http://vaimee.com/template#>
+prefix foaf: <http://xmlns.com/foaf/0.1/>
 
 template :jsap {
 	st:call-template(:main, "http://ontologies.vaimee.com/jsap#")
@@ -78,14 +79,15 @@ template :editor(?o) {
     "companyURL:" ?url
     "}" ; separator = ","
 } where {
-	VALUES (?name ?company ?url)
-    {("Chiara Del Vecchio" "VAIMEE" "https://vaimee.com")
-    ("Luca Roffia" "VAIMEE" "https://vaimee.com")}
+{ ?o dct:creator ?ed } union { ?o dct:contributor ?ed }
+    ?ed foaf:name ?name ; foaf:member ?org .
+    ?org foaf:name ?company ; foaf:homepage ?url .
 }
 
-#{ ?o dct:creator ?ed } union { ?o dct:contributor ?ed }
-#    ?ed schema:name ?name ; schema:affiliation ?org .
-#    ?org schema:name ?company ; schema:url ?url .
+#	VALUES (?name ?company ?url)
+#    {("Chiara Del Vecchio" "VAIMEE" "https://vaimee.com")
+#    ("Luca Roffia" "VAIMEE" "https://vaimee.com")}
+
 
 ### Basic structure
 template :axioms(?ns ?prefix) {
