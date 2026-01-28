@@ -1,5 +1,5 @@
 const ontologies = [
-    {'../jsap/jsap_ontology.ttl':"http://vaimee.com/template#jsap"}];
+    {'../agora/agora_ontology.ttl':"http://vaimee.com/template#jsap"}];
     
 let fs = require('fs');
 let sttl = require('sttl');

@@ -1,4 +1,4 @@
-@prefix : <http://www.semanticweb.org/bitoo/ontologies/2026/0/untitled-ontology-28/> .
+@prefix : <https://ontologies.vaimee.com/agora#> .
 @prefix acl: <http://www.w3.org/ns/auth/acl#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -10,12 +10,12 @@
 @prefix sosa: <http://www.w3.org/ns/sosa/> .
 @prefix schema: <http://schema.org/> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
-@prefix weather: <https://vaimee.com/weather/> .
-@prefix criteria: <https://vaimee.com/criteria/> .
+@prefix weather: <https://ontologies.vaimee.com/agora/weather#> .
+@prefix criteria: <https://ontologies.vaimee.com/agora/criteria#> .
 @prefix criteriaProperty: <https://vaimee.com/criteria/property#> .
-@base <http://www.semanticweb.org/bitoo/ontologies/2026/0/untitled-ontology-28/> .
+@base <https://ontologies.vaimee.com/agora#> .
 
-<http://www.semanticweb.org/bitoo/ontologies/2026/0/untitled-ontology-28> rdf:type owl:Ontology ;
+<https://ontologies.vaimee.com/agora#> rdf:type owl:Ontology ;
                                                                            dcterms:abstract "This ontology designed for farmers to monitor and optimize irrigation procedures and, in the future, other activities related to precision agriculture." ;
                                                                            dcterms:description "This ontology manages the relationship between weather observations, crop growth parameters, and soil horizons for precision irrigation." ;
                                                                            dcterms:title "Agorà Ontology" ;
@@ -176,7 +176,7 @@ schema:startTime rdf:type owl:DatatypeProperty ;
 
 
 ###  http://www.semanticweb.org/bitoo/ontologies/2026/0/untitled-ontology-28#criteria:hasIdCrop
-:criteria:hasIdCrop rdf:type owl:DatatypeProperty ;
+criteria:hasIdCrop rdf:type owl:DatatypeProperty ;
                     rdfs:subPropertyOf owl:topDataProperty ;
                     rdfs:domain criteria:Unit ;
                     rdfs:comment "Links a crop to a specific plant type." ;
@@ -184,20 +184,21 @@ schema:startTime rdf:type owl:DatatypeProperty ;
 
 
 ###  http://www.semanticweb.org/bitoo/ontologies/2026/0/untitled-ontology-28#criteria:hasIdSoil
-:criteria:hasIdSoil rdf:type owl:DatatypeProperty ;
+criteria:hasIdSoil rdf:type owl:DatatypeProperty ;
                     rdfs:subPropertyOf owl:topDataProperty ;
                     rdfs:domain criteria:Unit ;
                     rdfs:range xsd:integer ;
-                    rdfs:label "hasIdSoil" .
+                    rdfs:label "hasIdSoil" ;
+                    rdfs:comment "Links a soil to a specific unit" .
 
 
 ###  http://www.semanticweb.org/bitoo/ontologies/2026/0/untitled-ontology-28#qudt:numericValue
-:qudt:numericValue rdf:type owl:DatatypeProperty ;
+qudt:numericValue rdf:type owl:DatatypeProperty ;
                    rdfs:subPropertyOf owl:topDataProperty .
 
 
 ###  http://www.semanticweb.org/bitoo/ontologies/2026/0/untitled-ontology-28#rdfs:label
-:rdfs:label rdf:type owl:DatatypeProperty ;
+rdfs:label rdf:type owl:DatatypeProperty ;
             rdfs:subPropertyOf owl:topDataProperty .
 
 
