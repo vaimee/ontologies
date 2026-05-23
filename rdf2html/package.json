@@ -3,6 +3,9 @@
     "description": "Renders vocabulary pages",
     "version": "1.0.0",
     "main": "render.js",
+    "scripts": {
+        "build": "node render.js"
+    },
     "dependencies": {
         "sttl": "github:vcharpenay/STTL.js",
         "urdf": "github:vcharpenay/uRDF.js"

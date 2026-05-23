@@ -1,0 +1,8 @@
+.git
+.github
+.idea
+!public/
+public/*
+!public/ICON_VAIMEE.svg
+rdf2html/node_modules
+rdf2html/package-lock.json

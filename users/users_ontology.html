@@ -1,0 +1,81 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset='utf-8'>
+    <script src="https://www.w3.org/Tools/respec/respec-w3c" class="remove" defer></script>
+    <script class='remove'>
+        var respecConfig = {
+            specStatus: "ED",
+            editors: [],
+            edDraftURI: "https://onto.vaimee.com/users#",
+            shortName: "opo"
+        };
+    </script>
+    <title>Users Ontology</title>
+    </head>
+    <body>
+        <section id='abstract'>
+            <p>This is an ontology for users developed by VAIMEE. It integrates classes and properties from Schema.org.</p>
+        </section>
+        <section id='sotd'>
+            <p>
+                <em>This document is a work in progress</em>
+            </p>
+        </section>
+        <section>
+            <h2>Introduction</h2>
+
+<p>
+</p>
+<p>"This is an ontology for users developed by VAIMEE. It integrates classes and properties from Schema.org."</p>
+</section>
+<section><h2>Axiomatization</h2><section><h3>Classes</h3><section><h4>Channel</h4><p>IRI: <code>https://onto.vaimee.com/users#Channel</code></p><span>A digital contact point through which a user can receive notifications or communicate.</span><table class="def"><tbody><tr><td>Sub-class of</td><td><code><a href="https://schema.org/ContactPoint">https://schema.org/ContactPoint</a></code></td></tr><tr><td>Super-class of</td><td><code><a href="#discord">Discord</a></code><br><code><a href="#email">Email</a></code><br><code><a href="#telegram">Telegram</a></code><br><code><a href="#whatsapp">WhatsApp</a></code></td></tr></tbody></table></section>
+<section><h4>Discord</h4><p>IRI: <code>https://onto.vaimee.com/users#Discord</code></p><span>A communication channel for voice, text, and video chat within Discord servers.</span><table class="def"><tbody><tr><td>Sub-class of</td><td><code><a href="#channel">Channel</a></code></td></tr></tbody></table></section>
+<section><h4>Email</h4><p>IRI: <code>https://onto.vaimee.com/users#Email</code></p><span>A communication channel based on sending and receiving emails.</span><table class="def"><tbody><tr><td>Sub-class of</td><td><code><a href="#channel">Channel</a></code></td></tr></tbody></table></section>
+<section><h4>Notification Group</h4><p>IRI: <code>https://onto.vaimee.com/users#NotificationGroup</code></p><span>A collection of recipients grouped together for notification purposes, which may represent a broadcast list, a mailing list, or a messaging group.</span><table class="def"><tbody><tr><td>Sub-class of</td><td><code><a href="https://schema.org/Audience">https://schema.org/Audience</a></code></td></tr><tr><td>In the range of</td><td><code><a href="#member of group">member of group</a></code></td></tr></tbody></table></section>
+<section><h4>Notification Preference</h4><p>IRI: <code>https://onto.vaimee.com/users#NotificationPreference</code></p><span>Represents a user's or organization's notification preferences. This class defines a topic of interest, the preferred communication channels through which the user wants to receive notifications about that topic and the notification source.</span><table class="def"><tbody><tr><td>Sub-class of</td><td><code><a href="https://schema.org/StructuredValue">https://schema.org/StructuredValue</a></code></td></tr><tr><td>In the domain of</td><td><code><a href="#notification channel">notification channel</a></code><br><code><a href="#notification source">notification source</a></code><br><code><a href="#notification topic">notification topic</a></code></td></tr><tr><td>In the range of</td><td><code><a href="#notification preference">notification preference</a></code></td></tr></tbody></table></section>
+<section><h4>Telegram</h4><p>IRI: <code>https://onto.vaimee.com/users#Telegram</code></p><span>A communication channel that uses Telegram for messages, calls, and notifications.</span><table class="def"><tbody><tr><td>Sub-class of</td><td><code><a href="#channel">Channel</a></code></td></tr></tbody></table></section>
+<section><h4>WhatsApp</h4><p>IRI: <code>https://onto.vaimee.com/users#WhatsApp</code></p><span>A communication channel based on instant messaging via the WhatsApp application.</span><table class="def"><tbody><tr><td>Sub-class of</td><td><code><a href="#channel">Channel</a></code></td></tr></tbody></table></section></section><section><h3>Object Properties</h3><section><h4>member of group</h4><p>IRI: <code>https://onto.vaimee.com/users#memberOfGroup</code></p><span>Indicates the association between a contact point and a notification group to which it belongs.</span><table class="def"><tbody><tr><td>Domain includes</td><td><code><a href="https://schema.org/ContactPoint">https://schema.org/ContactPoint</a></code></td></tr><tr><td>Range includes</td><td><code><a href="#notification group">Notification Group</a></code></td></tr></tbody></table></section>
+<section><h4>notification channel</h4><p>IRI: <code>https://onto.vaimee.com/users#notificationChannel</code></p><span>Indicates the preferred communication channel through which the user wants to receive notifications about a topic. This can be a ContactPoint such as WhatsApp, Email, or Telegram.</span><table class="def"><tbody><tr><td>Domain includes</td><td><code><a href="#notification preference">Notification Preference</a></code></td></tr><tr><td>Range includes</td><td><code><a href="https://schema.org/ContactPoint">https://schema.org/ContactPoint</a></code></td></tr></tbody></table></section>
+<section><h4>notification preference</h4><p>IRI: <code>https://onto.vaimee.com/users#notificationPreference</code></p><span>Indicates the notification preferences set by a user or organization. This property links a Person or Organization to their NotificationPreference, which specifies some aspects of the notification, for example: the topic of interest, the preferred communication channels for receiving notifications about this topic and the notification source.</span><table class="def"><tbody><tr><td>Domain includes</td><td><code><a href="#channel">Channel</a></code>
+<code><a href="#discord">Discord</a></code>
+<code><a href="#email">Email</a></code>
+<code><a href="#notification group">Notification Group</a></code>
+<code><a href="#notification preference">Notification Preference</a></code>
+<code><a href="#telegram">Telegram</a></code>
+<code><a href="#whatsapp">WhatsApp</a></code>
+<code><a href="#identifier">identifier</a></code>
+<code><a href="#member of group">member of group</a></code>
+<code><a href="#notification channel">notification channel</a></code>
+<code><a href="#notification preference">notification preference</a></code>
+<code><a href="#notification source">notification source</a></code>
+<code><a href="#notification topic">notification topic</a></code></td></tr><tr><td>Range includes</td><td><code><a href="#notification preference">Notification Preference</a></code></td></tr></tbody></table></section>
+<section><h4>notification source</h4><p>IRI: <code>https://onto.vaimee.com/users#notificationSource</code></p><span>Links a NotificationPreference with the desired source of the notifications.</span><table class="def"><tbody><tr><td>Domain includes</td><td><code><a href="#notification preference">Notification Preference</a></code></td></tr><tr><td>Range includes</td><td><code><a href="https://onto.vaimee.com/users#Aggregator">https://onto.vaimee.com/users#Aggregator</a></code></td></tr></tbody></table></section>
+<section><h4>notification topic</h4><p>IRI: <code>https://onto.vaimee.com/users#notificationTopic</code></p><span>Defines the topic of interest for which the user wants to receive notifications. This could be the URI of a specific event, category, or query whose result the user wants to receive.</span><table class="def"><tbody><tr><td>Domain includes</td><td><code><a href="#notification preference">Notification Preference</a></code></td></tr><tr><td>Range includes</td><td><code><a href="https://onto.vaimee.com/users#DACAMBIARE/QUERY">https://onto.vaimee.com/users#DACAMBIARE/QUERY</a></code></td></tr></tbody></table></section></section><section><h3>Datatype Properties</h3><section><h4>identifier</h4><p>IRI: <code>https://onto.vaimee.com/users#identifier</code></p><span>This property is used to store the specific identifier of a resource.</span><table class="def"><tbody><tr><td>Domain includes</td><td><code><a href="#channel">Channel</a></code>
+<code><a href="#discord">Discord</a></code>
+<code><a href="#email">Email</a></code>
+<code><a href="#notification group">Notification Group</a></code>
+<code><a href="#notification preference">Notification Preference</a></code>
+<code><a href="#telegram">Telegram</a></code>
+<code><a href="#whatsapp">WhatsApp</a></code>
+<code><a href="#identifier">identifier</a></code>
+<code><a href="#member of group">member of group</a></code>
+<code><a href="#notification channel">notification channel</a></code>
+<code><a href="#notification preference">notification preference</a></code>
+<code><a href="#notification source">notification source</a></code>
+<code><a href="#notification topic">notification topic</a></code></td></tr><tr><td>Range includes</td><td><code><a href="#channel">Channel</a></code>
+<code><a href="#discord">Discord</a></code>
+<code><a href="#email">Email</a></code>
+<code><a href="#notification group">Notification Group</a></code>
+<code><a href="#notification preference">Notification Preference</a></code>
+<code><a href="#telegram">Telegram</a></code>
+<code><a href="#whatsapp">WhatsApp</a></code>
+<code><a href="#identifier">identifier</a></code>
+<code><a href="#member of group">member of group</a></code>
+<code><a href="#notification channel">notification channel</a></code>
+<code><a href="#notification preference">notification preference</a></code>
+<code><a href="#notification source">notification source</a></code>
+<code><a href="#notification topic">notification topic</a></code></td></tr></tbody></table></section></section></section>
+</body>
+</html>
