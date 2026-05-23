@@ -63,7 +63,7 @@ It runs automatically on pushes to `main` or `master`, and can also be started m
 
 ### Configure Docker Hub
 
-Create a Docker Hub repository before publishing the image. For example, create `lroffia/ontologies` from the Docker Hub web interface.
+Create a Docker Hub repository before publishing the image. For example, create `vaimee/ontologies` from the Docker Hub web interface.
 
 Create a Docker Hub access token from Docker Hub account settings. Use this token for automation instead of your account password.
 
@@ -71,7 +71,7 @@ Configure these GitHub repository settings before running the workflow:
 
 - Secret `DOCKERHUB_USERNAME`: your Docker Hub username.
 - Secret `DOCKERHUB_TOKEN`: a Docker Hub access token. Use an access token instead of your account password.
-- Variable `DOCKERHUB_REPOSITORY`: the Docker Hub image name, for example `lroffia/ontologies`.
+- Variable `DOCKERHUB_REPOSITORY`: the Docker Hub image name, for example `vaimee/ontologies`.
 
 ### Publish From GitHub Actions
 
@@ -104,9 +104,9 @@ docker push <dockerhub-repository>:latest
 For example:
 
 ```sh
-docker login -u lroffia
-docker build -t lroffia/ontologies:latest .
-docker push lroffia/ontologies:latest
+docker login -u vaimee
+docker build -t vaimee/ontologies:latest .
+docker push vaimee/ontologies:latest
 ```
 
 Use a Docker Hub access token when Docker asks for the password.
@@ -136,10 +136,10 @@ docker buildx build \
 For example:
 
 ```sh
-docker login -u lroffia
+docker login -u vaimee
 docker buildx build \
   --platform linux/amd64,linux/arm64 \
-  -t lroffia/ontologies:latest \
+  -t vaimee/ontologies:latest \
   --push \
   .
 ```

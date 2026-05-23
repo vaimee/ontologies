@@ -69,11 +69,24 @@ function findOntologies(root) {
                         source,
                         html,
                         namespace: getOntologyNamespace(source),
-                        title: getOntologyTitle(source, entry.name)
+                        title: getOntologyTitle(source, entry.name),
+                        abstract: getOntologyAbstract(source)
                     };
                 });
         })
         .sort((a, b) => a.name.localeCompare(b.name));
+}
+
+function getOntologyAbstract(source) {
+    const rdf = fs.readFileSync(source, 'UTF-8');
+    const namespace = getOntologyNamespace(source);
+    const ontologyBlock = getOntologyBlock(rdf, namespace);
+
+    return firstMatch(ontologyBlock, [
+        /dct(?:erms?)?:abstract\s+"([^"]+)"/,
+        /dct(?:erms?)?:description\s+"([^"]+)"/,
+        /rdfs:comment\s+"([^"]+)"/,
+    ]) || '';
 }
 
 function getOntologyTitle(source, name) {
@@ -179,6 +192,15 @@ function literal(value) {
     return `"${value.replace(/\\/g, '\\\\').replace(/"/g, '\\"')}"`;
 }
 
+function escapeHtml(value) {
+    return value
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
+
 function buildSite(ontologies) {
     const preservedAssets = preserveAssets(['ICON_VAIMEE.svg']);
 
@@ -227,7 +249,13 @@ function renderIndex(ontologies) {
     const links = ontologies
         .map(ontology => {
             const href = `${ontology.name}/${path.basename(ontology.html)}`;
-            return `                    <li><a href="${href}">${ontology.title}</a></li>`;
+            return `                    <li>
+                        <a href="${href}">
+                            <span class="card-title">${escapeHtml(ontology.title)}</span>
+                            <span class="card-abstract">${escapeHtml(ontology.abstract)}</span>
+                            <span class="card-action">Open documentation</span>
+                        </a>
+                    </li>`;
         })
         .join('\n');
 
@@ -319,7 +347,7 @@ function renderIndex(ontologies) {
 
             .catalog a {
                 display: block;
-                min-height: 8rem;
+                min-height: 12rem;
                 padding: 1.35rem;
                 border: 1px solid rgba(15, 62, 101, 0.12);
                 border-radius: 1.25rem;
@@ -332,10 +360,27 @@ function renderIndex(ontologies) {
                 transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
             }
 
-            .catalog a::after {
-                content: "Open documentation";
+            .card-title,
+            .card-abstract,
+            .card-action {
                 display: block;
-                margin-top: 2rem;
+            }
+
+            .card-title {
+                font-size: 1.15rem;
+                font-weight: 800;
+            }
+
+            .card-abstract {
+                margin-top: 0.85rem;
+                color: var(--muted);
+                font-size: 0.95rem;
+                font-weight: 500;
+                line-height: 1.55;
+            }
+
+            .card-action {
+                margin-top: 1.5rem;
                 color: var(--vaimee-cyan);
                 font-size: 0.82rem;
                 font-weight: 800;
