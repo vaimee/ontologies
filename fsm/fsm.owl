@@ -1,0 +1,270 @@
+@prefix fsm: <https://onto.vaimee.com/fsm#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://onto.vaimee.com/fsm>
+  a owl:Ontology ;
+  rdfs:label "Finite State Machine ontology"@en ;
+  rdfs:comment "Ontology for representing finite-state machines using the standard mathematical model M = (Sigma, S, s0, delta, F), where Sigma is the input alphabet, S is the finite set of states, s0 is the initial state, delta is the transition function, and F is the set of final/accepting states."@en ;
+  owl:versionInfo "0.1.0" .
+
+fsm:FiniteStateMachine
+  a owl:Class ;
+  rdfs:label "Finite state machine"@en ;
+  rdfs:comment "A mathematical model of computation that can be in exactly one state at a time and changes state through transitions triggered by input symbols."@en ;
+  rdfs:subClassOf
+    [ a owl:Restriction ; owl:onProperty fsm:hasAlphabet ; owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ; owl:onClass fsm:Alphabet ] ,
+    [ a owl:Restriction ; owl:onProperty fsm:hasInitialState ; owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ; owl:onClass fsm:State ] ,
+    [ a owl:Restriction ; owl:onProperty fsm:hasState ; owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ; owl:onClass fsm:State ] .
+
+fsm:DeterministicFiniteStateMachine
+  a owl:Class ;
+  rdfs:subClassOf fsm:FiniteStateMachine ;
+  rdfs:label "Deterministic finite state machine"@en ;
+  rdfs:comment "An FSM where each state and input symbol pair has at most one next state. This ontology records that intention, but full per-machine transition uniqueness is usually enforced with SHACL or application logic."@en .
+
+fsm:NonDeterministicFiniteStateMachine
+  a owl:Class ;
+  rdfs:subClassOf fsm:FiniteStateMachine ;
+  rdfs:label "Nondeterministic finite state machine"@en ;
+  rdfs:comment "An FSM where a state and input symbol pair may lead to zero, one, or multiple next states."@en .
+
+fsm:Acceptor
+  a owl:Class ;
+  rdfs:subClassOf fsm:FiniteStateMachine ;
+  rdfs:label "Acceptor"@en ;
+  rdfs:comment "An FSM that accepts or rejects an input sequence depending on whether computation ends in an accepting state."@en .
+
+fsm:Transducer
+  a owl:Class ;
+  rdfs:subClassOf fsm:FiniteStateMachine ;
+  rdfs:label "Transducer"@en ;
+  rdfs:comment "An FSM that produces output symbols while processing input symbols."@en .
+
+fsm:MealyMachine
+  a owl:Class ;
+  rdfs:subClassOf fsm:Transducer ;
+  rdfs:label "Mealy machine"@en ;
+  rdfs:comment "A transducer whose output depends on the current state and input symbol."@en .
+
+fsm:MooreMachine
+  a owl:Class ;
+  rdfs:subClassOf fsm:Transducer ;
+  rdfs:label "Moore machine"@en ;
+  rdfs:comment "A transducer whose output depends only on the current state."@en .
+
+fsm:Alphabet
+  a owl:Class ;
+  rdfs:label "Alphabet"@en ;
+  rdfs:comment "The finite non-empty set Sigma of input symbols for an FSM."@en .
+
+fsm:OutputAlphabet
+  a owl:Class ;
+  rdfs:subClassOf fsm:Alphabet ;
+  rdfs:label "Output alphabet"@en ;
+  rdfs:comment "The finite non-empty set Gamma of output symbols for a finite-state transducer."@en .
+
+fsm:Symbol
+  a owl:Class ;
+  rdfs:label "Symbol"@en ;
+  rdfs:comment "An element of an input or output alphabet."@en .
+
+fsm:State
+  a owl:Class ;
+  rdfs:label "State"@en ;
+  rdfs:comment "An element of the finite non-empty state set S of an FSM."@en .
+
+fsm:InitialState
+  a owl:Class ;
+  rdfs:subClassOf fsm:State ;
+  rdfs:label "Initial state"@en ;
+  rdfs:comment "The distinguished initial state s0 of an FSM."@en .
+
+fsm:AcceptingState
+  a owl:Class ;
+  rdfs:subClassOf fsm:State ;
+  rdfs:label "Accepting state"@en ;
+  rdfs:comment "A member of the set F of final or accepting states."@en .
+
+fsm:TransitionFunction
+  a owl:Class ;
+  rdfs:label "Transition function"@en ;
+  rdfs:comment "The function delta that maps a state and input symbol pair to a next state, or to a set of next states for nondeterministic FSMs."@en .
+
+fsm:Transition
+  a owl:Class ;
+  rdfs:label "Transition"@en ;
+  rdfs:comment "A concrete transition relation entry representing delta(source state, input symbol) = target state."@en ;
+  rdfs:subClassOf
+    [ a owl:Restriction ; owl:onProperty fsm:fromState ; owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ; owl:onClass fsm:State ] ,
+    [ a owl:Restriction ; owl:onProperty fsm:toState ; owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ; owl:onClass fsm:State ] ,
+    [ a owl:Restriction ; owl:onProperty fsm:onSymbol ; owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ; owl:onClass fsm:Symbol ] .
+
+fsm:InputString
+  a owl:Class ;
+  rdfs:label "Input string"@en ;
+  rdfs:comment "A finite sequence of input symbols consumed by an FSM."@en .
+
+fsm:Configuration
+  a owl:Class ;
+  rdfs:label "Configuration"@en ;
+  rdfs:comment "A runtime configuration of an FSM, commonly including the current state and unread input."@en .
+
+fsm:State owl:disjointWith fsm:TransitionFunction .
+fsm:Symbol owl:disjointWith fsm:TransitionFunction .
+fsm:Alphabet owl:disjointWith fsm:TransitionFunction .
+fsm:Transition owl:disjointWith fsm:TransitionFunction .
+fsm:InputString owl:disjointWith fsm:TransitionFunction .
+
+fsm:hasAlphabet
+  a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:domain fsm:FiniteStateMachine ;
+  rdfs:range fsm:Alphabet ;
+  rdfs:label "has alphabet"@en ;
+  rdfs:comment "Relates an FSM to its input alphabet Sigma."@en .
+
+fsm:hasOutputAlphabet
+  a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:domain fsm:Transducer ;
+  rdfs:range fsm:OutputAlphabet ;
+  rdfs:label "has output alphabet"@en ;
+  rdfs:comment "Relates a transducer to its output alphabet Gamma."@en .
+
+fsm:hasSymbol
+  a owl:ObjectProperty ;
+  rdfs:domain fsm:Alphabet ;
+  rdfs:range fsm:Symbol ;
+  rdfs:label "has symbol"@en ;
+  rdfs:comment "Relates an alphabet to one of its symbols."@en .
+
+fsm:hasState
+  a owl:ObjectProperty ;
+  rdfs:domain fsm:FiniteStateMachine ;
+  rdfs:range fsm:State ;
+  rdfs:label "has state"@en ;
+  rdfs:comment "Relates an FSM to a member of its state set S."@en .
+
+fsm:hasInitialState
+  a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:subPropertyOf fsm:hasState ;
+  rdfs:domain fsm:FiniteStateMachine ;
+  rdfs:range fsm:InitialState ;
+  rdfs:label "has initial state"@en ;
+  rdfs:comment "Relates an FSM to its unique initial state s0."@en .
+
+fsm:hasAcceptingState
+  a owl:ObjectProperty ;
+  rdfs:subPropertyOf fsm:hasState ;
+  rdfs:domain fsm:FiniteStateMachine ;
+  rdfs:range fsm:AcceptingState ;
+  rdfs:label "has accepting state"@en ;
+  rdfs:comment "Relates an FSM to a member of its final/accepting state set F."@en .
+
+fsm:hasTransitionFunction
+  a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:domain fsm:FiniteStateMachine ;
+  rdfs:range fsm:TransitionFunction ;
+  rdfs:label "has transition function"@en ;
+  rdfs:comment "Relates an FSM to its transition function delta."@en .
+
+fsm:hasTransition
+  a owl:ObjectProperty ;
+  rdfs:domain fsm:FiniteStateMachine ;
+  rdfs:range fsm:Transition ;
+  rdfs:label "has transition"@en ;
+  rdfs:comment "Relates an FSM to a concrete transition in its transition relation/function."@en .
+
+fsm:fromState
+  a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:domain fsm:Transition ;
+  rdfs:range fsm:State ;
+  rdfs:label "from state"@en ;
+  rdfs:comment "The source state of a transition."@en .
+
+fsm:toState
+  a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:domain fsm:Transition ;
+  rdfs:range fsm:State ;
+  rdfs:label "to state"@en ;
+  rdfs:comment "The target state reached by a transition."@en .
+
+fsm:onSymbol
+  a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:domain fsm:Transition ;
+  rdfs:range fsm:Symbol ;
+  rdfs:label "on symbol"@en ;
+  rdfs:comment "The input symbol that triggers a transition."@en .
+
+fsm:emitsSymbol
+  a owl:ObjectProperty ;
+  rdfs:domain fsm:Transition ;
+  rdfs:range fsm:Symbol ;
+  rdfs:label "emits symbol"@en ;
+  rdfs:comment "The output symbol emitted by a transition, typically for Mealy machines."@en .
+
+fsm:stateOutputSymbol
+  a owl:ObjectProperty ;
+  rdfs:domain fsm:State ;
+  rdfs:range fsm:Symbol ;
+  rdfs:label "state output symbol"@en ;
+  rdfs:comment "The output symbol associated with a state, typically for Moore machines."@en .
+
+fsm:hasCurrentState
+  a owl:ObjectProperty , owl:FunctionalProperty ;
+  rdfs:domain fsm:Configuration ;
+  rdfs:range fsm:State ;
+  rdfs:label "has current state"@en ;
+  rdfs:comment "Relates a runtime configuration to the current state of the FSM."@en .
+
+fsm:hasInputString
+  a owl:ObjectProperty ;
+  rdfs:domain fsm:Configuration ;
+  rdfs:range fsm:InputString ;
+  rdfs:label "has input string"@en ;
+  rdfs:comment "Relates a runtime configuration to an input string."@en .
+
+fsm:symbolValue
+  a owl:DatatypeProperty , owl:FunctionalProperty ;
+  rdfs:domain fsm:Symbol ;
+  rdfs:range xsd:string ;
+  rdfs:label "symbol value"@en ;
+  rdfs:comment "Lexical value used to identify a symbol."@en .
+
+fsm:stateName
+  a owl:DatatypeProperty , owl:FunctionalProperty ;
+  rdfs:domain fsm:State ;
+  rdfs:range xsd:string ;
+  rdfs:label "state name"@en ;
+  rdfs:comment "Human-readable state name."@en .
+
+fsm:stringValue
+  a owl:DatatypeProperty , owl:FunctionalProperty ;
+  rdfs:domain fsm:InputString ;
+  rdfs:range xsd:string ;
+  rdfs:label "string value"@en ;
+  rdfs:comment "A compact lexical representation of an input string."@en .
+
+fsm:acceptsInput
+  a owl:ObjectProperty ;
+  rdfs:domain fsm:Acceptor ;
+  rdfs:range fsm:InputString ;
+  rdfs:label "accepts input"@en ;
+  rdfs:comment "Relates an acceptor to an input string that it accepts."@en .
+
+fsm:rejectsInput
+  a owl:ObjectProperty ;
+  rdfs:domain fsm:Acceptor ;
+  rdfs:range fsm:InputString ;
+  rdfs:label "rejects input"@en ;
+  rdfs:comment "Relates an acceptor to an input string that it rejects."@en .
+
+fsm:Transition
+  owl:hasKey ( fsm:fromState fsm:onSymbol fsm:toState ) .
+
+fsm:DeterministicTransition
+  a owl:Class ;
+  rdfs:subClassOf fsm:Transition ;
+  rdfs:label "Deterministic transition"@en ;
+  rdfs:comment "A transition entry intended for deterministic automata. For strict DFA validation, use SHACL to enforce at most one target state for each machine, source state, and input symbol."@en .
