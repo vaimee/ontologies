@@ -39,6 +39,27 @@ npm run --prefix rdf2html build
 
 The build writes generated HTML beside each ontology source and creates a `public/` directory ready to be served by nginx. The landing page uses `public/ICON_VAIMEE.svg`, `#10B1D8`, and `#0F3E65`.
 
+## Ontology Graph Visualization
+
+The landing page embeds a WebVOWL visualization for every ontology card.
+
+By default the generated page uses the hosted WebVOWL service at `https://service.tib.eu/webvowl/` and passes each ontology URL with the `#iri=` parameter.
+
+WebVOWL is not only static HTML/JavaScript for Turtle or OWL files. Loading an ontology IRI requires the OWL2VOWL conversion endpoints provided by the WebVOWL application. Because this repository publishes a static nginx container, the WebVOWL application must run separately if you want to host it yourself.
+
+To run WebVOWL from the upstream source code:
+
+```sh
+git clone https://github.com/VisualDataWeb/WebVOWL.git
+cd WebVOWL
+docker build -t webvowl:v1 .
+docker compose up -d
+```
+
+Expose that WebVOWL service at a public URL, for example `https://ontologies.example.com/webvowl/`, then override `window.WEBVOWL_BASE_URL` before the generated script runs or adapt `rdf2html/render.js` to use that base URL.
+
+The ontology files must also be reachable by the WebVOWL service. Local-only URLs such as `localhost` cannot be fetched by a remote WebVOWL service.
+
 ## Build Locally
 
 Build the nginx image:

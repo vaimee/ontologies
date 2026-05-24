@@ -70,7 +70,8 @@ function findOntologies(root) {
                         html,
                         namespace: getOntologyNamespace(source),
                         title: getOntologyTitle(source, entry.name),
-                        abstract: getOntologyAbstract(source)
+                        abstract: getOntologyAbstract(source),
+                        publicSource: `${entry.name}/${file}`
                     };
                 });
         })
@@ -250,11 +251,14 @@ function renderIndex(ontologies) {
         .map(ontology => {
             const href = `${ontology.name}/${path.basename(ontology.html)}`;
             return `                    <li>
-                        <a href="${href}">
+                        <article class="ontology-card">
+                            <a href="${href}">
                             <span class="card-title">${escapeHtml(ontology.title)}</span>
                             <span class="card-abstract">${escapeHtml(ontology.abstract)}</span>
                             <span class="card-action">Open documentation</span>
-                        </a>
+                            </a>
+                            <iframe class="ontology-graph" title="${escapeHtml(ontology.title)} graph visualization" data-webvowl-path="${escapeHtml(ontology.publicSource)}" loading="lazy"></iframe>
+                        </article>
                     </li>`;
         })
         .join('\n');
@@ -342,23 +346,44 @@ function renderIndex(ontologies) {
                 padding: 0;
                 list-style: none;
                 display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+                grid-template-columns: 1fr;
                 gap: 1rem;
+            }
+
+            .ontology-card {
+                display: grid;
+                grid-template-rows: auto 32rem;
+                min-height: 100%;
+                overflow: hidden;
+                border: 1px solid rgba(15, 62, 101, 0.12);
+                border-radius: 1.25rem;
+                background: var(--surface);
+                box-shadow: 0 14px 36px rgba(15, 62, 101, 0.08);
+                transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+            }
+
+            .ontology-card:hover,
+            .ontology-card:focus-within {
+                border-color: var(--vaimee-cyan);
+                box-shadow: 0 20px 48px rgba(16, 177, 216, 0.2);
+                transform: translateY(-3px);
+            }
+
+            .ontology-graph {
+                width: 100%;
+                height: 100%;
+                border: 0;
+                border-top: 1px solid rgba(15, 62, 101, 0.1);
+                background: #18202a;
             }
 
             .catalog a {
                 display: block;
-                min-height: 12rem;
                 padding: 1.35rem;
-                border: 1px solid rgba(15, 62, 101, 0.12);
-                border-radius: 1.25rem;
                 color: var(--vaimee-blue);
-                background: var(--surface);
                 text-decoration: none;
                 font-size: 1.15rem;
                 font-weight: 800;
-                box-shadow: 0 14px 36px rgba(15, 62, 101, 0.08);
-                transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
             }
 
             .card-title,
@@ -389,13 +414,6 @@ function renderIndex(ontologies) {
                 letter-spacing: 0.08em;
             }
 
-            .catalog a:hover,
-            .catalog a:focus-visible {
-                border-color: var(--vaimee-cyan);
-                box-shadow: 0 20px 48px rgba(16, 177, 216, 0.2);
-                transform: translateY(-3px);
-            }
-
             @media (max-width: 720px) {
                 main {
                     padding: 1rem 0;
@@ -410,6 +428,10 @@ function renderIndex(ontologies) {
                 .logo {
                     width: 160px;
                     order: -1;
+                }
+
+                .ontology-graph {
+                    height: 22rem;
                 }
             }
         </style>
@@ -428,6 +450,14 @@ function renderIndex(ontologies) {
 ${links}
             </ul>
         </main>
+        <script>
+            var webvowlBaseUrl = window.WEBVOWL_BASE_URL || 'https://service.tib.eu/webvowl/';
+
+            document.querySelectorAll('[data-webvowl-path]').forEach(function (frame) {
+                var ontologyUrl = new URL(frame.dataset.webvowlPath, window.location.href).href;
+                frame.src = webvowlBaseUrl + '#iri=' + encodeURIComponent(ontologyUrl);
+            });
+        </script>
     </body>
 </html>
 `;
