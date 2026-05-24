@@ -414,6 +414,15 @@ function renderIndex(ontologies) {
                 letter-spacing: 0.08em;
             }
 
+            footer {
+                margin-top: 3rem;
+                padding: 1.25rem 0 0;
+                color: var(--muted);
+                font-size: 0.9rem;
+                line-height: 1.6;
+                text-align: center;
+            }
+
             @media (max-width: 720px) {
                 main {
                     padding: 1rem 0;
@@ -449,6 +458,7 @@ function renderIndex(ontologies) {
             <ul class="catalog" aria-label="Ontologies">
 ${links}
             </ul>
+            <footer>Copyright © 2026 VAIMEE srl – Via Adelaide Ristori 11, 40127, Bologna, Italy – CF/PIVA: 03859291209 – REA: BO-551672</footer>
         </main>
         <script>
             var webvowlBaseUrl = window.WEBVOWL_BASE_URL || 'https://service.tib.eu/webvowl/';
