@@ -7,26 +7,203 @@
    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
    xmlns:skos="http://www.w3.org/2004/02/skos/core#"
 >
-  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#rootDepthMax">
+  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#stressTolerance">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
     <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
     <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Crop"/>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.w3.org/2004/02/skos/core#broadMatch">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AnnotationProperty"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#kSat">
+  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#kcMax">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
     <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
-    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#SoilHorizon"/>
+    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Crop"/>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#irriRatio">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Crop"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#upperThermalThreshold">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Crop"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#numericalSolution">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Unit"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#slope">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Unit"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#sowingDoy">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Crop"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#rawFraction">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Crop"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#hasCrop">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Unit"/>
+    <rdfs:range rdf:resource="http://onto.vaimee.com/agora/criteria#Crop"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#irrigationShift">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Crop"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <skos:relatedMatch rdf:resource="http://aims.fao.org/aos/agrovoc/c_3954"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#waterRetentionFitting">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Unit"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#laiCurveFactorB">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Crop"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.opengis.net/ont/geosparql#Geometry">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#doyStartIrrigation">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Crop"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#hasMeteoLocation">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
+    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Unit"/>
+    <rdfs:range rdf:resource="http://onto.vaimee.com/agora/criteria#MeteoLocation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#degreeDaysEndIrrigation">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Crop"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#rootDepthZero">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Crop"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#thermalThreshold">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Crop"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#optimalIrrigation">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Unit"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+    <skos:relatedMatch rdf:resource="http://aims.fao.org/aos/agrovoc/c_3954"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://onto.vaimee.com/agora#">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Ontology"/>
+    <dcterms:abstract>This ontology designed for farmers to monitor and optimize irrigation procedures and, in the future, other activities related to precision agriculture.</dcterms:abstract>
+    <dcterms:description>This ontology manages the relationship between weather observations, crop growth parameters, and soil horizons for precision irrigation.</dcterms:description>
+    <dcterms:creator>Luca Roffia</dcterms:creator>
+    <dcterms:contributor rdf:resource="https://qrfy.io/p/BJOemlfU0F"/>
+    <dcterms:title>Agorà Ontology</dcterms:title>
+    <owl:imports rdf:resource="http://www.opengis.net/ont/geosparql"/>
+    <owl:imports rdf:resource="http://onto.vaimee.com/fsm"/>
+    <owl:title>Agorà Ontology</owl:title>
+    <owl:versionIRI rdf:resource="http://onto.vaimee.com/agora/1.0.0#"/>
+    <owl:versionInfo>1.0.0</owl:versionInfo>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#restartDate">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Unit"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#hasSoilHorizon">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
     <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
     <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Soil"/>
     <rdfs:range rdf:resource="http://onto.vaimee.com/agora/criteria#SoilHorizon"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#CropClass">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:comment>Groups crops by irrigation requirements, such as herbaceous or arboreal types.</rdfs:comment>
+    <rdfs:label>CropClass</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#thetaSat">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#SoilHorizon"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.w3.org/2004/02/skos/core#closeMatch">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AnnotationProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#coarseFragment">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#SoilHorizon"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="https://qrfy.io/p/BJOemlfU0F">
+    <foaf:name>Luca Roffia</foaf:name>
+    <foaf:member rdf:resource="https://vaimee.com"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.w3.org/2004/02/skos/core#exactMatch">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AnnotationProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#laiMin">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Crop"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#rootShapeDeformation">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Crop"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#Crop">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:comment>Defines growth parameters, thermal thresholds, and irrigation requirements for a specific plant type.</rdfs:comment>
+    <rdfs:label>Crop</rdfs:label>
+    <skos:closeMatch rdf:resource="http://aims.fao.org/aos/agrovoc/c_1972"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#waterContent">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Unit"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#upperDepth">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#SoilHorizon"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.w3.org/2000/01/rdf-schema#label">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AnnotationProperty"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#bulkDensity">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
@@ -40,59 +217,19 @@
     <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Crop"/>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#thermalThreshold">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
-    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Crop"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#saveDate">
+  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#computeLateralDrainage">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
     <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
     <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Unit"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
   </rdf:Description>
-  <rdf:Description rdf:about="https://qrfy.io/p/BJOemlfU0F">
-    <foaf:name>Luca Roffia</foaf:name>
-    <foaf:member rdf:resource="https://vaimee.com"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://onto.vaimee.com/agora#">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Ontology"/>
-    <dcterms:abstract>This ontology designed for farmers to monitor and optimize irrigation procedures and, in the future, other activities related to precision agriculture.</dcterms:abstract>
-    <dcterms:description>This ontology manages the relationship between weather observations, crop growth parameters, and soil horizons for precision irrigation.</dcterms:description>
-    <dcterms:creator rdf:resource="https://qrfy.io/p/BJOemlfU0F"/>
-    <dcterms:title>Agorà Ontology</dcterms:title>
-    <owl:imports rdf:resource="http://www.opengis.net/ont/geosparql"/>
-    <owl:imports rdf:resource="http://onto.vaimee.com/fsm"/>
-    <owl:title>Agorà Ontology</owl:title>
-    <owl:versionIRI rdf:resource="http://onto.vaimee.com/agora/1.0.0#"/>
-    <owl:versionInfo>1.0.0</owl:versionInfo>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#hasCropClass">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
-    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Crop"/>
-    <rdfs:range rdf:resource="http://onto.vaimee.com/agora/criteria#CropClass"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#lowerDepth">
+  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#laiGrass">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
     <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
-    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#SoilHorizon"/>
+    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Crop"/>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#degreeDaysRootIncrease">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
-    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Crop"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#horizonNumber">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
-    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#SoilHorizon"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#irriRatio">
+  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#laiMax">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
     <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
     <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Crop"/>
@@ -104,59 +241,20 @@
     <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Unit"/>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#restartState">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
-    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Unit"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#maxHeightSurfacePuddle">
+  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#laiCurveFactorA">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
     <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
     <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Crop"/>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#sowingDoy">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
-    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Crop"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#degreeDaysStartIrrigation">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
-    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Crop"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#Soil">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:comment>The physical profile of the earth at a specific location.</rdfs:comment>
-    <rdfs:label>Soil</rdfs:label>
-    <skos:exactMatch rdf:resource="http://aims.fao.org/aos/agrovoc/c_7156"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#irrigationShift">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
-    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Crop"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
-    <skos:relatedMatch rdf:resource="http://aims.fao.org/aos/agrovoc/c_3954"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="https://vaimee.com">
-    <foaf:name>VAIMEE srl</foaf:name>
-    <foaf:homepage>https://vaimee.com</foaf:homepage>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#clay">
+  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#lowerDepth">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
     <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
     <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#SoilHorizon"/>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#optimalIrrigation">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
-    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Unit"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
-    <skos:relatedMatch rdf:resource="http://aims.fao.org/aos/agrovoc/c_3954"/>
+  <rdf:Description rdf:about="http://www.w3.org/2004/02/skos/core#broadMatch">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AnnotationProperty"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#SoilHorizon">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
@@ -166,32 +264,11 @@
     <skos:closeMatch rdf:resource="http://aims.fao.org/aos/agrovoc/c_7486"/>
     <skos:closeMatch rdf:resource="http://aims.fao.org/aos/agrovoc/c_7812"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#factorOfSafety">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
-    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Unit"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://purl.org/dc/terms/title">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AnnotationProperty"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#laiMax">
+  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#psiLeaf">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
     <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
     <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Crop"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#computeLateralDrainage">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
-    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Unit"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#waterPotential">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
-    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Unit"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#rootShape">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
@@ -199,87 +276,23 @@
     <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Crop"/>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#rawFraction">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
-    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Crop"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#irrigationVolume">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
-    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Crop"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
-    <skos:relatedMatch rdf:resource="http://aims.fao.org/aos/agrovoc/c_3954"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#plantCycleMaxDuration">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
-    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Crop"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#waterContent">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
-    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Unit"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#thetaSat">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
-    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#SoilHorizon"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#sand">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
-    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#SoilHorizon"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://schema.org/GeoCoordinates">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#psiLeaf">
+  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#degreeDaysEmergence">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
     <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
     <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Crop"/>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#doyEndIrrigation">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
-    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Crop"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#coarseFragment">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
-    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#SoilHorizon"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.w3.org/2004/02/skos/core#relatedMatch">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AnnotationProperty"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#laiCurveFactorA">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
-    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Crop"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.w3.org/2000/01/rdf-schema#comment">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AnnotationProperty"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#laiCurveFactorB">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
-    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Crop"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#hasCrop">
+  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#hasSoil">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
     <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
     <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Unit"/>
-    <rdfs:range rdf:resource="http://onto.vaimee.com/agora/criteria#Crop"/>
+    <rdfs:range rdf:resource="http://onto.vaimee.com/agora/criteria#Soil"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#degreeDaysLaiDecrease">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Crop"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#MeteoLocation">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
@@ -289,116 +302,54 @@
     <rdfs:label>MeteoLocation</rdfs:label>
     <skos:closeMatch rdf:resource="http://aims.fao.org/aos/agrovoc/c_4781"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#numericalSolution">
+  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#plantCycleMaxDuration">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Crop"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#irrigationVolume">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Crop"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <skos:relatedMatch rdf:resource="http://aims.fao.org/aos/agrovoc/c_3954"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#factorOfSafety">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
     <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
     <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Unit"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#degreeDaysEmergence">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
-    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Crop"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#upperThermalThreshold">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
-    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Crop"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#laiGrass">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
-    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Crop"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#slope">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
-    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Unit"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.w3.org/2000/01/rdf-schema#label">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AnnotationProperty"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#hasSoil">
+  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#hasCropClass">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
     <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
-    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Unit"/>
-    <rdfs:range rdf:resource="http://onto.vaimee.com/agora/criteria#Soil"/>
+    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Crop"/>
+    <rdfs:range rdf:resource="http://onto.vaimee.com/agora/criteria#CropClass"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#hasMeteoLocation">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty"/>
-    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Unit"/>
-    <rdfs:range rdf:resource="http://onto.vaimee.com/agora/criteria#MeteoLocation"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#upperDepth">
+  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#clay">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
     <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
     <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#SoilHorizon"/>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#organicMatter">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
-    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#SoilHorizon"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#waterRetentionFitting">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
-    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Unit"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#degreeDaysLaiDecrease">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
-    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Crop"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#doyStartIrrigation">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
-    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Crop"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#degreeDaysEndIrrigation">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
-    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Crop"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#Crop">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:comment>Defines growth parameters, thermal thresholds, and irrigation requirements for a specific plant type.</rdfs:comment>
-    <rdfs:label>Crop</rdfs:label>
-    <skos:closeMatch rdf:resource="http://aims.fao.org/aos/agrovoc/c_1972"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#silt">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
-    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#SoilHorizon"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#rootDepthZero">
+  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#rootDepthMax">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
     <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
     <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Crop"/>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://purl.org/dc/terms/description">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AnnotationProperty"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#restartDate">
+  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#doyEndIrrigation">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
     <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
-    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Unit"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Crop"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.w3.org/2002/07/owl#title">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AnnotationProperty"/>
+  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#maxHeightSurfacePuddle">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Crop"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#Unit">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
@@ -406,60 +357,110 @@
     <rdfs:comment>A unit in our system is a tuple composed of [soil-type,crop-type,meteo-station]</rdfs:comment>
     <rdfs:label>Unit</rdfs:label>
   </rdf:Description>
-  <rdf:Description rdf:about="http://purl.org/dc/terms/abstract">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AnnotationProperty"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://schema.org/Place">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#laiMin">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
-    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Crop"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#kcMax">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
-    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Crop"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.opengis.net/ont/geosparql#Feature">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#rootShapeDeformation">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
-    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Crop"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
-  </rdf:Description>
   <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#saveState">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
     <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
     <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Unit"/>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#stressTolerance">
+  <rdf:Description rdf:about="http://purl.org/dc/terms/title">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AnnotationProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#kSat">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#SoilHorizon"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#Soil">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:comment>The physical profile of the earth at a specific location.</rdfs:comment>
+    <rdfs:label>Soil</rdfs:label>
+    <skos:exactMatch rdf:resource="http://aims.fao.org/aos/agrovoc/c_7156"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#saveDate">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Unit"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://schema.org/Place">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#degreeDaysStartIrrigation">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
     <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
     <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Crop"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#organicMatter">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#SoilHorizon"/>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#CropClass">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:comment>Groups crops by irrigation requirements, such as herbaceous or arboreal types.</rdfs:comment>
-    <rdfs:label>CropClass</rdfs:label>
+  <rdf:Description rdf:about="https://vaimee.com">
+    <foaf:name>VAIMEE srl</foaf:name>
+    <foaf:homepage>https://vaimee.com</foaf:homepage>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.opengis.net/ont/geosparql#Geometry">
+  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#silt">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#SoilHorizon"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#waterPotential">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Unit"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#sand">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#SoilHorizon"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://purl.org/dc/terms/abstract">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AnnotationProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#horizonNumber">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#SoilHorizon"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#degreeDaysRootIncrease">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Crop"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://schema.org/GeoCoordinates">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://onto.vaimee.com/agora/criteria#restartState">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
+    <rdfs:domain rdf:resource="http://onto.vaimee.com/agora/criteria#Unit"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://onto.vaimee.com/fsm#Configuration">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.w3.org/2004/02/skos/core#exactMatch">
+  <rdf:Description rdf:about="http://purl.org/dc/terms/description">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AnnotationProperty"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.w3.org/2004/02/skos/core#closeMatch">
+  <rdf:Description rdf:about="http://www.w3.org/2004/02/skos/core#relatedMatch">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AnnotationProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.opengis.net/ont/geosparql#Feature">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.w3.org/2002/07/owl#title">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AnnotationProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.w3.org/2000/01/rdf-schema#comment">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AnnotationProperty"/>
   </rdf:Description>
 </rdf:RDF>

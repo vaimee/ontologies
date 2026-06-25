@@ -25,7 +25,7 @@ template :main(?ns) {
     <script src="https://www.w3.org/Tools/respec/respec-w3c" class="remove" defer></script>
     <script class='remove'>
         var respecConfig = {
-            specStatus: "ED",
+            specStatus: "unofficial",
             editors: [%s],
             edDraftURI: "%s",
             shortName: "opo"
@@ -56,7 +56,7 @@ template :main(?ns) {
 </html>
 """
         st:call-template(:editor, ?o)
-        ?o
+        ?draftUri
         ?title
         ?desc
         st:call-template(:intro, ?o)
@@ -68,6 +68,7 @@ template :main(?ns) {
     ?o a owl:Ontology ;
     owl:title ?title ;
     dct:abstract ?desc
+    bind(if(contains(str(?o), "http://onto.vaimee.com/"), concat("https://onto.vaimee.com/", strafter(str(?o), "http://onto.vaimee.com/")), str(?o)) as ?draftUri)
 }
 
 #BIND(IRI("http://www.vaimee.it/my2sec/ontologies/opo#") as ?prefix)

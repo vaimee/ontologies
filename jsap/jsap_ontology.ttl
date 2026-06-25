@@ -16,7 +16,8 @@
                                   owl:title "JSAP Ontology"@en ;
                                   dct:abstract "Ontology to describe JSAP files and related concepts."@en ;
                                   dct:description "Longer intro text shown in the Introduction section."@en ;
-                                  dct:creator <http://adelinavivaldo> , <https://qrfy.io/p/BJOemlfU0F> .
+                                  dct:creator "Adelina Vivaldo" , "Luca Roffia" ;
+                                  dct:contributor <http://adelinavivaldo> , <https://qrfy.io/p/BJOemlfU0F> .
                                   <http://adelinavivaldo> foaf:name "Adelina Vivaldo" ; foaf:member <http://vaimee.com> .
                                   <http://vaimee.com> foaf:name "VAIMEE" ; foaf:homepage "https://vaimee.com" .
                                   <https://qrfy.io/p/BJOemlfU0F> foaf:name "Luca Roffia" ; foaf:member <https://vaimee.com> .

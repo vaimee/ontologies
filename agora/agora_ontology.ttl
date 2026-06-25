@@ -18,7 +18,8 @@
 <http://onto.vaimee.com/agora#> rdf:type owl:Ontology ;
                                                                             dcterms:abstract "This ontology designed for farmers to monitor and optimize irrigation procedures and, in the future, other activities related to precision agriculture." ;
                                                                              dcterms:description "This ontology manages the relationship between weather observations, crop growth parameters, and soil horizons for precision irrigation." ;
-                                                                             dcterms:creator <https://qrfy.io/p/BJOemlfU0F> ;
+                                                                             dcterms:creator "Luca Roffia" ;
+                                                                             dcterms:contributor <https://qrfy.io/p/BJOemlfU0F> ;
                                                                              dcterms:title "Agorà Ontology" ;
                                                                              owl:imports <http://www.opengis.net/ont/geosparql> ;
                                                                              owl:imports <http://onto.vaimee.com/fsm> ;
