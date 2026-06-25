@@ -4,12 +4,23 @@
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix jsap: <https://onto.vaimee.com/jsap#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
 @base <https://onto.vaimee.com/users#> .
 
 <https://onto.vaimee.com/users#> rdf:type owl:Ontology ;
                                   owl:imports <https://schema.org/> ;
                                   rdfs:comment "This is an ontology for users developed by VAIMEE. It integrates classes and properties from Schema.org." ;
-                                  owl:versionInfo 1.0 .
+                                  dct:creator <https://qrfy.io/p/BJOemlfU0F> ;
+                                  owl:versionIRI <https://onto.vaimee.com/users/1.0.0#> ;
+                                  owl:versionInfo "1.0.0" .
+
+<https://qrfy.io/p/BJOemlfU0F> foaf:name "Luca Roffia" ;
+                                  foaf:member <https://vaimee.com> .
+
+<https://vaimee.com> foaf:name "VAIMEE srl" ;
+                                  foaf:homepage "https://vaimee.com" .
 
 #################################################################
 #    Object Properties
@@ -49,7 +60,7 @@
 ###  https://onto.vaimee.com/users#notificationSource
 :notificationSource rdf:type owl:ObjectProperty ;
                     rdfs:domain :NotificationPreference ;
-                    rdfs:range :Aggregator ;
+                    rdfs:range jsap:Aggregator ;
                     rdfs:comment "Links a NotificationPreference with the desired source of the notifications."@en ;
                     rdfs:isDefinedBy <https://onto.vaimee.com/users> ;
                     rdfs:label "notification source"@en .
@@ -58,7 +69,7 @@
 ###  https://onto.vaimee.com/users#notificationTopic
 :notificationTopic rdf:type owl:ObjectProperty ;
                    rdfs:domain :NotificationPreference ;
-                   rdfs:range <https://onto.vaimee.com/users#DACAMBIARE/QUERY> ;
+                   rdfs:range jsap:Query ;
                    rdfs:comment "Defines the topic of interest for which the user wants to receive notifications. This could be the URI of a specific event, category, or query whose result the user wants to receive."@en ;
                    rdfs:isDefinedBy <https://onto.vaimee.com/users> ;
                    rdfs:label "notification topic"@en .
@@ -90,11 +101,6 @@
 #    Classes
 #################################################################
 
-###  https://onto.vaimee.com/users#Aggregator
-:Aggregator rdf:type owl:Class ;
-            rdfs:subClassOf :JsapToCHANGE .
-
-
 ###  https://onto.vaimee.com/users#Channel
 :Channel rdf:type owl:Class ;
          rdfs:subClassOf <https://schema.org/ContactPoint> ;
@@ -119,10 +125,6 @@
        rdfs:label "Email"@en .
 
 
-###  https://onto.vaimee.com/users#JsapToCHANGE
-:JsapToCHANGE rdf:type owl:Class .
-
-
 ###  https://onto.vaimee.com/users#NotificationGroup
 :NotificationGroup rdf:type owl:Class ;
                    rdfs:subClassOf <https://schema.org/Audience> ;
@@ -142,7 +144,7 @@
                                                                [ rdf:type owl:Restriction ;
                                                                  owl:onProperty :notificationTopic ;
                                                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-                                                                 owl:onClass <https://onto.vaimee.com/users#DACAMBIARE/QUERY>
+                                                                  owl:onClass jsap:Query
                                                                ]
                                                              ) ;
                                           rdf:type owl:Class
@@ -166,11 +168,6 @@
           rdfs:comment "A communication channel based on instant messaging via the WhatsApp application."@en ;
           rdfs:isDefinedBy <https://onto.vaimee.com/users> ;
           rdfs:label "WhatsApp"@en .
-
-
-###  https://onto.vaimee.com/users#DACAMBIARE/QUERY
-<https://onto.vaimee.com/users#DACAMBIARE/QUERY> rdf:type owl:Class ;
-                                                 rdfs:subClassOf :JsapToCHANGE .
 
 
 ###  https://schema.org/Audience

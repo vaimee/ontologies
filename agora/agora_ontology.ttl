@@ -1,25 +1,36 @@
-@prefix : <https://ontologies.vaimee.com/agora#> .
-@prefix acl: <http://www.w3.org/ns/auth/acl#> .
+@prefix : <http://onto.vaimee.com/agora#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix auth: <https://auth.vaimee.com/profile#> .
-@prefix qudt: <http://qudt.org/schema/qudt#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix fsm: <http://onto.vaimee.com/fsm#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix sosa: <http://www.w3.org/ns/sosa/> .
 @prefix schema: <http://schema.org/> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
-@prefix weather: <https://ontologies.vaimee.com/agora/weather#> .
-@prefix criteria: <https://ontologies.vaimee.com/agora/criteria#> .
-@prefix criteriaProperty: <https://vaimee.com/criteria/property#> .
-@base <https://ontologies.vaimee.com/agora#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix criteria: <http://onto.vaimee.com/agora/criteria#> .
+@base <http://onto.vaimee.com/agora#> .
 
-<https://ontologies.vaimee.com/agora#> rdf:type owl:Ontology ;
-                                                                           dcterms:abstract "This ontology designed for farmers to monitor and optimize irrigation procedures and, in the future, other activities related to precision agriculture." ;
-                                                                           dcterms:description "This ontology manages the relationship between weather observations, crop growth parameters, and soil horizons for precision irrigation." ;
-                                                                           dcterms:title "Agorà Ontology" ;
-                                                                           owl:title "Agorà Ontology" .
+<http://onto.vaimee.com/agora#> rdf:type owl:Ontology ;
+                                                                            dcterms:abstract "This ontology designed for farmers to monitor and optimize irrigation procedures and, in the future, other activities related to precision agriculture." ;
+                                                                             dcterms:description "This ontology manages the relationship between weather observations, crop growth parameters, and soil horizons for precision irrigation." ;
+                                                                             dcterms:creator <https://qrfy.io/p/BJOemlfU0F> ;
+                                                                             dcterms:title "Agorà Ontology" ;
+                                                                             owl:imports <http://www.opengis.net/ont/geosparql> ;
+                                                                             owl:imports <http://onto.vaimee.com/fsm> ;
+                                                                             owl:title "Agorà Ontology" ;
+                                                                             owl:versionIRI <http://onto.vaimee.com/agora/1.0.0#> ;
+                                                                             owl:versionInfo "1.0.0" .
+
+<https://qrfy.io/p/BJOemlfU0F> foaf:name "Luca Roffia" ;
+                                                                             foaf:member <https://vaimee.com> .
+
+<https://vaimee.com> foaf:name "VAIMEE srl" ;
+                                                                             foaf:homepage "https://vaimee.com" .
 
 #################################################################
 #    Annotation properties
@@ -37,6 +48,30 @@ dcterms:description rdf:type owl:AnnotationProperty .
 dcterms:title rdf:type owl:AnnotationProperty .
 
 
+###  http://www.w3.org/2000/01/rdf-schema#comment
+rdfs:comment rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2000/01/rdf-schema#label
+rdfs:label rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#broadMatch
+skos:broadMatch rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#closeMatch
+skos:closeMatch rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#exactMatch
+skos:exactMatch rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2004/02/skos/core#relatedMatch
+skos:relatedMatch rdf:type owl:AnnotationProperty .
+
+
 ###  http://www.w3.org/2002/07/owl#title
 owl:title rdf:type owl:AnnotationProperty .
 
@@ -45,563 +80,422 @@ owl:title rdf:type owl:AnnotationProperty .
 #    Object Properties
 #################################################################
 
-###  http://schema.org/geo
-schema:geo rdf:type owl:ObjectProperty ;
-           rdfs:subPropertyOf owl:topObjectProperty ;
-           rdfs:domain schema:Place ;
-           rdfs:range schema:GeoCoordinates .
-
-
-###  http://schema.org/location
-schema:location rdf:type owl:ObjectProperty ;
-                rdfs:subPropertyOf owl:topObjectProperty ;
-                rdfs:domain criteria:Unit ;
-                rdfs:range schema:Place .
-
-
-###  http://www.w3.org/ns/auth/acl#accessTo
-acl:accessTo rdf:type owl:ObjectProperty ;
-             rdfs:subPropertyOf owl:topObjectProperty .
-
-
-###  http://www.w3.org/ns/auth/acl#agent
-acl:agent rdf:type owl:ObjectProperty ;
-          rdfs:subPropertyOf owl:topObjectProperty .
-
-
-###  http://www.w3.org/ns/auth/acl#mode
-acl:mode rdf:type owl:ObjectProperty ;
-         rdfs:subPropertyOf owl:topObjectProperty .
-
-
-###  http://www.w3.org/ns/sosa/hasFeatureOfInterest
-sosa:hasFeatureOfInterest rdf:type owl:ObjectProperty ;
-                          rdfs:subPropertyOf owl:topObjectProperty ;
-                          rdfs:domain sosa:Observation ;
-                          rdfs:range criteria:Unit .
-
-
-###  http://www.w3.org/ns/sosa/hasResult
-sosa:hasResult rdf:type owl:ObjectProperty ;
-               rdfs:subPropertyOf owl:topObjectProperty ;
-               rdfs:domain sosa:Observation ;
-               rdfs:range sosa:Result .
-
-
-###  http://www.w3.org/ns/sosa/isResultOf
-sosa:isResultOf rdf:type owl:ObjectProperty ;
-                rdfs:subPropertyOf owl:topObjectProperty .
-
-
-###  http://www.w3.org/ns/sosa/observedProperty
-sosa:observedProperty rdf:type owl:ObjectProperty ;
-                      rdfs:subPropertyOf owl:topObjectProperty .
-
-
-###  https://vaimee.com/criteria/cropClass
-criteria:cropClass rdf:type owl:ObjectProperty ;
+###  http://onto.vaimee.com/agora/criteria#hasCropClass
+criteria:hasCropClass rdf:type owl:ObjectProperty ;
                    rdfs:subPropertyOf owl:topObjectProperty ;
                    rdfs:domain criteria:Crop ;
                    rdfs:range criteria:CropClass .
 
 
-###  https://vaimee.com/criteria/hasIdMeteo
-criteria:hasIdMeteo rdf:type owl:ObjectProperty ;
-                    rdfs:subPropertyOf owl:topObjectProperty ;
-                    rdfs:domain criteria:Unit ;
-                    rdfs:range criteria:Meteo_location .
-
-
-###  https://vaimee.com/criteria/horizon
-criteria:horizon rdf:type owl:ObjectProperty ;
+###  http://onto.vaimee.com/agora/criteria#hasCrop
+criteria:hasCrop rdf:type owl:ObjectProperty ;
                  rdfs:subPropertyOf owl:topObjectProperty ;
-                 rdfs:domain criteria:Soil ;
-                 rdfs:range criteria:Horizon .
+                 rdfs:domain criteria:Unit ;
+                 rdfs:range criteria:Crop .
 
 
-###  https://vaimee.com/weather/recomputeData
-weather:recomputeData rdf:type owl:ObjectProperty ;
-                      rdfs:subPropertyOf owl:topObjectProperty .
+###  http://onto.vaimee.com/agora/criteria#hasMeteoLocation
+criteria:hasMeteoLocation rdf:type owl:ObjectProperty ;
+                          rdfs:subPropertyOf owl:topObjectProperty ;
+                          rdfs:domain criteria:Unit ;
+                          rdfs:range criteria:MeteoLocation .
+
+
+###  http://onto.vaimee.com/agora/criteria#hasSoil
+criteria:hasSoil rdf:type owl:ObjectProperty ;
+                 rdfs:subPropertyOf owl:topObjectProperty ;
+                 rdfs:domain criteria:Unit ;
+                 rdfs:range criteria:Soil .
+
+
+###  http://onto.vaimee.com/agora/criteria#hasSoilHorizon
+criteria:hasSoilHorizon rdf:type owl:ObjectProperty ;
+                        rdfs:subPropertyOf owl:topObjectProperty ;
+                        rdfs:domain criteria:Soil ;
+                        rdfs:range criteria:SoilHorizon .
 
 
 #################################################################
 #    Data properties
 #################################################################
 
-###  http://qudt.org/schema/qudt#numericValue
-qudt:numericValue rdf:type owl:DatatypeProperty ;
-                  rdfs:subPropertyOf owl:topDataProperty .
-
-
-###  http://schema.org/description
-schema:description rdf:type owl:DatatypeProperty ;
-                   rdfs:subPropertyOf owl:topDataProperty ;
-                   rdfs:domain criteria:Unit .
-
-
-###  http://schema.org/elevation
-schema:elevation rdf:type owl:DatatypeProperty ;
-                 rdfs:subPropertyOf owl:topDataProperty ;
-                 rdfs:domain criteria:Meteo_location ;
-                 rdfs:range xsd:decimal .
-
-
-###  http://schema.org/identifier
-schema:identifier rdf:type owl:DatatypeProperty ;
-                  rdfs:subPropertyOf owl:topDataProperty ;
-                  rdfs:domain criteria:Soil .
-
-
-###  http://schema.org/latitude
-schema:latitude rdf:type owl:DatatypeProperty ;
-                rdfs:subPropertyOf owl:topDataProperty ;
-                rdfs:domain criteria:Meteo_location ;
-                rdfs:range xsd:decimal .
-
-
-###  http://schema.org/longitude
-schema:longitude rdf:type owl:DatatypeProperty .
-
-
-###  http://schema.org/name
-schema:name rdf:type owl:DatatypeProperty ;
-            rdfs:subPropertyOf owl:topDataProperty ;
-            rdfs:domain criteria:Unit .
-
-
-###  http://schema.org/startTime
-schema:startTime rdf:type owl:DatatypeProperty ;
-                 rdfs:subPropertyOf owl:topDataProperty ;
-                 rdfs:range xsd:dateTime .
-
-
-###  http://www.semanticweb.org/bitoo/ontologies/2026/0/untitled-ontology-28#criteria:hasIdCrop
-criteria:hasIdCrop rdf:type owl:DatatypeProperty ;
-                    rdfs:subPropertyOf owl:topDataProperty ;
-                    rdfs:domain criteria:Unit ;
-                    rdfs:comment "Links a crop to a specific plant type." ;
-                    rdfs:label "hasIdCrop" .
-
-
-###  http://www.semanticweb.org/bitoo/ontologies/2026/0/untitled-ontology-28#criteria:hasIdSoil
-criteria:hasIdSoil rdf:type owl:DatatypeProperty ;
-                    rdfs:subPropertyOf owl:topDataProperty ;
-                    rdfs:domain criteria:Unit ;
-                    rdfs:range xsd:integer ;
-                    rdfs:label "hasIdSoil" ;
-                    rdfs:comment "Links a soil to a specific unit" .
-
-
-###  http://www.semanticweb.org/bitoo/ontologies/2026/0/untitled-ontology-28#qudt:numericValue
-qudt:numericValue rdf:type owl:DatatypeProperty ;
-                   rdfs:subPropertyOf owl:topDataProperty .
-
-
-###  http://www.semanticweb.org/bitoo/ontologies/2026/0/untitled-ontology-28#rdfs:label
-rdfs:label rdf:type owl:DatatypeProperty ;
-            rdfs:subPropertyOf owl:topDataProperty .
-
-
-###  http://www.w3.org/2002/07/owl#topDataProperty
-owl:topDataProperty rdfs:subPropertyOf owl:topDataProperty ;
-                    rdfs:domain criteria:Unit ;
-                    rdfs:range xsd:boolean .
-
-
-###  http://www.w3.org/ns/sosa/phenomenonTime
-sosa:phenomenonTime rdf:type owl:DatatypeProperty ;
-                    rdfs:domain sosa:Observation ;
-                    rdfs:range xsd:dateTime .
-
-
-###  http://www.w3.org/ns/sosa/resultTime
-sosa:resultTime rdf:type owl:DatatypeProperty ;
-                rdfs:subPropertyOf owl:topDataProperty ;
-                rdfs:domain sosa:Observation ;
-                rdfs:range xsd:dateTime .
-
-
-###  https://vaimee.com/criteria/bulkDensity
+###  http://onto.vaimee.com/agora/criteria#bulkDensity
 criteria:bulkDensity rdf:type owl:DatatypeProperty ;
                      rdfs:subPropertyOf owl:topDataProperty ;
-                     rdfs:domain criteria:Horizon ;
+                     rdfs:domain criteria:SoilHorizon ;
                      rdfs:range xsd:decimal .
 
 
-###  https://vaimee.com/criteria/classType
-criteria:classType rdf:type owl:DatatypeProperty ;
-                   rdfs:subPropertyOf owl:topDataProperty ;
-                   rdfs:domain criteria:Crop .
-
-
-###  https://vaimee.com/criteria/clay
+###  http://onto.vaimee.com/agora/criteria#clay
 criteria:clay rdf:type owl:DatatypeProperty ;
               rdfs:subPropertyOf owl:topDataProperty ;
-              rdfs:domain criteria:Horizon ;
+              rdfs:domain criteria:SoilHorizon ;
               rdfs:range xsd:decimal .
 
 
-###  https://vaimee.com/criteria/coarseFragment
+###  http://onto.vaimee.com/agora/criteria#coarseFragment
 criteria:coarseFragment rdf:type owl:DatatypeProperty ;
                         rdfs:subPropertyOf owl:topDataProperty ;
-                        rdfs:domain criteria:Horizon ;
+                        rdfs:domain criteria:SoilHorizon ;
                         rdfs:range xsd:decimal .
 
 
-###  https://vaimee.com/criteria/cropType
-criteria:cropType rdf:type owl:DatatypeProperty ;
-                  rdfs:subPropertyOf owl:topDataProperty ;
-                  rdfs:domain criteria:Crop .
-
-
-###  https://vaimee.com/criteria/degreeDaysEmergence
+###  http://onto.vaimee.com/agora/criteria#degreeDaysEmergence
 criteria:degreeDaysEmergence rdf:type owl:DatatypeProperty ;
                              rdfs:subPropertyOf owl:topDataProperty ;
-                             rdfs:domain criteria:Crop .
+                             rdfs:domain criteria:Crop ;
+                             rdfs:range xsd:integer .
 
 
-###  https://vaimee.com/criteria/degreeDaysEndIrrigation
+###  http://onto.vaimee.com/agora/criteria#degreeDaysEndIrrigation
 criteria:degreeDaysEndIrrigation rdf:type owl:DatatypeProperty ;
                                  rdfs:subPropertyOf owl:topDataProperty ;
-                                 rdfs:domain criteria:Crop .
+                                 rdfs:domain criteria:Crop ;
+                                 rdfs:range xsd:integer .
 
 
-###  https://vaimee.com/criteria/degreeDaysLaiDecrease
+###  http://onto.vaimee.com/agora/criteria#degreeDaysLaiDecrease
 criteria:degreeDaysLaiDecrease rdf:type owl:DatatypeProperty ;
                                rdfs:subPropertyOf owl:topDataProperty ;
-                               rdfs:domain criteria:Crop .
+                               rdfs:domain criteria:Crop ;
+                               rdfs:range xsd:integer .
 
 
-###  https://vaimee.com/criteria/degreeDaysLaiIncrease
+###  http://onto.vaimee.com/agora/criteria#degreeDaysLaiIncrease
 criteria:degreeDaysLaiIncrease rdf:type owl:DatatypeProperty ;
                                rdfs:subPropertyOf owl:topDataProperty ;
-                               rdfs:domain criteria:Crop .
+                               rdfs:domain criteria:Crop ;
+                               rdfs:range xsd:integer .
 
 
-###  https://vaimee.com/criteria/degreeDaysRootIncrease
+###  http://onto.vaimee.com/agora/criteria#degreeDaysRootIncrease
 criteria:degreeDaysRootIncrease rdf:type owl:DatatypeProperty ;
-                                rdfs:subPropertyOf owl:topDataProperty ;
-                                rdfs:domain criteria:Crop .
+                                 rdfs:subPropertyOf owl:topDataProperty ;
+                                 rdfs:domain criteria:Crop ;
+                                 rdfs:range xsd:integer .
 
 
-###  https://vaimee.com/criteria/degreeDaysStartIrrigation
+###  http://onto.vaimee.com/agora/criteria#degreeDaysStartIrrigation
 criteria:degreeDaysStartIrrigation rdf:type owl:DatatypeProperty ;
                                    rdfs:subPropertyOf owl:topDataProperty ;
-                                   rdfs:domain criteria:Crop .
+                                   rdfs:domain criteria:Crop ;
+                                   rdfs:range xsd:integer .
 
 
-###  https://vaimee.com/criteria/doyEndIrrigation
+###  http://onto.vaimee.com/agora/criteria#doyEndIrrigation
 criteria:doyEndIrrigation rdf:type owl:DatatypeProperty ;
                           rdfs:subPropertyOf owl:topDataProperty ;
-                          rdfs:domain criteria:Crop .
+                          rdfs:domain criteria:Crop ;
+                          rdfs:range xsd:integer .
 
 
-###  https://vaimee.com/criteria/doyStartIrrigation
+###  http://onto.vaimee.com/agora/criteria#doyStartIrrigation
 criteria:doyStartIrrigation rdf:type owl:DatatypeProperty ;
                             rdfs:subPropertyOf owl:topDataProperty ;
-                            rdfs:domain criteria:Crop .
+                            rdfs:domain criteria:Crop ;
+                            rdfs:range xsd:integer .
 
 
-###  https://vaimee.com/criteria/forecastType
-criteria:forecastType rdf:type owl:DatatypeProperty ;
-                      rdfs:subPropertyOf owl:topDataProperty ;
-                      rdfs:domain criteria:Meteo_location .
-
-
-###  https://vaimee.com/criteria/hasIdCrop
-criteria:hasIdCrop rdf:type owl:DatatypeProperty ;
-                   rdfs:subPropertyOf owl:topDataProperty ;
-                   rdfs:domain criteria:Unit .
-
-
-###  https://vaimee.com/criteria/hasIdSoil
-criteria:hasIdSoil rdf:type owl:DatatypeProperty ;
-                   rdfs:subPropertyOf owl:topDataProperty .
-
-
-###  https://vaimee.com/criteria/horizonNumber
+###  http://onto.vaimee.com/agora/criteria#horizonNumber
 criteria:horizonNumber rdf:type owl:DatatypeProperty ;
                        rdfs:subPropertyOf owl:topDataProperty ;
-                       rdfs:domain criteria:Horizon ;
-                       rdfs:range xsd:decimal .
+                       rdfs:domain criteria:SoilHorizon ;
+                       rdfs:range xsd:integer .
 
 
-###  https://vaimee.com/criteria/irriRatio
+###  http://onto.vaimee.com/agora/criteria#irriRatio
 criteria:irriRatio rdf:type owl:DatatypeProperty ;
                    rdfs:subPropertyOf owl:topDataProperty ;
-                   rdfs:domain criteria:Crop .
+                   rdfs:domain criteria:Crop ;
+                   rdfs:range xsd:decimal .
 
 
-###  https://vaimee.com/criteria/irrigationShift
+###  http://onto.vaimee.com/agora/criteria#irrigationShift
 criteria:irrigationShift rdf:type owl:DatatypeProperty ;
-                         rdfs:subPropertyOf owl:topDataProperty ;
-                         rdfs:domain criteria:Crop .
-
-
-###  https://vaimee.com/criteria/irrigationVolume
-criteria:irrigationVolume rdf:type owl:DatatypeProperty ;
                           rdfs:subPropertyOf owl:topDataProperty ;
-                          rdfs:domain criteria:Crop .
+                          rdfs:domain criteria:Crop ;
+                          rdfs:range xsd:integer ;
+                          skos:relatedMatch <http://aims.fao.org/aos/agrovoc/c_3954> .
 
 
-###  https://vaimee.com/criteria/isSensorActive
-criteria:isSensorActive rdf:type owl:DatatypeProperty ;
-                        rdfs:subPropertyOf owl:topDataProperty .
+###  http://onto.vaimee.com/agora/criteria#irrigationVolume
+criteria:irrigationVolume rdf:type owl:DatatypeProperty ;
+                           rdfs:subPropertyOf owl:topDataProperty ;
+                           rdfs:domain criteria:Crop ;
+                           rdfs:range xsd:decimal ;
+                           skos:relatedMatch <http://aims.fao.org/aos/agrovoc/c_3954> .
 
 
-###  https://vaimee.com/criteria/kSat
+###  http://onto.vaimee.com/agora/criteria#kSat
 criteria:kSat rdf:type owl:DatatypeProperty ;
               rdfs:subPropertyOf owl:topDataProperty ;
-              rdfs:domain criteria:Horizon ;
+              rdfs:domain criteria:SoilHorizon ;
               rdfs:range xsd:decimal .
 
 
-###  https://vaimee.com/criteria/kcMax
+###  http://onto.vaimee.com/agora/criteria#kcMax
 criteria:kcMax rdf:type owl:DatatypeProperty ;
                rdfs:subPropertyOf owl:topDataProperty ;
-               rdfs:domain criteria:Crop .
+               rdfs:domain criteria:Crop ;
+               rdfs:range xsd:decimal .
 
 
-###  https://vaimee.com/criteria/laiCurveFactor_a
-criteria:laiCurveFactor_a rdf:type owl:DatatypeProperty ;
+###  http://onto.vaimee.com/agora/criteria#laiCurveFactorA
+criteria:laiCurveFactorA rdf:type owl:DatatypeProperty ;
                           rdfs:subPropertyOf owl:topDataProperty ;
-                          rdfs:domain criteria:Crop .
+                          rdfs:domain criteria:Crop ;
+                          rdfs:range xsd:decimal .
 
 
-###  https://vaimee.com/criteria/laiCurveFactor_b
-criteria:laiCurveFactor_b rdf:type owl:DatatypeProperty ;
+###  http://onto.vaimee.com/agora/criteria#laiCurveFactorB
+criteria:laiCurveFactorB rdf:type owl:DatatypeProperty ;
                           rdfs:subPropertyOf owl:topDataProperty ;
-                          rdfs:domain criteria:Crop .
+                          rdfs:domain criteria:Crop ;
+                          rdfs:range xsd:decimal .
 
 
-###  https://vaimee.com/criteria/laiGrass
+###  http://onto.vaimee.com/agora/criteria#laiGrass
 criteria:laiGrass rdf:type owl:DatatypeProperty ;
                   rdfs:subPropertyOf owl:topDataProperty ;
-                  rdfs:domain criteria:Crop .
-
-
-###  https://vaimee.com/criteria/laiMax
-criteria:laiMax rdf:type owl:DatatypeProperty ;
-                rdfs:subPropertyOf owl:topDataProperty ;
-                rdfs:domain criteria:Crop .
-
-
-###  https://vaimee.com/criteria/laiMin
-criteria:laiMin rdf:type owl:DatatypeProperty ;
-                rdfs:subPropertyOf owl:topDataProperty ;
-                rdfs:domain criteria:Crop .
-
-
-###  https://vaimee.com/criteria/layerNumber
-criteria:layerNumber rdf:type owl:DatatypeProperty ;
-                     rdfs:subPropertyOf owl:topDataProperty ;
-                     rdfs:domain sosa:Observation .
-
-
-###  https://vaimee.com/criteria/lowerDepth
-criteria:lowerDepth rdf:type owl:DatatypeProperty ;
-                    rdfs:subPropertyOf owl:topDataProperty ;
-                    rdfs:domain criteria:Horizon ;
-                    rdfs:range xsd:decimal .
-
-
-###  https://vaimee.com/criteria/maxHeightSurfacePuddle
-criteria:maxHeightSurfacePuddle rdf:type owl:DatatypeProperty ;
-                                rdfs:subPropertyOf owl:topDataProperty ;
-                                rdfs:domain criteria:Crop .
-
-
-###  https://vaimee.com/criteria/organicMatter
-criteria:organicMatter rdf:type owl:DatatypeProperty ;
-                       rdfs:subPropertyOf owl:topDataProperty ;
-                       rdfs:domain criteria:Horizon ;
-                       rdfs:range xsd:decimal .
-
-
-###  https://vaimee.com/criteria/plantCycleMaxDuration
-criteria:plantCycleMaxDuration rdf:type owl:DatatypeProperty ;
-                               rdfs:subPropertyOf owl:topDataProperty ;
-                               rdfs:domain criteria:Crop .
-
-
-###  https://vaimee.com/criteria/portNumber
-criteria:portNumber rdf:type owl:DatatypeProperty ;
-                    rdfs:subPropertyOf owl:topDataProperty ;
-                    rdfs:domain sosa:Observation ;
-                    rdfs:range xsd:decimal .
-
-
-###  https://vaimee.com/criteria/psiLeaf
-criteria:psiLeaf rdf:type owl:DatatypeProperty ;
-                 rdfs:subPropertyOf owl:topDataProperty ;
-                 rdfs:domain criteria:Crop .
-
-
-###  https://vaimee.com/criteria/rawFraction
-criteria:rawFraction rdf:type owl:DatatypeProperty ;
-                     rdfs:subPropertyOf owl:topDataProperty ;
-                     rdfs:domain criteria:Crop .
-
-
-###  https://vaimee.com/criteria/rootDepthMax
-criteria:rootDepthMax rdf:type owl:DatatypeProperty ;
-                      rdfs:subPropertyOf owl:topDataProperty ;
-                      rdfs:domain criteria:Crop .
-
-
-###  https://vaimee.com/criteria/rootDepthZero
-criteria:rootDepthZero rdf:type owl:DatatypeProperty ;
-                       rdfs:subPropertyOf owl:topDataProperty ;
-                       rdfs:domain criteria:Crop .
-
-
-###  https://vaimee.com/criteria/rootShape
-criteria:rootShape rdf:type owl:DatatypeProperty ;
-                   rdfs:subPropertyOf owl:topDataProperty ;
-                   rdfs:domain criteria:Crop .
-
-
-###  https://vaimee.com/criteria/rootShapeDeformation
-criteria:rootShapeDeformation rdf:type owl:DatatypeProperty ;
-                              rdfs:subPropertyOf owl:topDataProperty ;
-                              rdfs:domain criteria:Crop .
-
-
-###  https://vaimee.com/criteria/sand
-criteria:sand rdf:type owl:DatatypeProperty ;
-              rdfs:subPropertyOf owl:topDataProperty ;
-              rdfs:domain criteria:Horizon ;
-              rdfs:range xsd:decimal .
-
-
-###  https://vaimee.com/criteria/sensorId
-criteria:sensorId rdf:type owl:DatatypeProperty ;
-                  rdfs:subPropertyOf owl:topDataProperty ;
-                  rdfs:domain sosa:Observation .
-
-
-###  https://vaimee.com/criteria/sensorType
-criteria:sensorType rdf:type owl:DatatypeProperty ;
-                    rdfs:subPropertyOf owl:topDataProperty .
-
-
-###  https://vaimee.com/criteria/silt
-criteria:silt rdf:type owl:DatatypeProperty ;
-              rdfs:subPropertyOf owl:topDataProperty ;
-              rdfs:domain criteria:Horizon ;
-              rdfs:range xsd:decimal .
-
-
-###  https://vaimee.com/criteria/sowingDoy
-criteria:sowingDoy rdf:type owl:DatatypeProperty ;
-                   rdfs:subPropertyOf owl:topDataProperty ;
-                   rdfs:domain criteria:Crop .
-
-
-###  https://vaimee.com/criteria/stressTolerance
-criteria:stressTolerance rdf:type owl:DatatypeProperty ;
-                         rdfs:subPropertyOf owl:topDataProperty ;
-                         rdfs:domain criteria:Crop .
-
-
-###  https://vaimee.com/criteria/table
-criteria:table rdf:type owl:DatatypeProperty ;
-               rdfs:subPropertyOf owl:topDataProperty .
-
-
-###  https://vaimee.com/criteria/temp
-criteria:temp rdf:type owl:DatatypeProperty ;
-              rdfs:subPropertyOf owl:topDataProperty .
-
-
-###  https://vaimee.com/criteria/thermalThreshold
-criteria:thermalThreshold rdf:type owl:DatatypeProperty ;
-                          rdfs:subPropertyOf owl:topDataProperty ;
-                          rdfs:domain criteria:Crop .
-
-
-###  https://vaimee.com/criteria/thetaSat
-criteria:thetaSat rdf:type owl:DatatypeProperty ;
-                  rdfs:subPropertyOf owl:topDataProperty ;
-                  rdfs:domain criteria:Horizon ;
+                  rdfs:domain criteria:Crop ;
                   rdfs:range xsd:decimal .
 
 
-###  https://vaimee.com/criteria/upperDepth
-criteria:upperDepth rdf:type owl:DatatypeProperty ;
+###  http://onto.vaimee.com/agora/criteria#laiMax
+criteria:laiMax rdf:type owl:DatatypeProperty ;
+                rdfs:subPropertyOf owl:topDataProperty ;
+                rdfs:domain criteria:Crop ;
+                rdfs:range xsd:decimal .
+
+
+###  http://onto.vaimee.com/agora/criteria#laiMin
+criteria:laiMin rdf:type owl:DatatypeProperty ;
+                rdfs:subPropertyOf owl:topDataProperty ;
+                rdfs:domain criteria:Crop ;
+                rdfs:range xsd:decimal .
+
+
+###  http://onto.vaimee.com/agora/criteria#lowerDepth
+criteria:lowerDepth rdf:type owl:DatatypeProperty ;
                     rdfs:subPropertyOf owl:topDataProperty ;
-                    rdfs:domain criteria:Horizon ;
+                    rdfs:domain criteria:SoilHorizon ;
                     rdfs:range xsd:decimal .
 
 
-###  https://vaimee.com/criteria/upperThermalThreshold
-criteria:upperThermalThreshold rdf:type owl:DatatypeProperty ;
+###  http://onto.vaimee.com/agora/criteria#maxHeightSurfacePuddle
+criteria:maxHeightSurfacePuddle rdf:type owl:DatatypeProperty ;
+                                 rdfs:subPropertyOf owl:topDataProperty ;
+                                 rdfs:domain criteria:Crop ;
+                                 rdfs:range xsd:decimal .
+
+
+###  http://onto.vaimee.com/agora/criteria#organicMatter
+criteria:organicMatter rdf:type owl:DatatypeProperty ;
+                       rdfs:subPropertyOf owl:topDataProperty ;
+                       rdfs:domain criteria:SoilHorizon ;
+                       rdfs:range xsd:decimal .
+
+
+###  http://onto.vaimee.com/agora/criteria#plantCycleMaxDuration
+criteria:plantCycleMaxDuration rdf:type owl:DatatypeProperty ;
                                rdfs:subPropertyOf owl:topDataProperty ;
-                               rdfs:domain criteria:Crop .
+                               rdfs:domain criteria:Crop ;
+                               rdfs:range xsd:string .
 
 
-###  https://vaimee.com/criteria/useNumericalSolution
-criteria:useNumericalSolution rdf:type owl:DatatypeProperty ;
-                              rdfs:subPropertyOf owl:topDataProperty .
+###  http://onto.vaimee.com/agora/criteria#psiLeaf
+criteria:psiLeaf rdf:type owl:DatatypeProperty ;
+                 rdfs:subPropertyOf owl:topDataProperty ;
+                 rdfs:domain criteria:Crop ;
+                 rdfs:range xsd:integer .
 
 
-###  https://vaimee.com/criteria/useWaterRetentionFitting
-criteria:useWaterRetentionFitting rdf:type owl:DatatypeProperty ;
-                                  rdfs:subPropertyOf owl:topDataProperty .
-
-
-###  https://vaimee.com/criteria/waterContent
-criteria:waterContent rdf:type owl:DatatypeProperty ;
+###  http://onto.vaimee.com/agora/criteria#rawFraction
+criteria:rawFraction rdf:type owl:DatatypeProperty ;
                       rdfs:subPropertyOf owl:topDataProperty ;
-                      rdfs:domain criteria:Horizon ;
+                      rdfs:domain criteria:Crop ;
                       rdfs:range xsd:decimal .
 
 
-###  https://vaimee.com/criteria/waterPotential
-criteria:waterPotential rdf:type owl:DatatypeProperty ;
+###  http://onto.vaimee.com/agora/criteria#rootDepthMax
+criteria:rootDepthMax rdf:type owl:DatatypeProperty ;
+                       rdfs:subPropertyOf owl:topDataProperty ;
+                       rdfs:domain criteria:Crop ;
+                       rdfs:range xsd:decimal .
+
+
+###  http://onto.vaimee.com/agora/criteria#rootDepthZero
+criteria:rootDepthZero rdf:type owl:DatatypeProperty ;
                         rdfs:subPropertyOf owl:topDataProperty ;
-                        rdfs:domain criteria:Horizon ;
+                        rdfs:domain criteria:Crop ;
                         rdfs:range xsd:decimal .
 
 
-###  https://vaimee.com/criteria/waterTableAlpha
-criteria:waterTableAlpha rdf:type owl:DatatypeProperty ;
+###  http://onto.vaimee.com/agora/criteria#rootShape
+criteria:rootShape rdf:type owl:DatatypeProperty ;
+                   rdfs:subPropertyOf owl:topDataProperty ;
+                   rdfs:domain criteria:Crop ;
+                   rdfs:range xsd:integer .
+
+
+###  http://onto.vaimee.com/agora/criteria#rootShapeDeformation
+criteria:rootShapeDeformation rdf:type owl:DatatypeProperty ;
+                               rdfs:subPropertyOf owl:topDataProperty ;
+                               rdfs:domain criteria:Crop ;
+                               rdfs:range xsd:decimal .
+
+
+###  http://onto.vaimee.com/agora/criteria#sand
+criteria:sand rdf:type owl:DatatypeProperty ;
+              rdfs:subPropertyOf owl:topDataProperty ;
+              rdfs:domain criteria:SoilHorizon ;
+              rdfs:range xsd:decimal .
+
+
+###  http://onto.vaimee.com/agora/criteria#silt
+criteria:silt rdf:type owl:DatatypeProperty ;
+              rdfs:subPropertyOf owl:topDataProperty ;
+              rdfs:domain criteria:SoilHorizon ;
+              rdfs:range xsd:decimal .
+
+
+###  http://onto.vaimee.com/agora/criteria#sowingDoy
+criteria:sowingDoy rdf:type owl:DatatypeProperty ;
+                   rdfs:subPropertyOf owl:topDataProperty ;
+                   rdfs:domain criteria:Crop ;
+                   rdfs:range xsd:integer .
+
+
+###  http://onto.vaimee.com/agora/criteria#stressTolerance
+criteria:stressTolerance rdf:type owl:DatatypeProperty ;
                          rdfs:subPropertyOf owl:topDataProperty ;
-                         rdfs:domain criteria:Meteo_location .
+                         rdfs:domain criteria:Crop ;
+                         rdfs:range xsd:decimal .
 
 
-###  https://vaimee.com/criteria/weatherType
-criteria:weatherType rdf:type owl:DatatypeProperty ;
-                     rdfs:subPropertyOf owl:topDataProperty ;
-                     rdfs:domain criteria:Meteo_location .
+###  http://onto.vaimee.com/agora/criteria#thermalThreshold
+criteria:thermalThreshold rdf:type owl:DatatypeProperty ;
+                          rdfs:subPropertyOf owl:topDataProperty ;
+                          rdfs:domain criteria:Crop ;
+                          rdfs:range xsd:decimal .
 
 
-###  https://vaimee.com/weather/bulkDays
-weather:bulkDays rdf:type owl:DatatypeProperty ;
-                 rdfs:subPropertyOf owl:topDataProperty ;
-                 rdfs:domain criteria:Meteo_location .
+###  http://onto.vaimee.com/agora/criteria#thetaSat
+criteria:thetaSat rdf:type owl:DatatypeProperty ;
+                  rdfs:subPropertyOf owl:topDataProperty ;
+                  rdfs:domain criteria:SoilHorizon ;
+                  rdfs:range xsd:decimal .
 
 
-###  https://vaimee.com/weather/observationCount
-weather:observationCount rdf:type owl:DatatypeProperty ;
-                         rdfs:subPropertyOf owl:topDataProperty .
-
-
-###  https://vaimee.com/weather/recordCount
-weather:recordCount rdf:type owl:DatatypeProperty ;
+###  http://onto.vaimee.com/agora/criteria#upperDepth
+criteria:upperDepth rdf:type owl:DatatypeProperty ;
                     rdfs:subPropertyOf owl:topDataProperty ;
-                    rdfs:domain sosa:Observation .
+                    rdfs:domain criteria:SoilHorizon ;
+                    rdfs:range xsd:decimal .
+
+
+###  http://onto.vaimee.com/agora/criteria#upperThermalThreshold
+criteria:upperThermalThreshold rdf:type owl:DatatypeProperty ;
+                               rdfs:subPropertyOf owl:topDataProperty ;
+                               rdfs:domain criteria:Crop ;
+                               rdfs:range xsd:decimal .
+
+
+###  http://onto.vaimee.com/agora/criteria#computeLateralDrainage
+criteria:computeLateralDrainage rdf:type owl:DatatypeProperty ;
+                                  rdfs:subPropertyOf owl:topDataProperty ;
+                                  rdfs:domain criteria:Unit ;
+                                  rdfs:range xsd:boolean .
+
+
+###  http://onto.vaimee.com/agora/criteria#factorOfSafety
+criteria:factorOfSafety rdf:type owl:DatatypeProperty ;
+                        rdfs:subPropertyOf owl:topDataProperty ;
+                        rdfs:domain criteria:Unit ;
+                        rdfs:range xsd:string .
+
+
+###  http://onto.vaimee.com/agora/criteria#numericalSolution
+criteria:numericalSolution rdf:type owl:DatatypeProperty ;
+                            rdfs:subPropertyOf owl:topDataProperty ;
+                            rdfs:domain criteria:Unit ;
+                            rdfs:range xsd:boolean .
+
+
+###  http://onto.vaimee.com/agora/criteria#optimalIrrigation
+criteria:optimalIrrigation rdf:type owl:DatatypeProperty ;
+                            rdfs:subPropertyOf owl:topDataProperty ;
+                            rdfs:domain criteria:Unit ;
+                            rdfs:range xsd:boolean ;
+                            skos:relatedMatch <http://aims.fao.org/aos/agrovoc/c_3954> .
+
+
+###  http://onto.vaimee.com/agora/criteria#restartDate
+criteria:restartDate rdf:type owl:DatatypeProperty ;
+                     rdfs:subPropertyOf owl:topDataProperty ;
+                     rdfs:domain criteria:Unit ;
+                     rdfs:range xsd:dateTime .
+
+
+###  http://onto.vaimee.com/agora/criteria#restartState
+criteria:restartState rdf:type owl:DatatypeProperty ;
+                      rdfs:subPropertyOf owl:topDataProperty ;
+                      rdfs:domain criteria:Unit ;
+                      rdfs:range xsd:boolean .
+
+
+###  http://onto.vaimee.com/agora/criteria#saveDate
+criteria:saveDate rdf:type owl:DatatypeProperty ;
+                  rdfs:subPropertyOf owl:topDataProperty ;
+                  rdfs:domain criteria:Unit ;
+                  rdfs:range xsd:dateTime .
+
+
+###  http://onto.vaimee.com/agora/criteria#saveState
+criteria:saveState rdf:type owl:DatatypeProperty ;
+                   rdfs:subPropertyOf owl:topDataProperty ;
+                   rdfs:domain criteria:Unit ;
+                   rdfs:range xsd:boolean .
+
+
+###  http://onto.vaimee.com/agora/criteria#slope
+criteria:slope rdf:type owl:DatatypeProperty ;
+               rdfs:subPropertyOf owl:topDataProperty ;
+               rdfs:domain criteria:Unit ;
+               rdfs:range xsd:decimal .
+
+
+###  http://onto.vaimee.com/agora/criteria#useWaterTable
+criteria:useWaterTable rdf:type owl:DatatypeProperty ;
+                         rdfs:subPropertyOf owl:topDataProperty ;
+                         rdfs:domain criteria:Unit ;
+                         rdfs:range xsd:boolean .
+
+
+###  http://onto.vaimee.com/agora/criteria#waterRetentionFitting
+criteria:waterRetentionFitting rdf:type owl:DatatypeProperty ;
+                                 rdfs:subPropertyOf owl:topDataProperty ;
+                                 rdfs:domain criteria:Unit ;
+                                 rdfs:range xsd:boolean .
+
+
+###  http://onto.vaimee.com/agora/criteria#waterContent
+criteria:waterContent rdf:type owl:DatatypeProperty ;
+                       rdfs:subPropertyOf owl:topDataProperty ;
+                       rdfs:domain criteria:Unit ;
+                       rdfs:range xsd:string .
+
+
+###  http://onto.vaimee.com/agora/criteria#waterPotential
+criteria:waterPotential rdf:type owl:DatatypeProperty ;
+                         rdfs:subPropertyOf owl:topDataProperty ;
+                         rdfs:domain criteria:Unit ;
+                         rdfs:range xsd:string .
 
 
 #################################################################
 #    Classes
 #################################################################
-
-###  http://qudt.org/schema/qudt#QuantityValue
-qudt:QuantityValue rdf:type owl:Class ;
-                   rdfs:comment "A numerical value paired with a QUDT unit (e.g., Celsius, Millimeter)." ;
-                   rdfs:label "QuantityValue" .
-
 
 ###  http://schema.org/GeoCoordinates
 schema:GeoCoordinates rdf:type owl:Class .
@@ -611,70 +505,61 @@ schema:GeoCoordinates rdf:type owl:Class .
 schema:Place rdf:type owl:Class .
 
 
-###  http://www.w3.org/ns/sosa/Observation
-sosa:Observation rdf:type owl:Class ;
-                 rdfs:comment "An act of carrying out an observation as defined by the SOSA standard." ;
-                 rdfs:label "Observation" .
+###  http://www.opengis.net/ont/geosparql#Feature
+geo:Feature rdf:type owl:Class .
 
 
-###  http://www.w3.org/ns/sosa/Result
-sosa:Result rdf:type owl:Class ;
-            rdfs:comment "The output of an observation, linking a property to its specific quantity." ;
-            rdfs:label "Result" .
+###  http://www.opengis.net/ont/geosparql#Geometry
+geo:Geometry rdf:type owl:Class .
 
 
-###  https://vaimee.com/criteria/Crop
+###  http://onto.vaimee.com/fsm#Configuration
+fsm:Configuration rdf:type owl:Class .
+
+
+###  http://onto.vaimee.com/agora/criteria#Crop
 criteria:Crop rdf:type owl:Class ;
               rdfs:comment "Defines growth parameters, thermal thresholds, and irrigation requirements for a specific plant type." ;
-              rdfs:label "Crop" .
+              rdfs:label "Crop" ;
+              skos:closeMatch <http://aims.fao.org/aos/agrovoc/c_1972> .
 
 
-###  https://vaimee.com/criteria/CropClass
+###  http://onto.vaimee.com/agora/criteria#CropClass
 criteria:CropClass rdf:type owl:Class ;
                    rdfs:comment "Groups crops by irrigation requirements, such as herbaceous or arboreal types." ;
                    rdfs:label "CropClass" .
 
 
-###  https://vaimee.com/criteria/Horizon
-criteria:Horizon rdf:type owl:Class ;
+###  http://onto.vaimee.com/agora/criteria#SoilHorizon
+criteria:SoilHorizon rdf:type owl:Class ;
                  rdfs:comment "Represents a specific layer within a soil profile, characterized by depth and composition." ;
-                 rdfs:label "Horizon" .
+                 rdfs:label "SoilHorizon" ;
+                 skos:broadMatch <http://aims.fao.org/aos/agrovoc/c_7156> ;
+                 skos:closeMatch <http://aims.fao.org/aos/agrovoc/c_7486> ,
+                                 <http://aims.fao.org/aos/agrovoc/c_7812> .
 
 
-###  https://vaimee.com/criteria/Meteo_location
-criteria:Meteo_location rdf:type owl:Class ;
+###  http://onto.vaimee.com/agora/criteria#MeteoLocation
+criteria:MeteoLocation rdf:type owl:Class ;
+                        rdfs:subClassOf geo:Feature ;
+                        rdfs:subClassOf fsm:Configuration ;
                         rdfs:comment "A geographic point responsible for providing weather data (observed or forecast) to one or more Units." ;
-                        rdfs:label "Meteo_location" .
+                        rdfs:label "MeteoLocation" ;
+                        skos:closeMatch <http://aims.fao.org/aos/agrovoc/c_4781> .
 
 
-###  https://vaimee.com/criteria/Soil
+###  http://onto.vaimee.com/agora/criteria#Soil
 criteria:Soil rdf:type owl:Class ;
               rdfs:comment "The physical profile of the earth at a specific location." ;
-              rdfs:label "Soil" .
+              rdfs:label "Soil" ;
+              skos:exactMatch <http://aims.fao.org/aos/agrovoc/c_7156> .
 
 
-###  https://vaimee.com/criteria/Unit
+###  http://onto.vaimee.com/agora/criteria#Unit
 criteria:Unit rdf:type owl:Class ;
+              rdfs:subClassOf fsm:Configuration ;
               rdfs:comment "A unit in our system is a tuple composed of [soil-type,crop-type,meteo-station]" ;
               rdfs:label "Unit" .
-
-
-###  https://vaimee.com/weather/BulkLoad
-weather:BulkLoad rdf:type owl:Class ;
-                 rdfs:comment "Represents a high-volume data ingestion process for historical weather records." ;
-                 rdfs:label "BulkLoad" .
-
-
-###  https://vaimee.com/weather/Forecast
-weather:Forecast rdf:type owl:Class ;
-                 rdfs:comment "Data structure for predicted weather conditions at a specific location." ;
-                 rdfs:label "Forecast" .
-
-
-###  https://vaimee.com/weather/History
-weather:History rdf:type owl:Class ;
-                rdfs:comment "Data structure for verified past weather observations." ;
-                rdfs:label "History" .
 
 
 ###  Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi

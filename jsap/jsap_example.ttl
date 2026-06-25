@@ -7,7 +7,7 @@
 #    JSAP instance
 #################################################################
 
-:jsap1 a jsap:JSAP ;
+:jsap1 a jsap:Jsap ;
     jsap:hasNamespace <http://example.org> ;
     jsap:includesOperation :op1, :op2, :op3 .
 
@@ -21,11 +21,11 @@
 :op1 a jsap:Query ;
     jsap:sparql "SELECT ?s WHERE { ?s a <http://example.org/Class> }" ;
     jsap:usesSnippet :snippet1 ;
-    jsap:hasFB :fb1 .
+    jsap:hasForcedBinding :fb1 .
 
 :op2 a jsap:Update ;
     jsap:sparql "INSERT DATA { <http://example.org/inst1> a <http://example.org/Class> }" ;
-    jsap:hasFB :fb2 .
+    jsap:hasForcedBinding :fb2 .
 
 :op3 a jsap:Rule ;
     jsap:text "jsap:performsSubscription(?comp, ?query) ^ jsap:includesOperation(?jsap, ?query) → jsap:hasComponent(?jsap, ?comp)" .
@@ -41,12 +41,12 @@
 #    Forced Bindings
 #################################################################
 
-:fb1 a jsap:LiteralFB ;
+:fb1 a jsap:LiteralForcedBinding ;
     jsap:name "età" ;
     jsap:defaultValue "42"^^xsd:integer ;
     jsap:dataType xsd:integer . 
 
-:fb2 a jsap:UriFB ;
+:fb2 a jsap:UriForcedBinding ;
     jsap:name "resource" ;
     jsap:defaultValue  "http://onto.vaimee.com/unit"^^xsd:anyURI .
 

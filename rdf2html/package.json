@@ -4,6 +4,7 @@
     "version": "1.0.0",
     "main": "render.js",
     "scripts": {
+        "version": "node update-versions.js",
         "build": "node render.js"
     },
     "dependencies": {

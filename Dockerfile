@@ -8,7 +8,9 @@ COPY rdf2html/package.json ./rdf2html/package.json
 RUN npm install --prefix rdf2html
 
 COPY . .
-RUN npm run --prefix rdf2html build
+ARG ONTOLOGY_VERSION=1.0.0
+ENV ONTOLOGY_VERSION=$ONTOLOGY_VERSION
+RUN npm run --prefix rdf2html version && npm run --prefix rdf2html build
 
 FROM nginx:1.27-alpine
 

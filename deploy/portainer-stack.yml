@@ -1,0 +1,23 @@
+services:
+  ontologies:
+    image: ${ONTOLOGIES_IMAGE}
+    restart: unless-stopped
+    networks:
+      - traefik
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.ontologies-http.rule=Host(`onto.vaimee.com`)
+      - traefik.http.routers.ontologies-http.entrypoints=web
+      - traefik.http.routers.ontologies-http.middlewares=ontologies-https
+      - traefik.http.middlewares.ontologies-https.redirectscheme.scheme=https
+      - traefik.http.middlewares.ontologies-https.redirectscheme.permanent=true
+      - traefik.http.routers.ontologies-https.rule=Host(`onto.vaimee.com`)
+      - traefik.http.routers.ontologies-https.entrypoints=websecure
+      - traefik.http.routers.ontologies-https.tls=true
+      - traefik.http.routers.ontologies-https.tls.certresolver=letsencrypt
+      - traefik.http.services.ontologies.loadbalancer.server.port=80
+
+networks:
+  traefik:
+    external: true
+    name: ${TRAEFIK_NETWORK:-traefik}

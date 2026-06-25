@@ -7,7 +7,7 @@
     <script class='remove'>
         var respecConfig = {
             specStatus: "ED",
-            editors: [],
+            editors: [{name:"Luca Roffia",url:"https://qrfy.io/p/BJOemlfU0F",company:"VAIMEE srl",companyURL:"https://vaimee.com"}],
             edDraftURI: "https://onto.vaimee.com/msg#",
             shortName: "opo"
         };
@@ -30,69 +30,71 @@
 </p>
 <p>"This is an ontology for messages developed by VAIMEE. It integrates classes and properties from Schema.org."</p>
 </section>
-<section><h2>Axiomatization</h2><section><h3>Classes</h3><section><h4>Content</h4><p>IRI: <code>https://onto.vaimee.com/msg#Content</code></p><span>https://onto.vaimee.com/msg</span>
-<h4>Content</h4><p>IRI: <code>https://onto.vaimee.com/msg#Content</code></p><span>A generic class representing any kind of content, which can be either a text message or a template message with attachments.</span><table class="def"><tbody><tr><td>Super-class of</td><td><code><a href="#template content">Template Content</a></code><br><code><a href="#text content">Text Content</a></code></td></tr><tr><td>In the domain of</td><td><code><a href="#has variable">has variable</a></code></td></tr></tbody></table></section>
-<section><h4>Notification Group</h4><p>IRI: <code>https://onto.vaimee.com/msg#NotificationGroup</code></p><span>A collection of recipients grouped together for notification purposes, which may represent a broadcast list, a mailing list, or a messaging group.</span><table class="def"><tbody><tr><td>In the range of</td><td><code><a href="#to multiple recipients">to multiple recipients</a></code></td></tr></tbody></table></section>
-<section><h4>Template</h4><p>IRI: <code>https://onto.vaimee.com/msg#Template</code></p><span>A text-based template with placeholders for variables.</span><table class="def"><tbody><tr><td>In the domain of</td><td><code><a href="#langauge">langauge</a></code></td></tr><tr><td>In the range of</td><td><code><a href="#uses template">uses template</a></code></td></tr></tbody></table></section>
-<section><h4>Template Content</h4><p>IRI: <code>https://onto.vaimee.com/msg#TemplateContent</code></p><span>Represents a content that is based on a template, including variables and optional attachments.</span><table class="def"><tbody><tr><td>Sub-class of</td><td><code><a href="#content">Content</a></code></td></tr><tr><td>In the domain of</td><td><code><a href="#uses template">uses template</a></code></td></tr></tbody></table></section>
-<section><h4>Text Content</h4><p>IRI: <code>https://onto.vaimee.com/msg#TextContent</code></p><span>Represents a content that is a text message, which can also have attachments.</span><table class="def"><tbody><tr><td>Sub-class of</td><td><code><a href="#content">Content</a></code></td></tr></tbody></table></section>
-<section><h4>Variable</h4><p>IRI: <code>https://onto.vaimee.com/msg#Variable</code></p><span>A symbolic placeholder representing a value that can be assigned dynamically in different contexts.</span><table class="def"><tbody><tr><td>In the domain of</td><td><code><a href="#has value">has value</a></code></td></tr><tr><td>In the range of</td><td><code><a href="#has variable">has variable</a></code></td></tr></tbody></table></section></section><section><h3>Object Properties</h3><section><h4>about</h4><p>IRI: <code>https://onto.vaimee.com/msg#about</code></p><span>The subject matter of the content.</span><table class="def"><tbody><tr><td>Domain includes</td><td><code><a href="https://schema.org/CreativeWork">https://schema.org/CreativeWork</a></code></td></tr><tr><td>Range includes</td><td><code><a href="http://www.w3.org/2002/07/owl#Thing">http://www.w3.org/2002/07/owl#Thing</a></code></td></tr></tbody></table></section>
-<section><h4>has variable</h4><p>IRI: <code>https://onto.vaimee.com/msg#hasVariable</code></p><span>Links a Template or a TemplateContent to individual variables it contains.</span><table class="def"><tbody><tr><td>Domain includes</td><td><code><a href="#content">Content</a></code></td></tr><tr><td>Range includes</td><td><code><a href="#variable">Variable</a></code></td></tr></tbody></table></section>
-<section><h4>source</h4><p>IRI: <code>https://onto.vaimee.com/msg#source</code></p><span>Indicates the entity responsible for generating the message.</span><table class="def"><tbody><tr><td>Domain includes</td><td><code><a href="https://schema.org/CreativeWork">https://schema.org/CreativeWork</a></code></td></tr><tr><td>Range includes</td><td><code><a href="https://onto.vaimee.com/msg#DACAMBIAREAggregator">https://onto.vaimee.com/msg#DACAMBIAREAggregator</a></code></td></tr></tbody></table></section>
-<section><h4>to multiple recipients</h4><p>IRI: <code>https://onto.vaimee.com/msg#toMultipleRecipients</code></p><span>Specifies that the message is intended for multiple recipients, typically represented by an Audience or group.</span><table class="def"><tbody><tr><td>Domain includes</td><td><code><a href="https://schema.org/Message">https://schema.org/Message</a></code></td></tr><tr><td>Range includes</td><td><code><a href="#notification group">Notification Group</a></code></td></tr></tbody></table></section>
-<section><h4>uses template</h4><p>IRI: <code>https://onto.vaimee.com/msg#usesTemplate</code></p><span>Links an TemplateContent to its corresponding Template. This property indicates that a specific template has been used as the base structure for a personalized message.</span><table class="def"><tbody><tr><td>Domain includes</td><td><code><a href="#template content">Template Content</a></code></td></tr><tr><td>Range includes</td><td><code><a href="#template">Template</a></code></td></tr></tbody></table></section></section><section><h3>Datatype Properties</h3><section><h4>date created</h4><p>IRI: <code>https://onto.vaimee.com/msg#dateCreated</code></p><span>Specifies the date and time when the message was created.</span><table class="def"><tbody><tr><td>Domain includes</td><td><code><a href="https://schema.org/Message">https://schema.org/Message</a></code></td></tr><tr><td>Range includes</td><td><code><a href="http://www.w3.org/2001/XMLSchema#dateTime">http://www.w3.org/2001/XMLSchema#dateTime</a></code></td></tr></tbody></table></section>
-<section><h4>date sent</h4><p>IRI: <code>https://onto.vaimee.com/msg#dateSent</code></p><span>Indicates the exact date and time when the message was sent.</span><table class="def"><tbody><tr><td>Domain includes</td><td><code><a href="https://schema.org/Message">https://schema.org/Message</a></code></td></tr><tr><td>Range includes</td><td><code><a href="http://www.w3.org/2001/XMLSchema#dateTime">http://www.w3.org/2001/XMLSchema#dateTime</a></code></td></tr></tbody></table></section>
-<section><h4>has value</h4><p>IRI: <code>https://onto.vaimee.com/msg#hasValue</code></p><span>Associates a variable with its value.</span><table class="def"><tbody><tr><td>Domain includes</td><td><code><a href="#variable">Variable</a></code></td></tr><tr><td>Range includes</td><td><code><a href="#content">Content</a></code>
-<code><a href="#notification group">Notification Group</a></code>
-<code><a href="#template">Template</a></code>
-<code><a href="#template content">Template Content</a></code>
-<code><a href="#text content">Text Content</a></code>
-<code><a href="#variable">Variable</a></code>
+<section><h2>Namespaces</h2><table class="def"><tbody><tr><td><code>xsd:</code></td><td><code>http://www.w3.org/2001/XMLSchema#</code></td></tr></tbody></table></section>
+<section><h2>Version</h2><table class="def"><tbody><tr><td>Version</td><td><code>1.0.0</code></td></tr><tr><td>Version IRI</td><td><code><a href="https://onto.vaimee.com/msg/1.0.0#">https://onto.vaimee.com/msg/1.0.0#</a></code></td></tr></tbody></table></section>
+<section><h2>Axiomatization</h2><section><h3>Classes</h3><section><h4 id="Content">Content</h4><p>IRI: <code>https://onto.vaimee.com/msg#Content</code></p><span>https://onto.vaimee.com/msg</span>
+<h4 id="Content">Content</h4><p>IRI: <code>https://onto.vaimee.com/msg#Content</code></p><span>A generic class representing any kind of content, which can be either a text message or a template message with attachments.</span><table class="def"><tbody><tr><td>Super-class of</td><td><code><a href="#TemplateContent">Template Content</a></code><br><code><a href="#TextContent">Text Content</a></code></td></tr><tr><td>In the domain of</td><td><code><a href="#hasVariable">has variable</a></code></td></tr></tbody></table></section>
+<section><h4 id="NotificationGroup">Notification Group</h4><p>IRI: <code>https://onto.vaimee.com/msg#NotificationGroup</code></p><span>A collection of recipients grouped together for notification purposes, which may represent a broadcast list, a mailing list, or a messaging group.</span><table class="def"><tbody><tr><td>In the range of</td><td><code><a href="#toMultipleRecipients">to multiple recipients</a></code></td></tr></tbody></table></section>
+<section><h4 id="Template">Template</h4><p>IRI: <code>https://onto.vaimee.com/msg#Template</code></p><span>A text-based template with placeholders for variables.</span><table class="def"><tbody><tr><td>In the domain of</td><td><code><a href="#language">langauge</a></code></td></tr><tr><td>In the range of</td><td><code><a href="#usesTemplate">uses template</a></code></td></tr></tbody></table></section>
+<section><h4 id="TemplateContent">Template Content</h4><p>IRI: <code>https://onto.vaimee.com/msg#TemplateContent</code></p><span>Represents a content that is based on a template, including variables and optional attachments.</span><table class="def"><tbody><tr><td>Sub-class of</td><td><code><a href="#Content">Content</a></code></td></tr><tr><td>In the domain of</td><td><code><a href="#usesTemplate">uses template</a></code></td></tr></tbody></table></section>
+<section><h4 id="TextContent">Text Content</h4><p>IRI: <code>https://onto.vaimee.com/msg#TextContent</code></p><span>Represents a content that is a text message, which can also have attachments.</span><table class="def"><tbody><tr><td>Sub-class of</td><td><code><a href="#Content">Content</a></code></td></tr></tbody></table></section>
+<section><h4 id="Variable">Variable</h4><p>IRI: <code>https://onto.vaimee.com/msg#Variable</code></p><span>A symbolic placeholder representing a value that can be assigned dynamically in different contexts.</span><table class="def"><tbody><tr><td>In the domain of</td><td><code><a href="#hasValue">has value</a></code></td></tr><tr><td>In the range of</td><td><code><a href="#hasVariable">has variable</a></code></td></tr></tbody></table></section></section><section><h3>Object Properties</h3><section><h4 id="about">about</h4><p>IRI: <code>https://onto.vaimee.com/msg#about</code></p><span>The subject matter of the content.</span><table class="def"><tbody><tr><td>Domain includes</td><td><code><a href="https://schema.org/CreativeWork">https://schema.org/CreativeWork</a></code></td></tr><tr><td>Range includes</td><td><code><a href="http://www.w3.org/2002/07/owl#Thing">http://www.w3.org/2002/07/owl#Thing</a></code></td></tr></tbody></table></section>
+<section><h4 id="hasVariable">has variable</h4><p>IRI: <code>https://onto.vaimee.com/msg#hasVariable</code></p><span>Links a Template or a TemplateContent to individual variables it contains.</span><table class="def"><tbody><tr><td>Domain includes</td><td><code><a href="#Content">Content</a></code></td></tr><tr><td>Range includes</td><td><code><a href="#Variable">Variable</a></code></td></tr></tbody></table></section>
+<section><h4 id="source">source</h4><p>IRI: <code>https://onto.vaimee.com/msg#source</code></p><span>Indicates the entity responsible for generating the message.</span><table class="def"><tbody><tr><td>Domain includes</td><td><code><a href="https://schema.org/CreativeWork">https://schema.org/CreativeWork</a></code></td></tr><tr><td>Range includes</td><td><code><a href="https://onto.vaimee.com/jsap#Aggregator">https://onto.vaimee.com/jsap#Aggregator</a></code></td></tr></tbody></table></section>
+<section><h4 id="toMultipleRecipients">to multiple recipients</h4><p>IRI: <code>https://onto.vaimee.com/msg#toMultipleRecipients</code></p><span>Specifies that the message is intended for multiple recipients, typically represented by an Audience or group.</span><table class="def"><tbody><tr><td>Domain includes</td><td><code><a href="https://schema.org/Message">https://schema.org/Message</a></code></td></tr><tr><td>Range includes</td><td><code><a href="#NotificationGroup">Notification Group</a></code></td></tr></tbody></table></section>
+<section><h4 id="usesTemplate">uses template</h4><p>IRI: <code>https://onto.vaimee.com/msg#usesTemplate</code></p><span>Links an TemplateContent to its corresponding Template. This property indicates that a specific template has been used as the base structure for a personalized message.</span><table class="def"><tbody><tr><td>Domain includes</td><td><code><a href="#TemplateContent">Template Content</a></code></td></tr><tr><td>Range includes</td><td><code><a href="#Template">Template</a></code></td></tr></tbody></table></section></section><section><h3>Datatype Properties</h3><section><h4 id="dateCreated">date created</h4><p>IRI: <code>https://onto.vaimee.com/msg#dateCreated</code></p><span>Specifies the date and time when the message was created.</span><table class="def"><tbody><tr><td>Domain includes</td><td><code><a href="https://schema.org/Message">https://schema.org/Message</a></code></td></tr><tr><td>Range includes</td><td><code><a href="http://www.w3.org/2001/XMLSchema#dateTime">xsd:dateTime</a></code></td></tr></tbody></table></section>
+<section><h4 id="dateSent">date sent</h4><p>IRI: <code>https://onto.vaimee.com/msg#dateSent</code></p><span>Indicates the exact date and time when the message was sent.</span><table class="def"><tbody><tr><td>Domain includes</td><td><code><a href="https://schema.org/Message">https://schema.org/Message</a></code></td></tr><tr><td>Range includes</td><td><code><a href="http://www.w3.org/2001/XMLSchema#dateTime">xsd:dateTime</a></code></td></tr></tbody></table></section>
+<section><h4 id="hasValue">has value</h4><p>IRI: <code>https://onto.vaimee.com/msg#hasValue</code></p><span>Associates a variable with its value.</span><table class="def"><tbody><tr><td>Domain includes</td><td><code><a href="#Variable">Variable</a></code></td></tr><tr><td>Range includes</td><td><code><a href="#Content">Content</a></code>
+<code><a href="#NotificationGroup">Notification Group</a></code>
+<code><a href="#Template">Template</a></code>
+<code><a href="#TemplateContent">Template Content</a></code>
+<code><a href="#TextContent">Text Content</a></code>
+<code><a href="#Variable">Variable</a></code>
 <code><a href="#about">about</a></code>
-<code><a href="#date created">date created</a></code>
-<code><a href="#date sent">date sent</a></code>
-<code><a href="#has value">has value</a></code>
-<code><a href="#has variable">has variable</a></code>
-<code><a href="#langauge">langauge</a></code>
+<code><a href="#dateCreated">date created</a></code>
+<code><a href="#dateSent">date sent</a></code>
+<code><a href="#hasValue">has value</a></code>
+<code><a href="#hasVariable">has variable</a></code>
+<code><a href="#language">langauge</a></code>
 <code><a href="#name">name</a></code>
 <code><a href="#source">source</a></code>
 <code><a href="#text">text</a></code>
-<code><a href="#to multiple recipients">to multiple recipients</a></code>
-<code><a href="#uses template">uses template</a></code></td></tr></tbody></table></section>
-<section><h4>langauge</h4><p>IRI: <code>https://onto.vaimee.com/msg#language</code></p><span>Specifies the language of the template.</span><table class="def"><tbody><tr><td>Domain includes</td><td><code><a href="#template">Template</a></code></td></tr><tr><td>Range includes</td><td><code><a href="#content">Content</a></code>
-<code><a href="#notification group">Notification Group</a></code>
-<code><a href="#template">Template</a></code>
-<code><a href="#template content">Template Content</a></code>
-<code><a href="#text content">Text Content</a></code>
-<code><a href="#variable">Variable</a></code>
+<code><a href="#toMultipleRecipients">to multiple recipients</a></code>
+<code><a href="#usesTemplate">uses template</a></code></td></tr></tbody></table></section>
+<section><h4 id="language">langauge</h4><p>IRI: <code>https://onto.vaimee.com/msg#language</code></p><span>Specifies the language of the template.</span><table class="def"><tbody><tr><td>Domain includes</td><td><code><a href="#Template">Template</a></code></td></tr><tr><td>Range includes</td><td><code><a href="#Content">Content</a></code>
+<code><a href="#NotificationGroup">Notification Group</a></code>
+<code><a href="#Template">Template</a></code>
+<code><a href="#TemplateContent">Template Content</a></code>
+<code><a href="#TextContent">Text Content</a></code>
+<code><a href="#Variable">Variable</a></code>
 <code><a href="#about">about</a></code>
-<code><a href="#date created">date created</a></code>
-<code><a href="#date sent">date sent</a></code>
-<code><a href="#has value">has value</a></code>
-<code><a href="#has variable">has variable</a></code>
-<code><a href="#langauge">langauge</a></code>
+<code><a href="#dateCreated">date created</a></code>
+<code><a href="#dateSent">date sent</a></code>
+<code><a href="#hasValue">has value</a></code>
+<code><a href="#hasVariable">has variable</a></code>
+<code><a href="#language">langauge</a></code>
 <code><a href="#name">name</a></code>
 <code><a href="#source">source</a></code>
 <code><a href="#text">text</a></code>
-<code><a href="#to multiple recipients">to multiple recipients</a></code>
-<code><a href="#uses template">uses template</a></code></td></tr></tbody></table></section>
-<section><h4>name</h4><p>IRI: <code>https://onto.vaimee.com/msg#name</code></p><span>Links a resource with its name.</span><table class="def"><tbody><tr><td>Domain includes</td><td><code><a href="http://www.w3.org/2002/07/owl#Thing">http://www.w3.org/2002/07/owl#Thing</a></code></td></tr><tr><td>Range includes</td><td><code><a href="http://www.w3.org/2001/XMLSchema#string">http://www.w3.org/2001/XMLSchema#string</a></code></td></tr></tbody></table></section>
-<section><h4>text</h4><p>IRI: <code>https://onto.vaimee.com/msg#text</code></p><span>A string of text associated with a resource.</span><table class="def"><tbody><tr><td>Domain includes</td><td><code><a href="#content">Content</a></code>
-<code><a href="#notification group">Notification Group</a></code>
-<code><a href="#template">Template</a></code>
-<code><a href="#template content">Template Content</a></code>
-<code><a href="#text content">Text Content</a></code>
-<code><a href="#variable">Variable</a></code>
+<code><a href="#toMultipleRecipients">to multiple recipients</a></code>
+<code><a href="#usesTemplate">uses template</a></code></td></tr></tbody></table></section>
+<section><h4 id="name">name</h4><p>IRI: <code>https://onto.vaimee.com/msg#name</code></p><span>Links a resource with its name.</span><table class="def"><tbody><tr><td>Domain includes</td><td><code><a href="http://www.w3.org/2002/07/owl#Thing">http://www.w3.org/2002/07/owl#Thing</a></code></td></tr><tr><td>Range includes</td><td><code><a href="http://www.w3.org/2001/XMLSchema#string">xsd:string</a></code></td></tr></tbody></table></section>
+<section><h4 id="text">text</h4><p>IRI: <code>https://onto.vaimee.com/msg#text</code></p><span>A string of text associated with a resource.</span><table class="def"><tbody><tr><td>Domain includes</td><td><code><a href="#Content">Content</a></code>
+<code><a href="#NotificationGroup">Notification Group</a></code>
+<code><a href="#Template">Template</a></code>
+<code><a href="#TemplateContent">Template Content</a></code>
+<code><a href="#TextContent">Text Content</a></code>
+<code><a href="#Variable">Variable</a></code>
 <code><a href="#about">about</a></code>
-<code><a href="#date created">date created</a></code>
-<code><a href="#date sent">date sent</a></code>
-<code><a href="#has value">has value</a></code>
-<code><a href="#has variable">has variable</a></code>
-<code><a href="#langauge">langauge</a></code>
+<code><a href="#dateCreated">date created</a></code>
+<code><a href="#dateSent">date sent</a></code>
+<code><a href="#hasValue">has value</a></code>
+<code><a href="#hasVariable">has variable</a></code>
+<code><a href="#language">langauge</a></code>
 <code><a href="#name">name</a></code>
 <code><a href="#source">source</a></code>
 <code><a href="#text">text</a></code>
-<code><a href="#to multiple recipients">to multiple recipients</a></code>
-<code><a href="#uses template">uses template</a></code></td></tr><tr><td>Range includes</td><td><code><a href="http://www.w3.org/2001/XMLSchema#string">http://www.w3.org/2001/XMLSchema#string</a></code></td></tr></tbody></table></section></section></section>
+<code><a href="#toMultipleRecipients">to multiple recipients</a></code>
+<code><a href="#usesTemplate">uses template</a></code></td></tr><tr><td>Range includes</td><td><code><a href="http://www.w3.org/2001/XMLSchema#string">xsd:string</a></code></td></tr></tbody></table></section></section></section>
 </body>
 </html>

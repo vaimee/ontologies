@@ -4,12 +4,23 @@
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix jsap: <https://onto.vaimee.com/jsap#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
 @base <https://onto.vaimee.com/msg#> .
 
 <https://onto.vaimee.com/msg#> rdf:type owl:Ontology ;
-                            owl:imports <https://schema.org/> ;
-                            rdfs:comment "This is an ontology for messages developed by VAIMEE. It integrates classes and properties from Schema.org."@en ;
-                            owl:versionInfo 1.0 .
+                             owl:imports <https://schema.org/> ;
+                             rdfs:comment "This is an ontology for messages developed by VAIMEE. It integrates classes and properties from Schema.org."@en ;
+                             dct:creator <https://qrfy.io/p/BJOemlfU0F> ;
+                             owl:versionIRI <https://onto.vaimee.com/msg/1.0.0#> ;
+                             owl:versionInfo "1.0.0" .
+
+<https://qrfy.io/p/BJOemlfU0F> foaf:name "Luca Roffia" ;
+                             foaf:member <https://vaimee.com> .
+
+<https://vaimee.com> foaf:name "VAIMEE srl" ;
+                             foaf:homepage "https://vaimee.com" .
 
 #################################################################
 #    Object Properties
@@ -36,7 +47,7 @@
 ###  https://onto.vaimee.com/msg#source
 <https://onto.vaimee.com/msg#source> rdf:type owl:ObjectProperty ;
                                      rdfs:domain <https://schema.org/CreativeWork> ;
-                                     rdfs:range <https://onto.vaimee.com/msg#DACAMBIAREAggregator> ;
+                                     rdfs:range jsap:Aggregator ;
                                      rdfs:comment "Indicates the entity responsible for generating the message."@en ;
                                      rdfs:isDefinedBy <https://onto.vaimee.com/msg> ;
                                      rdfs:label "source"@en .
@@ -148,10 +159,6 @@
                                       rdfs:comment <https://onto.vaimee.com/msg> ,
                                                    "A generic class representing any kind of content, which can be either a text message or a template message with attachments."@en ;
                                       rdfs:label "Content"@en .
-
-
-###  https://onto.vaimee.com/msg#DACAMBIAREAggregator
-<https://onto.vaimee.com/msg#DACAMBIAREAggregator> rdf:type owl:Class .
 
 
 ###  https://onto.vaimee.com/msg#NotificationGroup

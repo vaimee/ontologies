@@ -50,6 +50,8 @@ template :main(?ns) {
 <p>%s</p>
 </section>
 %s
+%s
+%s
 </body>
 </html>
 """
@@ -58,6 +60,8 @@ template :main(?ns) {
         ?title
         ?desc
         st:call-template(:intro, ?o)
+        st:call-template(:namespaces)
+        st:call-template(:version-metadata, ?o)
         st:call-template(:axioms, ?o, ?ns)
     }
 } where {
@@ -71,18 +75,106 @@ template :main(?ns) {
 ## Introduction can be taken from ontology description
 template :intro(?o) {?intro} where {?o a owl:Ontology ; dct:description ?intro}
 
+template :namespaces {
+    "<section>"
+        "<h2>Namespaces</h2>"
+        "<table class=\"def\">"
+            "<tbody>"
+                st:call-template(:namespace-row-criteria)
+                st:call-template(:namespace-row-fsm)
+                st:call-template(:namespace-row-geo)
+                st:call-template(:namespace-row-xsd)
+            "</tbody>"
+        "</table>"
+    "</section>"
+} where {
+    filter exists {
+        ?s ?p ?o .
+        values ?namespace {
+            "http://www.w3.org/2001/XMLSchema#"
+            "http://onto.vaimee.com/agora/criteria#"
+            "http://onto.vaimee.com/fsm#"
+            "http://www.opengis.net/ont/geosparql#"
+        }
+        filter(contains(str(?s), ?namespace) || contains(str(?p), ?namespace) || contains(str(?o), ?namespace))
+    }
+}
+
+template :namespace-row-criteria {
+    "<tr><td><code>criteria:</code></td><td><code>http://onto.vaimee.com/agora/criteria#</code></td></tr>"
+} where {
+    filter exists {
+        ?s ?p ?o .
+        filter(contains(str(?s), "http://onto.vaimee.com/agora/criteria#") || contains(str(?p), "http://onto.vaimee.com/agora/criteria#") || contains(str(?o), "http://onto.vaimee.com/agora/criteria#"))
+    }
+}
+
+template :namespace-row-fsm {
+    "<tr><td><code>fsm:</code></td><td><code>http://onto.vaimee.com/fsm#</code></td></tr>"
+} where {
+    filter exists {
+        ?s ?p ?o .
+        filter(contains(str(?s), "http://onto.vaimee.com/fsm#") || contains(str(?p), "http://onto.vaimee.com/fsm#") || contains(str(?o), "http://onto.vaimee.com/fsm#"))
+    }
+}
+
+template :namespace-row-geo {
+    "<tr><td><code>geo:</code></td><td><code>http://www.opengis.net/ont/geosparql#</code></td></tr>"
+} where {
+    filter exists {
+        ?s ?p ?o .
+        filter(contains(str(?s), "http://www.opengis.net/ont/geosparql#") || contains(str(?p), "http://www.opengis.net/ont/geosparql#") || contains(str(?o), "http://www.opengis.net/ont/geosparql#"))
+    }
+}
+
+template :namespace-row-xsd {
+    "<tr><td><code>xsd:</code></td><td><code>http://www.w3.org/2001/XMLSchema#</code></td></tr>"
+} where {
+    filter exists {
+        ?s ?p ?o .
+        filter(contains(str(?s), "http://www.w3.org/2001/XMLSchema#") || contains(str(?p), "http://www.w3.org/2001/XMLSchema#") || contains(str(?o), "http://www.w3.org/2001/XMLSchema#"))
+    }
+}
+
+template :version-metadata(?o) {
+    "<section>"
+        "<h2>Version</h2>"
+        "<table class=\"def\">"
+            "<tbody>"
+                st:call-template(:version-info-row, ?o)
+                st:call-template(:version-iri-row, ?o)
+            "</tbody>"
+        "</table>"
+    "</section>"
+} where {
+    filter exists {
+        { ?o owl:versionInfo ?version }
+        union
+        { ?o owl:versionIRI ?versionIri }
+    }
+}
+
+template :version-info-row(?o) {
+    format { "<tr><td>Version</td><td><code>%s</code></td></tr>" ?version }
+} where {
+    ?o owl:versionInfo ?version .
+}
+
+template :version-iri-row(?o) {
+    format { "<tr><td>Version IRI</td><td><code><a href=\"%s\">%s</a></code></td></tr>" ?versionIri ?versionIri }
+} where {
+    ?o owl:versionIRI ?versionIri .
+}
+
 ### Editors must be represented as dct:creator or dct:contributor
 ### Editor details are represented using schema:name schema:affiliation schema:url
 template :editor(?o) {
-    "{"
-    "name:" ?name ","
-    "company:" ?company ","
-    "companyURL:" ?url
-    "}" ; separator = ","
+    format { "{name:\"%s\",url:\"%s\",company:\"%s\",companyURL:\"%s\"}" ?name ?personUrl ?company ?url } ; separator = ","
 } where {
 { ?o dct:creator ?ed } union { ?o dct:contributor ?ed }
     ?ed foaf:name ?name ; foaf:member ?org .
     ?org foaf:name ?company ; foaf:homepage ?url .
+    bind(str(?ed) as ?personUrl)
 }
 
 #	VALUES (?name ?company ?url)
@@ -235,10 +327,7 @@ template :properties(?ns ?prefix ?type) {
         "</table>"
     "</section>"
 } where {
-    ?p a ?type ;
-       rdfs:comment ?desc ;
-       rdfs:label ?label
-
+    ?p a ?type .
 } order by ?p
 
 template :property-domain-all(?p ?prefix) {
@@ -308,13 +397,15 @@ template :individuals(?ns ?prefix) {
 ### Terms template
 ####################
 template :term-header(?term ?prefix) {
-    format { "<h4>%s</h4>" ?label }
+    format { "<h4 id=\"%s\">%s</h4>" ?id ?label }
     format { "<p>IRI: <code>%s</code></p>" ?term }
     format { "<span>%s</span>" ?desc }
 } where {
-    ?term rdfs:comment ?desc
+    optional { ?term rdfs:comment ?d }
     optional { ?term rdfs:label ?l }
     bind (if(bound(?l), ?l, strafter(str(?term), "#")) as ?label)
+    bind (strafter(str(?term), "#") as ?id)
+    bind (if(bound(?d), ?d, "") as ?desc)
 }
 
 template :term-link(?term ?defaultPrefix) {
@@ -325,6 +416,14 @@ template :term-link(?term ?defaultPrefix) {
     }
 } where {
 	optional{?term rdfs:label ?l}
-	bind(if(bound(?l), ?l, str(?term)) as ?label)
-	bind(if(contains(str(?term), ?defaultPrefix) && bound(?l), concat("#", lcase(?l)), str(?term)) as ?link)
+	bind(str(?term) as ?termStr)
+	bind(
+		if(contains(?termStr, "http://www.w3.org/2001/XMLSchema#"), concat("xsd:", strafter(?termStr, "http://www.w3.org/2001/XMLSchema#")),
+		if(contains(?termStr, "http://onto.vaimee.com/agora/criteria#"), concat("criteria:", strafter(?termStr, "http://onto.vaimee.com/agora/criteria#")),
+		if(contains(?termStr, "http://onto.vaimee.com/fsm#"), concat("fsm:", strafter(?termStr, "http://onto.vaimee.com/fsm#")),
+		if(contains(?termStr, "http://www.opengis.net/ont/geosparql#"), concat("geo:", strafter(?termStr, "http://www.opengis.net/ont/geosparql#")), ""))))
+		as ?qname
+	)
+	bind(if(?qname != "", ?qname, if(bound(?l), ?l, ?termStr)) as ?label)
+	bind(if(contains(?termStr, "http://onto.vaimee.com/agora/criteria#"), concat("#", strafter(?termStr, "#")), if(contains(?termStr, ?defaultPrefix), concat("#", strafter(?termStr, "#")), ?termStr)) as ?link)
 }
