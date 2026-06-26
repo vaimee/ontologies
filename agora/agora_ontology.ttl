@@ -24,8 +24,8 @@
                                                                              owl:imports <http://www.opengis.net/ont/geosparql> ;
                                                                              owl:imports <http://onto.vaimee.com/fsm> ;
                                                                              owl:title "Agorà Ontology" ;
-                                                                             owl:versionIRI <http://onto.vaimee.com/agora/1.0.0#> ;
-                                                                             owl:versionInfo "1.0.0" .
+                                                                             owl:versionIRI <http://onto.vaimee.com/agora/1.0.11#> ;
+                                                                             owl:versionInfo "1.0.11" .
 
 <https://qrfy.io/p/BJOemlfU0F> foaf:name "Luca Roffia" ;
                                                                              foaf:member <https://vaimee.com> .
