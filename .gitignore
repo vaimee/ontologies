@@ -4,3 +4,5 @@ public/
 public/*
 !public/ICON_VAIMEE.svg
 rdf2html/node_modules/
+catalog-v001.xml
+*.rdf

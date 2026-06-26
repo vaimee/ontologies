@@ -6,7 +6,7 @@ const urdf = require('urdf');
 const repoRoot = path.resolve(__dirname, '..');
 const siteRoot = path.join(repoRoot, 'public');
 const templateURI = 'http://vaimee.com/template#ontology';
-const ontologySourcePattern = /\.(ttl|owl)$/;
+const ontologySourcePattern = /\.ttl$/;
 
 const tpl = fs.readFileSync(path.join(__dirname, 'vaimee.rq'), 'utf-8');
 
@@ -62,7 +62,7 @@ function findOntologies(root) {
                 .filter(file => isOntologyFile(path.join(dir, file)))
                 .map(file => {
                     const source = path.join(dir, file);
-                    const html = source.replace(/\.(ttl|owl)$/, '.html');
+                    const html = source.replace(/\.ttl$/, '.html');
 
                     return {
                         name: entry.name,

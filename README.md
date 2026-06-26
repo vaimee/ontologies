@@ -15,7 +15,7 @@ The renderer discovers ontology sources automatically from first-level ontology 
 
 Each ontology source should:
 
-- Use Turtle-compatible syntax and have a `.ttl` or `.owl` extension.
+- Use Turtle syntax and the `.ttl` extension.
 - Declare one ontology resource with `rdf:type owl:Ontology` or `a owl:Ontology`.
 - Define classes as `owl:Class` and properties as `owl:ObjectProperty` or `owl:DatatypeProperty`.
 - Prefer `rdfs:label` and `rdfs:comment` on classes and properties so the generated documentation has readable names and descriptions.

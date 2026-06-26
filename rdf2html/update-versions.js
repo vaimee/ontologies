@@ -14,7 +14,7 @@ const ontologies = [
         versionIri: `http://onto.vaimee.com/agora/${version}#`,
     },
     {
-        file: 'fsm/fsm.owl',
+        file: 'fsm/fsm.ttl',
         versionIri: `http://onto.vaimee.com/fsm/${version}`,
     },
     {
