@@ -9,14 +9,12 @@ import java.util.Map;
 final class OntologyGraph {
 
     enum NodeType {
-        CLASS,
-        PROPERTY
+        CLASS
     }
 
     enum EdgeType {
         SUBCLASS,
-        PROPERTY_DOMAIN,
-        PROPERTY_RANGE
+        PROPERTY
     }
 
     static final class Node {

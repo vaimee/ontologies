@@ -65,8 +65,10 @@ public class OntologyGraphTab extends WorkspaceTab {
     }
 
     private void refreshGraph() {
+        logger.info("Refreshing VAIMEE ontology graph");
         OntologyGraph graph = OntologyGraphExtractor.extract(modelManager);
         graphPanel.setGraph(graph);
         summaryLabel.setText(graph.getNodes().size() + " nodes, " + graph.getEdges().size() + " edges");
+        logger.info("VAIMEE ontology graph refreshed: {} nodes, {} edges", graph.getNodes().size(), graph.getEdges().size());
     }
 }

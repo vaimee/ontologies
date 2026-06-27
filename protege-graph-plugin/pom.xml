@@ -24,6 +24,12 @@
             <groupId>edu.stanford.protege</groupId>
             <artifactId>protege-editor-owl</artifactId>
             <version>${protege.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.gephi</groupId>
+            <artifactId>gephi-toolkit</artifactId>
+            <version>0.10.1</version>
         </dependency>
     </dependencies>
 
@@ -56,10 +62,16 @@
                         <Bundle-ClassPath>.</Bundle-ClassPath>
                         <Bundle-SymbolicName>${project.artifactId};singleton:=true</Bundle-SymbolicName>
                         <Bundle-Vendor>VAIMEE srl</Bundle-Vendor>
+                        <Embed-Dependency>gephi-toolkit|layout-plugin|layout-api|graph-api|graphstore|project-api|utils|utils-longtask|org-openide-util|org-openide-util-lookup|fastutil|colt|concurrent|joda-time|trove4j;scope=compile|runtime</Embed-Dependency>
+                        <Embed-Transitive>true</Embed-Transitive>
                         <Import-Package>
+                            !org.gephi.*,
+                            !org.openide.*,
                             org.protege.editor.owl.*;version="5.0.0",
                             org.semanticweb.owlapi.*,
                             org.slf4j.*,
+                            org.joda.convert;resolution:=optional,
+                            sun.awt;resolution:=optional,
                             *
                         </Import-Package>
                     </instructions>

@@ -1,9 +1,10 @@
 package com.vaimee.protege.graph;
 
 import org.protege.editor.owl.model.OWLModelManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
@@ -11,10 +12,14 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 final class OntologyGraphExtractor {
+
+    private static final Logger logger = LoggerFactory.getLogger(OntologyGraphExtractor.class);
 
     private OntologyGraphExtractor() {
     }
@@ -24,10 +29,14 @@ final class OntologyGraphExtractor {
         OWLOntology ontology = modelManager.getActiveOntology();
 
         if (ontology == null) {
+            logger.warn("No active ontology available for VAIMEE graph extraction");
             return graph;
         }
 
-        Map<OWLObjectProperty, OWLClassExpression> propertyDomains = new HashMap<>();
+        logger.info("Extracting VAIMEE graph from ontology {}", ontology.getOntologyID());
+
+        Map<OWLObjectProperty, List<OWLClass>> propertyDomains = new HashMap<>();
+        Map<OWLObjectProperty, List<OWLClass>> propertyRanges = new HashMap<>();
 
         for (OWLClass owlClass : ontology.getClassesInSignature()) {
             graph.addNode(iri(owlClass), label(modelManager, owlClass), OntologyGraph.NodeType.CLASS);
@@ -44,23 +53,37 @@ final class OntologyGraphExtractor {
         for (OWLObjectPropertyDomainAxiom axiom : ontology.getAxioms(AxiomType.OBJECT_PROPERTY_DOMAIN)) {
             if (!axiom.getProperty().isAnonymous() && !axiom.getDomain().isAnonymous()) {
                 OWLObjectProperty property = axiom.getProperty().asOWLObjectProperty();
-                propertyDomains.put(property, axiom.getDomain());
-                graph.addNode(iri(property), label(modelManager, property), OntologyGraph.NodeType.PROPERTY);
-                graph.addEdge(iri(axiom.getDomain().asOWLClass()), iri(property), "domain", OntologyGraph.EdgeType.PROPERTY_DOMAIN);
+                propertyDomains.computeIfAbsent(property, key -> new ArrayList<>()).add(axiom.getDomain().asOWLClass());
             }
         }
 
         for (OWLObjectPropertyRangeAxiom axiom : ontology.getAxioms(AxiomType.OBJECT_PROPERTY_RANGE)) {
             if (!axiom.getProperty().isAnonymous() && !axiom.getRange().isAnonymous()) {
                 OWLObjectProperty property = axiom.getProperty().asOWLObjectProperty();
-                graph.addNode(iri(property), label(modelManager, property), OntologyGraph.NodeType.PROPERTY);
-                if (!propertyDomains.containsKey(property)) {
-                    graph.addEdge(iri(property), iri(axiom.getRange().asOWLClass()), "range", OntologyGraph.EdgeType.PROPERTY_RANGE);
-                } else {
-                    graph.addEdge(iri(property), iri(axiom.getRange().asOWLClass()), "range", OntologyGraph.EdgeType.PROPERTY_RANGE);
+                propertyRanges.computeIfAbsent(property, key -> new ArrayList<>()).add(axiom.getRange().asOWLClass());
+            }
+        }
+
+        for (Map.Entry<OWLObjectProperty, List<OWLClass>> entry : propertyDomains.entrySet()) {
+            List<OWLClass> ranges = propertyRanges.get(entry.getKey());
+            if (ranges == null) {
+                continue;
+            }
+
+            for (OWLClass domain : entry.getValue()) {
+                for (OWLClass range : ranges) {
+                    graph.addEdge(iri(domain), iri(range), label(modelManager, entry.getKey()), OntologyGraph.EdgeType.PROPERTY);
                 }
             }
         }
+
+        logger.info(
+                "Extracted VAIMEE graph: {} class nodes, {} total edges, {} property domains, {} property ranges",
+                graph.getNodes().size(),
+                graph.getEdges().size(),
+                propertyDomains.size(),
+                propertyRanges.size()
+        );
 
         return graph;
     }
