@@ -6,3 +6,5 @@ public/*
 rdf2html/node_modules/
 catalog-v001.xml
 *.rdf
+.DS_Store
+protege-graph-plugin/target/
