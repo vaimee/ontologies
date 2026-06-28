@@ -5,6 +5,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
@@ -37,6 +41,8 @@ final class OntologyGraphExtractor {
 
         Map<OWLObjectProperty, List<OWLClass>> propertyDomains = new HashMap<>();
         Map<OWLObjectProperty, List<OWLClass>> propertyRanges = new HashMap<>();
+        Map<OWLDataProperty, List<OWLClass>> datatypePropertyDomains = new HashMap<>();
+        Map<OWLDataProperty, String> datatypePropertyRanges = new HashMap<>();
 
         for (OWLClass owlClass : ontology.getClassesInSignature()) {
             graph.addNode(iri(owlClass), label(modelManager, owlClass), OntologyGraph.NodeType.CLASS);
@@ -77,12 +83,35 @@ final class OntologyGraphExtractor {
             }
         }
 
+        for (OWLDataPropertyDomainAxiom axiom : ontology.getAxioms(AxiomType.DATA_PROPERTY_DOMAIN)) {
+            if (!axiom.getProperty().isAnonymous() && !axiom.getDomain().isAnonymous()) {
+                OWLDataProperty property = axiom.getProperty().asOWLDataProperty();
+                datatypePropertyDomains.computeIfAbsent(property, key -> new ArrayList<>()).add(axiom.getDomain().asOWLClass());
+            }
+        }
+
+        for (OWLDataPropertyRangeAxiom axiom : ontology.getAxioms(AxiomType.DATA_PROPERTY_RANGE)) {
+            if (!axiom.getProperty().isAnonymous() && axiom.getRange().isDatatype()) {
+                OWLDataProperty property = axiom.getProperty().asOWLDataProperty();
+                datatypePropertyRanges.put(property, datatypeLabel(axiom.getRange().asOWLDatatype()));
+            }
+        }
+
+        for (Map.Entry<OWLDataProperty, List<OWLClass>> entry : datatypePropertyDomains.entrySet()) {
+            String propertyLabel = label(modelManager, entry.getKey());
+            String datatypeLabel = datatypePropertyRanges.get(entry.getKey());
+            for (OWLClass domain : entry.getValue()) {
+                graph.addDatatypeProperty(iri(domain), propertyLabel, datatypeLabel);
+            }
+        }
+
         logger.info(
-                "Extracted VAIMEE graph: {} class nodes, {} total edges, {} property domains, {} property ranges",
+                "Extracted VAIMEE graph: {} class nodes, {} total edges, {} object property domains, {} object property ranges, {} datatype property domains",
                 graph.getNodes().size(),
                 graph.getEdges().size(),
                 propertyDomains.size(),
-                propertyRanges.size()
+                propertyRanges.size(),
+                datatypePropertyDomains.size()
         );
 
         return graph;
@@ -98,5 +127,13 @@ final class OntologyGraphExtractor {
             return rendering;
         }
         return entity.getIRI().getShortForm();
+    }
+
+    private static String datatypeLabel(OWLDatatype datatype) {
+        String iri = datatype.getIRI().toString();
+        if (iri.startsWith("http://www.w3.org/2001/XMLSchema#")) {
+            return "xsd:" + datatype.getIRI().getShortForm();
+        }
+        return datatype.getIRI().getShortForm();
     }
 }

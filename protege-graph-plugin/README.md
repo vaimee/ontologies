@@ -4,13 +4,17 @@ Protégé Desktop tab plugin for visual ontology graph exploration.
 
 ## What It Shows
 
-The implementation uses Gephi Toolkit to layout a graph of the active ontology:
+The implementation renders a graph of the active ontology:
 
 - OWL classes as nodes.
+- Datatype properties inside class nodes as a two-column table, including XSD datatype when declared.
 - `rdfs:subClassOf` relations as blue edges.
 - Object property domain/range relations as cyan labeled edges.
+- Namespaces in a left-side legend, with class node colors derived from namespace.
 
-The current tab renders the Gephi-computed layout in Swing. The next step is to insert the rdf2gephi conversion path so RDF/SPARQL query output can be converted to GEXF and fed into Gephi Toolkit.
+The tab renders a force-directed layout in Swing. `Reset view` recomputes an initial view with all classes on screen, using edge attraction, node repulsion, and central gravity inspired by WebVOWL-style layouts.
+
+Drag the empty graph area to pan, and use the mouse wheel to zoom. Class nodes remain draggable.
 
 ## Build
 
@@ -42,6 +46,7 @@ Useful logger names:
 
 - `com.vaimee.protege.graph.OntologyGraphTab`
 - `com.vaimee.protege.graph.OntologyGraphExtractor`
+- `com.vaimee.protege.graph.ForceGraphLayout`
 - `com.vaimee.protege.graph.GephiGraphLayout`
 - `com.vaimee.protege.graph.OntologyGraphPanel`
 
@@ -49,7 +54,6 @@ Use `INFO` to see extraction/layout summaries and `DEBUG` to see layout bounds a
 
 ## Next Iterations
 
-- Add zoom/pan interaction.
 - Add filters by namespace, relation type, and imported/local entities.
 - Add WebVOWL export/import compatibility.
 - Add graph layout options for larger ontologies.

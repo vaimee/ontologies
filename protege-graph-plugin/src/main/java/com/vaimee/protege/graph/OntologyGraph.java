@@ -21,11 +21,22 @@ final class OntologyGraph {
         final String id;
         final String label;
         final NodeType type;
+        final List<DatatypeProperty> datatypeProperties = new ArrayList<>();
 
         Node(String id, String label, NodeType type) {
             this.id = id;
             this.label = label;
             this.type = type;
+        }
+    }
+
+    static final class DatatypeProperty {
+        final String label;
+        final String datatypeLabel;
+
+        DatatypeProperty(String label, String datatypeLabel) {
+            this.label = label;
+            this.datatypeLabel = datatypeLabel;
         }
     }
 
@@ -56,6 +67,17 @@ final class OntologyGraph {
         if (nodes.containsKey(source) && nodes.containsKey(target)) {
             edges.add(new Edge(source, target, label, type));
         }
+    }
+
+    void addDatatypeProperty(String classId, String label, String datatypeLabel) {
+        Node node = nodes.get(classId);
+        if (node != null) {
+            node.datatypeProperties.add(new DatatypeProperty(label, datatypeLabel));
+        }
+    }
+
+    Node getNode(String id) {
+        return nodes.get(id);
     }
 
     Collection<Node> getNodes() {
