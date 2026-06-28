@@ -15,7 +15,9 @@ import javax.swing.JSplitPane;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Color;
+import java.util.LinkedHashSet;
 import java.util.Map;
+import java.util.Set;
 
 public class OntologyGraphTab extends WorkspaceTab {
 
@@ -25,6 +27,10 @@ public class OntologyGraphTab extends WorkspaceTab {
     private JSplitPane splitPane;
     private JLabel summaryLabel;
     private OWLModelManager modelManager;
+    private Map<String, Color> namespaceColors;
+    private Map<String, String> namespacePrefixes;
+    private final Set<String> visibleNamespaces = new LinkedHashSet<>();
+    private final Set<String> hiddenNamespaces = new LinkedHashSet<>();
 
     public OntologyGraphTab() {
         setToolTipText("Visual ontology graph for the active OWL ontology");
@@ -76,16 +82,23 @@ public class OntologyGraphTab extends WorkspaceTab {
         splitPane = null;
         summaryLabel = null;
         modelManager = null;
+        namespaceColors = null;
+        namespacePrefixes = null;
+        visibleNamespaces.clear();
+        hiddenNamespaces.clear();
         logger.info("VAIMEE ontology graph tab disposed");
     }
 
     private void refreshGraph() {
         logger.info("Refreshing VAIMEE ontology graph");
         OntologyGraph graph = OntologyGraphExtractor.extract(modelManager);
-        Map<String, Color> namespaceColors = NamespaceColors.forGraph(graph);
-        namespaceLegendPanel.setNamespaces(namespaceColors);
+        namespaceColors = NamespaceColors.forGraph(graph);
+        namespacePrefixes = NamespacePrefixes.forNamespaces(graph.getBaseNamespace(), namespaceColors.keySet());
+        syncVisibleNamespaces(namespaceColors.keySet());
+        namespaceLegendPanel.setNamespaces(namespaceColors, namespacePrefixes, visibleNamespaces, this::toggleNamespaceVisibility);
         splitPane.setDividerLocation(namespaceLegendPanel.getPreferredSize().width + 24);
         graphPanel.setGraph(graph, namespaceColors);
+        graphPanel.setVisibleNamespaces(visibleNamespaces);
         summaryLabel.setText(graph.getNodes().size() + " nodes, " + graph.getEdges().size() + " edges");
         logger.info("VAIMEE ontology graph refreshed: {} nodes, {} edges", graph.getNodes().size(), graph.getEdges().size());
     }
@@ -93,5 +106,28 @@ public class OntologyGraphTab extends WorkspaceTab {
     private void resetGraphView() {
         logger.info("Resetting VAIMEE ontology graph view");
         graphPanel.resetView();
+    }
+
+    private void syncVisibleNamespaces(Set<String> currentNamespaces) {
+        hiddenNamespaces.retainAll(currentNamespaces);
+        visibleNamespaces.clear();
+        for (String namespace : currentNamespaces) {
+            if (!hiddenNamespaces.contains(namespace)) {
+                visibleNamespaces.add(namespace);
+            }
+        }
+    }
+
+    private void toggleNamespaceVisibility(String namespace) {
+        if (visibleNamespaces.contains(namespace)) {
+            visibleNamespaces.remove(namespace);
+            hiddenNamespaces.add(namespace);
+        } else {
+            visibleNamespaces.add(namespace);
+            hiddenNamespaces.remove(namespace);
+        }
+        namespaceLegendPanel.setNamespaces(namespaceColors, namespacePrefixes, visibleNamespaces, this::toggleNamespaceVisibility);
+        graphPanel.setVisibleNamespaces(visibleNamespaces);
+        logger.info("Namespace visibility changed: {} visible", visibleNamespaces.size());
     }
 }

@@ -21,12 +21,23 @@ final class OntologyGraph {
         final String id;
         final String label;
         final NodeType type;
+        final List<Annotation> annotations = new ArrayList<>();
         final List<DatatypeProperty> datatypeProperties = new ArrayList<>();
 
         Node(String id, String label, NodeType type) {
             this.id = id;
             this.label = label;
             this.type = type;
+        }
+    }
+
+    static final class Annotation {
+        final String propertyLabel;
+        final String value;
+
+        Annotation(String propertyLabel, String value) {
+            this.propertyLabel = propertyLabel;
+            this.value = value;
         }
     }
 
@@ -56,6 +67,15 @@ final class OntologyGraph {
 
     private final Map<String, Node> nodes = new LinkedHashMap<>();
     private final List<Edge> edges = new ArrayList<>();
+    private String baseNamespace = "";
+
+    void setBaseNamespace(String baseNamespace) {
+        this.baseNamespace = baseNamespace;
+    }
+
+    String getBaseNamespace() {
+        return baseNamespace;
+    }
 
     void addNode(String id, String label, NodeType type) {
         if (!nodes.containsKey(id)) {
@@ -73,6 +93,13 @@ final class OntologyGraph {
         Node node = nodes.get(classId);
         if (node != null) {
             node.datatypeProperties.add(new DatatypeProperty(label, datatypeLabel));
+        }
+    }
+
+    void addAnnotation(String classId, String propertyLabel, String value) {
+        Node node = nodes.get(classId);
+        if (node != null) {
+            node.annotations.add(new Annotation(propertyLabel, value));
         }
     }
 

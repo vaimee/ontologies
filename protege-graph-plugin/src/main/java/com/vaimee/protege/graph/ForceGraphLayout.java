@@ -11,10 +11,10 @@ final class ForceGraphLayout {
     private static final Logger logger = LoggerFactory.getLogger(ForceGraphLayout.class);
     private static final int ITERATIONS = 450;
     private static final double CANVAS_RADIUS = 420.0;
-    private static final double REPULSION = 52000.0;
-    private static final double EDGE_DISTANCE = 190.0;
-    private static final double EDGE_STRENGTH = 0.018;
-    private static final double GRAVITY = 0.012;
+    private static final double REPULSION = 42000.0;
+    private static final double EDGE_DISTANCE = 165.0;
+    private static final double EDGE_STRENGTH = 0.04;
+    private static final double GRAVITY = 0.008;
     private static final double COOLING = 0.985;
 
     private ForceGraphLayout() {

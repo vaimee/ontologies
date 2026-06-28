@@ -3,13 +3,17 @@ package com.vaimee.protege.graph;
 import org.protege.editor.owl.model.OWLModelManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.AxiomType;
+import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationValue;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
@@ -24,6 +28,7 @@ import java.util.Map;
 final class OntologyGraphExtractor {
 
     private static final Logger logger = LoggerFactory.getLogger(OntologyGraphExtractor.class);
+    private static final String RDFS_COMMENT = "http://www.w3.org/2000/01/rdf-schema#comment";
 
     private OntologyGraphExtractor() {
     }
@@ -38,6 +43,7 @@ final class OntologyGraphExtractor {
         }
 
         logger.info("Extracting VAIMEE graph from ontology {}", ontology.getOntologyID());
+        graph.setBaseNamespace(baseNamespace(ontology));
 
         Map<OWLObjectProperty, List<OWLClass>> propertyDomains = new HashMap<>();
         Map<OWLObjectProperty, List<OWLClass>> propertyRanges = new HashMap<>();
@@ -46,6 +52,16 @@ final class OntologyGraphExtractor {
 
         for (OWLClass owlClass : ontology.getClassesInSignature()) {
             graph.addNode(iri(owlClass), label(modelManager, owlClass), OntologyGraph.NodeType.CLASS);
+            for (OWLAnnotationAssertionAxiom axiom : ontology.getAnnotationAssertionAxioms(owlClass.getIRI())) {
+                if (!RDFS_COMMENT.equals(axiom.getProperty().getIRI().toString())) {
+                    continue;
+                }
+                graph.addAnnotation(
+                        iri(owlClass),
+                        NamespacePrefixes.qName(axiom.getProperty().getIRI().toString(), graph.getBaseNamespace()),
+                        annotationValue(axiom.getValue(), graph.getBaseNamespace())
+                );
+            }
         }
 
         for (OWLSubClassOfAxiom axiom : ontology.getAxioms(AxiomType.SUBCLASS_OF)) {
@@ -122,18 +138,27 @@ final class OntologyGraphExtractor {
     }
 
     private static String label(OWLModelManager modelManager, OWLEntity entity) {
-        String rendering = modelManager.getRendering(entity);
-        if (rendering != null && !rendering.trim().isEmpty()) {
-            return rendering;
-        }
-        return entity.getIRI().getShortForm();
+        return NamespacePrefixes.qName(entity.getIRI().toString(), baseNamespace(modelManager.getActiveOntology()));
     }
 
     private static String datatypeLabel(OWLDatatype datatype) {
-        String iri = datatype.getIRI().toString();
-        if (iri.startsWith("http://www.w3.org/2001/XMLSchema#")) {
-            return "xsd:" + datatype.getIRI().getShortForm();
+        return NamespacePrefixes.qName(datatype.getIRI().toString(), "");
+    }
+
+    private static String annotationValue(OWLAnnotationValue value, String baseNamespace) {
+        if (value instanceof IRI) {
+            return NamespacePrefixes.qName(value.toString(), baseNamespace);
         }
-        return datatype.getIRI().getShortForm();
+        if (value instanceof OWLLiteral) {
+            return ((OWLLiteral) value).getLiteral();
+        }
+        return value.toString().replaceAll("^\\\"|\\\"(@[a-zA-Z-]+|\\^\\^.+)?$", "");
+    }
+
+    private static String baseNamespace(OWLOntology ontology) {
+        if (ontology == null || !ontology.getOntologyID().getOntologyIRI().isPresent()) {
+            return "";
+        }
+        return NamespaceColors.namespaceOf(ontology.getOntologyID().getOntologyIRI().get().toString());
     }
 }

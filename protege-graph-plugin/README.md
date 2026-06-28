@@ -7,14 +7,19 @@ Protégé Desktop tab plugin for visual ontology graph exploration.
 The implementation renders a graph of the active ontology:
 
 - OWL classes as nodes.
+- Class comments in the class node header, wrapped inside the box when long.
 - Datatype properties inside class nodes as a two-column table, including XSD datatype when declared.
 - `rdfs:subClassOf` relations as blue edges.
 - Object property domain/range relations as cyan labeled edges.
 - Namespaces in a left-side legend, with class node colors derived from namespace.
+- Namespace checkboxes to show/hide classes and their connected object property edges.
+- QName labels with prefixes shown in the namespace legend; the active ontology namespace is rendered with `:`.
 
-The tab renders a force-directed layout in Swing. `Reset view` recomputes an initial view with all classes on screen, using edge attraction, node repulsion, and central gravity inspired by WebVOWL-style layouts.
+The tab renders a force-directed layout in Swing. `Reset view` recomputes an initial view with all classes and property labels on screen, using edge attraction, node repulsion, collision avoidance, and central gravity inspired by WebVOWL-style layouts.
 
 Drag the empty graph area to pan, and use the mouse wheel to zoom. Class nodes remain draggable.
+Object property labels are anchored at the domain class border where the edge starts.
+Edges are routed around class boxes when a direct segment would cross an intermediate class box.
 
 ## Build
 
