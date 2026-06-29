@@ -4,6 +4,8 @@ import org.protege.editor.core.editorkit.EditorKit;
 import org.protege.editor.core.ui.workspace.WorkspaceTab;
 import org.protege.editor.owl.OWLEditorKit;
 import org.protege.editor.owl.model.OWLModelManager;
+import org.semanticweb.owlapi.model.OWLOntologyChange;
+import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,6 +18,7 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Color;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -31,6 +34,7 @@ public class OntologyGraphTab extends WorkspaceTab {
     private Map<String, String> namespacePrefixes;
     private final Set<String> visibleNamespaces = new LinkedHashSet<>();
     private final Set<String> hiddenNamespaces = new LinkedHashSet<>();
+    private OWLOntologyChangeListener ontologyChangeListener;
 
     public OntologyGraphTab() {
         setToolTipText("Visual ontology graph for the active OWL ontology");
@@ -48,40 +52,63 @@ public class OntologyGraphTab extends WorkspaceTab {
 
         graphPanel = new OntologyGraphPanel();
         namespaceLegendPanel = new NamespaceLegendPanel();
-        LayoutSettingsPanel layoutSettingsPanel = new LayoutSettingsPanel(graphPanel);
         summaryLabel = new JLabel();
-        JButton refreshButton = new JButton("Refresh graph");
         JButton resetButton = new JButton("Reset view");
-        refreshButton.addActionListener(event -> refreshGraph());
         resetButton.addActionListener(event -> resetGraphView());
 
         JPanel toolbar = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        toolbar.add(refreshButton);
         toolbar.add(resetButton);
         toolbar.add(summaryLabel);
 
-        JPanel sidePanel = new JPanel();
-        sidePanel.setLayout(new javax.swing.BoxLayout(sidePanel, javax.swing.BoxLayout.Y_AXIS));
-        sidePanel.add(namespaceLegendPanel);
-        sidePanel.add(layoutSettingsPanel);
-
         add(toolbar, BorderLayout.NORTH);
-        splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, new JScrollPane(sidePanel), graphPanel);
+        splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, new JScrollPane(namespaceLegendPanel), graphPanel);
         splitPane.setResizeWeight(0.0);
         splitPane.setOneTouchExpandable(true);
         add(splitPane, BorderLayout.CENTER);
 
-        refreshGraph();
+        refreshGraph(false);
+
+        ontologyChangeListener = (List<? extends OWLOntologyChange> changes) -> {
+            javax.swing.SwingUtilities.invokeLater(() -> refreshGraph(true));
+        };
+        modelManager.addOntologyChangeListener(ontologyChangeListener);
+
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            private boolean firstShow = true;
+            @Override
+            public void componentShown(java.awt.event.ComponentEvent event) {
+                if (firstShow) {
+                    firstShow = false;
+                    javax.swing.SwingUtilities.invokeLater(() -> {
+                        refreshGraph(false);
+                        splitPane.setDividerLocation(namespaceLegendPanel.getPreferredSize().width + 24);
+                    });
+                }
+            }
+            @Override
+            public void componentResized(java.awt.event.ComponentEvent event) {
+                if (firstShow && getWidth() > 0) {
+                    firstShow = false;
+                    javax.swing.SwingUtilities.invokeLater(() -> {
+                        refreshGraph(false);
+                        splitPane.setDividerLocation(namespaceLegendPanel.getPreferredSize().width + 24);
+                    });
+                }
+            }
+        });
+
         logger.info("VAIMEE ontology graph tab initialized");
     }
 
     @Override
     public void save() {
-        // This tab has no persistent UI state yet.
     }
 
     @Override
     public void dispose() {
+        if (modelManager != null && ontologyChangeListener != null) {
+            modelManager.removeOntologyChangeListener(ontologyChangeListener);
+        }
         if (graphPanel != null) {
             graphPanel.dispose();
         }
@@ -93,20 +120,25 @@ public class OntologyGraphTab extends WorkspaceTab {
         modelManager = null;
         namespaceColors = null;
         namespacePrefixes = null;
+        ontologyChangeListener = null;
         visibleNamespaces.clear();
         hiddenNamespaces.clear();
         logger.info("VAIMEE ontology graph tab disposed");
     }
 
-    private void refreshGraph() {
-        logger.info("Refreshing VAIMEE ontology graph");
+    private void refreshGraph(boolean preservePositions) {
+        logger.info("Refreshing VAIMEE ontology graph (preserve={})", preservePositions);
         OntologyGraph graph = OntologyGraphExtractor.extract(modelManager);
         namespaceColors = NamespaceColors.forGraph(graph);
         namespacePrefixes = NamespacePrefixes.forNamespaces(graph.getBaseNamespace(), namespaceColors.keySet());
         syncVisibleNamespaces(namespaceColors.keySet());
         namespaceLegendPanel.setNamespaces(namespaceColors, namespacePrefixes, visibleNamespaces, this::toggleNamespaceVisibility);
         splitPane.setDividerLocation(namespaceLegendPanel.getPreferredSize().width + 24);
-        graphPanel.setGraph(graph, namespaceColors);
+        if (preservePositions) {
+            graphPanel.updateGraph(graph, namespaceColors);
+        } else {
+            graphPanel.setGraph(graph, namespaceColors);
+        }
         graphPanel.setVisibleNamespaces(visibleNamespaces);
         summaryLabel.setText(graph.getNodes().size() + " nodes, " + graph.getEdges().size() + " edges");
         logger.info("VAIMEE ontology graph refreshed: {} nodes, {} edges", graph.getNodes().size(), graph.getEdges().size());
@@ -114,7 +146,7 @@ public class OntologyGraphTab extends WorkspaceTab {
 
     private void resetGraphView() {
         logger.info("Resetting VAIMEE ontology graph view");
-        graphPanel.resetView();
+        refreshGraph(false);
     }
 
     private void syncVisibleNamespaces(Set<String> currentNamespaces) {
