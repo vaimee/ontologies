@@ -1,6 +1,7 @@
 package com.vaimee.protege.graph;
 
 import javax.swing.JPanel;
+import javax.swing.Timer;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -13,6 +14,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Line2D;
+import java.awt.geom.QuadCurve2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -28,12 +30,16 @@ final class OntologyGraphPanel extends JPanel {
     private static final Logger logger = LoggerFactory.getLogger(OntologyGraphPanel.class);
 
     private static final Color CLASS_COLOR = new Color(15, 62, 101);
+    private static final Color PROPERTY_NODE_COLOR = new Color(16, 177, 216);
     private static final Color MESSAGE_COLOR = new Color(78, 103, 126);
     private static final Color SUBCLASS_EDGE_COLOR = new Color(78, 103, 126);
     private static final Color PROPERTY_EDGE_COLOR = new Color(16, 177, 216, 180);
     private static final int NODE_MIN_WIDTH = 180;
     private static final int NODE_MAX_WIDTH = 360;
     private static final int NODE_MIN_HEIGHT = 48;
+    private static final int PROPERTY_NODE_HEIGHT = 28;
+    private static final int PROPERTY_NODE_MIN_WIDTH = 80;
+    private static final int PROPERTY_NODE_PADDING = 16;
     private static final int ANNOTATION_LINE_HEIGHT = 16;
     private static final int ANNOTATION_BOTTOM_GAP = 16;
     private static final int PROPERTY_LINE_HEIGHT = 18;
@@ -42,19 +48,18 @@ final class OntologyGraphPanel extends JPanel {
     private static final int MARGIN = 70;
     private static final int ARROW_SIZE = 10;
     private static final int EDGE_LABEL_PADDING = 4;
-    private static final int EDGE_LABEL_OFFSET = 6;
-    private static final int COLLISION_PADDING = 28;
     private static final int FIT_PADDING = 36;
-    private static final int OVERLAP_ITERATIONS = 80;
     private static final int ROUTE_OFFSET = 90;
+    private static final int CURVE_OFFSET = 30;
+    private static final int STEPS_PER_FRAME = 3;
     private static final double MIN_ZOOM = 0.2;
     private static final double MAX_ZOOM = 3.5;
 
     private OntologyGraph graph = new OntologyGraph();
     private Map<String, Color> namespaceColors = Collections.emptyMap();
     private Set<String> visibleNamespaces = Collections.emptySet();
-    private Map<String, GephiGraphLayout.Position> positions = Collections.emptyMap();
-    private final Map<String, Point> manualPositions = new HashMap<>();
+    private ForceGraphLayout simulation;
+    private Timer animationTimer;
     private Map<String, Point> worldPositions = Collections.emptyMap();
     private String draggedNodeId;
     private double dragOffsetX;
@@ -71,7 +76,8 @@ final class OntologyGraphPanel extends JPanel {
     OntologyGraphPanel() {
         setBackground(Color.WHITE);
         setPreferredSize(new Dimension(1000, 760));
-        MouseAdapter dragHandler = new MouseAdapter() {
+
+        MouseAdapter handler = new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent event) {
                 Point worldPoint = toWorld(event.getX(), event.getY());
@@ -85,6 +91,12 @@ final class OntologyGraphPanel extends JPanel {
                         draggedNodeId = node.id;
                         dragOffsetX = worldPoint.x - point.x;
                         dragOffsetY = worldPoint.y - point.y;
+                        if (simulation != null) {
+                            simulation.pinNode(node.id, point.x, point.y);
+                            if (!animationTimer.isRunning()) {
+                                animationTimer.start();
+                            }
+                        }
                         return;
                     }
                 }
@@ -97,7 +109,9 @@ final class OntologyGraphPanel extends JPanel {
             public void mouseDragged(MouseEvent event) {
                 if (draggedNodeId != null) {
                     Point worldPoint = toWorld(event.getX(), event.getY());
-                    manualPositions.put(draggedNodeId, new Point(worldPoint.x - dragOffsetX, worldPoint.y - dragOffsetY));
+                    if (simulation != null) {
+                        simulation.pinNode(draggedNodeId, worldPoint.x - dragOffsetX, worldPoint.y - dragOffsetY);
+                    }
                     repaint();
                 } else if (panning) {
                     panX += event.getX() - lastMouseX;
@@ -110,6 +124,9 @@ final class OntologyGraphPanel extends JPanel {
 
             @Override
             public void mouseReleased(MouseEvent event) {
+                if (draggedNodeId != null && simulation != null) {
+                    simulation.unpinNode();
+                }
                 draggedNodeId = null;
                 panning = false;
             }
@@ -127,9 +144,22 @@ final class OntologyGraphPanel extends JPanel {
                 repaint();
             }
         };
-        addMouseListener(dragHandler);
-        addMouseMotionListener(dragHandler);
-        addMouseWheelListener(dragHandler);
+        addMouseListener(handler);
+        addMouseMotionListener(handler);
+        addMouseWheelListener(handler);
+
+        animationTimer = new Timer(16, event -> {
+            if (simulation != null) {
+                for (int i = 0; i < STEPS_PER_FRAME; i++) {
+                    simulation.step();
+                }
+                repaint();
+                if (simulation.isSettled() && draggedNodeId == null) {
+                    animationTimer.stop();
+                    logger.debug("Force simulation settled");
+                }
+            }
+        });
     }
 
     void setGraph(OntologyGraph graph, Map<String, Color> namespaceColors) {
@@ -148,20 +178,67 @@ final class OntologyGraphPanel extends JPanel {
     }
 
     void resetView() {
-        manualPositions.clear();
+        animationTimer.stop();
         zoom = 1.0;
         panX = 0.0;
         panY = 0.0;
-        fitToViewOnNextPaint = true;
-        positions = ForceGraphLayout.layout(graph);
-        if (!graph.getNodes().isEmpty() && positions.isEmpty()) {
-            message = "Graph layout produced no positions. See Protégé log for details.";
-            logger.warn("Graph has {} nodes and {} edges, but no positions were produced", graph.getNodes().size(), graph.getEdges().size());
-        } else {
-            message = null;
-            logger.info("Graph panel received {} nodes, {} edges, {} positions", graph.getNodes().size(), graph.getEdges().size(), positions.size());
+        simulation = new ForceGraphLayout(graph);
+        FontMetrics metrics = getFontMetrics(getFont());
+        Map<String, double[]> sizes = new HashMap<>();
+        for (OntologyGraph.Node node : graph.getNodes()) {
+            sizes.put(node.id, new double[]{nodeWidth(node, metrics), nodeHeight(node, metrics)});
         }
+        simulation.setNodeSizes(sizes);
+        for (int i = 0; i < 2000 && !simulation.isSettled(); i++) {
+            simulation.step();
+        }
+        fitToViewOnNextPaint = true;
+        message = null;
+        logger.info("Graph panel reset: {} nodes, {} edges", graph.getNodes().size(), graph.getEdges().size());
         repaint();
+    }
+
+    void dispose() {
+        animationTimer.stop();
+        simulation = null;
+    }
+
+    void setCharge(double value) {
+        if (simulation != null) {
+            simulation.setCharge(value);
+            reheatSimulation();
+        }
+    }
+
+    void setLinkDistance(double value) {
+        if (simulation != null) {
+            simulation.setLinkDistance(value);
+            reheatSimulation();
+        }
+    }
+
+    void setLinkStrength(double value) {
+        if (simulation != null) {
+            simulation.setLinkStrength(value);
+            reheatSimulation();
+        }
+    }
+
+    void setGravity(double value) {
+        if (simulation != null) {
+            simulation.setGravity(value);
+            reheatSimulation();
+        }
+    }
+
+    private void reheatSimulation() {
+        if (simulation != null) {
+            simulation.pinNode("__reheat__", 0, 0);
+            simulation.unpinNode();
+            if (!animationTimer.isRunning()) {
+                animationTimer.start();
+            }
+        }
     }
 
     @Override
@@ -171,13 +248,13 @@ final class OntologyGraphPanel extends JPanel {
         Graphics2D g = (Graphics2D) graphics.create();
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        worldPositions = scalePositions();
+        worldPositions = simulationPoints();
         if (message != null) {
             paintMessage(g, message);
             g.dispose();
             return;
         }
-        if (fitToViewOnNextPaint) {
+        if (fitToViewOnNextPaint && !worldPositions.isEmpty()) {
             fitVisibleGraphToPanel(g.getFontMetrics(), worldPositions);
             fitToViewOnNextPaint = false;
         }
@@ -185,143 +262,22 @@ final class OntologyGraphPanel extends JPanel {
         g.scale(zoom, zoom);
         paintEdges(g, worldPositions);
         paintNodes(g, worldPositions);
-        logger.debug("Painted VAIMEE graph: {} world positions, panel size {}x{}, zoom {}", worldPositions.size(), getWidth(), getHeight(), zoom);
         g.dispose();
     }
 
-    private Map<String, Point> scalePositions() {
-        Map<String, Point> scaled = new HashMap<>();
-        if (positions.isEmpty()) {
-            return scaled;
+    private Map<String, Point> simulationPoints() {
+        Map<String, Point> points = new HashMap<>();
+        if (simulation == null) {
+            return points;
         }
-
-        FontMetrics metrics = getFontMetrics(getFont());
-        int horizontalMargin = Math.max(MARGIN, maxNodeWidth(metrics) / 2 + 24);
-        int verticalMargin = Math.max(MARGIN, maxNodeHeight(metrics) / 2 + 24);
-
-        double minX = Double.POSITIVE_INFINITY;
-        double maxX = Double.NEGATIVE_INFINITY;
-        double minY = Double.POSITIVE_INFINITY;
-        double maxY = Double.NEGATIVE_INFINITY;
-
+        Map<String, GephiGraphLayout.Position> positions = simulation.getPositions();
         for (Map.Entry<String, GephiGraphLayout.Position> entry : positions.entrySet()) {
             if (!isVisible(entry.getKey())) {
                 continue;
             }
-            GephiGraphLayout.Position position = entry.getValue();
-            minX = Math.min(minX, position.x);
-            maxX = Math.max(maxX, position.x);
-            minY = Math.min(minY, position.y);
-            maxY = Math.max(maxY, position.y);
+            points.put(entry.getKey(), new Point(entry.getValue().x, entry.getValue().y));
         }
-
-        if (minX == Double.POSITIVE_INFINITY) {
-            return scaled;
-        }
-
-        double graphWidth = Math.max(maxX - minX, 1.0);
-        double graphHeight = Math.max(maxY - minY, 1.0);
-        double drawableWidth = Math.max(getWidth() - horizontalMargin * 2.0, 1.0);
-        double drawableHeight = Math.max(getHeight() - verticalMargin * 2.0, 1.0);
-        logger.debug(
-                "Scaling {} Gephi positions: bounds x=[{}, {}], y=[{}, {}], drawable={}x{}",
-                positions.size(), minX, maxX, minY, maxY, drawableWidth, drawableHeight
-        );
-
-        for (Map.Entry<String, GephiGraphLayout.Position> entry : positions.entrySet()) {
-            if (!isVisible(entry.getKey())) {
-                continue;
-            }
-            int x = horizontalMargin + (int) Math.round(((entry.getValue().x - minX) / graphWidth) * drawableWidth);
-            int y = verticalMargin + (int) Math.round(((entry.getValue().y - minY) / graphHeight) * drawableHeight);
-            scaled.put(entry.getKey(), new Point(x, y));
-        }
-
-        for (Map.Entry<String, Point> entry : manualPositions.entrySet()) {
-            if (isVisible(entry.getKey())) {
-                scaled.put(entry.getKey(), entry.getValue());
-            }
-        }
-
-        avoidNodeOverlaps(scaled, getFontMetrics(getFont()));
-        for (Map.Entry<String, Point> entry : manualPositions.entrySet()) {
-            if (isVisible(entry.getKey())) {
-                scaled.put(entry.getKey(), entry.getValue());
-            }
-        }
-
-        return scaled;
-    }
-
-    private void avoidNodeOverlaps(Map<String, Point> points, FontMetrics metrics) {
-        for (int iteration = 0; iteration < OVERLAP_ITERATIONS; iteration++) {
-            boolean moved = false;
-            OntologyGraph.Node[] nodes = graph.getNodes().stream()
-                    .filter(this::isVisible)
-                    .toArray(OntologyGraph.Node[]::new);
-
-            for (int i = 0; i < nodes.length; i++) {
-                for (int j = i + 1; j < nodes.length; j++) {
-                    Point a = points.get(nodes[i].id);
-                    Point b = points.get(nodes[j].id);
-                    if (a == null || b == null) {
-                        continue;
-                    }
-
-                    Rectangle2D aBounds = visualBoundsForNode(nodes[i], a, metrics, points);
-                    Rectangle2D bBounds = visualBoundsForNode(nodes[j], b, metrics, points);
-                    double minDx = (aBounds.getWidth() + bBounds.getWidth()) / 2.0 + COLLISION_PADDING;
-                    double minDy = (aBounds.getHeight() + bBounds.getHeight()) / 2.0 + COLLISION_PADDING;
-                    double dx = b.x - a.x;
-                    double dy = b.y - a.y;
-                    double overlapX = minDx - Math.abs(dx);
-                    double overlapY = minDy - Math.abs(dy);
-
-                    if (overlapX > 0.0 && overlapY > 0.0) {
-                        if (overlapX < overlapY) {
-                            double shift = overlapX / 2.0 + 1.0;
-                            double direction = dx >= 0.0 ? 1.0 : -1.0;
-                            points.put(nodes[i].id, new Point(a.x - shift * direction, a.y));
-                            points.put(nodes[j].id, new Point(b.x + shift * direction, b.y));
-                        } else {
-                            double shift = overlapY / 2.0 + 1.0;
-                            double direction = dy >= 0.0 ? 1.0 : -1.0;
-                            points.put(nodes[i].id, new Point(a.x, a.y - shift * direction));
-                            points.put(nodes[j].id, new Point(b.x, b.y + shift * direction));
-                        }
-                        moved = true;
-                    }
-                }
-            }
-
-            if (!moved) {
-                return;
-            }
-        }
-    }
-
-    private Rectangle2D visualBoundsForNode(OntologyGraph.Node node, Point point, FontMetrics metrics, Map<String, Point> points) {
-        Rectangle2D bounds = new Rectangle2D.Double(
-                point.x - nodeWidth(node, metrics) / 2.0,
-                point.y - nodeHeight(node, metrics) / 2.0,
-                nodeWidth(node, metrics),
-                nodeHeight(node, metrics)
-        );
-
-        for (OntologyGraph.Edge edge : graph.getEdges()) {
-            if (edge.type != OntologyGraph.EdgeType.PROPERTY || !node.id.equals(edge.source)) {
-                continue;
-            }
-            Point target = points.get(edge.target);
-            OntologyGraph.Node targetNode = graph.getNode(edge.target);
-            if (target == null || targetNode == null || !isVisible(targetNode)) {
-                continue;
-            }
-            EdgeGeometry geometry = edgeGeometry(point, node, target, targetNode, metrics);
-            bounds = union(bounds, propertyLabelBounds(edge.label, geometry, metrics));
-        }
-
-        return bounds;
+        return points;
     }
 
     private void fitVisibleGraphToPanel(FontMetrics metrics, Map<String, Point> points) {
@@ -356,21 +312,6 @@ final class OntologyGraphPanel extends JPanel {
             );
             bounds = union(bounds, nodeBounds);
         }
-
-        for (OntologyGraph.Edge edge : graph.getEdges()) {
-            if (edge.type != OntologyGraph.EdgeType.PROPERTY) {
-                continue;
-            }
-            Point source = points.get(edge.source);
-            Point target = points.get(edge.target);
-            OntologyGraph.Node sourceNode = graph.getNode(edge.source);
-            OntologyGraph.Node targetNode = graph.getNode(edge.target);
-            if (source == null || target == null || sourceNode == null || targetNode == null || !isVisible(sourceNode) || !isVisible(targetNode)) {
-                continue;
-            }
-            EdgeGeometry geometry = edgeGeometry(source, sourceNode, target, targetNode, metrics);
-            bounds = union(bounds, propertyLabelBounds(edge.label, geometry, metrics));
-        }
         return bounds;
     }
 
@@ -404,28 +345,44 @@ final class OntologyGraphPanel extends JPanel {
             }
 
             g.setColor(edge.type == OntologyGraph.EdgeType.SUBCLASS ? SUBCLASS_EDGE_COLOR : PROPERTY_EDGE_COLOR);
-            EdgeGeometry edgeGeometry = drawDirectedEdge(g, source, sourceNode, target, targetNode, metrics, worldPositions);
-            if (edge.type == OntologyGraph.EdgeType.PROPERTY) {
-                drawPropertyLabel(g, edge.label, edgeGeometry, metrics);
+            EdgeGeometry geometry = edgeGeometry(source, sourceNode, target, targetNode, metrics);
+            Point ctrl = curveControl(geometry, sourceNode, targetNode, metrics, worldPositions);
+            drawCurveEdge(g, geometry, ctrl);
+
+            if (edge.label != null && !edge.label.isEmpty()) {
+                drawEdgeLabel(g, edge.label, geometry, ctrl, metrics);
             }
         }
     }
 
-    private EdgeGeometry drawDirectedEdge(Graphics2D g, Point source, OntologyGraph.Node sourceNode, Point target, OntologyGraph.Node targetNode, FontMetrics metrics, Map<String, Point> points) {
-        EdgeGeometry geometry = edgeGeometry(source, sourceNode, target, targetNode, metrics);
-        Point bend = routeBend(geometry, sourceNode, targetNode, metrics, points);
+    private Point curveControl(EdgeGeometry geometry, OntologyGraph.Node sourceNode, OntologyGraph.Node targetNode, FontMetrics metrics, Map<String, Point> points) {
+        double midX = (geometry.x + geometry.endX) / 2.0;
+        double midY = (geometry.y + geometry.endY) / 2.0;
+        double length = Math.max(Math.sqrt(geometry.dx * geometry.dx + geometry.dy * geometry.dy), 1.0);
+        double normalX = -geometry.dy / length;
+        double normalY = geometry.dx / length;
 
-        if (bend == null) {
-            g.draw(new Line2D.Double(geometry.x, geometry.y, geometry.endX, geometry.endY));
-        } else {
-            g.draw(new Line2D.Double(geometry.x, geometry.y, bend.x, bend.y));
-            g.draw(new Line2D.Double(bend.x, bend.y, geometry.endX, geometry.endY));
+        Line2D direct = new Line2D.Double(geometry.x, geometry.y, geometry.endX, geometry.endY);
+        for (OntologyGraph.Node node : graph.getNodes()) {
+            if (!isVisible(node) || node.id.equals(sourceNode.id) || node.id.equals(targetNode.id)) {
+                continue;
+            }
+            Point point = points.get(node.id);
+            if (point != null && nodeBounds(node, point, metrics).intersectsLine(direct)) {
+                return new Point(midX + normalX * ROUTE_OFFSET, midY + normalY * ROUTE_OFFSET);
+            }
         }
 
+        return new Point(midX + normalX * CURVE_OFFSET, midY + normalY * CURVE_OFFSET);
+    }
+
+    private void drawCurveEdge(Graphics2D g, EdgeGeometry geometry, Point ctrl) {
+        g.draw(new QuadCurve2D.Double(geometry.x, geometry.y, ctrl.x, ctrl.y, geometry.endX, geometry.endY));
+
+        double arrowDx = geometry.endX - ctrl.x;
+        double arrowDy = geometry.endY - ctrl.y;
         AffineTransform previousTransform = g.getTransform();
         g.translate(geometry.endX, geometry.endY);
-        double arrowDx = bend == null ? geometry.dx : geometry.endX - bend.x;
-        double arrowDy = bend == null ? geometry.dy : geometry.endY - bend.y;
         g.rotate(Math.atan2(arrowDy, arrowDx));
         g.fillPolygon(
                 new int[]{0, -ARROW_SIZE, -ARROW_SIZE},
@@ -433,31 +390,22 @@ final class OntologyGraphPanel extends JPanel {
                 3
         );
         g.setTransform(previousTransform);
-
-        return geometry;
     }
 
-    private Point routeBend(EdgeGeometry geometry, OntologyGraph.Node sourceNode, OntologyGraph.Node targetNode, FontMetrics metrics, Map<String, Point> points) {
-        Line2D direct = new Line2D.Double(geometry.x, geometry.y, geometry.endX, geometry.endY);
-        boolean intersectsNode = false;
-        for (OntologyGraph.Node node : graph.getNodes()) {
-            if (!isVisible(node) || node.id.equals(sourceNode.id) || node.id.equals(targetNode.id)) {
-                continue;
-            }
-            Point point = points.get(node.id);
-            if (point != null && nodeBounds(node, point, metrics).intersectsLine(direct)) {
-                intersectsNode = true;
-                break;
-            }
-        }
-        if (!intersectsNode) {
-            return null;
-        }
+    private static void drawEdgeLabel(Graphics2D g, String label, EdgeGeometry geometry, Point ctrl, FontMetrics metrics) {
+        double mx = 0.25 * geometry.x + 0.5 * ctrl.x + 0.25 * geometry.endX;
+        double my = 0.25 * geometry.y + 0.5 * ctrl.y + 0.25 * geometry.endY;
+        int labelWidth = metrics.stringWidth(label);
+        int labelHeight = metrics.getHeight();
+        int lx = (int) Math.round(mx - labelWidth / 2.0) - EDGE_LABEL_PADDING;
+        int ly = (int) Math.round(my - labelHeight / 2.0);
 
-        double length = Math.max(Math.sqrt(geometry.dx * geometry.dx + geometry.dy * geometry.dy), 1.0);
-        double normalX = -geometry.dy / length;
-        double normalY = geometry.dx / length;
-        return new Point((geometry.x + geometry.endX) / 2.0 + normalX * ROUTE_OFFSET, (geometry.y + geometry.endY) / 2.0 + normalY * ROUTE_OFFSET);
+        Color prev = g.getColor();
+        g.setColor(new Color(255, 255, 255, 210));
+        g.fillRoundRect(lx, ly, labelWidth + EDGE_LABEL_PADDING * 2, labelHeight, 6, 6);
+        g.setColor(PROPERTY_EDGE_COLOR.darker());
+        g.drawString(label, lx + EDGE_LABEL_PADDING, ly + metrics.getAscent());
+        g.setColor(prev);
     }
 
     private static EdgeGeometry edgeGeometry(Point source, OntologyGraph.Node sourceNode, Point target, OntologyGraph.Node targetNode, FontMetrics metrics) {
@@ -472,42 +420,6 @@ final class OntologyGraphPanel extends JPanel {
         double endX = target.x - dx * targetScale;
         double endY = target.y - dy * targetScale;
         return new EdgeGeometry(startX, startY, endX, endY, dx, dy, edgeSide(dx, dy, sourceWidth, sourceHeight));
-    }
-
-    private static void drawPropertyLabel(Graphics2D g, String label, EdgeGeometry edgeGeometry, FontMetrics metrics) {
-        Rectangle2D bounds = propertyLabelBounds(label, edgeGeometry, metrics);
-        int x = (int) Math.round(bounds.getX()) + EDGE_LABEL_PADDING;
-        int y = (int) Math.round(bounds.getY());
-
-        Color previousColor = g.getColor();
-        g.setColor(new Color(255, 255, 255, 230));
-        g.fillRoundRect((int) Math.round(bounds.getX()), y, (int) Math.round(bounds.getWidth()), (int) Math.round(bounds.getHeight()), 6, 6);
-        g.setColor(PROPERTY_EDGE_COLOR.darker());
-        g.drawString(label, x, y + metrics.getAscent());
-        g.setColor(previousColor);
-    }
-
-    private static Rectangle2D propertyLabelBounds(String label, EdgeGeometry edgeGeometry, FontMetrics metrics) {
-        int labelWidth = metrics.stringWidth(label);
-        int labelHeight = metrics.getHeight();
-        int x;
-        int y;
-
-        if (edgeGeometry.side == EdgeSide.RIGHT) {
-            x = (int) Math.round(edgeGeometry.x + EDGE_LABEL_OFFSET);
-            y = (int) Math.round(edgeGeometry.y - labelHeight / 2.0);
-        } else if (edgeGeometry.side == EdgeSide.LEFT) {
-            x = (int) Math.round(edgeGeometry.x - EDGE_LABEL_OFFSET - labelWidth);
-            y = (int) Math.round(edgeGeometry.y - labelHeight / 2.0);
-        } else if (edgeGeometry.side == EdgeSide.TOP) {
-            x = (int) Math.round(edgeGeometry.x - labelWidth / 2.0);
-            y = (int) Math.round(edgeGeometry.y - EDGE_LABEL_OFFSET - labelHeight);
-        } else {
-            x = (int) Math.round(edgeGeometry.x - labelWidth / 2.0);
-            y = (int) Math.round(edgeGeometry.y + EDGE_LABEL_OFFSET);
-        }
-
-        return new Rectangle2D.Double(x - EDGE_LABEL_PADDING, y, labelWidth + EDGE_LABEL_PADDING * 2.0, labelHeight);
     }
 
     private static EdgeSide edgeSide(double dx, double dy, int width, int height) {
@@ -541,50 +453,75 @@ final class OntologyGraphPanel extends JPanel {
             int nodeHeight = nodeHeight(node, metrics);
             int x = (int) Math.round(point.x - nodeWidth / 2.0);
             int y = (int) Math.round(point.y - nodeHeight / 2.0);
-            g.setColor(namespaceColors.getOrDefault(NamespaceColors.namespaceOf(node.id), CLASS_COLOR));
-            g.fillRoundRect(x, y, nodeWidth, nodeHeight, 18, 18);
-            g.setColor(Color.WHITE);
-            g.drawRoundRect(x, y, nodeWidth, nodeHeight, 18, 18);
 
-            int labelWidth = metrics.stringWidth(node.label);
-            g.drawString(node.label, (int) Math.round(point.x - labelWidth / 2.0), y + 20);
-
-            int separatorY = y + headerHeight(node, metrics, nodeWidth);
-             if (!node.annotations.isEmpty()) {
-                 g.drawLine(x + 10, y + 30, x + nodeWidth - 10, y + 30);
-             }
-             int annotationY = y + 45;
-            for (OntologyGraph.Annotation annotation : node.annotations) {
-                for (String line : annotationLines(annotation, metrics, nodeWidth - NODE_PADDING * 2)) {
-                    g.drawString(line, x + NODE_PADDING, annotationY);
-                    annotationY += ANNOTATION_LINE_HEIGHT;
-                }
+            if (node.type == OntologyGraph.NodeType.PROPERTY) {
+                continue;
             }
+            paintClassNode(g, node, x, y, nodeWidth, nodeHeight, point, metrics);
+        }
+    }
 
-            g.drawLine(x + 10, separatorY, x + nodeWidth - 10, separatorY);
-            if (!node.datatypeProperties.isEmpty()) {
-                int nameColumnWidth = datatypeNameColumnWidth(node, metrics);
-                int tableTop = separatorY;
-                int separatorX = x + NODE_PADDING + nameColumnWidth + TABLE_GAP / 2;
-                g.drawLine(separatorX, tableTop, separatorX, y + nodeHeight - 10);
-                int propertyY = tableTop + 15;
-                for (OntologyGraph.DatatypeProperty property : node.datatypeProperties) {
-                    g.drawString(property.label, x + NODE_PADDING, propertyY);
-                    if (property.datatypeLabel != null && !property.datatypeLabel.trim().isEmpty()) {
-                        g.drawString(property.datatypeLabel, separatorX + TABLE_GAP / 2, propertyY);
-                    }
-                    propertyY += PROPERTY_LINE_HEIGHT;
+    private void paintPropertyNode(Graphics2D g, OntologyGraph.Node node, int x, int y, int w, int h, Point center, FontMetrics metrics) {
+        int labelWidth = metrics.stringWidth(node.label);
+        int labelHeight = metrics.getHeight();
+        int lx = (int) Math.round(center.x - labelWidth / 2.0) - EDGE_LABEL_PADDING;
+        int ly = (int) Math.round(center.y - labelHeight / 2.0);
+        g.setColor(new Color(255, 255, 255, 210));
+        g.fillRoundRect(lx, ly, labelWidth + EDGE_LABEL_PADDING * 2, labelHeight, 6, 6);
+        g.setColor(PROPERTY_NODE_COLOR.darker());
+        g.drawString(node.label, lx + EDGE_LABEL_PADDING, ly + metrics.getAscent());
+    }
+
+    private void paintClassNode(Graphics2D g, OntologyGraph.Node node, int x, int y, int nodeWidth, int nodeHeight, Point center, FontMetrics metrics) {
+        g.setColor(namespaceColors.getOrDefault(NamespaceColors.namespaceOf(node.id), CLASS_COLOR));
+        g.fillRoundRect(x, y, nodeWidth, nodeHeight, 18, 18);
+        g.setColor(Color.WHITE);
+        g.drawRoundRect(x, y, nodeWidth, nodeHeight, 18, 18);
+
+        int labelWidth = metrics.stringWidth(node.label);
+        g.drawString(node.label, (int) Math.round(center.x - labelWidth / 2.0), y + 20);
+
+        int separatorY = y + headerHeight(node, metrics, nodeWidth);
+        if (!node.annotations.isEmpty()) {
+            g.drawLine(x + 10, y + 30, x + nodeWidth - 10, y + 30);
+        }
+        int annotationY = y + 45;
+        for (OntologyGraph.Annotation annotation : node.annotations) {
+            for (String line : annotationLines(annotation, metrics, nodeWidth - NODE_PADDING * 2)) {
+                g.drawString(line, x + NODE_PADDING, annotationY);
+                annotationY += ANNOTATION_LINE_HEIGHT;
+            }
+        }
+
+        g.drawLine(x + 10, separatorY, x + nodeWidth - 10, separatorY);
+        if (!node.datatypeProperties.isEmpty()) {
+            int nameColumnWidth = datatypeNameColumnWidth(node, metrics);
+            int tableTop = separatorY;
+            int separatorX = x + NODE_PADDING + nameColumnWidth + TABLE_GAP / 2;
+            g.drawLine(separatorX, tableTop, separatorX, y + nodeHeight - 10);
+            int propertyY = tableTop + 15;
+            for (OntologyGraph.DatatypeProperty property : node.datatypeProperties) {
+                g.drawString(property.label, x + NODE_PADDING, propertyY);
+                if (property.datatypeLabel != null && !property.datatypeLabel.trim().isEmpty()) {
+                    g.drawString(property.datatypeLabel, separatorX + TABLE_GAP / 2, propertyY);
                 }
+                propertyY += PROPERTY_LINE_HEIGHT;
             }
         }
     }
 
     private static int nodeHeight(OntologyGraph.Node node, FontMetrics metrics) {
+        if (node.type == OntologyGraph.NodeType.PROPERTY) {
+            return PROPERTY_NODE_HEIGHT;
+        }
         int width = nodeWidth(node, metrics);
         return Math.max(NODE_MIN_HEIGHT, headerHeight(node, metrics, width) + 12 + node.datatypeProperties.size() * PROPERTY_LINE_HEIGHT);
     }
 
     private static int nodeWidth(OntologyGraph.Node node, FontMetrics metrics) {
+        if (node.type == OntologyGraph.NodeType.PROPERTY) {
+            return Math.max(PROPERTY_NODE_MIN_WIDTH, metrics.stringWidth(node.label) + PROPERTY_NODE_PADDING * 2);
+        }
         int width = Math.max(NODE_MIN_WIDTH, metrics.stringWidth(node.label) + NODE_PADDING * 2);
         if (!node.datatypeProperties.isEmpty()) {
             int tableWidth = datatypeNameColumnWidth(node, metrics) + datatypeRangeColumnWidth(node, metrics) + TABLE_GAP + NODE_PADDING * 2;
@@ -644,37 +581,8 @@ final class OntologyGraphPanel extends JPanel {
         return width;
     }
 
-    private int maxNodeWidth(FontMetrics metrics) {
-        int width = NODE_MIN_WIDTH;
-        for (OntologyGraph.Node node : graph.getNodes()) {
-            if (!isVisible(node)) {
-                continue;
-            }
-            width = Math.max(width, nodeWidth(node, metrics));
-        }
-        return width;
-    }
-
-    private int maxNodeHeight(FontMetrics metrics) {
-        int height = NODE_MIN_HEIGHT;
-        for (OntologyGraph.Node node : graph.getNodes()) {
-            if (!isVisible(node)) {
-                continue;
-            }
-            height = Math.max(height, nodeHeight(node, metrics));
-        }
-        return height;
-    }
-
     private static Rectangle2D nodeBounds(OntologyGraph.Node node, Point point, FontMetrics metrics) {
         return new Rectangle2D.Double(point.x - nodeWidth(node, metrics) / 2.0, point.y - nodeHeight(node, metrics) / 2.0, nodeWidth(node, metrics), nodeHeight(node, metrics));
-    }
-
-    private static String abbreviate(String value, int maxLength) {
-        if (value.length() <= maxLength) {
-            return value;
-        }
-        return value.substring(0, maxLength - 1) + "...";
     }
 
     private static boolean containsNode(Point point, double x, double y, int nodeWidth, int nodeHeight) {

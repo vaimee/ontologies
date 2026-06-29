@@ -25,6 +25,9 @@ final class NamespaceColors {
     static Map<String, Color> forGraph(OntologyGraph graph) {
         Set<String> namespaces = new TreeSet<>();
         for (OntologyGraph.Node node : graph.getNodes()) {
+            if (node.type == OntologyGraph.NodeType.PROPERTY) {
+                continue;
+            }
             namespaces.add(namespaceOf(node.id));
         }
 

@@ -48,6 +48,7 @@ public class OntologyGraphTab extends WorkspaceTab {
 
         graphPanel = new OntologyGraphPanel();
         namespaceLegendPanel = new NamespaceLegendPanel();
+        LayoutSettingsPanel layoutSettingsPanel = new LayoutSettingsPanel(graphPanel);
         summaryLabel = new JLabel();
         JButton refreshButton = new JButton("Refresh graph");
         JButton resetButton = new JButton("Reset view");
@@ -59,8 +60,13 @@ public class OntologyGraphTab extends WorkspaceTab {
         toolbar.add(resetButton);
         toolbar.add(summaryLabel);
 
+        JPanel sidePanel = new JPanel();
+        sidePanel.setLayout(new javax.swing.BoxLayout(sidePanel, javax.swing.BoxLayout.Y_AXIS));
+        sidePanel.add(namespaceLegendPanel);
+        sidePanel.add(layoutSettingsPanel);
+
         add(toolbar, BorderLayout.NORTH);
-        splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, new JScrollPane(namespaceLegendPanel), graphPanel);
+        splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, new JScrollPane(sidePanel), graphPanel);
         splitPane.setResizeWeight(0.0);
         splitPane.setOneTouchExpandable(true);
         add(splitPane, BorderLayout.CENTER);
@@ -76,6 +82,9 @@ public class OntologyGraphTab extends WorkspaceTab {
 
     @Override
     public void dispose() {
+        if (graphPanel != null) {
+            graphPanel.dispose();
+        }
         removeAll();
         graphPanel = null;
         namespaceLegendPanel = null;
