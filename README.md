@@ -60,34 +60,13 @@ Expose that WebVOWL service at a public URL, for example `https://ontologies.exa
 
 The ontology files must also be reachable by the WebVOWL service. Local-only URLs such as `localhost` cannot be fetched by a remote WebVOWL service.
 
-## Protégé Graph Plugin
+## Protégé Plugins
 
-A Protégé Desktop tab plugin that renders a force-directed graph of the active OWL ontology. Classes are shown as rounded boxes containing datatype properties, connected by curved edges for `rdfs:subClassOf` and object property relations with labels at the arc midpoint.
+Protégé Desktop tab plugins for this ontology collection are maintained in a separate repository:
 
-### Build
+[github.com/vaimee/protege-plugins](https://github.com/vaimee/protege-plugins)
 
-Requires Maven and JDK 8+.
-
-```sh
-cd protege-graph-plugin
-mvn clean package
-```
-
-The plugin JAR is generated under `protege-graph-plugin/target/`.
-
-### Install
-
-Copy the generated JAR into the `plugins/` directory of your Protégé Desktop installation, then restart Protégé. Enable the tab from **Window > Tabs > VAIMEE Graph**.
-
-### Features
-
-- Force-directed layout with D3-style simulation (charge, link distance, gravity).
-- Interactive drag: grab a class node and connected nodes follow via spring forces.
-- Pan (drag background), zoom (mouse wheel), and fit-to-view on reset.
-- Namespace legend with color-coded checkboxes to show/hide classes.
-- Layout settings panel with sliders for charge, link distance, link strength, and gravity.
-- `rdfs:comment` annotations displayed inside class nodes with word wrapping.
-- Curved edge routing around intermediate nodes.
+The **graph-plugin** in that repository renders a force-directed graph of any active OWL ontology loaded in Protégé, with namespace-colored class boxes, curved labeled edges, taxonomy filtering, and interactive layout controls.
 
 ## Build Locally
 
