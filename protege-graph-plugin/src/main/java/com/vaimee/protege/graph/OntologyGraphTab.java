@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -55,9 +56,12 @@ public class OntologyGraphTab extends WorkspaceTab {
         summaryLabel = new JLabel();
         JButton resetButton = new JButton("Reset view");
         resetButton.addActionListener(event -> resetGraphView());
+        JCheckBox taxonomyCheckbox = new JCheckBox("Taxonomy only");
+        taxonomyCheckbox.addActionListener(event -> graphPanel.setTaxonomyOnly(taxonomyCheckbox.isSelected()));
 
         JPanel toolbar = new JPanel(new FlowLayout(FlowLayout.LEFT));
         toolbar.add(resetButton);
+        toolbar.add(taxonomyCheckbox);
         toolbar.add(summaryLabel);
 
         add(toolbar, BorderLayout.NORTH);

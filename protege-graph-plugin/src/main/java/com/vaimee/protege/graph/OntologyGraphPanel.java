@@ -69,6 +69,7 @@ final class OntologyGraphPanel extends JPanel {
     private double panX;
     private double panY;
     private boolean fitToViewOnNextPaint;
+    private boolean taxonomyOnly;
     private String message;
 
     OntologyGraphPanel() {
@@ -235,6 +236,15 @@ final class OntologyGraphPanel extends JPanel {
         repaint();
     }
 
+    void setTaxonomyOnly(boolean value) {
+        this.taxonomyOnly = value;
+        repaint();
+    }
+
+    boolean isTaxonomyOnly() {
+        return taxonomyOnly;
+    }
+
     void dispose() {
         animationTimer.stop();
         simulation = null;
@@ -399,6 +409,9 @@ final class OntologyGraphPanel extends JPanel {
         FontMetrics metrics = g.getFontMetrics();
 
         for (OntologyGraph.Edge edge : graph.getEdges()) {
+            if (taxonomyOnly && edge.type != OntologyGraph.EdgeType.SUBCLASS) {
+                continue;
+            }
             Point source = worldPositions.get(edge.source);
             Point target = worldPositions.get(edge.target);
             OntologyGraph.Node sourceNode = graph.getNode(edge.source);
