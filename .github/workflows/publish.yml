@@ -38,7 +38,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add agora/agora_ontology.ttl agora/agora_ontology.html fsm/fsm.ttl fsm/fsm.html jsap/jsap_ontology.ttl jsap/jsap_ontology.html msg/messages_ontology.ttl msg/messages_ontology.html users/users_ontology.ttl users/users_ontology.html
+          git add agora/agora.ttl agora/agora.html fsm/fsm.ttl fsm/fsm.html jsap/jsap.ttl jsap/jsap.html msg/msg.ttl msg/msg.html users/users.ttl users/users.html
           if ! git diff --cached --quiet; then
             git commit -m "chore: update ontology version ${ONTOLOGY_VERSION} [skip ci]"
             git push

@@ -16,7 +16,7 @@
 
 <http://onto.vaimee.com/agora#> rdf:type owl:Ontology ;
                                  owl:versionIRI <http://onto.vaimee.com/agora/1.0.17#> ;
-                                 owl:imports <http://onto.vaimee.com/fsm> ,
+                                 owl:imports <http://onto.vaimee.com/fsm/1.0.17> ,
                                              <http://www.opengis.net/ont/geosparql> ,
                                              <http://www.w3.org/2006/time#2016> ;
                                  dcterms:abstract "This ontology designed for farmers to monitor and optimize irrigation procedures and, in the future, other activities related to precision agriculture." ;
@@ -75,6 +75,13 @@ skos:relatedMatch rdf:type owl:AnnotationProperty .
 #    Object Properties
 #################################################################
 
+###  http://onto.vaimee.com/agora#hasCrop
+:hasCrop rdf:type owl:ObjectProperty ;
+         rdfs:subPropertyOf owl:topObjectProperty ;
+         rdfs:domain :Model ;
+         rdfs:range :Crop .
+
+
 ###  http://onto.vaimee.com/agora#hasCropClass
 :hasCropClass rdf:type owl:ObjectProperty ;
               rdfs:subPropertyOf owl:topObjectProperty ;
@@ -85,14 +92,34 @@ skos:relatedMatch rdf:type owl:AnnotationProperty .
 ###  http://onto.vaimee.com/agora#hasCropCycle
 :hasCropCycle rdf:type owl:ObjectProperty ;
               rdfs:domain :Crop ;
-              rdfs:range :CropCycle .
+              rdfs:range criteria:CropCycle .
+
+
+###  http://onto.vaimee.com/agora#hasIrrigation
+:hasIrrigation rdf:type owl:ObjectProperty ;
+               rdfs:domain :IrrigationModel ;
+               rdfs:range :Irrigation .
+
+
+###  http://onto.vaimee.com/agora#hasMeteoLocation
+:hasMeteoLocation rdf:type owl:ObjectProperty ;
+                  rdfs:subPropertyOf owl:topObjectProperty ;
+                  rdfs:domain :Model ;
+                  rdfs:range :MeteoLocation .
 
 
 ###  http://onto.vaimee.com/agora#hasRootDevelopment
 :hasRootDevelopment rdf:type owl:ObjectProperty ;
                     rdfs:subPropertyOf owl:topObjectProperty ;
                     rdfs:domain :Crop ;
-                    rdfs:range :RootDevelopment .
+                    rdfs:range criteria:RootDevelopment .
+
+
+###  http://onto.vaimee.com/agora#hasSoil
+:hasSoil rdf:type owl:ObjectProperty ;
+         rdfs:subPropertyOf owl:topObjectProperty ;
+         rdfs:domain :Model ;
+         rdfs:range :Soil .
 
 
 ###  http://onto.vaimee.com/agora#hasSoilFeature
@@ -114,31 +141,14 @@ skos:relatedMatch rdf:type owl:AnnotationProperty .
                 rdfs:range :SoilTexture .
 
 
-###  http://onto.vaimee.com/agora/criteria#hasCrop
-criteria:hasCrop rdf:type owl:ObjectProperty ;
-                 rdfs:subPropertyOf owl:topObjectProperty ;
-                 rdfs:domain criteria:Unit ;
-                 rdfs:range :Crop .
-
-
-###  http://onto.vaimee.com/agora/criteria#hasIrrigationSettings
-criteria:hasIrrigationSettings rdf:type owl:ObjectProperty ;
-                               rdfs:domain criteria:Unit ;
-                               rdfs:range :IrrigationSettings .
-
-
-###  http://onto.vaimee.com/agora/criteria#hasMeteoLocation
-criteria:hasMeteoLocation rdf:type owl:ObjectProperty ;
-                          rdfs:subPropertyOf owl:topObjectProperty ;
-                          rdfs:domain criteria:Unit ;
-                          rdfs:range :MeteoLocation .
-
-
-###  http://onto.vaimee.com/agora/criteria#hasSoil
-criteria:hasSoil rdf:type owl:ObjectProperty ;
-                 rdfs:subPropertyOf owl:topObjectProperty ;
-                 rdfs:domain criteria:Unit ;
-                 rdfs:range :Soil .
+###  http://onto.vaimee.com/agora#hasState
+:hasState rdf:type owl:ObjectProperty ;
+          rdfs:domain [ rdf:type owl:Class ;
+                        owl:unionOf ( :MeteoLocation
+                                      :Model
+                                    )
+                      ] ;
+          rdfs:range :State .
 
 
 #################################################################
@@ -167,54 +177,11 @@ criteria:hasSoil rdf:type owl:ObjectProperty ;
                 rdfs:range xsd:decimal .
 
 
-###  http://onto.vaimee.com/agora#degreeDaysEmergence
-:degreeDaysEmergence rdf:type owl:DatatypeProperty ;
-                     rdfs:subPropertyOf owl:topDataProperty ;
-                     rdfs:domain :CropCycle ;
-                     rdfs:range xsd:integer .
-
-
-###  http://onto.vaimee.com/agora#irriRatio
-:irriRatio rdf:type owl:DatatypeProperty ;
-           rdfs:subPropertyOf owl:topDataProperty ;
-           rdfs:domain :IrrigationSettings ;
-           rdfs:range xsd:decimal .
-
-
-###  http://onto.vaimee.com/agora#irrigationVolume
-:irrigationVolume rdf:type owl:DatatypeProperty ;
-                  rdfs:subPropertyOf owl:topDataProperty ;
-                  rdfs:domain :IrrigationSettings ;
-                  rdfs:range xsd:decimal ;
-                  skos:relatedMatch <http://aims.fao.org/aos/agrovoc/c_3954> .
-
-
 ###  http://onto.vaimee.com/agora#kSat
 :kSat rdf:type owl:DatatypeProperty ;
       rdfs:subPropertyOf owl:topDataProperty ;
       rdfs:domain :SoilFeature ;
       rdfs:range xsd:decimal .
-
-
-###  http://onto.vaimee.com/agora#kcMax
-:kcMax rdf:type owl:DatatypeProperty ;
-       rdfs:subPropertyOf owl:topDataProperty ;
-       rdfs:domain :CropCycle ;
-       rdfs:range xsd:decimal .
-
-
-###  http://onto.vaimee.com/agora#laiMax
-:laiMax rdf:type owl:DatatypeProperty ;
-        rdfs:subPropertyOf owl:topDataProperty ;
-        rdfs:domain :CropCycle ;
-        rdfs:range xsd:decimal .
-
-
-###  http://onto.vaimee.com/agora#laiMin
-:laiMin rdf:type owl:DatatypeProperty ;
-        rdfs:subPropertyOf owl:topDataProperty ;
-        rdfs:domain :CropCycle ;
-        rdfs:range xsd:decimal .
 
 
 ###  http://onto.vaimee.com/agora#lowerDepth
@@ -229,20 +196,6 @@ criteria:hasSoil rdf:type owl:ObjectProperty ;
                rdfs:subPropertyOf owl:topDataProperty ;
                rdfs:domain :SoilHorizon ;
                rdfs:range xsd:decimal .
-
-
-###  http://onto.vaimee.com/agora#plantCycleMaxDuration
-:plantCycleMaxDuration rdf:type owl:DatatypeProperty ;
-                       rdfs:subPropertyOf owl:topDataProperty ;
-                       rdfs:domain :CropCycle ;
-                       rdfs:range xsd:string .
-
-
-###  http://onto.vaimee.com/agora#rawFraction
-:rawFraction rdf:type owl:DatatypeProperty ;
-             rdfs:subPropertyOf owl:topDataProperty ;
-             rdfs:domain :Crop ;
-             rdfs:range xsd:decimal .
 
 
 ###  http://onto.vaimee.com/agora#sand
@@ -261,13 +214,6 @@ criteria:hasSoil rdf:type owl:ObjectProperty ;
       rdfs:label "Limo"@it .
 
 
-###  http://onto.vaimee.com/agora#thermalThreshold
-:thermalThreshold rdf:type owl:DatatypeProperty ;
-                  rdfs:subPropertyOf owl:topDataProperty ;
-                  rdfs:domain :CropCycle ;
-                  rdfs:range xsd:decimal .
-
-
 ###  http://onto.vaimee.com/agora#thetaSat
 :thetaSat rdf:type owl:DatatypeProperty ;
           rdfs:subPropertyOf owl:topDataProperty ;
@@ -282,236 +228,300 @@ criteria:hasSoil rdf:type owl:ObjectProperty ;
             rdfs:range xsd:decimal .
 
 
-###  http://onto.vaimee.com/agora#upperThermalThreshold
-:upperThermalThreshold rdf:type owl:DatatypeProperty ;
-                       rdfs:subPropertyOf owl:topDataProperty ;
-                       rdfs:domain :CropCycle ;
-                       rdfs:range xsd:decimal .
-
-
 ###  http://onto.vaimee.com/agora/criteria#computeLateralDrainage
 criteria:computeLateralDrainage rdf:type owl:DatatypeProperty ;
                                 rdfs:subPropertyOf owl:topDataProperty ;
-                                rdfs:domain criteria:Unit ;
+                                rdfs:domain criteria:CRITERIA1D ;
                                 rdfs:range xsd:boolean .
+
+
+###  http://onto.vaimee.com/agora/criteria#degreeDaysEmergence
+criteria:degreeDaysEmergence rdf:type owl:DatatypeProperty ;
+                             rdfs:subPropertyOf owl:topDataProperty ;
+                             rdfs:domain criteria:CropCycle ;
+                             rdfs:range xsd:integer .
 
 
 ###  http://onto.vaimee.com/agora/criteria#degreeDaysEndIrrigation
 criteria:degreeDaysEndIrrigation rdf:type owl:DatatypeProperty ;
                                  rdfs:subPropertyOf owl:topDataProperty ;
-                                 rdfs:domain :IrrigationSettings ;
+                                 rdfs:domain criteria:Irrigation ;
                                  rdfs:range xsd:integer .
 
 
 ###  http://onto.vaimee.com/agora/criteria#degreeDaysLaiDecrease
 criteria:degreeDaysLaiDecrease rdf:type owl:DatatypeProperty ;
                                rdfs:subPropertyOf owl:topDataProperty ;
-                               rdfs:domain :CropCycle ;
+                               rdfs:domain criteria:CropCycle ;
                                rdfs:range xsd:integer .
 
 
 ###  http://onto.vaimee.com/agora/criteria#degreeDaysLaiIncrease
 criteria:degreeDaysLaiIncrease rdf:type owl:DatatypeProperty ;
                                rdfs:subPropertyOf owl:topDataProperty ;
-                               rdfs:domain :CropCycle ;
+                               rdfs:domain criteria:CropCycle ;
                                rdfs:range xsd:integer .
 
 
 ###  http://onto.vaimee.com/agora/criteria#degreeDaysRootIncrease
 criteria:degreeDaysRootIncrease rdf:type owl:DatatypeProperty ;
                                 rdfs:subPropertyOf owl:topDataProperty ;
-                                rdfs:domain :RootDevelopment ;
+                                rdfs:domain criteria:RootDevelopment ;
                                 rdfs:range xsd:integer .
 
 
 ###  http://onto.vaimee.com/agora/criteria#degreeDaysStartIrrigation
 criteria:degreeDaysStartIrrigation rdf:type owl:DatatypeProperty ;
                                    rdfs:subPropertyOf owl:topDataProperty ;
-                                   rdfs:domain :IrrigationSettings ;
+                                   rdfs:domain criteria:Irrigation ;
                                    rdfs:range xsd:integer .
 
 
 ###  http://onto.vaimee.com/agora/criteria#doyEndIrrigation
 criteria:doyEndIrrigation rdf:type owl:DatatypeProperty ;
                           rdfs:subPropertyOf owl:topDataProperty ;
-                          rdfs:domain :IrrigationSettings ;
+                          rdfs:domain criteria:Irrigation ;
                           rdfs:range xsd:integer .
 
 
 ###  http://onto.vaimee.com/agora/criteria#doyStartIrrigation
 criteria:doyStartIrrigation rdf:type owl:DatatypeProperty ;
                             rdfs:subPropertyOf owl:topDataProperty ;
-                            rdfs:domain :IrrigationSettings ;
+                            rdfs:domain criteria:Irrigation ;
                             rdfs:range xsd:integer .
 
 
 ###  http://onto.vaimee.com/agora/criteria#factorOfSafety
 criteria:factorOfSafety rdf:type owl:DatatypeProperty ;
                         rdfs:subPropertyOf owl:topDataProperty ;
-                        rdfs:domain criteria:Unit ;
+                        rdfs:domain criteria:CRITERIA1D ;
                         rdfs:range xsd:string .
+
+
+###  http://onto.vaimee.com/agora/criteria#irriRatio
+criteria:irriRatio rdf:type owl:DatatypeProperty ;
+                   rdfs:subPropertyOf owl:topDataProperty ;
+                   rdfs:domain criteria:Irrigation ;
+                   rdfs:range xsd:decimal .
 
 
 ###  http://onto.vaimee.com/agora/criteria#irrigationShift
 criteria:irrigationShift rdf:type owl:DatatypeProperty ;
                          rdfs:subPropertyOf owl:topDataProperty ;
-                         rdfs:domain :IrrigationSettings ;
+                         rdfs:domain criteria:Irrigation ;
                          rdfs:range xsd:integer ;
                          skos:relatedMatch <http://aims.fao.org/aos/agrovoc/c_3954> .
+
+
+###  http://onto.vaimee.com/agora/criteria#irrigationVolume
+criteria:irrigationVolume rdf:type owl:DatatypeProperty ;
+                          rdfs:subPropertyOf owl:topDataProperty ;
+                          rdfs:domain criteria:Irrigation ;
+                          rdfs:range xsd:decimal ;
+                          skos:relatedMatch <http://aims.fao.org/aos/agrovoc/c_3954> .
+
+
+###  http://onto.vaimee.com/agora/criteria#kcMax
+criteria:kcMax rdf:type owl:DatatypeProperty ;
+               rdfs:subPropertyOf owl:topDataProperty ;
+               rdfs:domain criteria:CropCycle ;
+               rdfs:range xsd:decimal .
 
 
 ###  http://onto.vaimee.com/agora/criteria#laiCurveFactorA
 criteria:laiCurveFactorA rdf:type owl:DatatypeProperty ;
                          rdfs:subPropertyOf owl:topDataProperty ;
-                         rdfs:domain :CropCycle ;
+                         rdfs:domain criteria:CropCycle ;
                          rdfs:range xsd:decimal .
 
 
 ###  http://onto.vaimee.com/agora/criteria#laiCurveFactorB
 criteria:laiCurveFactorB rdf:type owl:DatatypeProperty ;
                          rdfs:subPropertyOf owl:topDataProperty ;
-                         rdfs:domain :CropCycle ;
+                         rdfs:domain criteria:CropCycle ;
                          rdfs:range xsd:decimal .
 
 
 ###  http://onto.vaimee.com/agora/criteria#laiGrass
 criteria:laiGrass rdf:type owl:DatatypeProperty ;
                   rdfs:subPropertyOf owl:topDataProperty ;
-                  rdfs:domain :CropCycle ;
+                  rdfs:domain criteria:CropCycle ;
                   rdfs:range xsd:decimal .
+
+
+###  http://onto.vaimee.com/agora/criteria#laiMax
+criteria:laiMax rdf:type owl:DatatypeProperty ;
+                rdfs:subPropertyOf owl:topDataProperty ;
+                rdfs:domain criteria:CropCycle ;
+                rdfs:range xsd:decimal .
+
+
+###  http://onto.vaimee.com/agora/criteria#laiMin
+criteria:laiMin rdf:type owl:DatatypeProperty ;
+                rdfs:subPropertyOf owl:topDataProperty ;
+                rdfs:domain criteria:CropCycle ;
+                rdfs:range xsd:decimal .
 
 
 ###  http://onto.vaimee.com/agora/criteria#maxHeightSurfacePuddle
 criteria:maxHeightSurfacePuddle rdf:type owl:DatatypeProperty ;
                                 rdfs:subPropertyOf owl:topDataProperty ;
-                                rdfs:domain criteria:Unit ;
+                                rdfs:domain criteria:CRITERIA1D ;
                                 rdfs:range xsd:decimal .
 
 
 ###  http://onto.vaimee.com/agora/criteria#numericalSolution
 criteria:numericalSolution rdf:type owl:DatatypeProperty ;
                            rdfs:subPropertyOf owl:topDataProperty ;
-                           rdfs:domain criteria:Unit ;
+                           rdfs:domain criteria:CRITERIA1D ;
                            rdfs:range xsd:boolean .
 
 
 ###  http://onto.vaimee.com/agora/criteria#optimalIrrigation
 criteria:optimalIrrigation rdf:type owl:DatatypeProperty ;
                            rdfs:subPropertyOf owl:topDataProperty ;
-                           rdfs:domain criteria:Unit ;
+                           rdfs:domain criteria:CRITERIA1D ;
                            rdfs:range xsd:boolean ;
                            skos:relatedMatch <http://aims.fao.org/aos/agrovoc/c_3954> .
+
+
+###  http://onto.vaimee.com/agora/criteria#plantCycleMaxDuration
+criteria:plantCycleMaxDuration rdf:type owl:DatatypeProperty ;
+                               rdfs:subPropertyOf owl:topDataProperty ;
+                               rdfs:domain criteria:CropCycle ;
+                               rdfs:range xsd:string .
 
 
 ###  http://onto.vaimee.com/agora/criteria#psiLeaf
 criteria:psiLeaf rdf:type owl:DatatypeProperty ;
                  rdfs:subPropertyOf owl:topDataProperty ;
-                 rdfs:domain :CropCycle ;
+                 rdfs:domain criteria:CropCycle ;
                  rdfs:range xsd:integer .
+
+
+###  http://onto.vaimee.com/agora/criteria#rawFraction
+criteria:rawFraction rdf:type owl:DatatypeProperty ;
+                     rdfs:subPropertyOf owl:topDataProperty ;
+                     rdfs:domain criteria:Crop ;
+                     rdfs:range xsd:decimal .
 
 
 ###  http://onto.vaimee.com/agora/criteria#restartDate
 criteria:restartDate rdf:type owl:DatatypeProperty ;
                      rdfs:subPropertyOf owl:topDataProperty ;
-                     rdfs:domain criteria:Unit ;
+                     rdfs:domain criteria:CRITERIA1D ;
                      rdfs:range xsd:dateTime .
 
 
 ###  http://onto.vaimee.com/agora/criteria#restartState
 criteria:restartState rdf:type owl:DatatypeProperty ;
                       rdfs:subPropertyOf owl:topDataProperty ;
-                      rdfs:domain criteria:Unit ;
+                      rdfs:domain criteria:CRITERIA1D ;
                       rdfs:range xsd:boolean .
 
 
 ###  http://onto.vaimee.com/agora/criteria#rootDepthMax
 criteria:rootDepthMax rdf:type owl:DatatypeProperty ;
                       rdfs:subPropertyOf owl:topDataProperty ;
-                      rdfs:domain :RootDevelopment ;
+                      rdfs:domain criteria:RootDevelopment ;
                       rdfs:range xsd:decimal .
 
 
 ###  http://onto.vaimee.com/agora/criteria#rootDepthZero
 criteria:rootDepthZero rdf:type owl:DatatypeProperty ;
                        rdfs:subPropertyOf owl:topDataProperty ;
-                       rdfs:domain :RootDevelopment ;
+                       rdfs:domain criteria:RootDevelopment ;
                        rdfs:range xsd:decimal .
 
 
 ###  http://onto.vaimee.com/agora/criteria#rootShape
 criteria:rootShape rdf:type owl:DatatypeProperty ;
                    rdfs:subPropertyOf owl:topDataProperty ;
-                   rdfs:domain :RootDevelopment ;
+                   rdfs:domain criteria:RootDevelopment ;
                    rdfs:range xsd:integer .
 
 
 ###  http://onto.vaimee.com/agora/criteria#rootShapeDeformation
 criteria:rootShapeDeformation rdf:type owl:DatatypeProperty ;
                               rdfs:subPropertyOf owl:topDataProperty ;
-                              rdfs:domain :RootDevelopment ;
+                              rdfs:domain criteria:RootDevelopment ;
                               rdfs:range xsd:decimal .
 
 
 ###  http://onto.vaimee.com/agora/criteria#saveDate
 criteria:saveDate rdf:type owl:DatatypeProperty ;
                   rdfs:subPropertyOf owl:topDataProperty ;
-                  rdfs:domain criteria:Unit ;
+                  rdfs:domain criteria:CRITERIA1D ;
                   rdfs:range xsd:dateTime .
 
 
 ###  http://onto.vaimee.com/agora/criteria#saveState
 criteria:saveState rdf:type owl:DatatypeProperty ;
                    rdfs:subPropertyOf owl:topDataProperty ;
-                   rdfs:domain criteria:Unit ;
+                   rdfs:domain criteria:CRITERIA1D ;
                    rdfs:range xsd:boolean .
 
 
 ###  http://onto.vaimee.com/agora/criteria#slope
 criteria:slope rdf:type owl:DatatypeProperty ;
                rdfs:subPropertyOf owl:topDataProperty ;
-               rdfs:domain criteria:Unit ;
+               rdfs:domain criteria:CRITERIA1D ;
                rdfs:range xsd:decimal .
 
 
 ###  http://onto.vaimee.com/agora/criteria#sowingDoy
 criteria:sowingDoy rdf:type owl:DatatypeProperty ;
                    rdfs:subPropertyOf owl:topDataProperty ;
-                   rdfs:domain :Crop ;
+                   rdfs:domain criteria:Crop ;
                    rdfs:range xsd:integer .
 
 
 ###  http://onto.vaimee.com/agora/criteria#stressTolerance
 criteria:stressTolerance rdf:type owl:DatatypeProperty ;
                          rdfs:subPropertyOf owl:topDataProperty ;
-                         rdfs:domain :Crop ;
+                         rdfs:domain criteria:Crop ;
                          rdfs:range xsd:decimal .
+
+
+###  http://onto.vaimee.com/agora/criteria#thermalThreshold
+criteria:thermalThreshold rdf:type owl:DatatypeProperty ;
+                          rdfs:subPropertyOf owl:topDataProperty ;
+                          rdfs:domain criteria:CropCycle ;
+                          rdfs:range xsd:decimal .
+
+
+###  http://onto.vaimee.com/agora/criteria#upperThermalThreshold
+criteria:upperThermalThreshold rdf:type owl:DatatypeProperty ;
+                               rdfs:subPropertyOf owl:topDataProperty ;
+                               rdfs:domain criteria:CropCycle ;
+                               rdfs:range xsd:decimal .
 
 
 ###  http://onto.vaimee.com/agora/criteria#useWaterTable
 criteria:useWaterTable rdf:type owl:DatatypeProperty ;
                        rdfs:subPropertyOf owl:topDataProperty ;
-                       rdfs:domain criteria:Unit ;
+                       rdfs:domain criteria:CRITERIA1D ;
                        rdfs:range xsd:boolean .
 
 
 ###  http://onto.vaimee.com/agora/criteria#waterContent
 criteria:waterContent rdf:type owl:DatatypeProperty ;
                       rdfs:subPropertyOf owl:topDataProperty ;
-                      rdfs:domain criteria:Unit ;
+                      rdfs:domain criteria:CRITERIA1D ;
                       rdfs:range xsd:string .
 
 
 ###  http://onto.vaimee.com/agora/criteria#waterPotential
 criteria:waterPotential rdf:type owl:DatatypeProperty ;
                         rdfs:subPropertyOf owl:topDataProperty ;
-                        rdfs:domain criteria:Unit ;
+                        rdfs:domain criteria:CRITERIA1D ;
                         rdfs:range xsd:string .
 
 
 ###  http://onto.vaimee.com/agora/criteria#waterRetentionFitting
 criteria:waterRetentionFitting rdf:type owl:DatatypeProperty ;
                                rdfs:subPropertyOf owl:topDataProperty ;
-                               rdfs:domain criteria:Unit ;
+                               rdfs:domain criteria:CRITERIA1D ;
                                rdfs:range xsd:boolean .
 
 
@@ -536,8 +546,13 @@ criteria:waterRetentionFitting rdf:type owl:DatatypeProperty ;
 :CropCycle rdf:type owl:Class .
 
 
-###  http://onto.vaimee.com/agora#IrrigationSettings
-:IrrigationSettings rdf:type owl:Class .
+###  http://onto.vaimee.com/agora#Irrigation
+:Irrigation rdf:type owl:Class .
+
+
+###  http://onto.vaimee.com/agora#IrrigationModel
+:IrrigationModel rdf:type owl:Class ;
+                 rdfs:subClassOf :Model .
 
 
 ###  http://onto.vaimee.com/agora#MeteoLocation
@@ -547,6 +562,11 @@ criteria:waterRetentionFitting rdf:type owl:DatatypeProperty ;
                rdfs:label "MeteoLocation" ;
                rdfs:seeAlso <https://docs.ogc.org/is/22-047r1/22-047r1.html#_class_geofeature> ;
                skos:closeMatch <https://aims.fao.org/aos/agrovoc/c_331000> .
+
+
+###  http://onto.vaimee.com/agora#Model
+:Model rdf:type owl:Class ;
+       rdfs:subClassOf geo:Feature .
 
 
 ###  http://onto.vaimee.com/agora#RootDevelopment
@@ -581,27 +601,40 @@ criteria:waterRetentionFitting rdf:type owl:DatatypeProperty ;
 
 ###  http://onto.vaimee.com/agora#State
 :State rdf:type owl:Class ;
-       rdfs:subClassOf <http://onto.vaimee.com/fsm#State> .
+       rdfs:subClassOf <http://onto.vaimee.com/fsm#State> ,
+                       <http://www.w3.org/2006/time#TemporalEntity> .
 
 
-###  http://onto.vaimee.com/agora/criteria#Unit
-criteria:Unit rdf:type owl:Class ;
-              rdfs:subClassOf geo:Feature ;
-              rdfs:comment "A unit in our system is a tuple composed of [soil,crop, geo-coordinates]" ;
-              rdfs:label "Unit" ;
-              rdfs:seeAlso <https://docs.ogc.org/is/22-047r1/22-047r1.html#_class_geofeature> .
+###  http://onto.vaimee.com/agora/criteria#CRITERIA1D
+criteria:CRITERIA1D rdf:type owl:Class ;
+                    rdfs:subClassOf :IrrigationModel ;
+                    rdfs:comment "A unit in our system is a tuple composed of [soil,crop, geo-coordinates]" ;
+                    rdfs:label "Unit" ;
+                    rdfs:seeAlso <https://docs.ogc.org/is/22-047r1/22-047r1.html#_class_geofeature> .
 
 
-###  http://onto.vaimee.com/fsm#Configuration
-<http://onto.vaimee.com/fsm#Configuration> rdf:type owl:Class .
+###  http://onto.vaimee.com/agora/criteria#Crop
+criteria:Crop rdf:type owl:Class ;
+              rdfs:subClassOf :Crop .
+
+
+###  http://onto.vaimee.com/agora/criteria#CropCycle
+criteria:CropCycle rdf:type owl:Class ;
+                   rdfs:subClassOf :CropCycle .
+
+
+###  http://onto.vaimee.com/agora/criteria#Irrigation
+criteria:Irrigation rdf:type owl:Class ;
+                    rdfs:subClassOf :Irrigation .
+
+
+###  http://onto.vaimee.com/agora/criteria#RootDevelopment
+criteria:RootDevelopment rdf:type owl:Class ;
+                         rdfs:subClassOf :RootDevelopment .
 
 
 ###  http://www.opengis.net/ont/geosparql#Feature
 geo:Feature rdf:type owl:Class .
-
-
-###  http://www.opengis.net/ont/geosparql#Geometry
-geo:Geometry rdf:type owl:Class .
 
 
 #################################################################
