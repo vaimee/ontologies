@@ -10,7 +10,7 @@ if (!/^\d+\.\d+\.\d+$/.test(version)) {
 const repoRoot = path.resolve(__dirname, '..');
 const ontologies = [
     {
-        file: 'agora/agora_ontology.ttl',
+        file: 'agora/agora.ttl',
         versionIri: `http://onto.vaimee.com/agora/${version}#`,
     },
     {
@@ -18,15 +18,15 @@ const ontologies = [
         versionIri: `http://onto.vaimee.com/fsm/${version}`,
     },
     {
-        file: 'jsap/jsap_ontology.ttl',
+        file: 'jsap/jsap.ttl',
         versionIri: `https://onto.vaimee.com/jsap/${version}#`,
     },
     {
-        file: 'msg/messages_ontology.ttl',
+        file: 'msg/msg.ttl',
         versionIri: `https://onto.vaimee.com/msg/${version}#`,
     },
     {
-        file: 'users/users_ontology.ttl',
+        file: 'users/users.ttl',
         versionIri: `https://onto.vaimee.com/users/${version}#`,
     },
 ];
