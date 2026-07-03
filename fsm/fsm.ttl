@@ -12,8 +12,8 @@
   rdfs:comment "Ontology for representing finite-state machines using the standard mathematical model M = (Sigma, S, s0, delta, F), where Sigma is the input alphabet, S is the finite set of states, s0 is the initial state, delta is the transition function, and F is the set of final/accepting states."@en ;
   dct:creator "Luca Roffia" ;
   dct:contributor <https://qrfy.io/p/BJOemlfU0F> ;
-  owl:versionIRI <http://onto.vaimee.com/fsm/1.0.17> ;
-  owl:versionInfo "1.0.17" .
+  owl:versionIRI <http://onto.vaimee.com/fsm/1.0.18> ;
+  owl:versionInfo "1.0.18" .
 
 <https://qrfy.io/p/BJOemlfU0F>
   foaf:name "Luca Roffia" ;
