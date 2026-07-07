@@ -6,9 +6,13 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix auth: <https://auth.vaimee.com/profile#> .
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix sosa: <http://www.w3.org/ns/sosa/> .
+@prefix swrl: <http://www.w3.org/2003/11/swrl#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix swrlb: <http://www.w3.org/2003/11/swrlb#> .
 @prefix schema: <http://schema.org/> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix criteria: <http://onto.vaimee.com/agora/criteria#> .
@@ -18,7 +22,9 @@
                                  owl:versionIRI <http://onto.vaimee.com/agora/1.0.18#> ;
                                  owl:imports <http://onto.vaimee.com/fsm/1.0.17> ,
                                              <http://www.opengis.net/ont/geosparql> ,
-                                             <http://www.w3.org/2006/time#2016> ;
+                                             <http://www.w3.org/2006/time#2016> ,
+                                             <http://www.w3.org/ns/prov-o-20130430> ,
+                                             sosa: ;
                                  dcterms:abstract "This ontology designed for farmers to monitor and optimize irrigation procedures and, in the future, other activities related to precision agriculture." ;
                                  dcterms:contributor <https://qrfy.io/p/BJOemlfU0F> ;
                                  dcterms:creator "Luca Roffia" ;
@@ -55,6 +61,38 @@ rdfs:label rdf:type owl:AnnotationProperty .
 owl:title rdf:type owl:AnnotationProperty .
 
 
+###  http://www.w3.org/2003/11/swrl#argument1
+swrl:argument1 rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2003/11/swrl#argument2
+swrl:argument2 rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2003/11/swrl#arguments
+swrl:arguments rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2003/11/swrl#body
+swrl:body rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2003/11/swrl#builtin
+swrl:builtin rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2003/11/swrl#classPredicate
+swrl:classPredicate rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2003/11/swrl#head
+swrl:head rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2003/11/swrl#propertyPredicate
+swrl:propertyPredicate rdf:type owl:AnnotationProperty .
+
+
 ###  http://www.w3.org/2004/02/skos/core#broadMatch
 skos:broadMatch rdf:type owl:AnnotationProperty .
 
@@ -69,6 +107,14 @@ skos:exactMatch rdf:type owl:AnnotationProperty .
 
 ###  http://www.w3.org/2004/02/skos/core#relatedMatch
 skos:relatedMatch rdf:type owl:AnnotationProperty .
+
+
+###  http://xmlns.com/foaf/0.1/homepage
+foaf:homepage rdf:type owl:AnnotationProperty .
+
+
+###  http://xmlns.com/foaf/0.1/member
+foaf:member rdf:type owl:AnnotationProperty .
 
 
 #################################################################
@@ -92,7 +138,7 @@ skos:relatedMatch rdf:type owl:AnnotationProperty .
 ###  http://onto.vaimee.com/agora#hasCropCycle
 :hasCropCycle rdf:type owl:ObjectProperty ;
               rdfs:domain :Crop ;
-              rdfs:range criteria:CropCycle .
+              rdfs:range :CropCycle .
 
 
 ###  http://onto.vaimee.com/agora#hasIrrigation
@@ -101,18 +147,11 @@ skos:relatedMatch rdf:type owl:AnnotationProperty .
                rdfs:range :Irrigation .
 
 
-###  http://onto.vaimee.com/agora#hasMeteoLocation
-:hasMeteoLocation rdf:type owl:ObjectProperty ;
-                  rdfs:subPropertyOf owl:topObjectProperty ;
-                  rdfs:domain :Model ;
-                  rdfs:range :MeteoLocation .
-
-
 ###  http://onto.vaimee.com/agora#hasRootDevelopment
 :hasRootDevelopment rdf:type owl:ObjectProperty ;
                     rdfs:subPropertyOf owl:topObjectProperty ;
                     rdfs:domain :Crop ;
-                    rdfs:range criteria:RootDevelopment .
+                    rdfs:range :RootDevelopment .
 
 
 ###  http://onto.vaimee.com/agora#hasSoil
@@ -143,12 +182,43 @@ skos:relatedMatch rdf:type owl:AnnotationProperty .
 
 ###  http://onto.vaimee.com/agora#hasState
 :hasState rdf:type owl:ObjectProperty ;
-          rdfs:domain [ rdf:type owl:Class ;
-                        owl:unionOf ( :MeteoLocation
-                                      :Model
-                                    )
-                      ] ;
+          rdfs:domain prov:SoftwareAgent ;
           rdfs:range :State .
+
+
+###  http://onto.vaimee.com/agora#hasWeatherData
+:hasWeatherData rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf owl:topObjectProperty ;
+                rdfs:domain :Model ;
+                rdfs:range :WeatherData .
+
+
+###  http://onto.vaimee.com/agora/criteria#hasCrop
+criteria:hasCrop rdf:type owl:ObjectProperty ;
+                 rdfs:subPropertyOf :hasCrop ;
+                 rdfs:domain criteria:CRITERIA1D ;
+                 rdfs:range criteria:Crop .
+
+
+###  http://onto.vaimee.com/agora/criteria#hasCropCycle
+criteria:hasCropCycle rdf:type owl:ObjectProperty ;
+                      rdfs:subPropertyOf :hasCropCycle ;
+                      rdfs:domain criteria:CRITERIA1D ;
+                      rdfs:range criteria:CropCycle .
+
+
+###  http://onto.vaimee.com/agora/criteria#hasIrrigation
+criteria:hasIrrigation rdf:type owl:ObjectProperty ;
+                       rdfs:subPropertyOf :hasIrrigation ;
+                       rdfs:domain criteria:CRITERIA1D ;
+                       rdfs:range criteria:Irrigation .
+
+
+###  http://onto.vaimee.com/agora/criteria#hasRootDevelopment
+criteria:hasRootDevelopment rdf:type owl:ObjectProperty ;
+                            rdfs:subPropertyOf :hasRootDevelopment ;
+                            rdfs:domain criteria:CRITERIA1D ;
+                            rdfs:range criteria:RootDevelopment .
 
 
 #################################################################
@@ -529,6 +599,11 @@ criteria:waterRetentionFitting rdf:type owl:DatatypeProperty ;
 #    Classes
 #################################################################
 
+###  http://onto.vaimee.com/agora#Criteria1DAgent
+:Criteria1DAgent rdf:type owl:Class ;
+                 rdfs:subClassOf prov:SoftwareAgent .
+
+
 ###  http://onto.vaimee.com/agora#Crop
 :Crop rdf:type owl:Class ;
       rdfs:comment "Defines growth parameters, thermal thresholds, and irrigation requirements for a specific plant type." ;
@@ -546,6 +621,13 @@ criteria:waterRetentionFitting rdf:type owl:DatatypeProperty ;
 :CropCycle rdf:type owl:Class .
 
 
+###  http://onto.vaimee.com/agora#InvalidSoilTexture
+:InvalidSoilTexture rdf:type owl:Class ;
+                    owl:disjointWith :SoilTexture ;
+                    rdfs:comment "Auxiliary class used only as the head of a SWRL integrity-constraint rule: a SoilTexture individual is inferred to belong to this class when its clay, sand and silt percentages do not sum to 100. Since this class is disjoint with SoilTexture, any individual inferred to be both makes the ontology inconsistent under a rule-aware reasoner (e.g. Pellet)." ;
+                    rdfs:label "InvalidSoilTexture" .
+
+
 ###  http://onto.vaimee.com/agora#Irrigation
 :Irrigation rdf:type owl:Class .
 
@@ -555,18 +637,10 @@ criteria:waterRetentionFitting rdf:type owl:DatatypeProperty ;
                  rdfs:subClassOf :Model .
 
 
-###  http://onto.vaimee.com/agora#MeteoLocation
-:MeteoLocation rdf:type owl:Class ;
-               rdfs:subClassOf geo:Feature ;
-               rdfs:comment "A geographic point responsible for providing weather data (observed or forecast) to one or more Units." ;
-               rdfs:label "MeteoLocation" ;
-               rdfs:seeAlso <https://docs.ogc.org/is/22-047r1/22-047r1.html#_class_geofeature> ;
-               skos:closeMatch <https://aims.fao.org/aos/agrovoc/c_331000> .
-
-
 ###  http://onto.vaimee.com/agora#Model
 :Model rdf:type owl:Class ;
-       rdfs:subClassOf geo:Feature .
+       rdfs:subClassOf geo:Feature ,
+                       sosa:FeatureOfInterest .
 
 
 ###  http://onto.vaimee.com/agora#RootDevelopment
@@ -595,6 +669,21 @@ criteria:waterRetentionFitting rdf:type owl:DatatypeProperty ;
 
 ###  http://onto.vaimee.com/agora#SoilTexture
 :SoilTexture rdf:type owl:Class ;
+             rdfs:subClassOf [ rdf:type owl:Restriction ;
+                               owl:onProperty :clay ;
+                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                               owl:onDataRange xsd:decimal
+                             ] ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty :sand ;
+                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                               owl:onDataRange xsd:decimal
+                             ] ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty :silt ;
+                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                               owl:onDataRange xsd:decimal
+                             ] ;
              rdfs:comment "Represents a soil texture class characterized by sand, silt, and clay fractions." ;
              rdfs:label "SoilTexture" .
 
@@ -602,7 +691,22 @@ criteria:waterRetentionFitting rdf:type owl:DatatypeProperty ;
 ###  http://onto.vaimee.com/agora#State
 :State rdf:type owl:Class ;
        rdfs:subClassOf <http://onto.vaimee.com/fsm#State> ,
-                       <http://www.w3.org/2006/time#TemporalEntity> .
+                       time:TemporalEntity .
+
+
+###  http://onto.vaimee.com/agora#WeatherAgent
+:WeatherAgent rdf:type owl:Class ;
+              rdfs:subClassOf prov:SoftwareAgent .
+
+
+###  http://onto.vaimee.com/agora#WeatherData
+:WeatherData rdf:type owl:Class ;
+             rdfs:subClassOf geo:Feature ,
+                             sosa:FeatureOfInterest ;
+             rdfs:comment "A geographic point responsible for providing weather data (observed or forecast) to one or more Units." ;
+             rdfs:label "MeteoLocation" ;
+             rdfs:seeAlso <https://docs.ogc.org/is/22-047r1/22-047r1.html#_class_geofeature> ;
+             skos:closeMatch <https://aims.fao.org/aos/agrovoc/c_331000> .
 
 
 ###  http://onto.vaimee.com/agora/criteria#CRITERIA1D
@@ -633,6 +737,10 @@ criteria:RootDevelopment rdf:type owl:Class ;
                          rdfs:subClassOf :RootDevelopment .
 
 
+###  http://onto.vaimee.com/fsm#State
+<http://onto.vaimee.com/fsm#State> rdf:type owl:Class .
+
+
 ###  http://www.opengis.net/ont/geosparql#Feature
 geo:Feature rdf:type owl:Class .
 
@@ -649,10 +757,109 @@ geo:Feature rdf:type owl:Class .
       :silt 30 .
 
 
+###  http://onto.vaimee.com/agora#NewSoilTexture
+:NewSoilTexture rdf:type owl:NamedIndividual ,
+                         :SoilTexture ;
+                :clay 100 ;
+                :sand 25 ;
+                :silt 12 .
+
+
 ###  http://onto.vaimee.com/agora#TestHorizon1
 :TestHorizon1 rdf:type owl:NamedIndividual ;
               :hasSoilTexture :Clay ;
               :bulkDensity 2.3 .
+
+
+#################################################################
+#    Rules
+#################################################################
+
+###  http://onto.vaimee.com/agora#SoilTextureSumTo100Rule
+:SoilTextureSumTo100Rule rdf:type swrl:Imp ;
+                         rdfs:label "SoilTexture sum-to-100 integrity constraint" ;
+                         rdfs:comment "SoilTexture(?texture) ^ clay(?texture,?clayVal) ^ sand(?texture,?sandVal) ^ silt(?texture,?siltVal) ^ swrlb:add(?sum1,?clayVal,?sandVal) ^ swrlb:add(?sum2,?sum1,?siltVal) ^ swrlb:notEqual(?sum2,100.0) -> InvalidSoilTexture(?texture). Requires a SWRL-aware reasoner (e.g. Pellet); plain OWL 2 DL reasoners such as HermiT ignore this rule." ;
+                         swrl:body _:soilTextureSumTo100Body1 ;
+                         swrl:head _:soilTextureSumTo100Head1 .
+
+_:soilTextureSumTo100Body1 rdf:type swrl:AtomList ;
+                           rdf:first _:atomSoilTexture ;
+                           rdf:rest _:soilTextureSumTo100Body2 .
+
+_:soilTextureSumTo100Body2 rdf:type swrl:AtomList ;
+                           rdf:first _:atomClay ;
+                           rdf:rest _:soilTextureSumTo100Body3 .
+
+_:soilTextureSumTo100Body3 rdf:type swrl:AtomList ;
+                           rdf:first _:atomSand ;
+                           rdf:rest _:soilTextureSumTo100Body4 .
+
+_:soilTextureSumTo100Body4 rdf:type swrl:AtomList ;
+                           rdf:first _:atomSilt ;
+                           rdf:rest _:soilTextureSumTo100Body5 .
+
+_:soilTextureSumTo100Body5 rdf:type swrl:AtomList ;
+                           rdf:first _:atomAdd1 ;
+                           rdf:rest _:soilTextureSumTo100Body6 .
+
+_:soilTextureSumTo100Body6 rdf:type swrl:AtomList ;
+                           rdf:first _:atomAdd2 ;
+                           rdf:rest _:soilTextureSumTo100Body7 .
+
+_:soilTextureSumTo100Body7 rdf:type swrl:AtomList ;
+                           rdf:first _:atomNotEqual ;
+                           rdf:rest rdf:nil .
+
+_:soilTextureSumTo100Head1 rdf:type swrl:AtomList ;
+                           rdf:first _:atomInvalidSoilTexture ;
+                           rdf:rest rdf:nil .
+
+_:atomSoilTexture rdf:type swrl:ClassAtom ;
+                  swrl:classPredicate :SoilTexture ;
+                  swrl:argument1 :texture .
+
+_:atomClay rdf:type swrl:DatavaluedPropertyAtom ;
+           swrl:propertyPredicate :clay ;
+           swrl:argument1 :texture ;
+           swrl:argument2 :clayVal .
+
+_:atomSand rdf:type swrl:DatavaluedPropertyAtom ;
+           swrl:propertyPredicate :sand ;
+           swrl:argument1 :texture ;
+           swrl:argument2 :sandVal .
+
+_:atomSilt rdf:type swrl:DatavaluedPropertyAtom ;
+           swrl:propertyPredicate :silt ;
+           swrl:argument1 :texture ;
+           swrl:argument2 :siltVal .
+
+_:atomAdd1 rdf:type swrl:BuiltinAtom ;
+           swrl:builtin swrlb:add ;
+           swrl:arguments ( :sum1 :clayVal :sandVal ) .
+
+_:atomAdd2 rdf:type swrl:BuiltinAtom ;
+           swrl:builtin swrlb:add ;
+           swrl:arguments ( :sum2 :sum1 :siltVal ) .
+
+_:atomNotEqual rdf:type swrl:BuiltinAtom ;
+              swrl:builtin swrlb:notEqual ;
+              swrl:arguments ( :sum2 "100.0"^^xsd:decimal ) .
+
+_:atomInvalidSoilTexture rdf:type swrl:ClassAtom ;
+                         swrl:classPredicate :InvalidSoilTexture ;
+                         swrl:argument1 :texture .
+
+:texture rdf:type swrl:Variable .
+
+:clayVal rdf:type swrl:Variable .
+
+:sandVal rdf:type swrl:Variable .
+
+:siltVal rdf:type swrl:Variable .
+
+:sum1 rdf:type swrl:Variable .
+
+:sum2 rdf:type swrl:Variable .
 
 
 #################################################################
