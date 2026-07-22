@@ -19,7 +19,7 @@
 @base <http://onto.vaimee.com/agora#> .
 
 <http://onto.vaimee.com/agora#> rdf:type owl:Ontology ;
-                                 owl:versionIRI <http://onto.vaimee.com/agora/1.0.19#> ;
+                                 owl:versionIRI <http://onto.vaimee.com/agora/1.0.20#> ;
                                  owl:imports <http://onto.vaimee.com/fsm/1.0.19> ,
                                              <http://www.opengis.net/ont/geosparql> ,
                                              <http://www.w3.org/2006/time#2016> ,
@@ -31,7 +31,7 @@
                                  dcterms:description "This ontology manages the relationship between weather observations, crop growth parameters, and soil horizons for precision irrigation." ;
                                  dcterms:title "Agorà Ontology" ;
                                  owl:title "Agorà Ontology" ;
-                                 owl:versionInfo "1.0.19" .
+                                 owl:versionInfo "1.0.20" .
 
 #################################################################
 #    Annotation properties
