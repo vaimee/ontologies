@@ -14,8 +14,8 @@
                                   rdfs:comment "This is an ontology for users developed by VAIMEE. It integrates classes and properties from Schema.org." ;
                                   dct:creator "Luca Roffia" ;
                                   dct:contributor <https://qrfy.io/p/BJOemlfU0F> ;
-                                  owl:versionIRI <https://onto.vaimee.com/users/1.0.20#> ;
-                                  owl:versionInfo "1.0.20" .
+                                  owl:versionIRI <https://onto.vaimee.com/users/1.0.21#> ;
+                                  owl:versionInfo "1.0.21" .
 
 <https://qrfy.io/p/BJOemlfU0F> foaf:name "Luca Roffia" ;
                                   foaf:member <https://vaimee.com> .

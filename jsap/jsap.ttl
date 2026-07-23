@@ -11,8 +11,8 @@
 <https://onto.vaimee.com/jsap#> rdf:type owl:Ontology ;
                                   owl:imports <http://xmlns.com/foaf/0.1/> ;
                                   rdfs:comment "This is an ontology for JSAPs developed by VAIMEE. It integrates some classes and properties from FOAF."@en ;
-                                  owl:versionIRI <https://onto.vaimee.com/jsap/1.0.20#> ;
-                                  owl:versionInfo "1.0.20" ;
+                                  owl:versionIRI <https://onto.vaimee.com/jsap/1.0.21#> ;
+                                  owl:versionInfo "1.0.21" ;
                                   owl:title "JSAP Ontology"@en ;
                                   dct:abstract "Ontology to describe JSAP files and related concepts."@en ;
                                   dct:description "Longer intro text shown in the Introduction section."@en ;
