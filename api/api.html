@@ -1,0 +1,65 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset='utf-8'>
+    <script src="https://www.w3.org/Tools/respec/respec-w3c" class="remove" defer></script>
+    <script class='remove'>
+        var respecConfig = {
+            specStatus: "unofficial",
+            editors: [],
+            edDraftURI: "https://onto.vaimee.com/agora/api#",
+            shortName: "opo"
+        };
+    </script>
+    <title>Agorà APIs Ontology</title>
+    </head>
+    <body>
+        <section id='abstract'>
+            <p>This Ontology is for managing weather APIs with geographic areas using GeoSPARQL.</p>
+        </section>
+        <section id='sotd'>
+            <p>
+                <em>This document is a work in progress</em>
+            </p>
+        </section>
+        <section>
+            <h2>Introduction</h2>
+
+<p>
+</p>
+<p>"This Ontology is for managing weather APIs with geographic areas using GeoSPARQL."</p>
+</section>
+<section><h2>Namespaces</h2><table class="def"><tbody><tr><td><code>geo:</code></td><td><code>http://www.opengis.net/ont/geosparql#</code></td></tr><tr><td><code>xsd:</code></td><td><code>http://www.w3.org/2001/XMLSchema#</code></td></tr></tbody></table></section>
+<section><h2>Version</h2><table class="def"><tbody><tr><td>Version</td><td><code>0.1</code></td></tr></tbody></table></section>
+<section><h2>Axiomatization</h2><section><h3>Classes</h3><section><h4 id="API">API</h4><p>IRI: <code>http://onto.vaimee.com/agora/api#API</code></p><span>Root class for all external APIs registered in the system.</span><table class="def"><tbody><tr><td>Super-class of</td><td><code><a href="#WeatherAPI">WeatherAPI</a></code></td></tr><tr><td>In the domain of</td><td><code><a href="#hasPzone">hasPzone</a></code></td></tr></tbody></table></section>
+<section><h4 id="GlobalAPI">GlobalAPI</h4><p>IRI: <code>http://onto.vaimee.com/agora/api#GlobalAPI</code></p><span>A WeatherAPI with no geographic PriorityZone scope (must be asserted explicitly).</span><table class="def"><tbody><tr><td>Sub-class of</td><td><code><a href="#WeatherAPI">WeatherAPI</a></code></td></tr></tbody></table></section>
+<section><h4 id="LocalAPI">LocalAPI</h4><p>IRI: <code>http://onto.vaimee.com/agora/api#LocalAPI</code></p><span>A WeatherAPI scoped to one PriorityZone.</span><table class="def"><tbody><tr><td>Sub-class of</td><td><code><a href="#WeatherAPI">WeatherAPI</a></code></td></tr></tbody></table></section>
+<section><h4 id="PriorityZone">PriorityZone</h4><p>IRI: <code>http://onto.vaimee.com/agora/api#PriorityZone</code></p><span>A geographic zone with an associated priority level. An API linked to a PriorityZone is preferred when a query point falls within the zone's polygon.</span><table class="def"><tbody><tr><td>Sub-class of</td><td><code><a href="http://www.opengis.net/ont/geosparql#Feature">geo:Feature</a></code></td></tr><tr><td>In the range of</td><td><code><a href="#hasPzone">hasPzone</a></code></td></tr></tbody></table></section>
+<section><h4 id="TemporalType">TemporalType</h4><p>IRI: <code>http://onto.vaimee.com/agora/api#TemporalType</code></p><span>Classification for the temporal coverage of a WeatherAPI (forecast, historical, yesterday).</span><table class="def"><tbody><tr><td>In the range of</td><td><code><a href="#temporalType">temporalType</a></code></td></tr></tbody></table></section>
+<section><h4 id="WeatherAPI">WeatherAPI</h4><p>IRI: <code>http://onto.vaimee.com/agora/api#WeatherAPI</code></p><span>An API that provides weather-related data.</span><table class="def"><tbody><tr><td>Sub-class of</td><td><code><a href="#API">API</a></code></td></tr><tr><td>Super-class of</td><td><code><a href="#GlobalAPI">GlobalAPI</a></code><br><code><a href="#LocalAPI">LocalAPI</a></code></td></tr><tr><td>In the domain of</td><td><code><a href="#temporalType">temporalType</a></code></td></tr></tbody></table></section></section><section><h3>Object Properties</h3><section><h4 id="hasPzone">hasPzone</h4><p>IRI: <code>http://onto.vaimee.com/agora/api#hasPzone</code></p><span>Associates an API with a PriorityZone. An API may have zero or more priority zones. When a query point falls within a zone's polygon, that zone's priority is used for ranking.</span><table class="def"><tbody><tr><td>Domain includes</td><td><code><a href="#API">API</a></code></td></tr><tr><td>Range includes</td><td><code><a href="#PriorityZone">PriorityZone</a></code></td></tr></tbody></table></section>
+<section><h4 id="temporalType">temporalType</h4><p>IRI: <code>http://onto.vaimee.com/agora/api#temporalType</code></p><span>Declares the temporal capability of a WeatherAPI. Multiple values are allowed.</span><table class="def"><tbody><tr><td>Domain includes</td><td><code><a href="#WeatherAPI">WeatherAPI</a></code></td></tr><tr><td>Range includes</td><td><code><a href="#TemporalType">TemporalType</a></code></td></tr></tbody></table></section></section><section><h3>Datatype Properties</h3><section><h4 id="priority">priority</h4><p>IRI: <code>http://onto.vaimee.com/agora/api#priority</code></p><span>
+            Priority ranking as a positive integer (lower = higher priority).
+        </span><table class="def"><tbody><tr><td>Domain includes</td><td><code><a href="#API">API</a></code>
+<code><a href="#Forecast">Forecast</a></code>
+<code><a href="#GlobalAPI">GlobalAPI</a></code>
+<code><a href="#Historical">Historical</a></code>
+<code><a href="#LocalAPI">LocalAPI</a></code>
+<code><a href="#PriorityZone">PriorityZone</a></code>
+<code><a href="#TemporalType">TemporalType</a></code>
+<code><a href="#WeatherAPI">WeatherAPI</a></code>
+<code><a href="#Yesterday">Yesterday</a></code>
+<code><a href="#hasPzone">hasPzone</a></code>
+<code><a href="#priority">priority</a></code>
+<code><a href="#temporalType">temporalType</a></code></td></tr><tr><td>Range includes</td><td><code><a href="http://www.w3.org/2001/XMLSchema#integer">xsd:integer</a></code></td></tr></tbody></table></section></section><section><h3>Named Individuals</h3><section><h4 id="ARPAE">ARPAE</h4><p>IRI: <code>http://onto.vaimee.com/agora/api#ARPAE</code></p><span></span><table class="def"><tbody><tr><td>Instance of</td><td><code><a href="#LocalAPI">LocalAPI</a></code></td></tr></tbody></table></section>
+<section><h4 id="Forecast">Forecast</h4><p>IRI: <code>http://onto.vaimee.com/agora/api#Forecast</code></p><span></span><table class="def"><tbody><tr><td>Instance of</td><td><code><a href="#TemporalType">TemporalType</a></code></td></tr></tbody></table></section>
+<section><h4 id="Historical">Historical</h4><p>IRI: <code>http://onto.vaimee.com/agora/api#Historical</code></p><span></span><table class="def"><tbody><tr><td>Instance of</td><td><code><a href="#TemporalType">TemporalType</a></code></td></tr></tbody></table></section>
+<section><h4 id="KNMI">KNMI</h4><p>IRI: <code>http://onto.vaimee.com/agora/api#KNMI</code></p><span></span><table class="def"><tbody><tr><td>Instance of</td><td><code><a href="#LocalAPI">LocalAPI</a></code></td></tr></tbody></table></section>
+<section><h4 id="METEOSTAT">METEOSTAT</h4><p>IRI: <code>http://onto.vaimee.com/agora/api#METEOSTAT</code></p><span></span><table class="def"><tbody><tr><td>Instance of</td><td><code><a href="#GlobalAPI">GlobalAPI</a></code></td></tr></tbody></table></section>
+<section><h4 id="NetherlandsZone">NetherlandsZone</h4><p>IRI: <code>http://onto.vaimee.com/agora/api#NetherlandsZone</code></p><span></span><table class="def"><tbody><tr><td>Instance of</td><td><code><a href="#PriorityZone">PriorityZone</a></code></td></tr></tbody></table></section>
+<section><h4 id="OPENMETEO">OPENMETEO</h4><p>IRI: <code>http://onto.vaimee.com/agora/api#OPENMETEO</code></p><span></span><table class="def"><tbody><tr><td>Instance of</td><td><code><a href="#GlobalAPI">GlobalAPI</a></code></td></tr></tbody></table></section>
+<section><h4 id="OPENWEATHER">OPENWEATHER</h4><p>IRI: <code>http://onto.vaimee.com/agora/api#OPENWEATHER</code></p><span></span><table class="def"><tbody><tr><td>Instance of</td><td><code><a href="#GlobalAPI">GlobalAPI</a></code></td></tr></tbody></table></section>
+<section><h4 id="Yesterday">Yesterday</h4><p>IRI: <code>http://onto.vaimee.com/agora/api#Yesterday</code></p><span></span><table class="def"><tbody><tr><td>Instance of</td><td><code><a href="#TemporalType">TemporalType</a></code></td></tr></tbody></table></section>
+<section><h4 id="ZoneEmiliaRomagna">ZoneEmiliaRomagna</h4><p>IRI: <code>http://onto.vaimee.com/agora/api#ZoneEmiliaRomagna</code></p><span></span><table class="def"><tbody><tr><td>Instance of</td><td><code><a href="#PriorityZone">PriorityZone</a></code></td></tr></tbody></table></section></section></section>
+</body>
+</html>
