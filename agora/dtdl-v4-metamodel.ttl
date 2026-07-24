@@ -1,0 +1,217 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dtmm: <http://azure.com/DigitalTwins/MetaModel/> .
+@prefix dtdlc: <http://onto.vaimee.com/dtdl/class/4/> .
+@prefix dtdlp: <http://onto.vaimee.com/dtdl/property/4/> .
+@prefix dtdls: <http://onto.vaimee.com/dtdl/instance/Schema/4/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix qtc: <http://onto.vaimee.com/dtdl/extension/quantitativeTypes/v2/class/> .
+@prefix qtp: <http://onto.vaimee.com/dtdl/extension/quantitativeTypes/v2/property/> .
+@prefix qtu: <http://onto.vaimee.com/dtdl/extension/quantitativeTypes/v2/unit/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://onto.vaimee.com/dtdl/v4#>
+    a owl:Ontology ;
+    owl:versionIRI <http://onto.vaimee.com/dtdl/v4/1.0.0#> ;
+    dcterms:abstract "Protégé-friendly OWL/SHACL projection of the DTDL v4 metamodel." ;
+    dcterms:contributor <https://qrfy.io/p/BJOemlfU0F> ;
+    dcterms:creator "Luca Roffia" ;
+    dcterms:description "This ontology mirrors the DTDL v4 RDF/SHACL metamodel using HTTP proxy IRIs so that OWL tooling can load and browse the DTDL class hierarchy and constraints." ;
+    dcterms:source <https://github.com/Azure/opendigitaltwins-dtdl/blob/master/DTDL/v4/metamodel/DTDL.v4.ModelRDF-SHACL.json> ;
+    dcterms:title "DTDL v4 Metamodel Ontology" ;
+    owl:title "DTDL v4 Metamodel Ontology" ;
+    owl:versionInfo "1.0.0" .
+
+dtmm:Material a owl:Class ; rdfs:label "DTDL metamodel material"@en .
+dtmm:Abstract a owl:Class ; rdfs:label "DTDL metamodel abstract"@en .
+dtmm:Partition a owl:Class ; rdfs:label "DTDL metamodel partition"@en .
+
+dtdlc:Entity
+    a owl:Class , sh:NodeShape , dtmm:Material , dtmm:Abstract ;
+    rdfs:label "DTDL Entity"@en .
+
+dtdlc:NamedEntity
+    a owl:Class , sh:NodeShape , dtmm:Material , dtmm:Abstract ;
+    rdfs:subClassOf dtdlc:Entity ;
+    rdfs:label "DTDL NamedEntity"@en .
+
+dtdlc:Content
+    a owl:Class , sh:NodeShape , dtmm:Material , dtmm:Abstract ;
+    rdfs:subClassOf dtdlc:NamedEntity ;
+    rdfs:label "DTDL Content"@en .
+
+dtdlc:Interface
+    a owl:Class , sh:NodeShape , dtmm:Material , dtmm:Partition ;
+    rdfs:subClassOf dtdlc:Entity ;
+    rdfs:label "DTDL Interface"@en ;
+    sh:property dtdlc:Interface-contentsShape ,
+                dtdlc:Interface-extendsShape ,
+                dtdlc:Interface-schemasShape .
+
+dtdlc:Component
+    a owl:Class , sh:NodeShape , dtmm:Material ;
+    rdfs:subClassOf dtdlc:Content ;
+    rdfs:label "DTDL Component"@en ;
+    sh:property dtdlc:Component-schemaShape .
+
+dtdlc:Property
+    a owl:Class , sh:NodeShape , dtmm:Material ;
+    rdfs:subClassOf dtdlc:Content ;
+    rdfs:label "DTDL Property"@en ;
+    sh:property dtdlc:Property-schemaShape ,
+                dtdlc:Property-writableShape .
+
+dtdlc:Telemetry
+    a owl:Class , sh:NodeShape , dtmm:Material ;
+    rdfs:subClassOf dtdlc:Content ;
+    rdfs:label "DTDL Telemetry"@en ;
+    sh:property dtdlc:Telemetry-schemaShape .
+
+dtdlc:Relationship
+    a owl:Class , sh:NodeShape , dtmm:Material ;
+    rdfs:subClassOf dtdlc:Content ;
+    rdfs:label "DTDL Relationship"@en ;
+    sh:property dtdlc:Relationship-targetShape ,
+                dtdlc:Relationship-propertiesShape ,
+                dtdlc:Relationship-writableShape .
+
+dtdlc:Schema
+    a owl:Class , sh:NodeShape , dtmm:Material , dtmm:Abstract ;
+    rdfs:subClassOf dtdlc:Entity ;
+    rdfs:label "DTDL Schema"@en .
+
+dtdlc:PrimitiveSchema
+    a owl:Class , sh:NodeShape , dtmm:Material , dtmm:Abstract ;
+    rdfs:subClassOf dtdlc:Schema ;
+    rdfs:label "DTDL PrimitiveSchema"@en .
+
+dtdlc:NumericSchema
+    a owl:Class , sh:NodeShape , dtmm:Material , dtmm:Abstract ;
+    rdfs:subClassOf dtdlc:PrimitiveSchema ;
+    rdfs:label "DTDL NumericSchema"@en .
+
+dtdlc:Double
+    a owl:Class , sh:NodeShape , dtmm:Material ;
+    rdfs:subClassOf dtdlc:NumericSchema ;
+    rdfs:label "DTDL Double schema"@en .
+
+dtdlc:Object
+    a owl:Class , sh:NodeShape , dtmm:Material ;
+    rdfs:subClassOf dtdlc:Schema ;
+    rdfs:label "DTDL Object schema"@en ;
+    sh:property dtdlc:Object-fieldsShape .
+
+dtdlc:Field
+    a owl:Class , sh:NodeShape , dtmm:Material ;
+    rdfs:subClassOf dtdlc:NamedEntity ;
+    rdfs:label "DTDL SchemaField"@en ;
+    sh:property dtdlc:Field-schemaShape .
+
+qtc:QuantitativeType
+    a owl:Class , sh:NodeShape , dtmm:Abstract ;
+    rdfs:label "DTDL QuantitativeType"@en ;
+    sh:property qtc:QuantitativeType-unitShape .
+
+qtc:Length a qtc:QuantitativeType ; rdfs:label "DTDL Length"@en .
+qtc:Temperature a qtc:QuantitativeType ; rdfs:label "DTDL Temperature"@en .
+qtc:Pressure a qtc:QuantitativeType ; rdfs:label "DTDL Pressure"@en .
+qtc:Density a qtc:QuantitativeType ; rdfs:label "DTDL Density"@en .
+
+dtdlp:contents a rdf:Property ; rdfs:domain dtdlc:Interface ; rdfs:label "DTDL contents"@en .
+dtdlp:extends a rdf:Property ; rdfs:domain dtdlc:Interface ; rdfs:label "DTDL extends"@en .
+dtdlp:schemas a rdf:Property ; rdfs:domain dtdlc:Interface ; rdfs:label "DTDL schemas"@en .
+dtdlp:schema a rdf:Property ; rdfs:label "DTDL schema"@en .
+dtdlp:target a rdf:Property ; rdfs:domain dtdlc:Relationship ; rdfs:label "DTDL target"@en .
+dtdlp:properties a rdf:Property ; rdfs:domain dtdlc:Relationship ; rdfs:label "DTDL relationship properties"@en .
+dtdlp:fields a rdf:Property ; rdfs:domain dtdlc:Object ; rdfs:label "DTDL fields"@en .
+dtdlp:name a rdf:Property ; rdfs:label "DTDL name"@en .
+dtdlp:displayName a rdf:Property ; rdfs:label "DTDL display name"@en .
+dtdlp:description a rdf:Property ; rdfs:label "DTDL description"@en .
+dtdlp:comment a rdf:Property ; rdfs:label "DTDL comment"@en .
+dtdlp:writable a rdf:Property ; rdfs:label "DTDL writable"@en .
+qtp:unit a rdf:Property ; rdfs:domain qtc:QuantitativeType ; rdfs:label "DTDL quantitative unit"@en .
+qtp:quantitativeType a rdf:Property ; rdfs:label "DTDL quantitative type"@en .
+
+dtdls:double
+    a dtdlc:Double ;
+    rdfs:label "double" .
+
+dtdlc:Interface-contentsShape
+    a sh:PropertyShape ;
+    sh:path dtdlp:contents ;
+    sh:nodeKind sh:BlankNodeOrIRI ;
+    sh:or ( [ sh:class dtdlc:Content ] ) .
+
+dtdlc:Component-schemaShape
+    a sh:PropertyShape ;
+    sh:path dtdlp:schema ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:class dtdlc:Interface ;
+    sh:nodeKind sh:IRI .
+
+dtdlc:Telemetry-schemaShape
+    a sh:PropertyShape ;
+    sh:path dtdlp:schema ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:class dtdlc:Schema ;
+    sh:nodeKind sh:BlankNodeOrIRI .
+
+dtdlc:Property-schemaShape
+    a sh:PropertyShape ;
+    sh:path dtdlp:schema ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:class dtdlc:Schema ;
+    sh:nodeKind sh:BlankNodeOrIRI .
+
+dtdlc:Relationship-targetShape
+    a sh:PropertyShape ;
+    sh:path dtdlp:target ;
+    sh:maxCount 1 ;
+    sh:class dtdlc:Interface ;
+    sh:nodeKind sh:IRI .
+
+dtdlc:Relationship-propertiesShape
+    a sh:PropertyShape ;
+    sh:path dtdlp:properties ;
+    sh:class dtdlc:Property ;
+    sh:nodeKind sh:BlankNodeOrIRI .
+
+dtdlc:Property-writableShape
+    a sh:PropertyShape ;
+    sh:path dtdlp:writable ;
+    sh:maxCount 1 ;
+    sh:datatype xsd:boolean ;
+    sh:nodeKind sh:Literal .
+
+dtdlc:Relationship-writableShape
+    a sh:PropertyShape ;
+    sh:path dtdlp:writable ;
+    sh:maxCount 1 ;
+    sh:datatype xsd:boolean ;
+    sh:nodeKind sh:Literal .
+
+dtdlc:Object-fieldsShape
+    a sh:PropertyShape ;
+    sh:path dtdlp:fields ;
+    sh:class dtdlc:Field ;
+    sh:nodeKind sh:BlankNodeOrIRI .
+
+dtdlc:Field-schemaShape
+    a sh:PropertyShape ;
+    sh:path dtdlp:schema ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:class dtdlc:Schema ;
+    sh:nodeKind sh:BlankNodeOrIRI .
+
+qtc:QuantitativeType-unitShape
+    a sh:PropertyShape ;
+    sh:path qtp:unit ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:nodeKind sh:BlankNodeOrIRI .

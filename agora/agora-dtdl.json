@@ -1,0 +1,301 @@
+[
+  {
+    "@context": [
+      "dtmi:dtdl:context;4",
+      "dtmi:dtdl:extension:quantitativeTypes;2"
+    ],
+    "@id": "dtmi:vaimee:agora:Field;1",
+    "@type": "Interface",
+    "displayName": "Field",
+    "description": "An agricultural field composed of one crop, one soil, and one atmosphere.",
+    "comment": "Mapped from http://onto.vaimee.com/agora#Field.",
+    "contents": [
+      {
+        "@type": "Component",
+        "name": "crop",
+        "displayName": "Crop",
+        "schema": "dtmi:vaimee:agora:Crop;1"
+      },
+      {
+        "@type": "Component",
+        "name": "atmosphere",
+        "displayName": "Atmosphere",
+        "schema": "dtmi:vaimee:agora:Atmosphere;1"
+      },
+      {
+        "@type": "Component",
+        "name": "soil",
+        "displayName": "Soil",
+        "schema": "dtmi:vaimee:agora:Soil;1"
+      },
+      {
+        "@type": "Telemetry",
+        "name": "irrigation",
+        "displayName": "Irrigation",
+        "schema": "double"
+      },
+      {
+        "@type": "Telemetry",
+        "name": "balance",
+        "displayName": "Balance",
+        "schema": "double"
+      }
+    ]
+  },
+  {
+    "@context": [
+      "dtmi:dtdl:context;4",
+      "dtmi:dtdl:extension:quantitativeTypes;2"
+    ],
+    "@id": "dtmi:vaimee:agora:Crop;1",
+    "@type": "Interface",
+    "displayName": "Crop",
+    "description": "Growth parameters and water-demand variables for a crop.",
+    "comment": "Mapped from http://onto.vaimee.com/agora#Crop.",
+    "contents": [
+      {
+        "@type": [ "Telemetry", "Length" ],
+        "name": "rootDepth",
+        "displayName": "Root depth",
+        "schema": "double",
+        "unit": "metre"
+      },
+      {
+        "@type": "Telemetry",
+        "name": "lai",
+        "displayName": "Leaf area index",
+        "schema": "double"
+      },
+      {
+        "@type": "Telemetry",
+        "name": "et0",
+        "displayName": "Reference evapotranspiration",
+        "schema": "double"
+      },
+      {
+        "@type": "Telemetry",
+        "name": "transp",
+        "displayName": "Transpiration",
+        "schema": "double"
+      },
+      {
+        "@type": "Telemetry",
+        "name": "transpMax",
+        "displayName": "Maximum transpiration",
+        "schema": "double"
+      },
+      {
+        "@type": "Telemetry",
+        "name": "evap",
+        "displayName": "Evaporation",
+        "schema": "double"
+      },
+      {
+        "@type": "Telemetry",
+        "name": "evapMax",
+        "displayName": "Maximum evaporation",
+        "schema": "double"
+      }
+    ]
+  },
+  {
+    "@context": [
+      "dtmi:dtdl:context;4",
+      "dtmi:dtdl:extension:quantitativeTypes;2"
+    ],
+    "@id": "dtmi:vaimee:agora:Atmosphere;1",
+    "@type": "Interface",
+    "displayName": "Atmosphere",
+    "description": "Atmospheric context associated with a field.",
+    "comment": "Mapped from http://onto.vaimee.com/agora#Atmosphere.",
+    "contents": [
+      {
+        "@type": [ "Telemetry", "Temperature" ],
+        "name": "maxTemperature",
+        "displayName": "Maximum temperature",
+        "schema": "double",
+        "unit": "degreeCelsius"
+      },
+      {
+        "@type": [ "Telemetry", "Temperature" ],
+        "name": "minTemperature",
+        "displayName": "Minimum temperature",
+        "schema": "double",
+        "unit": "degreeCelsius"
+      },
+      {
+        "@type": [ "Telemetry", "Length" ],
+        "name": "precipitation",
+        "displayName": "Precipitation",
+        "schema": "double",
+        "unit": "millimetre"
+      }
+    ]
+  },
+  {
+    "@context": [
+      "dtmi:dtdl:context;4",
+      "dtmi:dtdl:extension:quantitativeTypes;2"
+    ],
+    "@id": "dtmi:vaimee:agora:Soil;1",
+    "@type": "Interface",
+    "displayName": "Soil",
+    "description": "The physical soil profile associated with a field.",
+    "comment": "Mapped from http://onto.vaimee.com/agora#Soil.",
+    "contents": [
+      {
+        "@type": "Relationship",
+        "name": "hasSoilHorizon",
+        "displayName": "Has soil horizon",
+        "target": "dtmi:vaimee:agora:SoilHorizon;1"
+      },
+      {
+        "@type": "Telemetry",
+        "name": "soilWaterContent",
+        "displayName": "Soil water content",
+        "schema": "double"
+      },
+      {
+        "@type": [ "Telemetry", "Pressure" ],
+        "name": "soilWaterPotential",
+        "displayName": "Soil water potential",
+        "schema": "double",
+        "unit": "kilopascal"
+      },
+      {
+        "@type": "Telemetry",
+        "name": "waterContent",
+        "displayName": "Water content",
+        "schema": "double"
+      },
+      {
+        "@type": "Telemetry",
+        "name": "surfaceWaterContent",
+        "displayName": "Surface water content",
+        "schema": "double"
+      },
+      {
+        "@type": "Telemetry",
+        "name": "availableWater",
+        "displayName": "Available water",
+        "schema": "double"
+      },
+      {
+        "@type": "Telemetry",
+        "name": "readilyAvailableWater",
+        "displayName": "Readily available water",
+        "schema": "double"
+      },
+      {
+        "@type": "Telemetry",
+        "name": "fractionAvailableWater",
+        "displayName": "Fraction of available water",
+        "schema": "double"
+      },
+      {
+        "@type": "Telemetry",
+        "name": "runoff",
+        "displayName": "Runoff",
+        "schema": "double"
+      },
+      {
+        "@type": "Telemetry",
+        "name": "drainage",
+        "displayName": "Drainage",
+        "schema": "double"
+      },
+      {
+        "@type": "Telemetry",
+        "name": "lateralDrainage",
+        "displayName": "Lateral drainage",
+        "schema": "double"
+      },
+      {
+        "@type": "Telemetry",
+        "name": "capillaryRise",
+        "displayName": "Capillary rise",
+        "schema": "double"
+      }
+    ]
+  },
+  {
+    "@context": [
+      "dtmi:dtdl:context;4",
+      "dtmi:dtdl:extension:quantitativeTypes;2"
+    ],
+    "@id": "dtmi:vaimee:agora:SoilHorizon;1",
+    "@type": "Interface",
+    "displayName": "Soil Horizon",
+    "description": "A layer within a soil profile, characterized by depth and composition.",
+    "comment": "Mapped from http://onto.vaimee.com/agora#SoilHorizon.",
+    "contents": [
+      {
+        "@type": [ "Property", "Length" ],
+        "name": "upperDepth",
+        "displayName": "Upper depth",
+        "schema": "double",
+        "unit": "metre"
+      },
+      {
+        "@type": [ "Property", "Length" ],
+        "name": "lowerDepth",
+        "displayName": "Lower depth",
+        "schema": "double",
+        "unit": "metre"
+      },
+      {
+        "@type": "Property",
+        "name": "soilTexture",
+        "displayName": "Soil texture",
+        "schema": {
+          "@type": "Object",
+          "fields": [
+            {
+              "name": "sand",
+              "schema": "double"
+            },
+            {
+              "name": "silt",
+              "schema": "double"
+            },
+            {
+              "name": "clay",
+              "schema": "double"
+            }
+          ]
+        }
+      },
+      {
+        "@type": [ "Property", "Density" ],
+        "name": "bulkDensity",
+        "displayName": "Bulk density",
+        "schema": "double",
+        "unit": "kilogramPerCubicMetre"
+      },
+      {
+        "@type": "Property",
+        "name": "coarseFragment",
+        "displayName": "Coarse fragment",
+        "schema": "double"
+      },
+      {
+        "@type": "Property",
+        "name": "kSat",
+        "displayName": "Saturated hydraulic conductivity",
+        "schema": "double"
+      },
+      {
+        "@type": "Property",
+        "name": "organicMatter",
+        "displayName": "Organic matter",
+        "schema": "double"
+      },
+      {
+        "@type": "Property",
+        "name": "thetaSat",
+        "displayName": "Saturated water content",
+        "schema": "double"
+      }
+    ]
+  }
+]

@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <catalog prefer="public" xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+    <uri name="http://onto.vaimee.com/dtdl/v4#" uri="dtdl-v4-metamodel.ttl"/>
     <uri name="http://onto.vaimee.com/fsm/1.0.19" uri="../fsm/fsm.ttl"/>
     <uri name="http://onto.vaimee.com/fsm/1.0.20" uri="../fsm/fsm.ttl"/>
+    <uri name="http://onto.vaimee.com/fsm/1.0.21" uri="../fsm/fsm.ttl"/>
+    <uri name="https://onto.vaimee.com/fsm/fsm.ttl" uri="../fsm/fsm.ttl"/>
     <uri name="http://onto.vaimee.com/fsm/1.0.17" uri="../fsm/fsm.ttl"/>
 </catalog>

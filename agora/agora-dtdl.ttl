@@ -1,0 +1,552 @@
+@prefix : <http://onto.vaimee.com/agora/dtdl#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@base <http://onto.vaimee.com/agora/dtdl#> .
+
+<http://onto.vaimee.com/agora/dtdl#> rdf:type owl:Ontology ;
+                                      owl:versionIRI <http://onto.vaimee.com/agora/dtdl/1.0.0#> ;
+                                      owl:imports <http://onto.vaimee.com/dtdl#> ;
+                                      dcterms:abstract "DTDL representation of the Agora ontology for digital twin model exchange." ;
+                                      dcterms:contributor <https://qrfy.io/p/BJOemlfU0F> ;
+                                      dcterms:creator "Luca Roffia" ;
+                                      dcterms:description "This ontology provides a Protégé-friendly RDF view of the Agora DTDL model. The canonical DTDL artifact remains the JSON-LD document." ;
+                                      dcterms:title "Agora DTDL Ontology" ;
+                                      owl:title "Agora DTDL Ontology" ;
+                                      owl:versionInfo "1.0.0" .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  dtmi:dtdl:property:comment;4
+<dtmi:dtdl:property:comment;4> rdf:type owl:AnnotationProperty .
+
+
+###  dtmi:dtdl:property:contents;4
+<dtmi:dtdl:property:contents;4> rdf:type owl:AnnotationProperty .
+
+
+###  dtmi:dtdl:property:description;4
+<dtmi:dtdl:property:description;4> rdf:type owl:AnnotationProperty .
+
+
+###  dtmi:dtdl:property:displayName;4
+<dtmi:dtdl:property:displayName;4> rdf:type owl:AnnotationProperty .
+
+
+###  dtmi:dtdl:property:fields;4
+<dtmi:dtdl:property:fields;4> rdf:type owl:AnnotationProperty .
+
+
+###  dtmi:dtdl:property:name;4
+<dtmi:dtdl:property:name;4> rdf:type owl:AnnotationProperty .
+
+
+###  dtmi:dtdl:property:schema;4
+<dtmi:dtdl:property:schema;4> rdf:type owl:AnnotationProperty .
+
+
+###  dtmi:dtdl:property:target;4
+<dtmi:dtdl:property:target;4> rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/abstract
+dcterms:abstract rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/contributor
+dcterms:contributor rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/creator
+dcterms:creator rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/description
+dcterms:description rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/identifier
+dcterms:identifier rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/title
+dcterms:title rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3.org/2002/07/owl#title
+owl:title rdf:type owl:AnnotationProperty .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  dtmi:dtdl:class:Component;4
+<dtmi:dtdl:class:Component;4> rdf:type owl:Class .
+
+
+###  dtmi:dtdl:class:Field;4
+<dtmi:dtdl:class:Field;4> rdf:type owl:Class .
+
+
+###  dtmi:dtdl:class:Interface;4
+<dtmi:dtdl:class:Interface;4> rdf:type owl:Class .
+
+
+###  dtmi:dtdl:class:Object;4
+<dtmi:dtdl:class:Object;4> rdf:type owl:Class .
+
+
+###  dtmi:dtdl:class:Property;4
+<dtmi:dtdl:class:Property;4> rdf:type owl:Class .
+
+
+###  dtmi:dtdl:class:Relationship;4
+<dtmi:dtdl:class:Relationship;4> rdf:type owl:Class .
+
+
+###  dtmi:dtdl:class:Telemetry;4
+<dtmi:dtdl:class:Telemetry;4> rdf:type owl:Class .
+
+
+###  http://onto.vaimee.com/dtdl/extension/quantitativeTypes/v2/class/Density
+<http://onto.vaimee.com/dtdl/extension/quantitativeTypes/v2/class/Density> rdf:type owl:NamedIndividual ,
+                                                                               <http://onto.vaimee.com/dtdl/extension/quantitativeTypes/v2/class/QuantitativeType> .
+
+
+###  http://onto.vaimee.com/dtdl/extension/quantitativeTypes/v2/class/Length
+<http://onto.vaimee.com/dtdl/extension/quantitativeTypes/v2/class/Length> rdf:type owl:NamedIndividual ,
+                                                                              <http://onto.vaimee.com/dtdl/extension/quantitativeTypes/v2/class/QuantitativeType> .
+
+
+###  http://onto.vaimee.com/dtdl/extension/quantitativeTypes/v2/class/Pressure
+<http://onto.vaimee.com/dtdl/extension/quantitativeTypes/v2/class/Pressure> rdf:type owl:NamedIndividual ,
+                                                                                <http://onto.vaimee.com/dtdl/extension/quantitativeTypes/v2/class/QuantitativeType> .
+
+
+###  http://onto.vaimee.com/dtdl/extension/quantitativeTypes/v2/class/Temperature
+<http://onto.vaimee.com/dtdl/extension/quantitativeTypes/v2/class/Temperature> rdf:type owl:NamedIndividual ,
+                                                                                   <http://onto.vaimee.com/dtdl/extension/quantitativeTypes/v2/class/QuantitativeType> .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://onto.vaimee.com/agora/dtdl/v1/Atmosphere
+<http://onto.vaimee.com/agora/dtdl/v1/Atmosphere> rdf:type owl:NamedIndividual ,
+                                                           <dtmi:dtdl:class:Interface;4> ;
+                                                  <dtmi:dtdl:property:comment;4> "Mapped from http://onto.vaimee.com/agora#Atmosphere." ;
+                                                  <dtmi:dtdl:property:description;4> "Atmospheric context associated with a field."@en ;
+                                                  <dtmi:dtdl:property:displayName;4> "Atmosphere"@en ;
+                                                  dcterms:identifier "dtmi:vaimee:agora:Atmosphere;1" ;
+                                                  rdfs:label "Atmosphere DTDL interface"@en .
+
+
+###  http://onto.vaimee.com/agora/dtdl/v1/Atmosphere_maxTemperature
+<http://onto.vaimee.com/agora/dtdl/v1/Atmosphere_maxTemperature> rdf:type owl:NamedIndividual ,
+                                                                          <dtmi:dtdl:class:Telemetry;4> ;
+                                                                 <http://onto.vaimee.com/dtdl/extension/quantitativeTypes/v2/property/quantitativeType> <http://onto.vaimee.com/dtdl/extension/quantitativeTypes/v2/class/Temperature> .
+
+
+###  http://onto.vaimee.com/agora/dtdl/v1/Atmosphere_minTemperature
+<http://onto.vaimee.com/agora/dtdl/v1/Atmosphere_minTemperature> rdf:type owl:NamedIndividual ,
+                                                                          <dtmi:dtdl:class:Telemetry;4> ;
+                                                                 <http://onto.vaimee.com/dtdl/extension/quantitativeTypes/v2/property/quantitativeType> <http://onto.vaimee.com/dtdl/extension/quantitativeTypes/v2/class/Temperature> .
+
+
+###  http://onto.vaimee.com/agora/dtdl/v1/Atmosphere_precipitation
+<http://onto.vaimee.com/agora/dtdl/v1/Atmosphere_precipitation> rdf:type owl:NamedIndividual ,
+                                                                         <dtmi:dtdl:class:Telemetry;4> ;
+                                                                <http://onto.vaimee.com/dtdl/extension/quantitativeTypes/v2/property/quantitativeType> <http://onto.vaimee.com/dtdl/extension/quantitativeTypes/v2/class/Length> .
+
+
+###  http://onto.vaimee.com/agora/dtdl/v1/Crop
+<http://onto.vaimee.com/agora/dtdl/v1/Crop> rdf:type owl:NamedIndividual ,
+                                                     <dtmi:dtdl:class:Interface;4> ;
+                                            <dtmi:dtdl:property:comment;4> "Mapped from http://onto.vaimee.com/agora#Crop." ;
+                                            <dtmi:dtdl:property:contents;4> <http://onto.vaimee.com/agora/dtdl/v1/Crop_et0> ,
+                                                                                              <http://onto.vaimee.com/agora/dtdl/v1/Crop_evap> ,
+                                                                                              <http://onto.vaimee.com/agora/dtdl/v1/Crop_evapMax> ,
+                                                                                              <http://onto.vaimee.com/agora/dtdl/v1/Crop_lai> ,
+                                                                                              <http://onto.vaimee.com/agora/dtdl/v1/Crop_transp> ,
+                                                                                              <http://onto.vaimee.com/agora/dtdl/v1/Crop_transpMax> ;
+                                            <dtmi:dtdl:property:description;4> "Growth parameters and water-demand variables for a crop."@en ;
+                                            <dtmi:dtdl:property:displayName;4> "Crop"@en ;
+                                            dcterms:identifier "dtmi:vaimee:agora:Crop;1" ;
+                                            rdfs:label "Crop DTDL interface"@en .
+
+
+###  http://onto.vaimee.com/agora/dtdl/v1/Crop_et0
+<http://onto.vaimee.com/agora/dtdl/v1/Crop_et0> rdf:type owl:NamedIndividual ,
+                                                         <dtmi:dtdl:class:Telemetry;4> ;
+                                                <dtmi:dtdl:property:displayName;4> "Reference evapotranspiration"@en ;
+                                                <dtmi:dtdl:property:name;4> "et0" ;
+                                                <dtmi:dtdl:property:schema;4> <dtmi:dtdl:instance:Schema:double;4> ;
+                                                rdfs:label "Crop reference evapotranspiration telemetry"@en .
+
+
+###  http://onto.vaimee.com/agora/dtdl/v1/Crop_evap
+<http://onto.vaimee.com/agora/dtdl/v1/Crop_evap> rdf:type owl:NamedIndividual ,
+                                                          <dtmi:dtdl:class:Telemetry;4> ;
+                                                 <dtmi:dtdl:property:displayName;4> "Evaporation"@en ;
+                                                 <dtmi:dtdl:property:name;4> "evap" ;
+                                                 <dtmi:dtdl:property:schema;4> <dtmi:dtdl:instance:Schema:double;4> ;
+                                                 rdfs:label "Crop evaporation telemetry"@en .
+
+
+###  http://onto.vaimee.com/agora/dtdl/v1/Crop_evapMax
+<http://onto.vaimee.com/agora/dtdl/v1/Crop_evapMax> rdf:type owl:NamedIndividual ,
+                                                             <dtmi:dtdl:class:Telemetry;4> ;
+                                                    <dtmi:dtdl:property:displayName;4> "Maximum evaporation"@en ;
+                                                    <dtmi:dtdl:property:name;4> "evapMax" ;
+                                                    <dtmi:dtdl:property:schema;4> <dtmi:dtdl:instance:Schema:double;4> ;
+                                                    rdfs:label "Crop maximum evaporation telemetry"@en .
+
+
+###  http://onto.vaimee.com/agora/dtdl/v1/Crop_lai
+<http://onto.vaimee.com/agora/dtdl/v1/Crop_lai> rdf:type owl:NamedIndividual ,
+                                                         <dtmi:dtdl:class:Telemetry;4> ;
+                                                <dtmi:dtdl:property:displayName;4> "Leaf area index"@en ;
+                                                <dtmi:dtdl:property:name;4> "lai" ;
+                                                <dtmi:dtdl:property:schema;4> <dtmi:dtdl:instance:Schema:double;4> ;
+                                                rdfs:label "Crop leaf area index telemetry"@en .
+
+
+###  http://onto.vaimee.com/agora/dtdl/v1/Crop_rootDepth
+<http://onto.vaimee.com/agora/dtdl/v1/Crop_rootDepth> rdf:type owl:NamedIndividual ,
+                                                               <dtmi:dtdl:class:Telemetry;4> ;
+                                                      <http://onto.vaimee.com/dtdl/extension/quantitativeTypes/v2/property/quantitativeType> <http://onto.vaimee.com/dtdl/extension/quantitativeTypes/v2/class/Length> .
+
+
+###  http://onto.vaimee.com/agora/dtdl/v1/Crop_transp
+<http://onto.vaimee.com/agora/dtdl/v1/Crop_transp> rdf:type owl:NamedIndividual ,
+                                                            <dtmi:dtdl:class:Telemetry;4> ;
+                                                   <dtmi:dtdl:property:displayName;4> "Transpiration"@en ;
+                                                   <dtmi:dtdl:property:name;4> "transp" ;
+                                                   <dtmi:dtdl:property:schema;4> <dtmi:dtdl:instance:Schema:double;4> ;
+                                                   rdfs:label "Crop transpiration telemetry"@en .
+
+
+###  http://onto.vaimee.com/agora/dtdl/v1/Crop_transpMax
+<http://onto.vaimee.com/agora/dtdl/v1/Crop_transpMax> rdf:type owl:NamedIndividual ,
+                                                               <dtmi:dtdl:class:Telemetry;4> ;
+                                                      <dtmi:dtdl:property:displayName;4> "Maximum transpiration"@en ;
+                                                      <dtmi:dtdl:property:name;4> "transpMax" ;
+                                                      <dtmi:dtdl:property:schema;4> <dtmi:dtdl:instance:Schema:double;4> ;
+                                                      rdfs:label "Crop maximum transpiration telemetry"@en .
+
+
+###  http://onto.vaimee.com/agora/dtdl/v1/Field
+<http://onto.vaimee.com/agora/dtdl/v1/Field> rdf:type owl:NamedIndividual ,
+                                                      <dtmi:dtdl:class:Interface;4> ;
+                                             <dtmi:dtdl:property:comment;4> "Mapped from http://onto.vaimee.com/agora#Field." ;
+                                             <dtmi:dtdl:property:contents;4> <http://onto.vaimee.com/agora/dtdl/v1/Field_atmosphere> ,
+                                                                                               <http://onto.vaimee.com/agora/dtdl/v1/Field_balance> ,
+                                                                                               <http://onto.vaimee.com/agora/dtdl/v1/Field_crop> ,
+                                                                                               <http://onto.vaimee.com/agora/dtdl/v1/Field_irrigation> ,
+                                                                                               <http://onto.vaimee.com/agora/dtdl/v1/Field_soil> ;
+                                             <dtmi:dtdl:property:description;4> "An agricultural field composed of one crop, one soil, and one atmosphere."@en ;
+                                             <dtmi:dtdl:property:displayName;4> "Field"@en ;
+                                             dcterms:identifier "dtmi:vaimee:agora:Field;1" ;
+                                             rdfs:label "Field DTDL interface"@en .
+
+
+###  http://onto.vaimee.com/agora/dtdl/v1/Field_atmosphere
+<http://onto.vaimee.com/agora/dtdl/v1/Field_atmosphere> rdf:type owl:NamedIndividual ,
+                                                                 <dtmi:dtdl:class:Component;4> ;
+                                                        <dtmi:dtdl:property:displayName;4> "Atmosphere"@en ;
+                                                        <dtmi:dtdl:property:name;4> "atmosphere" ;
+                                                        <dtmi:dtdl:property:schema;4> <http://onto.vaimee.com/agora/dtdl/v1/Atmosphere> ;
+                                                        rdfs:label "Field atmosphere component"@en .
+
+
+###  http://onto.vaimee.com/agora/dtdl/v1/Field_balance
+<http://onto.vaimee.com/agora/dtdl/v1/Field_balance> rdf:type owl:NamedIndividual ,
+                                                              <dtmi:dtdl:class:Telemetry;4> ;
+                                                     <dtmi:dtdl:property:displayName;4> "Balance"@en ;
+                                                     <dtmi:dtdl:property:name;4> "balance" ;
+                                                     <dtmi:dtdl:property:schema;4> <dtmi:dtdl:instance:Schema:double;4> ;
+                                                     rdfs:label "Field balance telemetry"@en .
+
+
+###  http://onto.vaimee.com/agora/dtdl/v1/Field_crop
+<http://onto.vaimee.com/agora/dtdl/v1/Field_crop> rdf:type owl:NamedIndividual ,
+                                                           <dtmi:dtdl:class:Component;4> ;
+                                                  <dtmi:dtdl:property:displayName;4> "Crop"@en ;
+                                                  <dtmi:dtdl:property:name;4> "crop" ;
+                                                  <dtmi:dtdl:property:schema;4> <http://onto.vaimee.com/agora/dtdl/v1/Crop> ;
+                                                  rdfs:label "Field crop component"@en .
+
+
+###  http://onto.vaimee.com/agora/dtdl/v1/Field_irrigation
+<http://onto.vaimee.com/agora/dtdl/v1/Field_irrigation> rdf:type owl:NamedIndividual ,
+                                                                 <dtmi:dtdl:class:Telemetry;4> ;
+                                                        <dtmi:dtdl:property:displayName;4> "Irrigation"@en ;
+                                                        <dtmi:dtdl:property:name;4> "irrigation" ;
+                                                        <dtmi:dtdl:property:schema;4> <dtmi:dtdl:instance:Schema:double;4> ;
+                                                        rdfs:label "Field irrigation telemetry"@en .
+
+
+###  http://onto.vaimee.com/agora/dtdl/v1/Field_soil
+<http://onto.vaimee.com/agora/dtdl/v1/Field_soil> rdf:type owl:NamedIndividual ,
+                                                           <dtmi:dtdl:class:Component;4> ;
+                                                  <dtmi:dtdl:property:displayName;4> "Soil"@en ;
+                                                  <dtmi:dtdl:property:name;4> "soil" ;
+                                                  <dtmi:dtdl:property:schema;4> <http://onto.vaimee.com/agora/dtdl/v1/Soil> ;
+                                                  rdfs:label "Field soil component"@en .
+
+
+###  http://onto.vaimee.com/agora/dtdl/v1/Soil
+<http://onto.vaimee.com/agora/dtdl/v1/Soil> rdf:type owl:NamedIndividual ,
+                                                     <dtmi:dtdl:class:Interface;4> ;
+                                            <dtmi:dtdl:property:comment;4> "Mapped from http://onto.vaimee.com/agora#Soil." ;
+                                            <dtmi:dtdl:property:contents;4> <http://onto.vaimee.com/agora/dtdl/v1/Soil_availableWater> ,
+                                                                                              <http://onto.vaimee.com/agora/dtdl/v1/Soil_capillaryRise> ,
+                                                                                              <http://onto.vaimee.com/agora/dtdl/v1/Soil_drainage> ,
+                                                                                              <http://onto.vaimee.com/agora/dtdl/v1/Soil_fractionAvailableWater> ,
+                                                                                              <http://onto.vaimee.com/agora/dtdl/v1/Soil_hasSoilHorizon> ,
+                                                                                              <http://onto.vaimee.com/agora/dtdl/v1/Soil_lateralDrainage> ,
+                                                                                              <http://onto.vaimee.com/agora/dtdl/v1/Soil_readilyAvailableWater> ,
+                                                                                              <http://onto.vaimee.com/agora/dtdl/v1/Soil_runoff> ,
+                                                                                              <http://onto.vaimee.com/agora/dtdl/v1/Soil_soilWaterContent> ,
+                                                                                              <http://onto.vaimee.com/agora/dtdl/v1/Soil_surfaceWaterContent> ,
+                                                                                              <http://onto.vaimee.com/agora/dtdl/v1/Soil_waterContent> ;
+                                            <dtmi:dtdl:property:description;4> "The physical soil profile associated with a field."@en ;
+                                            <dtmi:dtdl:property:displayName;4> "Soil"@en ;
+                                            dcterms:identifier "dtmi:vaimee:agora:Soil;1" ;
+                                            rdfs:label "Soil DTDL interface"@en .
+
+
+###  http://onto.vaimee.com/agora/dtdl/v1/SoilHorizon
+<http://onto.vaimee.com/agora/dtdl/v1/SoilHorizon> rdf:type owl:NamedIndividual ,
+                                                            <dtmi:dtdl:class:Interface;4> ;
+                                                   <dtmi:dtdl:property:comment;4> "Mapped from http://onto.vaimee.com/agora#SoilHorizon." ;
+                                                   <dtmi:dtdl:property:contents;4> <http://onto.vaimee.com/agora/dtdl/v1/SoilHorizon_coarseFragment> ,
+                                                                                                     <http://onto.vaimee.com/agora/dtdl/v1/SoilHorizon_kSat> ,
+                                                                                                     <http://onto.vaimee.com/agora/dtdl/v1/SoilHorizon_organicMatter> ,
+                                                                                                     <http://onto.vaimee.com/agora/dtdl/v1/SoilHorizon_soilTexture> ,
+                                                                                                     <http://onto.vaimee.com/agora/dtdl/v1/SoilHorizon_thetaSat> ;
+                                                   <dtmi:dtdl:property:description;4> "A layer within a soil profile, characterized by depth and composition."@en ;
+                                                   <dtmi:dtdl:property:displayName;4> "Soil Horizon"@en ;
+                                                   dcterms:identifier "dtmi:vaimee:agora:SoilHorizon;1" ;
+                                                   rdfs:label "SoilHorizon DTDL interface"@en .
+
+
+###  http://onto.vaimee.com/agora/dtdl/v1/SoilHorizon_bulkDensity
+<http://onto.vaimee.com/agora/dtdl/v1/SoilHorizon_bulkDensity> rdf:type owl:NamedIndividual ,
+                                                                        <dtmi:dtdl:class:Property;4> ;
+                                                               <http://onto.vaimee.com/dtdl/extension/quantitativeTypes/v2/property/quantitativeType> <http://onto.vaimee.com/dtdl/extension/quantitativeTypes/v2/class/Density> .
+
+
+###  http://onto.vaimee.com/agora/dtdl/v1/SoilHorizon_coarseFragment
+<http://onto.vaimee.com/agora/dtdl/v1/SoilHorizon_coarseFragment> rdf:type owl:NamedIndividual ,
+                                                                           <dtmi:dtdl:class:Property;4> ;
+                                                                  <dtmi:dtdl:property:displayName;4> "Coarse fragment"@en ;
+                                                                  <dtmi:dtdl:property:name;4> "coarseFragment" ;
+                                                                  <dtmi:dtdl:property:schema;4> <dtmi:dtdl:instance:Schema:double;4> ;
+                                                                  rdfs:label "Soil horizon coarse fragment property"@en .
+
+
+###  http://onto.vaimee.com/agora/dtdl/v1/SoilHorizon_kSat
+<http://onto.vaimee.com/agora/dtdl/v1/SoilHorizon_kSat> rdf:type owl:NamedIndividual ,
+                                                                 <dtmi:dtdl:class:Property;4> ;
+                                                        <dtmi:dtdl:property:displayName;4> "Saturated hydraulic conductivity"@en ;
+                                                        <dtmi:dtdl:property:name;4> "kSat" ;
+                                                        <dtmi:dtdl:property:schema;4> <dtmi:dtdl:instance:Schema:double;4> ;
+                                                        rdfs:label "Soil horizon saturated hydraulic conductivity property"@en .
+
+
+###  http://onto.vaimee.com/agora/dtdl/v1/SoilHorizon_lowerDepth
+<http://onto.vaimee.com/agora/dtdl/v1/SoilHorizon_lowerDepth> rdf:type owl:NamedIndividual ,
+                                                                       <dtmi:dtdl:class:Property;4> ;
+                                                              <http://onto.vaimee.com/dtdl/extension/quantitativeTypes/v2/property/quantitativeType> <http://onto.vaimee.com/dtdl/extension/quantitativeTypes/v2/class/Length> .
+
+
+###  http://onto.vaimee.com/agora/dtdl/v1/SoilHorizon_organicMatter
+<http://onto.vaimee.com/agora/dtdl/v1/SoilHorizon_organicMatter> rdf:type owl:NamedIndividual ,
+                                                                          <dtmi:dtdl:class:Property;4> ;
+                                                                 <dtmi:dtdl:property:displayName;4> "Organic matter"@en ;
+                                                                 <dtmi:dtdl:property:name;4> "organicMatter" ;
+                                                                 <dtmi:dtdl:property:schema;4> <dtmi:dtdl:instance:Schema:double;4> ;
+                                                                 rdfs:label "Soil horizon organic matter property"@en .
+
+
+###  http://onto.vaimee.com/agora/dtdl/v1/SoilHorizon_soilTexture
+<http://onto.vaimee.com/agora/dtdl/v1/SoilHorizon_soilTexture> rdf:type owl:NamedIndividual ,
+                                                                        <dtmi:dtdl:class:Property;4> ;
+                                                               <dtmi:dtdl:property:displayName;4> "Soil texture"@en ;
+                                                               <dtmi:dtdl:property:name;4> "soilTexture" ;
+                                                               <dtmi:dtdl:property:schema;4> <http://onto.vaimee.com/agora/dtdl/v1/SoilTextureSchema> ;
+                                                               rdfs:label "Soil horizon soil texture property"@en .
+
+
+###  http://onto.vaimee.com/agora/dtdl/v1/SoilHorizon_thetaSat
+<http://onto.vaimee.com/agora/dtdl/v1/SoilHorizon_thetaSat> rdf:type owl:NamedIndividual ,
+                                                                     <dtmi:dtdl:class:Property;4> ;
+                                                            <dtmi:dtdl:property:displayName;4> "Saturated water content"@en ;
+                                                            <dtmi:dtdl:property:name;4> "thetaSat" ;
+                                                            <dtmi:dtdl:property:schema;4> <dtmi:dtdl:instance:Schema:double;4> ;
+                                                            rdfs:label "Soil horizon saturated water content property"@en .
+
+
+###  http://onto.vaimee.com/agora/dtdl/v1/SoilHorizon_upperDepth
+<http://onto.vaimee.com/agora/dtdl/v1/SoilHorizon_upperDepth> rdf:type owl:NamedIndividual ,
+                                                                       <dtmi:dtdl:class:Property;4> ;
+                                                              <http://onto.vaimee.com/dtdl/extension/quantitativeTypes/v2/property/quantitativeType> <http://onto.vaimee.com/dtdl/extension/quantitativeTypes/v2/class/Length> ;
+                                                              <http://onto.vaimee.com/dtdl/extension/quantitativeTypes/v2/property/unit> <http://onto.vaimee.com/dtdl/extension/quantitativeTypes/v2/unit/metre> ;
+                                                              <dtmi:dtdl:property:displayName;4> "Upper depth"@en ;
+                                                              <dtmi:dtdl:property:name;4> "upperDepth" ;
+                                                              <dtmi:dtdl:property:schema;4> <dtmi:dtdl:instance:Schema:double;4> ;
+                                                              rdfs:label "Soil horizon upper depth property"@en .
+
+
+###  http://onto.vaimee.com/agora/dtdl/v1/SoilTextureSchema
+<http://onto.vaimee.com/agora/dtdl/v1/SoilTextureSchema> rdf:type owl:NamedIndividual ,
+                                                                  <dtmi:dtdl:class:Object;4> ;
+                                                         <dtmi:dtdl:property:fields;4> <http://onto.vaimee.com/agora/dtdl/v1/SoilTextureSchema_clay> ,
+                                                                                                         <http://onto.vaimee.com/agora/dtdl/v1/SoilTextureSchema_sand> ,
+                                                                                                         <http://onto.vaimee.com/agora/dtdl/v1/SoilTextureSchema_silt> ;
+                                                         rdfs:label "Soil texture DTDL object schema"@en .
+
+
+###  http://onto.vaimee.com/agora/dtdl/v1/SoilTextureSchema_clay
+<http://onto.vaimee.com/agora/dtdl/v1/SoilTextureSchema_clay> rdf:type owl:NamedIndividual ,
+                                                                       <dtmi:dtdl:class:Field;4> ;
+                                                              <dtmi:dtdl:property:name;4> "clay" ;
+                                                              <dtmi:dtdl:property:schema;4> <dtmi:dtdl:instance:Schema:double;4> ;
+                                                              rdfs:label "Soil texture clay field"@en .
+
+
+###  http://onto.vaimee.com/agora/dtdl/v1/SoilTextureSchema_sand
+<http://onto.vaimee.com/agora/dtdl/v1/SoilTextureSchema_sand> rdf:type owl:NamedIndividual ,
+                                                                       <dtmi:dtdl:class:Field;4> ;
+                                                              <dtmi:dtdl:property:name;4> "sand" ;
+                                                              <dtmi:dtdl:property:schema;4> <dtmi:dtdl:instance:Schema:double;4> ;
+                                                              rdfs:label "Soil texture sand field"@en .
+
+
+###  http://onto.vaimee.com/agora/dtdl/v1/SoilTextureSchema_silt
+<http://onto.vaimee.com/agora/dtdl/v1/SoilTextureSchema_silt> rdf:type owl:NamedIndividual ,
+                                                                       <dtmi:dtdl:class:Field;4> ;
+                                                              <dtmi:dtdl:property:name;4> "silt" ;
+                                                              <dtmi:dtdl:property:schema;4> <dtmi:dtdl:instance:Schema:double;4> ;
+                                                              rdfs:label "Soil texture silt field"@en .
+
+
+###  http://onto.vaimee.com/agora/dtdl/v1/Soil_availableWater
+<http://onto.vaimee.com/agora/dtdl/v1/Soil_availableWater> rdf:type owl:NamedIndividual ,
+                                                                    <dtmi:dtdl:class:Telemetry;4> ;
+                                                           <dtmi:dtdl:property:displayName;4> "Available water"@en ;
+                                                           <dtmi:dtdl:property:name;4> "availableWater" ;
+                                                           <dtmi:dtdl:property:schema;4> <dtmi:dtdl:instance:Schema:double;4> ;
+                                                           rdfs:label "Soil available water telemetry"@en .
+
+
+###  http://onto.vaimee.com/agora/dtdl/v1/Soil_capillaryRise
+<http://onto.vaimee.com/agora/dtdl/v1/Soil_capillaryRise> rdf:type owl:NamedIndividual ,
+                                                                   <dtmi:dtdl:class:Telemetry;4> ;
+                                                          <dtmi:dtdl:property:displayName;4> "Capillary rise"@en ;
+                                                          <dtmi:dtdl:property:name;4> "capillaryRise" ;
+                                                          <dtmi:dtdl:property:schema;4> <dtmi:dtdl:instance:Schema:double;4> ;
+                                                          rdfs:label "Soil capillary rise telemetry"@en .
+
+
+###  http://onto.vaimee.com/agora/dtdl/v1/Soil_drainage
+<http://onto.vaimee.com/agora/dtdl/v1/Soil_drainage> rdf:type owl:NamedIndividual ,
+                                                              <dtmi:dtdl:class:Telemetry;4> ;
+                                                     <dtmi:dtdl:property:displayName;4> "Drainage"@en ;
+                                                     <dtmi:dtdl:property:name;4> "drainage" ;
+                                                     <dtmi:dtdl:property:schema;4> <dtmi:dtdl:instance:Schema:double;4> ;
+                                                     rdfs:label "Soil drainage telemetry"@en .
+
+
+###  http://onto.vaimee.com/agora/dtdl/v1/Soil_fractionAvailableWater
+<http://onto.vaimee.com/agora/dtdl/v1/Soil_fractionAvailableWater> rdf:type owl:NamedIndividual ,
+                                                                            <dtmi:dtdl:class:Telemetry;4> ;
+                                                                   <dtmi:dtdl:property:displayName;4> "Fraction of available water"@en ;
+                                                                   <dtmi:dtdl:property:name;4> "fractionAvailableWater" ;
+                                                                   <dtmi:dtdl:property:schema;4> <dtmi:dtdl:instance:Schema:double;4> ;
+                                                                   rdfs:label "Soil fraction available water telemetry"@en .
+
+
+###  http://onto.vaimee.com/agora/dtdl/v1/Soil_hasSoilHorizon
+<http://onto.vaimee.com/agora/dtdl/v1/Soil_hasSoilHorizon> rdf:type owl:NamedIndividual ,
+                                                                    <dtmi:dtdl:class:Relationship;4> ;
+                                                           <dtmi:dtdl:property:displayName;4> "Has soil horizon"@en ;
+                                                           <dtmi:dtdl:property:name;4> "hasSoilHorizon" ;
+                                                           <dtmi:dtdl:property:target;4> <http://onto.vaimee.com/agora/dtdl/v1/SoilHorizon> ;
+                                                           rdfs:label "Soil has soil horizon relationship"@en .
+
+
+###  http://onto.vaimee.com/agora/dtdl/v1/Soil_lateralDrainage
+<http://onto.vaimee.com/agora/dtdl/v1/Soil_lateralDrainage> rdf:type owl:NamedIndividual ,
+                                                                     <dtmi:dtdl:class:Telemetry;4> ;
+                                                            <dtmi:dtdl:property:displayName;4> "Lateral drainage"@en ;
+                                                            <dtmi:dtdl:property:name;4> "lateralDrainage" ;
+                                                            <dtmi:dtdl:property:schema;4> <dtmi:dtdl:instance:Schema:double;4> ;
+                                                            rdfs:label "Soil lateral drainage telemetry"@en .
+
+
+###  http://onto.vaimee.com/agora/dtdl/v1/Soil_readilyAvailableWater
+<http://onto.vaimee.com/agora/dtdl/v1/Soil_readilyAvailableWater> rdf:type owl:NamedIndividual ,
+                                                                           <dtmi:dtdl:class:Telemetry;4> ;
+                                                                  <dtmi:dtdl:property:displayName;4> "Readily available water"@en ;
+                                                                  <dtmi:dtdl:property:name;4> "readilyAvailableWater" ;
+                                                                  <dtmi:dtdl:property:schema;4> <dtmi:dtdl:instance:Schema:double;4> ;
+                                                                  rdfs:label "Soil readily available water telemetry"@en .
+
+
+###  http://onto.vaimee.com/agora/dtdl/v1/Soil_runoff
+<http://onto.vaimee.com/agora/dtdl/v1/Soil_runoff> rdf:type owl:NamedIndividual ,
+                                                            <dtmi:dtdl:class:Telemetry;4> ;
+                                                   <dtmi:dtdl:property:displayName;4> "Runoff"@en ;
+                                                   <dtmi:dtdl:property:name;4> "runoff" ;
+                                                   <dtmi:dtdl:property:schema;4> <dtmi:dtdl:instance:Schema:double;4> ;
+                                                   rdfs:label "Soil runoff telemetry"@en .
+
+
+###  http://onto.vaimee.com/agora/dtdl/v1/Soil_soilWaterContent
+<http://onto.vaimee.com/agora/dtdl/v1/Soil_soilWaterContent> rdf:type owl:NamedIndividual ,
+                                                                      <dtmi:dtdl:class:Telemetry;4> ;
+                                                             <dtmi:dtdl:property:displayName;4> "Soil water content"@en ;
+                                                             <dtmi:dtdl:property:name;4> "soilWaterContent" ;
+                                                             <dtmi:dtdl:property:schema;4> <dtmi:dtdl:instance:Schema:double;4> ;
+                                                             rdfs:label "Soil water content telemetry"@en .
+
+
+###  http://onto.vaimee.com/agora/dtdl/v1/Soil_soilWaterPotential
+<http://onto.vaimee.com/agora/dtdl/v1/Soil_soilWaterPotential> rdf:type owl:NamedIndividual ,
+                                                                        <dtmi:dtdl:class:Telemetry;4> ;
+                                                               <http://onto.vaimee.com/dtdl/extension/quantitativeTypes/v2/property/quantitativeType> <http://onto.vaimee.com/dtdl/extension/quantitativeTypes/v2/class/Pressure> ;
+                                                               <http://onto.vaimee.com/dtdl/extension/quantitativeTypes/v2/property/unit> <http://onto.vaimee.com/dtdl/extension/quantitativeTypes/v2/unit/kilopascal> ;
+                                                               <dtmi:dtdl:property:displayName;4> "Soil water potential"@en ;
+                                                               <dtmi:dtdl:property:name;4> "soilWaterPotential" ;
+                                                               <dtmi:dtdl:property:schema;4> <dtmi:dtdl:instance:Schema:double;4> ;
+                                                               rdfs:label "Soil water potential telemetry"@en .
+
+
+###  http://onto.vaimee.com/agora/dtdl/v1/Soil_surfaceWaterContent
+<http://onto.vaimee.com/agora/dtdl/v1/Soil_surfaceWaterContent> rdf:type owl:NamedIndividual ,
+                                                                         <dtmi:dtdl:class:Telemetry;4> ;
+                                                                <dtmi:dtdl:property:displayName;4> "Surface water content"@en ;
+                                                                <dtmi:dtdl:property:name;4> "surfaceWaterContent" ;
+                                                                <dtmi:dtdl:property:schema;4> <dtmi:dtdl:instance:Schema:double;4> ;
+                                                                rdfs:label "Soil surface water content telemetry"@en .
+
+
+###  http://onto.vaimee.com/agora/dtdl/v1/Soil_waterContent
+<http://onto.vaimee.com/agora/dtdl/v1/Soil_waterContent> rdf:type owl:NamedIndividual ,
+                                                                  <dtmi:dtdl:class:Telemetry;4> ;
+                                                         <dtmi:dtdl:property:displayName;4> "Water content"@en ;
+                                                         <dtmi:dtdl:property:name;4> "waterContent" ;
+                                                         <dtmi:dtdl:property:schema;4> <dtmi:dtdl:instance:Schema:double;4> ;
+                                                         rdfs:label "Soil water content model output telemetry"@en .
+
+
+###  Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi
