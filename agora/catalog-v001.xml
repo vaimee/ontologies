@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <catalog prefer="public" xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
     <uri name="http://onto.vaimee.com/fsm/1.0.19" uri="../fsm/fsm.ttl"/>
+    <uri name="http://onto.vaimee.com/fsm/1.0.20" uri="../fsm/fsm.ttl"/>
     <uri name="http://onto.vaimee.com/fsm/1.0.17" uri="../fsm/fsm.ttl"/>
     <uri name="http://onto.vaimee.com/agora/api/0.1" uri="../api/api.ttl"/>
 </catalog>
