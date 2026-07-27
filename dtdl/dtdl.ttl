@@ -37,13 +37,19 @@
 <dtmi:dtdl:class:AdjunctType;4> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://azure.com/DigitalTwins/MetaModel/Extensible> .
 <dtmi:dtdl:class:AdjunctType;4> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Class> .
 <dtmi:dtdl:class:AdjunctType;4> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/shacl#NodeShape> .
-<dtmi:dtdl:class:AdjunctType;4> <http://www.w3.org/ns/shacl#or> _:b110 .
+<dtmi:dtdl:class:AdjunctType;4> <http://www.w3.org/ns/shacl#or> (
+    [ <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:Entity;4> ]
+    [ <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:Entity;3> ]
+    [ <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:Entity;2> ]
+) .
 <dtmi:dtdl:class:Alias;4> <http://azure.com/DigitalTwins/MetaModel/dtdlVersion> "4"^^<http://www.w3.org/2001/XMLSchema#integer> .
 <dtmi:dtdl:class:Alias;4> <http://azure.com/DigitalTwins/MetaModel/property> <dtmi:dtdl:property:aliasFor;4> .
 <dtmi:dtdl:class:Alias;4> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://azure.com/DigitalTwins/MetaModel/Alias> .
 <dtmi:dtdl:class:Alias;4> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Class> .
 <dtmi:dtdl:class:Alias;4> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/shacl#NodeShape> .
-<dtmi:dtdl:class:Alias;4> <http://www.w3.org/ns/shacl#or> _:b113 .
+<dtmi:dtdl:class:Alias;4> <http://www.w3.org/ns/shacl#or> (
+    [ <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:Entity;4> ]
+) .
 <dtmi:dtdl:class:Alias;4> <http://www.w3.org/ns/shacl#property> <dtmi:standard:constraint:Alias:aliasFor;4> .
 <dtmi:dtdl:class:Array;4> <http://azure.com/DigitalTwins/MetaModel/dtdlVersion> "4"^^<http://www.w3.org/2001/XMLSchema#integer> .
 <dtmi:dtdl:class:Array;4> <http://azure.com/DigitalTwins/MetaModel/instance> _:b37 .
@@ -341,7 +347,20 @@
 <dtmi:dtdl:class:SemanticType;4> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://azure.com/DigitalTwins/MetaModel/Extensible> .
 <dtmi:dtdl:class:SemanticType;4> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Class> .
 <dtmi:dtdl:class:SemanticType;4> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/shacl#NodeShape> .
-<dtmi:dtdl:class:SemanticType;4> <http://www.w3.org/ns/shacl#or> _:b114 .
+<dtmi:dtdl:class:SemanticType;4> <http://www.w3.org/ns/shacl#or> (
+    [ <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:Relationship;4> ]
+    [ <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:Relationship;3> ]
+    [ <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:Relationship;2> ]
+    [ <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:Property;4> ]
+    [ <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:Property;3> ]
+    [ <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:Property;2> ]
+    [ <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:Telemetry;4> ]
+    [ <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:Telemetry;3> ]
+    [ <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:Telemetry;2> ]
+    [ <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:SchemaField;4> ]
+    [ <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:SchemaField;3> ]
+    [ <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:SchemaField;2> ]
+) .
 <dtmi:dtdl:class:SemanticUnit;4> <http://azure.com/DigitalTwins/MetaModel/dtdlVersion> "4"^^<http://www.w3.org/2001/XMLSchema#integer> .
 <dtmi:dtdl:class:SemanticUnit;4> <http://azure.com/DigitalTwins/MetaModel/remarks> "Intuitively, SemanticUnit should be a subclass of AdjunctType; however, there are implementation challenges with making it so." .
 <dtmi:dtdl:class:SemanticUnit;4> <http://azure.com/DigitalTwins/MetaModel/remarks> "See remarks above regarding SemanticType." .
@@ -349,7 +368,9 @@
 <dtmi:dtdl:class:SemanticUnit;4> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://azure.com/DigitalTwins/MetaModel/Extensible> .
 <dtmi:dtdl:class:SemanticUnit;4> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Class> .
 <dtmi:dtdl:class:SemanticUnit;4> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/shacl#NodeShape> .
-<dtmi:dtdl:class:SemanticUnit;4> <http://www.w3.org/ns/shacl#or> _:b126 .
+<dtmi:dtdl:class:SemanticUnit;4> <http://www.w3.org/ns/shacl#or> (
+    [ <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:Unit;4> ]
+) .
 <dtmi:dtdl:class:Short;4> <http://azure.com/DigitalTwins/MetaModel/dtdlVersion> "4"^^<http://www.w3.org/2001/XMLSchema#integer> .
 <dtmi:dtdl:class:Short;4> <http://azure.com/DigitalTwins/MetaModel/instance> _:b24 .
 <dtmi:dtdl:class:Short;4> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://azure.com/DigitalTwins/MetaModel/Material> .
@@ -439,8 +460,12 @@
 <dtmi:dtdl:constraint:Array:elementSchema;4> <http://www.w3.org/ns/shacl#maxCount> "1"^^<http://www.w3.org/2001/XMLSchema#integer> .
 <dtmi:dtdl:constraint:Array:elementSchema;4> <http://www.w3.org/ns/shacl#minCount> "1"^^<http://www.w3.org/2001/XMLSchema#integer> .
 <dtmi:dtdl:constraint:Array:elementSchema;4> <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#BlankNodeOrIRI> .
-<dtmi:dtdl:constraint:Array:elementSchema;4> <http://www.w3.org/ns/shacl#or> _:b127 .
-<dtmi:dtdl:constraint:Array:elementSchema;4> <http://www.w3.org/ns/shacl#path> _:b130 .
+<dtmi:dtdl:constraint:Array:elementSchema;4> <http://www.w3.org/ns/shacl#or> (
+    [ <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:Schema;4> ]
+    [ <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:Schema;3> ]
+    [ <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:Schema;2> ]
+) .
+<dtmi:dtdl:constraint:Array:elementSchema;4> <http://www.w3.org/ns/shacl#path> <dtmi:dtdl:property:elementSchema;4> .
 <dtmi:dtdl:constraint:Command:commandType;4> <http://azure.com/DigitalTwins/MetaModel/deprecated> "true"^^<http://www.w3.org/2001/XMLSchema#boolean> .
 <dtmi:dtdl:constraint:Command:commandType;4> <http://azure.com/DigitalTwins/MetaModel/description> "This property is deprecated. Either value, synchronous or asynchronous, has the same meaning: a command that starts execution within a configurable time and that completes execution within a configurable time."@en-us .
 <dtmi:dtdl:constraint:Command:commandType;4> <http://azure.com/DigitalTwins/MetaModel/hidden> "true"^^<http://www.w3.org/2001/XMLSchema#boolean> .
@@ -448,50 +473,54 @@
 <dtmi:dtdl:constraint:Command:commandType;4> <http://www.w3.org/ns/shacl#in> _:b131 .
 <dtmi:dtdl:constraint:Command:commandType;4> <http://www.w3.org/ns/shacl#maxCount> "1"^^<http://www.w3.org/2001/XMLSchema#integer> .
 <dtmi:dtdl:constraint:Command:commandType;4> <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#IRI> .
-<dtmi:dtdl:constraint:Command:commandType;4> <http://www.w3.org/ns/shacl#path> _:b133 .
+<dtmi:dtdl:constraint:Command:commandType;4> <http://www.w3.org/ns/shacl#path> <dtmi:dtdl:property:commandType;4> .
 <dtmi:dtdl:constraint:Command:request;4> <http://azure.com/DigitalTwins/MetaModel/description> "A description of the input to the Command."@en-us .
 <dtmi:dtdl:constraint:Command:request;4> <http://azure.com/DigitalTwins/MetaModel/typeInferable> "true"^^<http://www.w3.org/2001/XMLSchema#boolean> .
 <dtmi:dtdl:constraint:Command:request;4> <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:CommandRequest;4> .
 <dtmi:dtdl:constraint:Command:request;4> <http://www.w3.org/ns/shacl#maxCount> "1"^^<http://www.w3.org/2001/XMLSchema#integer> .
 <dtmi:dtdl:constraint:Command:request;4> <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#BlankNodeOrIRI> .
-<dtmi:dtdl:constraint:Command:request;4> <http://www.w3.org/ns/shacl#path> _:b134 .
+<dtmi:dtdl:constraint:Command:request;4> <http://www.w3.org/ns/shacl#path> <dtmi:dtdl:property:request;4> .
 <dtmi:dtdl:constraint:Command:response;4> <http://azure.com/DigitalTwins/MetaModel/description> "A description of the output of the Command."@en-us .
 <dtmi:dtdl:constraint:Command:response;4> <http://azure.com/DigitalTwins/MetaModel/typeInferable> "true"^^<http://www.w3.org/2001/XMLSchema#boolean> .
 <dtmi:dtdl:constraint:Command:response;4> <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:CommandResponse;4> .
 <dtmi:dtdl:constraint:Command:response;4> <http://www.w3.org/ns/shacl#maxCount> "1"^^<http://www.w3.org/2001/XMLSchema#integer> .
 <dtmi:dtdl:constraint:Command:response;4> <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#BlankNodeOrIRI> .
-<dtmi:dtdl:constraint:Command:response;4> <http://www.w3.org/ns/shacl#path> _:b135 .
+<dtmi:dtdl:constraint:Command:response;4> <http://www.w3.org/ns/shacl#path> <dtmi:dtdl:property:response;4> .
 <dtmi:dtdl:constraint:CommandPayload:nullable;4> <http://azure.com/DigitalTwins/MetaModel/description> "A boolean value that indicates whether the Command payload may be null. The default value is false, indicating the payload is mandatory."@en-us .
 <dtmi:dtdl:constraint:CommandPayload:nullable;4> <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2001/XMLSchema#boolean> .
 <dtmi:dtdl:constraint:CommandPayload:nullable;4> <http://www.w3.org/ns/shacl#maxCount> "1"^^<http://www.w3.org/2001/XMLSchema#integer> .
 <dtmi:dtdl:constraint:CommandPayload:nullable;4> <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#Literal> .
-<dtmi:dtdl:constraint:CommandPayload:nullable;4> <http://www.w3.org/ns/shacl#path> _:b136 .
+<dtmi:dtdl:constraint:CommandPayload:nullable;4> <http://www.w3.org/ns/shacl#path> <dtmi:dtdl:property:nullable;4> .
 <dtmi:dtdl:constraint:Component:schema;4> <http://azure.com/DigitalTwins/MetaModel/description> "The data type of the Component, which is an instance of Interface."@en-us .
 <dtmi:dtdl:constraint:Component:schema;4> <http://www.w3.org/ns/shacl#maxCount> "1"^^<http://www.w3.org/2001/XMLSchema#integer> .
 <dtmi:dtdl:constraint:Component:schema;4> <http://www.w3.org/ns/shacl#minCount> "1"^^<http://www.w3.org/2001/XMLSchema#integer> .
 <dtmi:dtdl:constraint:Component:schema;4> <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#IRI> .
-<dtmi:dtdl:constraint:Component:schema;4> <http://www.w3.org/ns/shacl#or> _:b137 .
-<dtmi:dtdl:constraint:Component:schema;4> <http://www.w3.org/ns/shacl#path> _:b140 .
+<dtmi:dtdl:constraint:Component:schema;4> <http://www.w3.org/ns/shacl#or> (
+    [ <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:Interface;4> ]
+    [ <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:Interface;3> ]
+    [ <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:Interface;2> ]
+) .
+<dtmi:dtdl:constraint:Component:schema;4> <http://www.w3.org/ns/shacl#path> <dtmi:dtdl:property:schema;4> .
 <dtmi:dtdl:constraint:Entity:comment;4> <http://azure.com/DigitalTwins/MetaModel/description> "A comment for model authors."@en-us .
 <dtmi:dtdl:constraint:Entity:comment;4> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://azure.com/DigitalTwins/MetaModel/Supersedable> .
 <dtmi:dtdl:constraint:Entity:comment;4> <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2001/XMLSchema#string> .
 <dtmi:dtdl:constraint:Entity:comment;4> <http://www.w3.org/ns/shacl#maxCount> "1"^^<http://www.w3.org/2001/XMLSchema#integer> .
 <dtmi:dtdl:constraint:Entity:comment;4> <http://www.w3.org/ns/shacl#maxLength> "512"^^<http://www.w3.org/2001/XMLSchema#integer> .
 <dtmi:dtdl:constraint:Entity:comment;4> <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#Literal> .
-<dtmi:dtdl:constraint:Entity:comment;4> <http://www.w3.org/ns/shacl#path> _:b141 .
+<dtmi:dtdl:constraint:Entity:comment;4> <http://www.w3.org/ns/shacl#path> <dtmi:dtdl:property:comment;4> .
 <dtmi:dtdl:constraint:Entity:description;4> <http://azure.com/DigitalTwins/MetaModel/description> "A localizable description for display."@en-us .
 <dtmi:dtdl:constraint:Entity:description;4> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://azure.com/DigitalTwins/MetaModel/Supersedable> .
 <dtmi:dtdl:constraint:Entity:description;4> <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/1999/02/22-rdf-syntax-ns#langString> .
 <dtmi:dtdl:constraint:Entity:description;4> <http://www.w3.org/ns/shacl#maxLength> "512"^^<http://www.w3.org/2001/XMLSchema#integer> .
 <dtmi:dtdl:constraint:Entity:description;4> <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#Literal> .
-<dtmi:dtdl:constraint:Entity:description;4> <http://www.w3.org/ns/shacl#path> _:b142 .
+<dtmi:dtdl:constraint:Entity:description;4> <http://www.w3.org/ns/shacl#path> <dtmi:dtdl:property:description;4> .
 <dtmi:dtdl:constraint:Entity:description;4> <http://www.w3.org/ns/shacl#uniqueLang> "true"^^<http://www.w3.org/2001/XMLSchema#boolean> .
 <dtmi:dtdl:constraint:Entity:displayName;4> <http://azure.com/DigitalTwins/MetaModel/description> "A localizable name for display."@en-us .
 <dtmi:dtdl:constraint:Entity:displayName;4> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://azure.com/DigitalTwins/MetaModel/Supersedable> .
 <dtmi:dtdl:constraint:Entity:displayName;4> <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/1999/02/22-rdf-syntax-ns#langString> .
 <dtmi:dtdl:constraint:Entity:displayName;4> <http://www.w3.org/ns/shacl#maxLength> "512"^^<http://www.w3.org/2001/XMLSchema#integer> .
 <dtmi:dtdl:constraint:Entity:displayName;4> <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#Literal> .
-<dtmi:dtdl:constraint:Entity:displayName;4> <http://www.w3.org/ns/shacl#path> _:b143 .
+<dtmi:dtdl:constraint:Entity:displayName;4> <http://www.w3.org/ns/shacl#path> <dtmi:dtdl:property:displayName;4> .
 <dtmi:dtdl:constraint:Entity:displayName;4> <http://www.w3.org/ns/shacl#uniqueLang> "true"^^<http://www.w3.org/2001/XMLSchema#boolean> .
 <dtmi:dtdl:constraint:Entity:languageMajorVersion;4> <http://azure.com/DigitalTwins/MetaModel/description> "The major version of DTDL used to author this element."@en-us .
 <dtmi:dtdl:constraint:Entity:languageMajorVersion;4> <http://azure.com/DigitalTwins/MetaModel/value> "4"^^<http://www.w3.org/2001/XMLSchema#integer> .
@@ -499,26 +528,30 @@
 <dtmi:dtdl:constraint:Entity:languageMajorVersion;4> <http://www.w3.org/ns/shacl#maxCount> "0"^^<http://www.w3.org/2001/XMLSchema#integer> .
 <dtmi:dtdl:constraint:Entity:languageMajorVersion;4> <http://www.w3.org/ns/shacl#minCount> "0"^^<http://www.w3.org/2001/XMLSchema#integer> .
 <dtmi:dtdl:constraint:Entity:languageMajorVersion;4> <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#Literal> .
-<dtmi:dtdl:constraint:Entity:languageMajorVersion;4> <http://www.w3.org/ns/shacl#path> _:b144 .
+<dtmi:dtdl:constraint:Entity:languageMajorVersion;4> <http://www.w3.org/ns/shacl#path> <dtmi:dtdl:property:languageMajorVersion;4> .
 <dtmi:dtdl:constraint:Enum:enumValues;4> <http://azure.com/DigitalTwins/MetaModel/description> "A set of name/value mappings for the Enum."@en-us .
 <dtmi:dtdl:constraint:Enum:enumValues;4> <http://azure.com/DigitalTwins/MetaModel/dtmiSegment> <dtmi:dtdl:property:name;4> .
 <dtmi:dtdl:constraint:Enum:enumValues;4> <http://azure.com/DigitalTwins/MetaModel/typeInferable> "true"^^<http://www.w3.org/2001/XMLSchema#boolean> .
 <dtmi:dtdl:constraint:Enum:enumValues;4> <http://azure.com/DigitalTwins/MetaModel/uniqueProperties> _:b145 .
 <dtmi:dtdl:constraint:Enum:enumValues;4> <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:EnumValue;4> .
 <dtmi:dtdl:constraint:Enum:enumValues;4> <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#BlankNodeOrIRI> .
-<dtmi:dtdl:constraint:Enum:enumValues;4> <http://www.w3.org/ns/shacl#path> _:b147 .
+<dtmi:dtdl:constraint:Enum:enumValues;4> <http://www.w3.org/ns/shacl#path> <dtmi:dtdl:property:enumValues;4> .
 <dtmi:dtdl:constraint:Enum:valueSchema;4> <http://azure.com/DigitalTwins/MetaModel/description> "The data type for the enumValues; all values must be of the same type."@en-us .
 <dtmi:dtdl:constraint:Enum:valueSchema;4> <http://www.w3.org/ns/shacl#in> _:b148 .
 <dtmi:dtdl:constraint:Enum:valueSchema;4> <http://www.w3.org/ns/shacl#maxCount> "1"^^<http://www.w3.org/2001/XMLSchema#integer> .
 <dtmi:dtdl:constraint:Enum:valueSchema;4> <http://www.w3.org/ns/shacl#minCount> "1"^^<http://www.w3.org/2001/XMLSchema#integer> .
 <dtmi:dtdl:constraint:Enum:valueSchema;4> <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#IRI> .
-<dtmi:dtdl:constraint:Enum:valueSchema;4> <http://www.w3.org/ns/shacl#or> _:b154 .
-<dtmi:dtdl:constraint:Enum:valueSchema;4> <http://www.w3.org/ns/shacl#path> _:b157 .
+<dtmi:dtdl:constraint:Enum:valueSchema;4> <http://www.w3.org/ns/shacl#or> (
+    [ <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:PrimitiveSchema;4> ]
+    [ <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:PrimitiveSchema;3> ]
+    [ <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:PrimitiveSchema;2> ]
+) .
+<dtmi:dtdl:constraint:Enum:valueSchema;4> <http://www.w3.org/ns/shacl#path> <dtmi:dtdl:property:valueSchema;4> .
 <dtmi:dtdl:constraint:EnumValue:enumValue;4> <http://azure.com/DigitalTwins/MetaModel/description> "The on-the-wire value that maps to the EnumValue, which may be either an integer or a string."@en-us .
 <dtmi:dtdl:constraint:EnumValue:enumValue;4> <http://www.w3.org/ns/shacl#maxCount> "1"^^<http://www.w3.org/2001/XMLSchema#integer> .
 <dtmi:dtdl:constraint:EnumValue:enumValue;4> <http://www.w3.org/ns/shacl#minCount> "1"^^<http://www.w3.org/2001/XMLSchema#integer> .
 <dtmi:dtdl:constraint:EnumValue:enumValue;4> <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#Literal> .
-<dtmi:dtdl:constraint:EnumValue:enumValue;4> <http://www.w3.org/ns/shacl#path> _:b158 .
+<dtmi:dtdl:constraint:EnumValue:enumValue;4> <http://www.w3.org/ns/shacl#path> <dtmi:dtdl:property:enumValue;4> .
 <dtmi:dtdl:constraint:Interface:contents;4> <http://azure.com/DigitalTwins/MetaModel/description> "A set of elements that define the contents of this Interface."@en-us .
 <dtmi:dtdl:constraint:Interface:contents;4> <http://azure.com/DigitalTwins/MetaModel/dictionaryKey> <dtmi:dtdl:property:name;4> .
 <dtmi:dtdl:constraint:Interface:contents;4> <http://azure.com/DigitalTwins/MetaModel/dtmiSegment> <dtmi:dtdl:property:name;4> .
@@ -529,38 +562,50 @@
 <dtmi:dtdl:constraint:Interface:contents;4> <http://azure.com/DigitalTwins/MetaModel/synthesize> _:b7 .
 <dtmi:dtdl:constraint:Interface:contents;4> <http://azure.com/DigitalTwins/MetaModel/uniqueProperties> _:b159 .
 <dtmi:dtdl:constraint:Interface:contents;4> <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#BlankNodeOrIRI> .
-<dtmi:dtdl:constraint:Interface:contents;4> <http://www.w3.org/ns/shacl#or> _:b160 .
-<dtmi:dtdl:constraint:Interface:contents;4> <http://www.w3.org/ns/shacl#path> _:b163 .
+<dtmi:dtdl:constraint:Interface:contents;4> <http://www.w3.org/ns/shacl#or> (
+    [ <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:Content;4> ]
+    [ <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:Content;3> ]
+    [ <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:Content;2> ]
+) .
+<dtmi:dtdl:constraint:Interface:contents;4> <http://www.w3.org/ns/shacl#path> <dtmi:dtdl:property:contents;4> .
 <dtmi:dtdl:constraint:Interface:extends;4> <http://azure.com/DigitalTwins/MetaModel/description> "A set of DTMIs that refer to Interfaces from which this Interface inherits contents. Interfaces can inherit from multiple Interfaces."@en-us .
 <dtmi:dtdl:constraint:Interface:extends;4> <http://azure.com/DigitalTwins/MetaModel/synthesize> _:b11 .
 <dtmi:dtdl:constraint:Interface:extends;4> <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#IRI> .
-<dtmi:dtdl:constraint:Interface:extends;4> <http://www.w3.org/ns/shacl#or> _:b164 .
-<dtmi:dtdl:constraint:Interface:extends;4> <http://www.w3.org/ns/shacl#path> _:b167 .
+<dtmi:dtdl:constraint:Interface:extends;4> <http://www.w3.org/ns/shacl#or> (
+    [ <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:Interface;4> ]
+    [ <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:Interface;3> ]
+    [ <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:Interface;2> ]
+) .
+<dtmi:dtdl:constraint:Interface:extends;4> <http://www.w3.org/ns/shacl#path> <dtmi:dtdl:property:extends;4> .
 <dtmi:dtdl:constraint:Interface:schemas;4> <http://azure.com/DigitalTwins/MetaModel/description> "A set of complex schema objects that are reusable within this Interface."@en-us .
 <dtmi:dtdl:constraint:Interface:schemas;4> <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:ComplexSchema;4> .
 <dtmi:dtdl:constraint:Interface:schemas;4> <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#IRI> .
-<dtmi:dtdl:constraint:Interface:schemas;4> <http://www.w3.org/ns/shacl#path> _:b168 .
+<dtmi:dtdl:constraint:Interface:schemas;4> <http://www.w3.org/ns/shacl#path> <dtmi:dtdl:property:schemas;4> .
 <dtmi:dtdl:constraint:Map:mapKey;4> <http://azure.com/DigitalTwins/MetaModel/description> "A description of the keys in the Map."@en-us .
 <dtmi:dtdl:constraint:Map:mapKey;4> <http://azure.com/DigitalTwins/MetaModel/typeInferable> "true"^^<http://www.w3.org/2001/XMLSchema#boolean> .
 <dtmi:dtdl:constraint:Map:mapKey;4> <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:MapKey;4> .
 <dtmi:dtdl:constraint:Map:mapKey;4> <http://www.w3.org/ns/shacl#maxCount> "1"^^<http://www.w3.org/2001/XMLSchema#integer> .
 <dtmi:dtdl:constraint:Map:mapKey;4> <http://www.w3.org/ns/shacl#minCount> "1"^^<http://www.w3.org/2001/XMLSchema#integer> .
 <dtmi:dtdl:constraint:Map:mapKey;4> <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#BlankNodeOrIRI> .
-<dtmi:dtdl:constraint:Map:mapKey;4> <http://www.w3.org/ns/shacl#path> _:b169 .
+<dtmi:dtdl:constraint:Map:mapKey;4> <http://www.w3.org/ns/shacl#path> <dtmi:dtdl:property:mapKey;4> .
 <dtmi:dtdl:constraint:Map:mapValue;4> <http://azure.com/DigitalTwins/MetaModel/description> "A description of the values in the Map."@en-us .
 <dtmi:dtdl:constraint:Map:mapValue;4> <http://azure.com/DigitalTwins/MetaModel/typeInferable> "true"^^<http://www.w3.org/2001/XMLSchema#boolean> .
 <dtmi:dtdl:constraint:Map:mapValue;4> <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:MapValue;4> .
 <dtmi:dtdl:constraint:Map:mapValue;4> <http://www.w3.org/ns/shacl#maxCount> "1"^^<http://www.w3.org/2001/XMLSchema#integer> .
 <dtmi:dtdl:constraint:Map:mapValue;4> <http://www.w3.org/ns/shacl#minCount> "1"^^<http://www.w3.org/2001/XMLSchema#integer> .
 <dtmi:dtdl:constraint:Map:mapValue;4> <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#BlankNodeOrIRI> .
-<dtmi:dtdl:constraint:Map:mapValue;4> <http://www.w3.org/ns/shacl#path> _:b170 .
+<dtmi:dtdl:constraint:Map:mapValue;4> <http://www.w3.org/ns/shacl#path> <dtmi:dtdl:property:mapValue;4> .
 <dtmi:dtdl:constraint:MapKey:schema;4> <http://azure.com/DigitalTwins/MetaModel/description> "The data type of the Map's key, which must be string."@en-us .
 <dtmi:dtdl:constraint:MapKey:schema;4> <http://www.w3.org/ns/shacl#in> _:b171 .
 <dtmi:dtdl:constraint:MapKey:schema;4> <http://www.w3.org/ns/shacl#maxCount> "1"^^<http://www.w3.org/2001/XMLSchema#integer> .
 <dtmi:dtdl:constraint:MapKey:schema;4> <http://www.w3.org/ns/shacl#minCount> "1"^^<http://www.w3.org/2001/XMLSchema#integer> .
 <dtmi:dtdl:constraint:MapKey:schema;4> <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#IRI> .
-<dtmi:dtdl:constraint:MapKey:schema;4> <http://www.w3.org/ns/shacl#or> _:b174 .
-<dtmi:dtdl:constraint:MapKey:schema;4> <http://www.w3.org/ns/shacl#path> _:b177 .
+<dtmi:dtdl:constraint:MapKey:schema;4> <http://www.w3.org/ns/shacl#or> (
+    [ <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:String;4> ]
+    [ <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:String;3> ]
+    [ <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:String;2> ]
+) .
+<dtmi:dtdl:constraint:MapKey:schema;4> <http://www.w3.org/ns/shacl#path> <dtmi:dtdl:property:schema;4> .
 <dtmi:dtdl:constraint:NamedEntity:name;4> <http://azure.com/DigitalTwins/MetaModel/description> "The programming name of the element."@en-us .
 <dtmi:dtdl:constraint:NamedEntity:name;4> <http://azure.com/DigitalTwins/MetaModel/patternDesc> "contains only alphanumerics and underscore, starting with a letter, ending with alphanumeric"@en-us .
 <dtmi:dtdl:constraint:NamedEntity:name;4> <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2001/XMLSchema#string> .
@@ -568,7 +613,7 @@
 <dtmi:dtdl:constraint:NamedEntity:name;4> <http://www.w3.org/ns/shacl#maxLength> "512"^^<http://www.w3.org/2001/XMLSchema#integer> .
 <dtmi:dtdl:constraint:NamedEntity:name;4> <http://www.w3.org/ns/shacl#minCount> "1"^^<http://www.w3.org/2001/XMLSchema#integer> .
 <dtmi:dtdl:constraint:NamedEntity:name;4> <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#Literal> .
-<dtmi:dtdl:constraint:NamedEntity:name;4> <http://www.w3.org/ns/shacl#path> _:b178 .
+<dtmi:dtdl:constraint:NamedEntity:name;4> <http://www.w3.org/ns/shacl#path> <dtmi:dtdl:property:name;4> .
 <dtmi:dtdl:constraint:NamedEntity:name;4> <http://www.w3.org/ns/shacl#pattern> "^[A-Za-z](?:[A-Za-z0-9_]*[A-Za-z0-9])?$" .
 <dtmi:dtdl:constraint:Object:fields;4> <http://azure.com/DigitalTwins/MetaModel/description> "A set of field descriptions, one for each field in the Object."@en-us .
 <dtmi:dtdl:constraint:Object:fields;4> <http://azure.com/DigitalTwins/MetaModel/dtmiSegment> <dtmi:dtdl:property:name;4> .
@@ -576,66 +621,82 @@
 <dtmi:dtdl:constraint:Object:fields;4> <http://azure.com/DigitalTwins/MetaModel/uniqueProperties> _:b179 .
 <dtmi:dtdl:constraint:Object:fields;4> <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:Field;4> .
 <dtmi:dtdl:constraint:Object:fields;4> <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#BlankNodeOrIRI> .
-<dtmi:dtdl:constraint:Object:fields;4> <http://www.w3.org/ns/shacl#path> _:b180 .
+<dtmi:dtdl:constraint:Object:fields;4> <http://www.w3.org/ns/shacl#path> <dtmi:dtdl:property:fields;4> .
 <dtmi:dtdl:constraint:Property:schema;4> <http://azure.com/DigitalTwins/MetaModel/description> "The data type of the Property, which is an instance of Schema."@en-us .
 <dtmi:dtdl:constraint:Property:schema;4> <http://www.w3.org/ns/shacl#maxCount> "1"^^<http://www.w3.org/2001/XMLSchema#integer> .
 <dtmi:dtdl:constraint:Property:schema;4> <http://www.w3.org/ns/shacl#minCount> "1"^^<http://www.w3.org/2001/XMLSchema#integer> .
 <dtmi:dtdl:constraint:Property:schema;4> <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#BlankNodeOrIRI> .
-<dtmi:dtdl:constraint:Property:schema;4> <http://www.w3.org/ns/shacl#or> _:b181 .
-<dtmi:dtdl:constraint:Property:schema;4> <http://www.w3.org/ns/shacl#path> _:b184 .
+<dtmi:dtdl:constraint:Property:schema;4> <http://www.w3.org/ns/shacl#or> (
+    [ <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:Schema;4> ]
+    [ <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:Schema;3> ]
+    [ <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:Schema;2> ]
+) .
+<dtmi:dtdl:constraint:Property:schema;4> <http://www.w3.org/ns/shacl#path> <dtmi:dtdl:property:schema;4> .
 <dtmi:dtdl:constraint:Property:writable;4> <http://azure.com/DigitalTwins/MetaModel/description> "A boolean value that indicates whether the Property is writable or not. The default value is false, indicating the Property is read-only."@en-us .
 <dtmi:dtdl:constraint:Property:writable;4> <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2001/XMLSchema#boolean> .
 <dtmi:dtdl:constraint:Property:writable;4> <http://www.w3.org/ns/shacl#maxCount> "1"^^<http://www.w3.org/2001/XMLSchema#integer> .
 <dtmi:dtdl:constraint:Property:writable;4> <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#Literal> .
-<dtmi:dtdl:constraint:Property:writable;4> <http://www.w3.org/ns/shacl#path> _:b185 .
+<dtmi:dtdl:constraint:Property:writable;4> <http://www.w3.org/ns/shacl#path> <dtmi:dtdl:property:writable;4> .
 <dtmi:dtdl:constraint:Relationship:maxMultiplicity;4> <http://azure.com/DigitalTwins/MetaModel/description> "The maximum multiplicity for the target of the Relationship; defaults to the maximum allowable value."@en-us .
 <dtmi:dtdl:constraint:Relationship:maxMultiplicity;4> <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2001/XMLSchema#integer> .
 <dtmi:dtdl:constraint:Relationship:maxMultiplicity;4> <http://www.w3.org/ns/shacl#maxCount> "1"^^<http://www.w3.org/2001/XMLSchema#integer> .
 <dtmi:dtdl:constraint:Relationship:maxMultiplicity;4> <http://www.w3.org/ns/shacl#minInclusive> "1"^^<http://www.w3.org/2001/XMLSchema#integer> .
 <dtmi:dtdl:constraint:Relationship:maxMultiplicity;4> <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#Literal> .
-<dtmi:dtdl:constraint:Relationship:maxMultiplicity;4> <http://www.w3.org/ns/shacl#path> _:b186 .
+<dtmi:dtdl:constraint:Relationship:maxMultiplicity;4> <http://www.w3.org/ns/shacl#path> <dtmi:dtdl:property:maxMultiplicity;4> .
 <dtmi:dtdl:constraint:Relationship:minMultiplicity;4> <http://azure.com/DigitalTwins/MetaModel/description> "The minimum multiplicity for the target of the Relationship; defaults to the minimum allowable value."@en-us .
 <dtmi:dtdl:constraint:Relationship:minMultiplicity;4> <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2001/XMLSchema#integer> .
 <dtmi:dtdl:constraint:Relationship:minMultiplicity;4> <http://www.w3.org/ns/shacl#maxCount> "1"^^<http://www.w3.org/2001/XMLSchema#integer> .
 <dtmi:dtdl:constraint:Relationship:minMultiplicity;4> <http://www.w3.org/ns/shacl#maxInclusive> "0"^^<http://www.w3.org/2001/XMLSchema#integer> .
 <dtmi:dtdl:constraint:Relationship:minMultiplicity;4> <http://www.w3.org/ns/shacl#minInclusive> "0"^^<http://www.w3.org/2001/XMLSchema#integer> .
 <dtmi:dtdl:constraint:Relationship:minMultiplicity;4> <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#Literal> .
-<dtmi:dtdl:constraint:Relationship:minMultiplicity;4> <http://www.w3.org/ns/shacl#path> _:b187 .
+<dtmi:dtdl:constraint:Relationship:minMultiplicity;4> <http://www.w3.org/ns/shacl#path> <dtmi:dtdl:property:minMultiplicity;4> .
 <dtmi:dtdl:constraint:Relationship:properties;4> <http://azure.com/DigitalTwins/MetaModel/description> "A set of Properties that define Relationship-specific state."@en-us .
 <dtmi:dtdl:constraint:Relationship:properties;4> <http://azure.com/DigitalTwins/MetaModel/dtmiSegment> <dtmi:dtdl:property:name;4> .
 <dtmi:dtdl:constraint:Relationship:properties;4> <http://azure.com/DigitalTwins/MetaModel/uniqueProperties> _:b188 .
 <dtmi:dtdl:constraint:Relationship:properties;4> <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#BlankNodeOrIRI> .
-<dtmi:dtdl:constraint:Relationship:properties;4> <http://www.w3.org/ns/shacl#or> _:b189 .
-<dtmi:dtdl:constraint:Relationship:properties;4> <http://www.w3.org/ns/shacl#path> _:b192 .
+<dtmi:dtdl:constraint:Relationship:properties;4> <http://www.w3.org/ns/shacl#or> (
+    [ <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:Property;4> ]
+    [ <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:Property;3> ]
+    [ <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:Property;2> ]
+) .
+<dtmi:dtdl:constraint:Relationship:properties;4> <http://www.w3.org/ns/shacl#path> <dtmi:dtdl:property:properties;4> .
 <dtmi:dtdl:constraint:Relationship:target;4> <http://azure.com/DigitalTwins/MetaModel/description> "An Interface identifier. If no target is specified, each instance target is permitted to be any Interface."@en-us .
 <dtmi:dtdl:constraint:Relationship:target;4> <http://azure.com/DigitalTwins/MetaModel/patternDesc> "must follow user DTMI syntax"@en-us .
 <dtmi:dtdl:constraint:Relationship:target;4> <http://www.w3.org/ns/shacl#maxCount> "1"^^<http://www.w3.org/2001/XMLSchema#integer> .
 <dtmi:dtdl:constraint:Relationship:target;4> <http://www.w3.org/ns/shacl#maxLength> "2048"^^<http://www.w3.org/2001/XMLSchema#integer> .
 <dtmi:dtdl:constraint:Relationship:target;4> <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#IRI> .
-<dtmi:dtdl:constraint:Relationship:target;4> <http://www.w3.org/ns/shacl#path> _:b193 .
+<dtmi:dtdl:constraint:Relationship:target;4> <http://www.w3.org/ns/shacl#path> <dtmi:dtdl:property:target;4> .
 <dtmi:dtdl:constraint:Relationship:target;4> <http://www.w3.org/ns/shacl#pattern> "^dtmi:[A-Za-z](?:[A-Za-z0-9_]*[A-Za-z0-9])?(?::[A-Za-z](?:[A-Za-z0-9_]*[A-Za-z0-9])?)*(?:;[1-9][0-9]{0,8}(?:\\.[1-9][0-9]{0,5})?)?$" .
 <dtmi:dtdl:constraint:Relationship:writable;4> <http://azure.com/DigitalTwins/MetaModel/description> "A boolean value that indicates whether the Relationship is writable or not. The default value is false, indicating the Relationship is read-only."@en-us .
 <dtmi:dtdl:constraint:Relationship:writable;4> <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2001/XMLSchema#boolean> .
 <dtmi:dtdl:constraint:Relationship:writable;4> <http://www.w3.org/ns/shacl#maxCount> "1"^^<http://www.w3.org/2001/XMLSchema#integer> .
 <dtmi:dtdl:constraint:Relationship:writable;4> <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#Literal> .
-<dtmi:dtdl:constraint:Relationship:writable;4> <http://www.w3.org/ns/shacl#path> _:b194 .
+<dtmi:dtdl:constraint:Relationship:writable;4> <http://www.w3.org/ns/shacl#path> <dtmi:dtdl:property:writable;4> .
 <dtmi:dtdl:constraint:SchemaField:schema;4> <http://azure.com/DigitalTwins/MetaModel/description> "The data type of the element, which is an instance of Schema."@en-us .
 <dtmi:dtdl:constraint:SchemaField:schema;4> <http://www.w3.org/ns/shacl#maxCount> "1"^^<http://www.w3.org/2001/XMLSchema#integer> .
 <dtmi:dtdl:constraint:SchemaField:schema;4> <http://www.w3.org/ns/shacl#minCount> "1"^^<http://www.w3.org/2001/XMLSchema#integer> .
 <dtmi:dtdl:constraint:SchemaField:schema;4> <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#BlankNodeOrIRI> .
-<dtmi:dtdl:constraint:SchemaField:schema;4> <http://www.w3.org/ns/shacl#or> _:b195 .
-<dtmi:dtdl:constraint:SchemaField:schema;4> <http://www.w3.org/ns/shacl#path> _:b198 .
+<dtmi:dtdl:constraint:SchemaField:schema;4> <http://www.w3.org/ns/shacl#or> (
+    [ <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:Schema;4> ]
+    [ <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:Schema;3> ]
+    [ <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:Schema;2> ]
+) .
+<dtmi:dtdl:constraint:SchemaField:schema;4> <http://www.w3.org/ns/shacl#path> <dtmi:dtdl:property:schema;4> .
 <dtmi:dtdl:constraint:Telemetry:schema;4> <http://azure.com/DigitalTwins/MetaModel/description> "The data type of the Telemetry, which is an instance of Schema."@en-us .
 <dtmi:dtdl:constraint:Telemetry:schema;4> <http://www.w3.org/ns/shacl#maxCount> "1"^^<http://www.w3.org/2001/XMLSchema#integer> .
 <dtmi:dtdl:constraint:Telemetry:schema;4> <http://www.w3.org/ns/shacl#minCount> "1"^^<http://www.w3.org/2001/XMLSchema#integer> .
 <dtmi:dtdl:constraint:Telemetry:schema;4> <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#BlankNodeOrIRI> .
-<dtmi:dtdl:constraint:Telemetry:schema;4> <http://www.w3.org/ns/shacl#or> _:b199 .
-<dtmi:dtdl:constraint:Telemetry:schema;4> <http://www.w3.org/ns/shacl#path> _:b202 .
+<dtmi:dtdl:constraint:Telemetry:schema;4> <http://www.w3.org/ns/shacl#or> (
+    [ <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:Schema;4> ]
+    [ <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:Schema;3> ]
+    [ <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:Schema;2> ]
+) .
+<dtmi:dtdl:constraint:Telemetry:schema;4> <http://www.w3.org/ns/shacl#path> <dtmi:dtdl:property:schema;4> .
 <dtmi:dtdl:constraint:Unit:symbol;4> <http://azure.com/DigitalTwins/MetaModel/description> "The symbol for the unit."@en-us .
 <dtmi:dtdl:constraint:Unit:symbol;4> <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2001/XMLSchema#string> .
 <dtmi:dtdl:constraint:Unit:symbol;4> <http://www.w3.org/ns/shacl#maxCount> "1"^^<http://www.w3.org/2001/XMLSchema#integer> .
 <dtmi:dtdl:constraint:Unit:symbol;4> <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#Literal> .
-<dtmi:dtdl:constraint:Unit:symbol;4> <http://www.w3.org/ns/shacl#path> _:b203 .
+<dtmi:dtdl:constraint:Unit:symbol;4> <http://www.w3.org/ns/shacl#path> <dtmi:dtdl:property:symbol;4> .
 <dtmi:dtdl:descendants:Interface:contents;4> <http://azure.com/DigitalTwins/MetaModel/allowSelf> "true"^^<http://www.w3.org/2001/XMLSchema#boolean> .
 <dtmi:dtdl:descendants:Interface:contents;4> <http://azure.com/DigitalTwins/MetaModel/maxCount> "100000"^^<http://www.w3.org/2001/XMLSchema#integer> .
 <dtmi:dtdl:descendants:Interface:contents;4> <http://azure.com/DigitalTwins/MetaModel/narrow> "true"^^<http://www.w3.org/2001/XMLSchema#boolean> .
@@ -820,14 +881,13 @@
 <dtmi:standard:constraint:Alias:aliasFor;4> <http://www.w3.org/ns/shacl#maxCount> "1"^^<http://www.w3.org/2001/XMLSchema#integer> .
 <dtmi:standard:constraint:Alias:aliasFor;4> <http://www.w3.org/ns/shacl#minCount> "1"^^<http://www.w3.org/2001/XMLSchema#integer> .
 <dtmi:standard:constraint:Alias:aliasFor;4> <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#BlankNodeOrIRI> .
-<dtmi:standard:constraint:Alias:aliasFor;4> <http://www.w3.org/ns/shacl#path> _:b223 .
+<dtmi:standard:constraint:Alias:aliasFor;4> <http://www.w3.org/ns/shacl#path> <dtmi:dtdl:property:aliasFor;4> .
 _:b0 <http://azure.com/DigitalTwins/MetaModel/neverAllow> _:b1 .
 _:b0 <http://azure.com/DigitalTwins/MetaModel/propertyNeedsCotype> "true"^^<http://www.w3.org/2001/XMLSchema#boolean> .
 _:b1 <http://azure.com/DigitalTwins/MetaModel/asCotype> <http://azure.com/DigitalTwins/MetaModel/invalidDtmi> .
 _:b1 <http://azure.com/DigitalTwins/MetaModel/asCotype> <http://azure.com/DigitalTwins/MetaModel/notDtmiNorTerm> .
 _:b1 <http://azure.com/DigitalTwins/MetaModel/asProperty> <http://azure.com/DigitalTwins/MetaModel/invalidDtmi> .
 _:b1 <http://azure.com/DigitalTwins/MetaModel/asProperty> <http://azure.com/DigitalTwins/MetaModel/notDtmiNorTerm> .
-_:b10 <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:Content;2> .
 _:b100 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <dtmi:dtdl:class:Telemetry;4> .
 _:b100 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil> .
 _:b101 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <dtmi:dtdl:property:schema;4> .
@@ -850,90 +910,18 @@ _:b109 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <dtmi:dtdl:class:Relat
 _:b109 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil> .
 _:b11 <http://azure.com/DigitalTwins/MetaModel/reverseDirection> "true"^^<http://www.w3.org/2001/XMLSchema#boolean> .
 _:b11 <http://azure.com/DigitalTwins/MetaModel/syntheticProp> "extendedBy" .
-_:b110 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:b72 .
-_:b110 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:b111 .
-_:b111 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:b73 .
-_:b111 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:b112 .
-_:b112 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:b74 .
-_:b112 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil> .
-_:b113 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:b71 .
-_:b113 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil> .
-_:b114 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:b75 .
-_:b114 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:b115 .
-_:b115 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:b76 .
-_:b115 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:b116 .
-_:b116 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:b77 .
-_:b116 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:b117 .
-_:b117 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:b78 .
-_:b117 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:b118 .
-_:b118 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:b79 .
-_:b118 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:b119 .
-_:b119 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:b80 .
-_:b119 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:b120 .
-_:b12 <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:Interface;4> .
-_:b120 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:b81 .
-_:b120 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:b121 .
-_:b121 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:b82 .
-_:b121 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:b122 .
-_:b122 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:b83 .
-_:b122 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:b123 .
-_:b123 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:b84 .
-_:b123 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:b124 .
-_:b124 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:b85 .
-_:b124 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:b125 .
-_:b125 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:b86 .
-_:b125 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil> .
-_:b126 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:b87 .
-_:b126 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil> .
-_:b127 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:b39 .
-_:b127 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:b128 .
-_:b128 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:b40 .
-_:b128 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:b129 .
-_:b129 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:b41 .
-_:b129 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil> .
-_:b13 <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:Interface;3> .
-_:b130 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <dtmi:dtdl:property:elementSchema;4> .
-_:b130 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil> .
 _:b131 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <dtmi:dtdl:instance:CommandType:asynchronous;4> .
 _:b131 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:b132 .
 _:b132 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <dtmi:dtdl:instance:CommandType:synchronous;4> .
 _:b132 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil> .
-_:b133 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <dtmi:dtdl:property:commandType;4> .
-_:b133 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil> .
-_:b134 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <dtmi:dtdl:property:request;4> .
-_:b134 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil> .
-_:b135 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <dtmi:dtdl:property:response;4> .
-_:b135 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil> .
-_:b136 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <dtmi:dtdl:property:nullable;4> .
-_:b136 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil> .
-_:b137 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:b59 .
-_:b137 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:b138 .
-_:b138 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:b60 .
-_:b138 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:b139 .
-_:b139 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:b61 .
-_:b139 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil> .
-_:b14 <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:Interface;2> .
-_:b140 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <dtmi:dtdl:property:schema;4> .
-_:b140 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil> .
-_:b141 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <dtmi:dtdl:property:comment;4> .
-_:b141 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil> .
-_:b142 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <dtmi:dtdl:property:description;4> .
-_:b142 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil> .
-_:b143 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <dtmi:dtdl:property:displayName;4> .
-_:b143 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil> .
-_:b144 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <dtmi:dtdl:property:languageMajorVersion;4> .
-_:b144 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil> .
 _:b145 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <dtmi:dtdl:property:name;4> .
 _:b145 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:b146 .
 _:b146 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <dtmi:dtdl:property:enumValue;4> .
 _:b146 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil> .
-_:b147 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <dtmi:dtdl:property:enumValues;4> .
-_:b147 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil> .
 _:b148 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <dtmi:dtdl:instance:Schema:integer;4> .
 _:b148 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:b149 .
 _:b149 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <dtmi:dtdl:instance:Schema:integer;3> .
 _:b149 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:b150 .
-_:b15 <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:Schema;4> .
 _:b150 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <dtmi:dtdl:instance:Schema:integer;2> .
 _:b150 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:b151 .
 _:b151 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <dtmi:dtdl:instance:Schema:string;4> .
@@ -942,116 +930,26 @@ _:b152 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <dtmi:dtdl:instance:Sc
 _:b152 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:b153 .
 _:b153 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <dtmi:dtdl:instance:Schema:string;2> .
 _:b153 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil> .
-_:b154 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:b43 .
-_:b154 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:b155 .
-_:b155 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:b44 .
-_:b155 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:b156 .
-_:b156 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:b45 .
-_:b156 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil> .
-_:b157 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <dtmi:dtdl:property:valueSchema;4> .
-_:b157 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil> .
-_:b158 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <dtmi:dtdl:property:enumValue;4> .
-_:b158 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil> .
 _:b159 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <dtmi:dtdl:property:name;4> .
 _:b159 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil> .
-_:b16 <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:Schema;3> .
-_:b160 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:b8 .
-_:b160 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:b161 .
-_:b161 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:b9 .
-_:b161 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:b162 .
-_:b162 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:b10 .
-_:b162 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil> .
-_:b163 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <dtmi:dtdl:property:contents;4> .
-_:b163 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil> .
-_:b164 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:b12 .
-_:b164 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:b165 .
-_:b165 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:b13 .
-_:b165 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:b166 .
-_:b166 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:b14 .
-_:b166 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil> .
-_:b167 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <dtmi:dtdl:property:extends;4> .
-_:b167 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil> .
-_:b168 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <dtmi:dtdl:property:schemas;4> .
-_:b168 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil> .
-_:b169 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <dtmi:dtdl:property:mapKey;4> .
-_:b169 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil> .
-_:b17 <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:Schema;2> .
-_:b170 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <dtmi:dtdl:property:mapValue;4> .
-_:b170 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil> .
 _:b171 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <dtmi:dtdl:instance:Schema:string;4> .
 _:b171 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:b172 .
 _:b172 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <dtmi:dtdl:instance:Schema:string;3> .
 _:b172 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:b173 .
 _:b173 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <dtmi:dtdl:instance:Schema:string;2> .
 _:b173 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil> .
-_:b174 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:b49 .
-_:b174 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:b175 .
-_:b175 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:b50 .
-_:b175 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:b176 .
-_:b176 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:b51 .
-_:b176 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil> .
-_:b177 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <dtmi:dtdl:property:schema;4> .
-_:b177 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil> .
-_:b178 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <dtmi:dtdl:property:name;4> .
-_:b178 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil> .
 _:b179 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <dtmi:dtdl:property:name;4> .
 _:b179 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil> .
 _:b18 <http://azure.com/DigitalTwins/MetaModel/authority> "JSON" .
 _:b18 <http://azure.com/DigitalTwins/MetaModel/jsonType> <http://azure.com/DigitalTwins/MetaModel/jsonBool> .
-_:b180 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <dtmi:dtdl:property:fields;4> .
-_:b180 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil> .
-_:b181 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:b62 .
-_:b181 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:b182 .
-_:b182 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:b63 .
-_:b182 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:b183 .
-_:b183 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:b64 .
-_:b183 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil> .
-_:b184 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <dtmi:dtdl:property:schema;4> .
-_:b184 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil> .
-_:b185 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <dtmi:dtdl:property:writable;4> .
-_:b185 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil> .
-_:b186 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <dtmi:dtdl:property:maxMultiplicity;4> .
-_:b186 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil> .
-_:b187 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <dtmi:dtdl:property:minMultiplicity;4> .
-_:b187 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil> .
 _:b188 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <dtmi:dtdl:property:name;4> .
 _:b188 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil> .
-_:b189 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:b68 .
-_:b189 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:b190 .
 _:b19 <http://azure.com/DigitalTwins/MetaModel/jsonType> <http://azure.com/DigitalTwins/MetaModel/jsonNumber> .
 _:b19 <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2001/XMLSchema#byte> .
-_:b190 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:b69 .
-_:b190 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:b191 .
-_:b191 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:b70 .
-_:b191 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil> .
-_:b192 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <dtmi:dtdl:property:properties;4> .
-_:b192 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil> .
-_:b193 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <dtmi:dtdl:property:target;4> .
-_:b193 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil> .
-_:b194 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <dtmi:dtdl:property:writable;4> .
-_:b194 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil> .
-_:b195 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:b15 .
-_:b195 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:b196 .
-_:b196 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:b16 .
-_:b196 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:b197 .
-_:b197 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:b17 .
-_:b197 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil> .
-_:b198 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <dtmi:dtdl:property:schema;4> .
-_:b198 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil> .
-_:b199 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:b65 .
-_:b199 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:b200 .
 _:b2 <http://azure.com/DigitalTwins/MetaModel/maxBytes> "1048576"^^<http://www.w3.org/2001/XMLSchema#integer> .
 _:b2 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://azure.com/DigitalTwins/MetaModel/Supersedable> .
 _:b20 <http://azure.com/DigitalTwins/MetaModel/jsonType> <http://azure.com/DigitalTwins/MetaModel/jsonNumber> .
 _:b20 <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2001/XMLSchema#double> .
-_:b200 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:b66 .
-_:b200 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:b201 .
-_:b201 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:b67 .
-_:b201 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil> .
-_:b202 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <dtmi:dtdl:property:schema;4> .
-_:b202 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil> .
-_:b203 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <dtmi:dtdl:property:symbol;4> .
-_:b203 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil> .
 _:b204 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <dtmi:dtdl:property:contents;4> .
 _:b204 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:b205 .
 _:b205 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <dtmi:dtdl:property:fields;4> .
@@ -1094,8 +992,6 @@ _:b221 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> "dtmi:dtdl:" .
 _:b221 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:b222 .
 _:b222 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> "dtmi:standard:" .
 _:b222 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil> .
-_:b223 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <dtmi:dtdl:property:aliasFor;4> .
-_:b223 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil> .
 _:b23 <http://azure.com/DigitalTwins/MetaModel/jsonType> <http://azure.com/DigitalTwins/MetaModel/jsonNumber> .
 _:b23 <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2001/XMLSchema#long> .
 _:b24 <http://azure.com/DigitalTwins/MetaModel/jsonType> <http://azure.com/DigitalTwins/MetaModel/jsonNumber> .
@@ -1146,24 +1042,15 @@ _:b36 <http://www.w3.org/ns/shacl#pattern> "^[0-9a-fA-F]{8}-(?:[0-9a-fA-F]{4}-){
 _:b37 <http://azure.com/DigitalTwins/MetaModel/eachChild> _:b38 .
 _:b37 <http://azure.com/DigitalTwins/MetaModel/jsonType> <http://azure.com/DigitalTwins/MetaModel/jsonArray> .
 _:b38 <http://azure.com/DigitalTwins/MetaModel/instanceProperty> _:b91 .
-_:b39 <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:Schema;4> .
 _:b4 <http://azure.com/DigitalTwins/MetaModel/breakoutSubtypes> _:b92 .
 _:b4 <http://azure.com/DigitalTwins/MetaModel/syntheticProp> "properties" .
-_:b40 <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:Schema;3> .
-_:b41 <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:Schema;2> .
 _:b42 <http://azure.com/DigitalTwins/MetaModel/instanceProperty> _:b95 .
-_:b43 <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:PrimitiveSchema;4> .
-_:b44 <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:PrimitiveSchema;3> .
-_:b45 <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:PrimitiveSchema;2> .
 _:b46 <http://azure.com/DigitalTwins/MetaModel/hasValue> <dtmi:dtdl:property:enumValue;4> .
 _:b47 <http://azure.com/DigitalTwins/MetaModel/eachChild> _:b48 .
 _:b47 <http://azure.com/DigitalTwins/MetaModel/jsonType> <http://azure.com/DigitalTwins/MetaModel/jsonObject> .
 _:b48 <http://azure.com/DigitalTwins/MetaModel/instanceProperty> _:b97 .
-_:b49 <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:String;4> .
 _:b5 <http://azure.com/DigitalTwins/MetaModel/breakoutSubtypes> _:b98 .
 _:b5 <http://azure.com/DigitalTwins/MetaModel/syntheticProp> "telemetries" .
-_:b50 <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:String;3> .
-_:b51 <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:String;2> .
 _:b52 <http://azure.com/DigitalTwins/MetaModel/jsonType> <http://azure.com/DigitalTwins/MetaModel/jsonProperty> .
 _:b52 <http://azure.com/DigitalTwins/MetaModel/propertyValue> _:b53 .
 _:b53 <http://azure.com/DigitalTwins/MetaModel/instanceProperty> _:b101 .
@@ -1175,45 +1062,14 @@ _:b56 <http://azure.com/DigitalTwins/MetaModel/propertyName> _:b57 .
 _:b56 <http://azure.com/DigitalTwins/MetaModel/propertyValue> _:b58 .
 _:b57 <http://azure.com/DigitalTwins/MetaModel/hasValue> <dtmi:dtdl:property:name;4> .
 _:b58 <http://azure.com/DigitalTwins/MetaModel/instanceProperty> _:b103 .
-_:b59 <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:Interface;4> .
 _:b6 <http://azure.com/DigitalTwins/MetaModel/breakoutSubtypes> _:b104 .
 _:b6 <http://azure.com/DigitalTwins/MetaModel/syntheticProp> "commands" .
-_:b60 <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:Interface;3> .
-_:b61 <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:Interface;2> .
-_:b62 <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:Schema;4> .
-_:b63 <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:Schema;3> .
-_:b64 <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:Schema;2> .
-_:b65 <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:Schema;4> .
-_:b66 <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:Schema;3> .
-_:b67 <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:Schema;2> .
-_:b68 <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:Property;4> .
-_:b69 <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:Property;3> .
 _:b7 <http://azure.com/DigitalTwins/MetaModel/breakoutSubtypes> _:b107 .
 _:b7 <http://azure.com/DigitalTwins/MetaModel/syntheticProp> "relationships" .
-_:b70 <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:Property;2> .
-_:b71 <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:Entity;4> .
-_:b72 <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:Entity;4> .
-_:b73 <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:Entity;3> .
-_:b74 <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:Entity;2> .
-_:b75 <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:Relationship;4> .
-_:b76 <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:Relationship;3> .
-_:b77 <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:Relationship;2> .
-_:b78 <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:Property;4> .
-_:b79 <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:Property;3> .
-_:b8 <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:Content;4> .
-_:b80 <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:Property;2> .
-_:b81 <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:Telemetry;4> .
-_:b82 <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:Telemetry;3> .
-_:b83 <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:Telemetry;2> .
-_:b84 <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:SchemaField;4> .
-_:b85 <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:SchemaField;3> .
-_:b86 <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:SchemaField;2> .
-_:b87 <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:Unit;4> .
 _:b88 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <dtmi:dtdl:class:Component;2> .
 _:b88 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:b89 .
 _:b89 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <dtmi:dtdl:class:Component;3> .
 _:b89 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:b90 .
-_:b9 <http://www.w3.org/ns/shacl#class> <dtmi:dtdl:class:Content;3> .
 _:b90 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <dtmi:dtdl:class:Component;4> .
 _:b90 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil> .
 _:b91 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <dtmi:dtdl:property:elementSchema;4> .
