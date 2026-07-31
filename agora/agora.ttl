@@ -162,6 +162,7 @@ shacl:targetClass rdf:type owl:AnnotationProperty .
 
 ###  http://onto.vaimee.com/agora#hasModel
 :hasModel rdf:type owl:ObjectProperty ;
+          rdfs:domain :FieldDigitalTwin ;
           rdfs:range :AgrohydrologicalModel ;
           rdfs:comment "Links a DigitalTwin to a model used by the twin." ;
           rdfs:label "hasModel" .
@@ -196,6 +197,7 @@ shacl:targetClass rdf:type owl:AnnotationProperty .
 
 ###  http://onto.vaimee.com/agora/criteria#hasCropCycle
 criteria:hasCropCycle rdf:type owl:ObjectProperty ;
+                      rdfs:subPropertyOf criteria:hasModelComponent ;
                       rdfs:domain criteria:CRITERIA1D ;
                       rdfs:range criteria:CropCycle ;
                       rdfs:comment "Links a CRITERIA1D model to its crop cycle component." ;
@@ -204,14 +206,24 @@ criteria:hasCropCycle rdf:type owl:ObjectProperty ;
 
 ###  http://onto.vaimee.com/agora/criteria#hasIrrigation
 criteria:hasIrrigation rdf:type owl:ObjectProperty ;
+                       rdfs:subPropertyOf criteria:hasModelComponent ;
                        rdfs:domain criteria:CRITERIA1D ;
                        rdfs:range criteria:Irrigation ;
                        rdfs:comment "Links a CRITERIA1D model to its irrigation component." ;
                        rdfs:label "hasIrrigation" .
 
 
+###  http://onto.vaimee.com/agora/criteria#hasModelComponent
+criteria:hasModelComponent rdf:type owl:ObjectProperty ;
+                           rdfs:domain :AgrohydrologicalModel ;
+                           rdfs:range criteria:AgroHydrologicalModelComponent ;
+                           rdfs:comment "Links an agrohydrological model to one of its functional components." ;
+                           rdfs:label "has model component" .
+
+
 ###  http://onto.vaimee.com/agora/criteria#hasRootDevelopment
 criteria:hasRootDevelopment rdf:type owl:ObjectProperty ;
+                            rdfs:subPropertyOf criteria:hasModelComponent ;
                             rdfs:domain criteria:CRITERIA1D ;
                             rdfs:range criteria:RootDevelopment ;
                             rdfs:comment "Links a CRITERIA1D model to its root development component." ;
@@ -251,7 +263,7 @@ sosa:observes rdf:type owl:ObjectProperty .
                      rdfs:subPropertyOf owl:topDataProperty ;
                      rdfs:domain :AtmosphereTemperatureResult ;
                      rdfs:range xsd:decimal ;
-                     rdfs:comment "Average daily temperature value associated with a weather result." ;
+                     rdfs:comment "Average daily temperature value associated with an atmosphere observation result." ;
                      rdfs:label "average daily temperature" .
 
 
@@ -268,7 +280,7 @@ sosa:observes rdf:type owl:ObjectProperty .
                     rdfs:subPropertyOf owl:topDataProperty ;
                     rdfs:domain :AtmosphereTemperatureResult ;
                     rdfs:range xsd:decimal ;
-                    rdfs:comment "Daily precipitation value associated with a weather result." ;
+                    rdfs:comment "Daily precipitation value associated with an atmosphere observation result." ;
                     rdfs:label "daily precipitation" .
 
 
@@ -284,7 +296,7 @@ sosa:observes rdf:type owl:ObjectProperty .
                      rdfs:subPropertyOf owl:topDataProperty ;
                      rdfs:domain :AtmosphereTemperatureResult ;
                      rdfs:range xsd:decimal ;
-                     rdfs:comment "Maximum daily temperature value associated with a weather result." ;
+                     rdfs:comment "Maximum daily temperature value associated with an atmosphere observation result." ;
                      rdfs:label "maximum daily temperature" .
 
 
@@ -293,7 +305,7 @@ sosa:observes rdf:type owl:ObjectProperty .
                      rdfs:subPropertyOf owl:topDataProperty ;
                      rdfs:domain :AtmosphereTemperatureResult ;
                      rdfs:range xsd:decimal ;
-                     rdfs:comment "Minimum daily temperature value associated with a weather result." ;
+                     rdfs:comment "Minimum daily temperature value associated with an atmosphere observation result." ;
                      rdfs:label "minimum daily temperature" .
 
 
@@ -632,7 +644,9 @@ criteria:waterPotentialDepth rdf:type owl:DatatypeProperty ;
 
 ###  http://onto.vaimee.com/agora#AgrohydrologicalModel
 :AgrohydrologicalModel rdf:type owl:Class ;
-                       rdfs:subClassOf sosa:Procedure .
+                       rdfs:subClassOf sosa:Procedure ;
+                       rdfs:comment "Procedure model used to simulate water, crop, soil, and atmospheric processes for agrohydrological analysis." ;
+                       rdfs:label "Agrohydrological model" .
 
 
 ###  http://onto.vaimee.com/agora#Atmosphere
@@ -658,7 +672,9 @@ criteria:waterPotentialDepth rdf:type owl:DatatypeProperty ;
                                                                      ) ;
                                                   rdf:type owl:Class
                                                 ]
-                            ] .
+                            ] ;
+            rdfs:comment "Atmospheric context associated with a field and updated by weather-related activities." ;
+            rdfs:label "Atmosphere" .
 
 
 ###  http://onto.vaimee.com/agora#AtmosphereObservation
@@ -674,8 +690,8 @@ criteria:waterPotentialDepth rdf:type owl:DatatypeProperty ;
                                          owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                          owl:onClass :AtmosphereTemperatureResult
                                        ] ;
-                       rdfs:comment "A daily weather value for the Atmosphere of a Field: observes one of maximum temperature, minimum temperature or precipitation." ;
-                       rdfs:label "Weather observation" .
+                       rdfs:comment "A daily atmospheric observation for a Field, including daily precipitation and maximum, minimum, and average daily temperature values." ;
+                       rdfs:label "Atmosphere observation" .
 
 
 ###  http://onto.vaimee.com/agora#AtmosphereTemperatureResult
@@ -696,13 +712,15 @@ criteria:waterPotentialDepth rdf:type owl:DatatypeProperty ;
                                                owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                                                owl:onDataRange xsd:decimal
                                              ] ;
-                             rdfs:comment "Structured result of a WeatherObservation: a QUDT quantity value carrying exactly one numeric value and its unit (e.g. degree Celsius for temperature, millimetre for precipitation)." ;
-                             rdfs:label "Weather result" .
+                             rdfs:comment "Structured result of an AtmosphereObservation carrying daily maximum, minimum, and average temperature values." ;
+                             rdfs:label "Atmosphere temperature result" .
 
 
 ###  http://onto.vaimee.com/agora#Criteria1DPlan
 :Criteria1DPlan rdf:type owl:Class ;
-                rdfs:subClassOf <http://www.w3.org/ns/prov#Plan> .
+                rdfs:subClassOf <http://www.w3.org/ns/prov#Plan> ;
+                rdfs:comment "PROV plan describing how CRITERIA1D is executed within the digital twin workflow." ;
+                rdfs:label "CRITERIA1D plan" .
 
 
 ###  http://onto.vaimee.com/agora#Crop
@@ -735,16 +753,22 @@ criteria:waterPotentialDepth rdf:type owl:DatatypeProperty ;
                                                                ) ;
                                             rdf:type owl:Class
                                           ]
-                      ] .
+                      ] ;
+      rdfs:comment "Crop associated with a field, including crop-related observable properties produced or consumed by the digital twin." ;
+      rdfs:label "Crop" .
 
 
 ###  http://onto.vaimee.com/agora#DigitalTwin
-:DigitalTwin rdf:type owl:Class .
+:DigitalTwin rdf:type owl:Class ;
+             rdfs:comment "Software representation of a physical system that can observe, compute, and coordinate activities through internal agents and models." ;
+             rdfs:label "Digital twin" .
 
 
 ###  http://onto.vaimee.com/agora#DigitalTwinSynchronizer
 :DigitalTwinSynchronizer rdf:type owl:Class ;
-                         rdfs:subClassOf <http://www.w3.org/ns/prov#SoftwareAgent> .
+                         rdfs:subClassOf <http://www.w3.org/ns/prov#SoftwareAgent> ;
+                         rdfs:comment "Software agent responsible for coordinating digital twin activities and triggering model runs after prerequisite activities complete." ;
+                         rdfs:label "Digital twin synchronizer" .
 
 
 ###  http://onto.vaimee.com/agora#DigitalTwinSynchronizerAssociation
@@ -757,7 +781,9 @@ criteria:waterPotentialDepth rdf:type owl:DatatypeProperty ;
                                                     [ rdf:type owl:Restriction ;
                                                       owl:onProperty <http://www.w3.org/ns/prov#hadPlan> ;
                                                       owl:someValuesFrom :Criteria1DPlan
-                                                    ] .
+                                                    ] ;
+                                    rdfs:comment "Qualified PROV association linking a digital twin synchronizer to the plan used for an activity." ;
+                                    rdfs:label "Digital twin synchronizer association" .
 
 
 ###  http://onto.vaimee.com/agora#Field
@@ -799,7 +825,9 @@ criteria:waterPotentialDepth rdf:type owl:DatatypeProperty ;
                          owl:onProperty :hasSoil ;
                          owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                          owl:onClass :Soil
-                       ] .
+                       ] ;
+       rdfs:comment "Agricultural field represented as a physical system composed of one atmosphere, one crop, and one soil." ;
+       rdfs:label "Field" .
 
 
 ###  http://onto.vaimee.com/agora#FieldDigitalTwin
@@ -822,22 +850,40 @@ criteria:waterPotentialDepth rdf:type owl:DatatypeProperty ;
 
 ###  http://onto.vaimee.com/agora#ForecastWeatherObservation
 :ForecastWeatherObservation rdf:type owl:Class ;
-                            rdfs:subClassOf :AtmosphereObservation .
+                            rdfs:subClassOf sosa:Observation ;
+                            rdfs:comment "Weather observation whose phenomenon time is at or after the result time." ;
+                            rdfs:label "Forecast weather observation" .
 
 
 ###  http://onto.vaimee.com/agora#HistoricalWeatherObservation
 :HistoricalWeatherObservation rdf:type owl:Class ;
-                              rdfs:subClassOf :AtmosphereObservation .
+                              rdfs:subClassOf sosa:Observation ;
+                              rdfs:comment "Weather observation whose phenomenon time is before the result time." ;
+                              rdfs:label "Historical weather observation" .
 
 
 ###  http://onto.vaimee.com/agora#PhysicalSystem
-:PhysicalSystem rdf:type owl:Class .
+:PhysicalSystem rdf:type owl:Class ;
+                rdfs:comment "Physical entity represented by a digital twin." ;
+                rdfs:label "Physical system" .
 
 
 ###  http://onto.vaimee.com/agora#RunFieldDigitalTwinActivity
 :RunFieldDigitalTwinActivity rdf:type owl:Class ;
                              rdfs:subClassOf <http://www.w3.org/ns/prov#Create> ,
                                              <http://www.w3.org/ns/prov#Modify> ,
+                                             [ rdf:type owl:Restriction ;
+                                               owl:onProperty <http://www.w3.org/ns/prov#generated> ;
+                                               owl:someValuesFrom :Crop
+                                             ] ,
+                                             [ rdf:type owl:Restriction ;
+                                               owl:onProperty <http://www.w3.org/ns/prov#generated> ;
+                                               owl:someValuesFrom :Field
+                                             ] ,
+                                             [ rdf:type owl:Restriction ;
+                                               owl:onProperty <http://www.w3.org/ns/prov#generated> ;
+                                               owl:someValuesFrom :Soil
+                                             ] ,
                                              [ rdf:type owl:Restriction ;
                                                owl:onProperty <http://www.w3.org/ns/prov#qualifiedAssociation> ;
                                                owl:someValuesFrom :DigitalTwinSynchronizerAssociation
@@ -849,7 +895,9 @@ criteria:waterPotentialDepth rdf:type owl:DatatypeProperty ;
                                              [ rdf:type owl:Restriction ;
                                                owl:onProperty <http://www.w3.org/ns/prov#wasAssociatedWith> ;
                                                owl:someValuesFrom :DigitalTwinSynchronizer
-                                             ] .
+                                             ] ;
+                             rdfs:comment "PROV activity that runs a field digital twin and generates updated field, crop, or soil entities." ;
+                             rdfs:label "Run field digital twin activity" .
 
 
 ###  http://onto.vaimee.com/agora#Soil
@@ -882,6 +930,7 @@ criteria:waterPotentialDepth rdf:type owl:DatatypeProperty ;
                                           ]
                       ] ;
       rdfs:comment "Soil has also been defined as a natural body consisting of layers (soil horizons) that are composed of weathered mineral materials, organic material, air and water." ;
+      rdfs:label "Soil" ;
       rdfs:seeAlso <https://www.fao.org/soils-portal/about/all-definitions/en> .
 
 
@@ -908,7 +957,8 @@ criteria:waterPotentialDepth rdf:type owl:DatatypeProperty ;
                                                    rdf:type owl:Class
                                                  ]
                              ] ;
-             rdfs:comment "A soil horizon is a layer, approximately parallel to the surface of the soil, that is distinguishable from adjacent layers by a distinctive set of properties produced by the soil-forming processes." .
+             rdfs:comment "A soil horizon is a layer, approximately parallel to the surface of the soil, that is distinguishable from adjacent layers by a distinctive set of properties produced by the soil-forming processes." ;
+             rdfs:label "Soil horizon" .
 
 
 ###  http://onto.vaimee.com/agora#SoilTextureObservation
@@ -999,7 +1049,9 @@ criteria:waterPotentialDepth rdf:type owl:DatatypeProperty ;
 ###  http://onto.vaimee.com/agora#State
 :State rdf:type owl:Class ;
        rdfs:subClassOf <http://onto.vaimee.com/fsm#State> ,
-                       <http://www.w3.org/2006/time#TemporalEntity> .
+                       <http://www.w3.org/2006/time#TemporalEntity> ;
+       rdfs:comment "State of a software agent or finite-state machine at a temporal instant or interval." ;
+       rdfs:label "State" .
 
 
 ###  http://onto.vaimee.com/agora#UpdateAtmosphereActivity
@@ -1007,13 +1059,19 @@ criteria:waterPotentialDepth rdf:type owl:DatatypeProperty ;
                           rdfs:subClassOf <http://www.w3.org/ns/prov#Create> ,
                                           <http://www.w3.org/ns/prov#Modify> ,
                                           [ rdf:type owl:Restriction ;
+                                            owl:onProperty <http://www.w3.org/ns/prov#generated> ;
+                                            owl:someValuesFrom :Atmosphere
+                                          ] ,
+                                          [ rdf:type owl:Restriction ;
                                             owl:onProperty <http://www.w3.org/ns/prov#used> ;
                                             owl:someValuesFrom api:WeatherAPI
                                           ] ,
                                           [ rdf:type owl:Restriction ;
                                             owl:onProperty <http://www.w3.org/ns/prov#wasAssociatedWith> ;
                                             owl:someValuesFrom :WeatherAgent
-                                          ] .
+                                          ] ;
+                          rdfs:comment "PROV activity that updates the atmosphere using data from a weather API and is associated with a weather agent." ;
+                          rdfs:label "Update atmosphere activity" .
 
 
 ###  http://onto.vaimee.com/agora#WeatherAgent
@@ -1028,12 +1086,18 @@ criteria:waterPotentialDepth rdf:type owl:DatatypeProperty ;
                                 owl:onProperty sosa:observes ;
                                 owl:hasValue :precipitation
                               ] ;
-              rdfs:comment "Digital twin of the weather agent: a software agent acting as a virtual sensor. It observes daily maximum/minimum temperature and precipitation, fetching them from external WeatherAPIs (selected by GeoSPARQL based on location) and producing WeatherObservations that provide weather data for the Atmosphere of a Field." ;
+              rdfs:comment "A software agent acting as a virtual sensor. It observes daily precipitation and maximum, minimum, and average daily temperature, fetching them from external WeatherAPIs and producing AtmosphereObservations for the Atmosphere of a Field." ;
               rdfs:label "WeatherAgent" .
 
 
 ###  http://onto.vaimee.com/agora/api#WeatherAPI
 api:WeatherAPI rdfs:subClassOf <http://www.w3.org/ns/prov#Entity> .
+
+
+###  http://onto.vaimee.com/agora/criteria#AgroHydrologicalModelComponent
+criteria:AgroHydrologicalModelComponent rdf:type owl:Class ;
+                                        rdfs:comment "Functional component of an agrohydrological model, such as a crop cycle, irrigation, or root development component." ;
+                                        rdfs:label "Agrohydrlogical model component" .
 
 
 ###  http://onto.vaimee.com/agora/criteria#CRITERIA1D
@@ -1050,79 +1114,134 @@ criteria:CRITERIA1D rdf:type owl:Class ;
                                     [ rdf:type owl:Restriction ;
                                       owl:onProperty criteria:hasRootDevelopment ;
                                       owl:someValuesFrom criteria:RootDevelopment
-                                    ] .
+                                    ] ;
+                    rdfs:comment "Agrohydrological model composed of crop cycle, irrigation, and root development components." ;
+                    rdfs:label "CRITERIA1D" .
 
 
 ###  http://onto.vaimee.com/agora/criteria#CropCycle
 criteria:CropCycle rdf:type owl:Class ;
-                   rdfs:subClassOf :AgrohydrologicalModel .
+                   rdfs:subClassOf criteria:AgroHydrologicalModelComponent ;
+                   rdfs:comment "CRITERIA component describing crop-cycle parameters and phenological development." ;
+                   rdfs:label "Crop cycle" .
 
 
 ###  http://onto.vaimee.com/agora/criteria#Irrigation
 criteria:Irrigation rdf:type owl:Class ;
-                    rdfs:subClassOf :AgrohydrologicalModel .
+                    rdfs:subClassOf criteria:AgroHydrologicalModelComponent ;
+                    rdfs:comment "CRITERIA component describing irrigation configuration and scheduling parameters." ;
+                    rdfs:label "Irrigation" .
 
 
 ###  http://onto.vaimee.com/agora/criteria#RootDevelopment
 criteria:RootDevelopment rdf:type owl:Class ;
-                         rdfs:subClassOf :AgrohydrologicalModel .
+                         rdfs:subClassOf criteria:AgroHydrologicalModelComponent ;
+                         rdfs:comment "CRITERIA component describing root development parameters." ;
+                         rdfs:label "Root development" .
 
 
 ###  http://onto.vaimee.com/fsm#State
-<http://onto.vaimee.com/fsm#State> rdf:type owl:Class .
+<http://onto.vaimee.com/fsm#State> rdf:type owl:Class ;
+                                   rdfs:comment "State class imported from the VAIMEE finite-state machine ontology." ;
+                                   rdfs:label "FSM state" .
 
 
 ###  http://qudt.org/schema/qudt/QuantityValue
-qudt:QuantityValue rdf:type owl:Class .
+qudt:QuantityValue rdf:type owl:Class ;
+                   rdfs:comment "QUDT class for quantity values composed of numeric values and units." ;
+                   rdfs:label "Quantity value" .
 
 
 ###  http://www.opengis.net/ont/geosparql#Feature
-<http://www.opengis.net/ont/geosparql#Feature> rdf:type owl:Class .
+<http://www.opengis.net/ont/geosparql#Feature> rdf:type owl:Class ;
+                                               rdfs:comment "GeoSPARQL class for spatial features." ;
+                                               rdfs:label "GeoSPARQL feature" .
 
 
 ###  http://www.w3.org/2006/time#TemporalEntity
-<http://www.w3.org/2006/time#TemporalEntity> rdf:type owl:Class .
+<http://www.w3.org/2006/time#TemporalEntity> rdf:type owl:Class ;
+                                             rdfs:comment "OWL-Time class for temporal entities such as instants and intervals." ;
+                                             rdfs:label "Temporal entity" .
 
 
 ###  http://www.w3.org/ns/prov#SoftwareAgent
-<http://www.w3.org/ns/prov#SoftwareAgent> rdf:type owl:Class .
+<http://www.w3.org/ns/prov#SoftwareAgent> rdf:type owl:Class ;
+                                          rdfs:comment "PROV class for agents implemented as software." ;
+                                          rdfs:label "Software agent" .
 
 
 ###  http://www.w3.org/ns/shacl#NodeShape
-shacl:NodeShape rdf:type owl:Class .
+shacl:NodeShape rdf:type owl:Class ;
+                rdfs:comment "SHACL class for node shapes used to validate RDF nodes." ;
+                rdfs:label "Node shape" .
 
 
 ###  http://www.w3.org/ns/sosa/Actuator
-sosa:Actuator rdf:type owl:Class .
+sosa:Actuator rdf:type owl:Class ;
+              rdfs:comment "SOSA class for devices or agents that execute acts on behalf of a procedure." ;
+              rdfs:label "Actuator" .
 
 
 ###  http://www.w3.org/ns/sosa/FeatureOfInterest
-sosa:FeatureOfInterest rdf:type owl:Class .
+sosa:FeatureOfInterest rdf:type owl:Class ;
+                       rdfs:comment "SOSA class for entities whose properties are observed or acted upon." ;
+                       rdfs:label "Feature of interest" .
 
 
 ###  http://www.w3.org/ns/sosa/ObservableProperty
-sosa:ObservableProperty rdf:type owl:Class .
+sosa:ObservableProperty rdf:type owl:Class ;
+                        rdfs:comment "SOSA class for properties that can be observed." ;
+                        rdfs:label "Observable property" .
 
 
 ###  http://www.w3.org/ns/sosa/Observation
-sosa:Observation rdf:type owl:Class .
+sosa:Observation rdf:type owl:Class ;
+                 rdfs:comment "SOSA class for acts of observing a property of a feature of interest." ;
+                 rdfs:label "Observation" .
 
 
 ###  http://www.w3.org/ns/sosa/Procedure
-sosa:Procedure rdf:type owl:Class .
+sosa:Procedure rdf:type owl:Class ;
+               rdfs:comment "SOSA class for workflows, protocols, plans, algorithms, or computational methods used by sensors or actuators." ;
+               rdfs:label "Procedure" .
 
 
 ###  http://www.w3.org/ns/sosa/Result
-sosa:Result rdf:type owl:Class .
+sosa:Result rdf:type owl:Class ;
+            rdfs:comment "SOSA class for the result of an observation or actuation." ;
+            rdfs:label "Result" .
 
 
 ###  http://www.w3.org/ns/sosa/Sensor
-sosa:Sensor rdf:type owl:Class .
+sosa:Sensor rdf:type owl:Class ;
+            rdfs:comment "SOSA class for entities that observe properties and produce observations." ;
+            rdfs:label "Sensor" .
 
 
 #################################################################
 #    Individuals
 #################################################################
+
+###  http://onto.vaimee.com/agora#AtmosphereTemperatureResultShape
+:AtmosphereTemperatureResultShape rdf:type owl:NamedIndividual ,
+                                           shacl:NodeShape ;
+                                  shacl:property [ shacl:datatype xsd:decimal ;
+                                                   shacl:maxCount 1 ;
+                                                   shacl:path :avgDailyTemperature
+                                                 ] ,
+                                                 [ shacl:datatype xsd:decimal ;
+                                                   shacl:lessThan :maxDailyTemperature ;
+                                                   shacl:maxCount 1 ;
+                                                   shacl:minCount 1 ;
+                                                   shacl:path :minDailyTemperature
+                                                 ] ,
+                                                 [ shacl:datatype xsd:decimal ;
+                                                   shacl:maxCount 1 ;
+                                                   shacl:minCount 1 ;
+                                                   shacl:path :maxDailyTemperature
+                                                 ] ;
+                                  shacl:targetClass :AtmosphereTemperatureResult .
+
 
 ###  http://onto.vaimee.com/agora#DigitalTwinSynchronizerFSM
 :DigitalTwinSynchronizerFSM rdf:type owl:NamedIndividual ,
@@ -1134,31 +1253,11 @@ sosa:Sensor rdf:type owl:Class .
                               <http://onto.vaimee.com/fsm#DeterministicFiniteStateMachine> .
 
 
-###  http://onto.vaimee.com/agora#ForecastWeatherObservationShape
-:ForecastWeatherObservationShape rdf:type owl:NamedIndividual ,
-                                          shacl:NodeShape ;
-                                 shacl:sparql [ shacl:message "Forecast weather observations must have phenomenon time equal to or after result time." ;
-                                                shacl:select """
-                                        PREFIX sosa: <http://www.w3.org/ns/sosa/>
-                                        PREFIX time: <http://www.w3.org/2006/time#>
-
-                                        SELECT $this
-                                        WHERE {
-                                            $this sosa:phenomenonTime/time:inXSDDateTime ?ptime ;
-                                                  sosa:resultTime ?resultTime .
-                                            FILTER (?ptime < ?resultTime)
-                                        }
-                                    """
-                                              ] ;
-                                 shacl:targetClass :ForecastWeatherObservation .
-
-
-###  http://onto.vaimee.com/agora#HistoricalWeatherObservationShape
-:HistoricalWeatherObservationShape rdf:type owl:NamedIndividual ,
-                                            shacl:NodeShape ;
-                                   shacl:sparql [ shacl:message "Historical weather observations must have phenomenon time before result time." ;
-                                                  shacl:select """
-                                        PREFIX sosa: <http://www.w3.org/ns/sosa/>
+###  http://onto.vaimee.com/agora#ForecastObservationShape
+:ForecastObservationShape rdf:type owl:NamedIndividual ,
+                                   shacl:NodeShape ;
+                          shacl:sparql [ shacl:message "Forecast weather observations must have phenomenon time equal to or after result time." ;
+                                         shacl:select """PREFIX sosa: <http://www.w3.org/ns/sosa/>
                                         PREFIX time: <http://www.w3.org/2006/time#>
 
                                         SELECT $this
@@ -1166,25 +1265,41 @@ sosa:Sensor rdf:type owl:Class .
                                             $this sosa:phenomenonTime/time:inXSDDateTime ?ptime ;
                                                   sosa:resultTime ?resultTime .
                                             FILTER (?ptime >= ?resultTime)
-                                        }
-                                    """
-                                                ] ;
-                                   shacl:targetClass :HistoricalWeatherObservation .
+                                        }"""
+                                       ] ;
+                          shacl:targetClass :ForecastWeatherObservation .
+
+
+###  http://onto.vaimee.com/agora#HistoricalObservationShape
+:HistoricalObservationShape rdf:type owl:NamedIndividual ,
+                                     shacl:NodeShape ;
+                            shacl:sparql [ shacl:message "Historical weather observations must have phenomenon time before result time." ;
+                                           shacl:select """PREFIX sosa: <http://www.w3.org/ns/sosa/>
+                                        PREFIX time: <http://www.w3.org/2006/time#>
+
+                                        SELECT $this
+                                        WHERE {
+                                            $this sosa:phenomenonTime/time:inXSDDateTime ?ptime ;
+                                                  sosa:resultTime ?resultTime .
+                                            FILTER (?ptime < ?resultTime)
+                                        }"""
+                                         ] ;
+                            shacl:targetClass :HistoricalWeatherObservation .
 
 
 ###  http://onto.vaimee.com/agora#SoilHorizonShape
 :SoilHorizonShape rdf:type owl:NamedIndividual ,
                            shacl:NodeShape ;
                   shacl:property [ shacl:datatype xsd:decimal ;
-                                   shacl:maxCount 1 ;
-                                   shacl:minCount 1 ;
-                                   shacl:path :lowerDepth
-                                 ] ,
-                                 [ shacl:datatype xsd:decimal ;
                                    shacl:lessThan :lowerDepth ;
                                    shacl:maxCount 1 ;
                                    shacl:minCount 1 ;
                                    shacl:path :upperDepth
+                                 ] ,
+                                 [ shacl:datatype xsd:decimal ;
+                                   shacl:maxCount 1 ;
+                                   shacl:minCount 1 ;
+                                   shacl:path :lowerDepth
                                  ] .
 
 
@@ -1194,17 +1309,17 @@ sosa:Sensor rdf:type owl:Class .
                         shacl:property [ shacl:datatype xsd:decimal ;
                                          shacl:maxCount 1 ;
                                          shacl:minCount 1 ;
-                                         shacl:path :silt
-                                       ] ,
-                                       [ shacl:datatype xsd:decimal ;
-                                         shacl:maxCount 1 ;
-                                         shacl:minCount 1 ;
                                          shacl:path :sand
                                        ] ,
                                        [ shacl:datatype xsd:decimal ;
                                          shacl:maxCount 1 ;
                                          shacl:minCount 1 ;
                                          shacl:path :clay
+                                       ] ,
+                                       [ shacl:datatype xsd:decimal ;
+                                         shacl:maxCount 1 ;
+                                         shacl:minCount 1 ;
+                                         shacl:path :silt
                                        ] ;
                         shacl:sparql [ shacl:message "Soil texture fractions clay, sand, and silt must sum to 100." ;
                                        shacl:select """
@@ -1225,33 +1340,6 @@ sosa:Sensor rdf:type owl:Class .
 ###  http://onto.vaimee.com/agora#WeatherAgentFSM
 :WeatherAgentFSM rdf:type owl:NamedIndividual ,
                           <http://onto.vaimee.com/fsm#DeterministicFiniteStateMachine> .
-
-
-###  http://onto.vaimee.com/agora#WeatherResultShape
-:WeatherResultShape rdf:type owl:NamedIndividual ,
-                             shacl:NodeShape ;
-                    shacl:property [ shacl:datatype xsd:decimal ;
-                                     shacl:maxCount 1 ;
-                                     shacl:minCount 1 ;
-                                     shacl:minExclusive 0 ;
-                                     shacl:path :dailyPrecipitation
-                                   ] ,
-                                   [ shacl:datatype xsd:decimal ;
-                                     shacl:lessThan :maxDailyTemperature ;
-                                     shacl:maxCount 1 ;
-                                     shacl:minCount 1 ;
-                                     shacl:path :minDailyTemperature
-                                   ] ,
-                                   [ shacl:datatype xsd:decimal ;
-                                     shacl:maxCount 1 ;
-                                     shacl:minCount 1 ;
-                                     shacl:path :maxDailyTemperature
-                                   ] ,
-                                   [ shacl:datatype xsd:decimal ;
-                                     shacl:maxCount 1 ;
-                                     shacl:path :avgDailyTemperature
-                                   ] ;
-                    shacl:targetClass :WeatherResult .
 
 
 ###  http://onto.vaimee.com/agora#availableWater
@@ -1417,8 +1505,15 @@ sosa:Sensor rdf:type owl:Class .
               rdfs:label "WATER_CONTENT" .
 
 
-[ owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger
+[ shacl:datatype xsd:decimal ;
+  shacl:maxCount 1 ;
+  shacl:minCount 1 ;
+  shacl:minExclusive 0 ;
+  shacl:path :dailyPrecipitation
 ] .
+
+[ owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger
+ ] .
 
 [ owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger
  ] .
