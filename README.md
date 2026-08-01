@@ -20,6 +20,7 @@ Each ontology source should:
 - Define classes as `owl:Class` and properties as `owl:ObjectProperty` or `owl:DatatypeProperty`.
 - Prefer `rdfs:label` and `rdfs:comment` on classes and properties so the generated documentation has readable names and descriptions.
 - Prefer ontology-level metadata: `owl:title`, `dct:abstract`, and `dct:description`.
+- For PAC individuals, use the dedicated namespace to express the role (`pacq:`, `pacu:`, `pacp:`, `pacc:`, `paca:`) and avoid repeating it in the local name; for example, prefer `pacu:AtmosphereObservation` over `pacu:AtmosphereObservationUpdate`.
 
 If ontology-level title, abstract, or description metadata is missing, the renderer adds fallback metadata in memory while generating HTML. The source ontology file is not modified.
 

@@ -6,6 +6,11 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix dct: <http://purl.org/dc/terms/> .
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix paca: <https://onto.vaimee.com/pac/aggregator#> .
+@prefix pacc: <https://onto.vaimee.com/pac/consumer#> .
+@prefix pacp: <https://onto.vaimee.com/pac/producer#> .
+@prefix pacq: <https://onto.vaimee.com/pac/query#> .
+@prefix pacu: <https://onto.vaimee.com/pac/update#> .
 @base <https://onto.vaimee.com/pac#> .
 
 <https://onto.vaimee.com/pac#> rdf:type owl:Ontology ;
@@ -14,6 +19,11 @@
                                   owl:versionIRI <https://onto.vaimee.com/pac/1.0.24#> ;
                                   owl:versionInfo "1.0.24" ;
                                   owl:title "PAC Ontology"@en ;
+                                  rdfs:seeAlso paca: ,
+                                               pacc: ,
+                                               pacp: ,
+                                               pacq: ,
+                                               pacu: ;
                                   dct:abstract "Ontology to describe PAC files and related concepts."@en ;
                                   dct:description "Longer intro text shown in the Introduction section."@en ;
                                   dct:creator "Adelina Vivaldo" , "Luca Roffia" ;
@@ -68,6 +78,24 @@
        rdfs:label "has forced binding"@en .
 
 
+###  https://onto.vaimee.com/pac#hasBinding
+:hasBinding rdf:type owl:ObjectProperty ;
+            rdfs:domain :ForcedBindingSet ;
+            rdfs:range :ForcedBinding ;
+            rdfs:comment "Associates one runtime binding set with the forced bindings that are applied together during one operation execution."@en ;
+            rdfs:isDefinedBy <https://onto.vaimee.com/pac> ;
+            rdfs:label "has binding"@en .
+
+
+###  https://onto.vaimee.com/pac#hasBindingSet
+:hasBindingSet rdf:type owl:ObjectProperty ;
+               rdfs:domain :MultipleForcedBindings ;
+               rdfs:range :ForcedBindingSet ;
+               rdfs:comment "Associates multiple forced bindings with the binding sets used to execute the same update repeatedly with different values."@en ;
+               rdfs:isDefinedBy <https://onto.vaimee.com/pac> ;
+               rdfs:label "has binding set"@en .
+
+
 ###  https://onto.vaimee.com/pac#hasNamespace
 :hasNamespace rdf:type owl:ObjectProperty ;
               rdfs:domain :Pac ;
@@ -91,27 +119,38 @@
 :isOperationOf rdf:type owl:ObjectProperty ;
                rdfs:domain :Operation ;
                rdfs:range :Pac ;
-               rdfs:comment "Indicates that a given operation is used from a PAC."@en ;
-               rdfs:label "is operation of"@en .
+                rdfs:comment "Indicates that a given operation is used from a PAC."@en ;
+                rdfs:label "is operation of"@en .
+
+
+###  https://onto.vaimee.com/pac#graphTemplateBinding
+:graphTemplateBinding rdf:type owl:ObjectProperty ;
+                      rdfs:domain :InstanceNamedGraph ;
+                      rdfs:range :ForcedBinding ;
+                      rdfs:comment "Associates an instance-scoped graph URI template with the forced binding used to resolve the graph URI at runtime."@en ;
+                      rdfs:isDefinedBy <https://onto.vaimee.com/pac> ;
+                      rdfs:label "graph template binding"@en .
 
 
 ###  https://onto.vaimee.com/pac#performsQuery
-:performsQuery rdf:type owl:ObjectProperty ;
-               rdfs:domain :PacComponent ;
-               rdfs:range :Query ;
-               rdfs:comment "Declares that the PAC component performs a SPARQL query operation to retrieve data from the knowledge graph."@en ;
-               rdfs:isDefinedBy <https://onto.vaimee.com/pac> ;
-               rdfs:label "performs query"@en .
+:performsQuery rdf:type owl:ObjectProperty ,
+                        owl:FunctionalProperty ;
+                rdfs:domain :PacComponent ;
+                rdfs:range :Query ;
+                rdfs:comment "Declares the unique SPARQL query operation implemented by a PAC component. The query can be invoked directly or used as the query behind a subscription."@en ;
+                rdfs:isDefinedBy <https://onto.vaimee.com/pac> ;
+                rdfs:label "performs query"@en .
 
 
 ###  https://onto.vaimee.com/pac#performsSubscription
 :performsSubscription rdf:type owl:ObjectProperty ,
-                               owl:FunctionalProperty ;
-                      rdfs:domain :PacComponent ;
-                      rdfs:range :Query ;
-                      rdfs:comment "Declares that the PAC component performs a SPARQL subscription operation to continuously monitor changes in the knowledge graph. It is typically used to trigger reactive behavior."@en ;
-                      rdfs:isDefinedBy <https://onto.vaimee.com/pac> ;
-                      rdfs:label "performs subscription"@en .
+                                owl:FunctionalProperty ;
+                       rdfs:subPropertyOf :performsQuery ;
+                       rdfs:domain :PacComponent ;
+                       rdfs:range :Query ;
+                       rdfs:comment "Declares the unique SPARQL query used by a PAC component as a subscription to continuously monitor changes in the knowledge graph. It is typically used to trigger reactive behavior."@en ;
+                       rdfs:isDefinedBy <https://onto.vaimee.com/pac> ;
+                       rdfs:label "performs subscription"@en .
 
 
 ###  https://onto.vaimee.com/pac#performsUpdate
@@ -124,13 +163,58 @@
                 rdfs:label "performs update"@en .
 
 
+###  https://onto.vaimee.com/pac#readsFromGraph
+:readsFromGraph rdf:type owl:ObjectProperty ;
+                rdfs:domain :Operation ;
+                rdfs:range :HistoricalGraph ;
+                rdfs:comment "Declares a historical named graph from which a query or update reads data."@en ;
+                rdfs:isDefinedBy <https://onto.vaimee.com/pac> ;
+                rdfs:label "reads from graph"@en .
+
+
+###  https://onto.vaimee.com/pac#subscribesToGraph
+:subscribesToGraph rdf:type owl:ObjectProperty ;
+                   rdfs:domain :Query ;
+                   rdfs:range :LiveGraph ;
+                   rdfs:comment "Declares a live named graph monitored by a subscription query."@en ;
+                   rdfs:isDefinedBy <https://onto.vaimee.com/pac> ;
+                   rdfs:label "subscribes to graph"@en .
+
+
 ###  https://onto.vaimee.com/pac#usesSnippet
 :usesSnippet rdf:type owl:ObjectProperty ;
              rdfs:domain :Operation ;
              rdfs:range :Snippet ;
              rdfs:comment "Indicates that the operation reuses a predefined SPARQL snippet."@en ;
-             rdfs:isDefinedBy <https://onto.vaimee.com/pac> ;
-             rdfs:label "uses snippet"@en .
+              rdfs:isDefinedBy <https://onto.vaimee.com/pac> ;
+              rdfs:label "uses snippet"@en .
+
+
+###  https://onto.vaimee.com/pac#hasMultipleForcedBindings
+:hasMultipleForcedBindings rdf:type owl:ObjectProperty ;
+                           rdfs:domain :Update ;
+                           rdfs:range :MultipleForcedBindings ;
+                           rdfs:comment "Associates an update with the grouped forced bindings used to execute the update multiple times, producing many triples from the same template."@en ;
+                           rdfs:isDefinedBy <https://onto.vaimee.com/pac> ;
+                           rdfs:label "has multiple forced bindings"@en .
+
+
+###  https://onto.vaimee.com/pac#usesTemplate
+:usesTemplate rdf:type owl:ObjectProperty ;
+              rdfs:domain :Operation ;
+              rdfs:range :Template ;
+              rdfs:comment "Associates an operation with the SPARQL template from which its executable query or update is generated."@en ;
+              rdfs:isDefinedBy <https://onto.vaimee.com/pac> ;
+              rdfs:label "uses template"@en .
+
+
+###  https://onto.vaimee.com/pac#writesToGraph
+:writesToGraph rdf:type owl:ObjectProperty ;
+               rdfs:domain :Update ;
+               rdfs:range :HistoricalGraph ;
+               rdfs:comment "Declares a historical named graph written by an update."@en ;
+               rdfs:isDefinedBy <https://onto.vaimee.com/pac> ;
+               rdfs:label "writes to graph"@en .
 
 
 #################################################################
@@ -157,6 +241,24 @@
       rdfs:comment "The name of the variable being bound."@en ;
       rdfs:isDefinedBy <https://onto.vaimee.com/pac> ;
       rdfs:label "name"@en .
+
+
+###  https://onto.vaimee.com/pac#graphUri
+:graphUri rdf:type owl:DatatypeProperty ;
+          rdfs:domain :FixedNamedGraph ;
+          rdfs:range xsd:anyURI ;
+          rdfs:comment "The fixed URI of a named graph."@en ;
+          rdfs:isDefinedBy <https://onto.vaimee.com/pac> ;
+          rdfs:label "graph URI"@en .
+
+
+###  https://onto.vaimee.com/pac#graphUriTemplate
+:graphUriTemplate rdf:type owl:DatatypeProperty ;
+                  rdfs:domain :InstanceNamedGraph ;
+                  rdfs:range xsd:string ;
+                  rdfs:comment "Template used to derive a named graph URI from one or more runtime bindings."@en ;
+                  rdfs:isDefinedBy <https://onto.vaimee.com/pac> ;
+                  rdfs:label "graph URI template"@en .
 
 
 ###  https://onto.vaimee.com/pac#prefix
@@ -186,32 +288,54 @@
         rdfs:label "sparql"@en .
 
 
+###  https://onto.vaimee.com/pac#templateBody
+:templateBody rdf:type owl:DatatypeProperty ;
+              rdfs:domain :Template ;
+              rdfs:range xsd:string ;
+              rdfs:comment "The SPARQL text of a reusable query or update template before forced bindings are applied."@en ;
+              rdfs:isDefinedBy <https://onto.vaimee.com/pac> ;
+              rdfs:label "template body"@en .
+
+
 #################################################################
 #    Classes
 #################################################################
 
 ###  https://onto.vaimee.com/pac#Aggregator
 :Aggregator rdf:type owl:Class ;
-            owl:equivalentClass [ owl:intersectionOf ( :Consumer
-                                                       :Producer
+            owl:equivalentClass [ owl:intersectionOf ( :PacComponent
+                                                       [ rdf:type owl:Restriction ;
+                                                         owl:onProperty :performsSubscription ;
+                                                         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                         owl:onClass :Query
+                                                       ]
+                                                       [ rdf:type owl:Restriction ;
+                                                         owl:onProperty :performsUpdate ;
+                                                         owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                         owl:onClass :Update
+                                                       ]
                                                      ) ;
-                                  rdf:type owl:Class
-                                ] ;
-            rdfs:subClassOf :PacComponent .
+                                   rdf:type owl:Class
+                                 ] ;
+            rdfs:subClassOf :PacComponent ;
+            rdfs:comment "A reusable PAC component that reacts to notifications from one subscription query and performs one update."@en ;
+            rdfs:isDefinedBy <https://onto.vaimee.com/pac> ;
+            rdfs:label "Aggregator"@en .
 
 
 ###  https://onto.vaimee.com/pac#Consumer
 :Consumer rdf:type owl:Class ;
           owl:equivalentClass [ owl:intersectionOf ( :PacComponent
-                                                     [ rdf:type owl:Restriction ;
-                                                       owl:onProperty :performsSubscription ;
-                                                       owl:someValuesFrom :Query
-                                                     ]
-                                                   ) ;
-                                rdf:type owl:Class
-                              ] ;
+                                                      [ rdf:type owl:Restriction ;
+                                                        owl:onProperty :performsQuery ;
+                                                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                        owl:onClass :Query
+                                                      ]
+                                                    ) ;
+                                 rdf:type owl:Class
+                               ] ;
           rdfs:subClassOf :PacComponent ;
-          rdfs:comment "A component of the PAC architecture that either makes a SPARQL subscription or a SPARQL update, but not both."@en ;
+          rdfs:comment "A reusable PAC component bound to one SPARQL query. The query can be invoked directly or used as a subscription by specialized components."@en ;
           rdfs:isDefinedBy <https://onto.vaimee.com/pac> ;
           rdfs:label "Consumer"@en .
 
@@ -254,6 +378,45 @@
                rdfs:label "Forced Binding"@en .
 
 
+###  https://onto.vaimee.com/pac#ForcedBindingSet
+:ForcedBindingSet rdf:type owl:Class ;
+                  rdfs:comment "A set of forced bindings applied together as one runtime execution context for a query or update."@en ;
+                  rdfs:isDefinedBy <https://onto.vaimee.com/pac> ;
+                  rdfs:label "Forced Binding Set"@en .
+
+
+###  https://onto.vaimee.com/pac#FixedNamedGraph
+:FixedNamedGraph rdf:type owl:Class ;
+                 rdfs:subClassOf :NamedGraph ;
+                 rdfs:comment "A named graph whose URI is fixed in the PAC description."@en ;
+                 rdfs:isDefinedBy <https://onto.vaimee.com/pac> ;
+                 rdfs:label "Fixed Named Graph"@en .
+
+
+###  https://onto.vaimee.com/pac#HistoricalGraph
+:HistoricalGraph rdf:type owl:Class ;
+                 rdfs:subClassOf :NamedGraph ;
+                 rdfs:comment "A persisted named graph that can be queried and updated."@en ;
+                 rdfs:isDefinedBy <https://onto.vaimee.com/pac> ;
+                 rdfs:label "Historical Graph"@en .
+
+
+###  https://onto.vaimee.com/pac#InstanceNamedGraph
+:InstanceNamedGraph rdf:type owl:Class ;
+                    rdfs:subClassOf :NamedGraph ;
+                    rdfs:comment "A named graph whose URI is derived at runtime from an instance identifier or other forced binding."@en ;
+                    rdfs:isDefinedBy <https://onto.vaimee.com/pac> ;
+                    rdfs:label "Instance Named Graph"@en .
+
+
+###  https://onto.vaimee.com/pac#LiveGraph
+:LiveGraph rdf:type owl:Class ;
+           rdfs:subClassOf :NamedGraph ;
+           rdfs:comment "A live named graph that can be subscribed to for notifications."@en ;
+           rdfs:isDefinedBy <https://onto.vaimee.com/pac> ;
+           rdfs:label "Live Graph"@en .
+
+
 ###  https://onto.vaimee.com/pac#Pac
 :Pac rdf:type owl:Class ;
       rdfs:comment "Defines a PAC (JSON SPARQL Application Profile).  PAC describes an application based on the SPARQL Event Processing Architecture (SEPA) and following the application design pattern named PAC (Producer-Aggregator-Consumer)."@en ;
@@ -286,8 +449,28 @@
 ###  https://onto.vaimee.com/pac#Namespace
 :Namespace rdf:type owl:Class ;
            rdfs:comment "Represents an RDF namespace. They allow grouping related terms (classes and properties) under a common base URI."@en ;
-           rdfs:isDefinedBy <https://onto.vaimee.com/pac> ;
-           rdfs:label "Namespace"@en .
+            rdfs:isDefinedBy <https://onto.vaimee.com/pac> ;
+            rdfs:label "Namespace"@en .
+
+
+###  https://onto.vaimee.com/pac#NamedGraph
+:NamedGraph rdf:type owl:Class ;
+            owl:disjointUnionOf ( :HistoricalGraph
+                                  :LiveGraph
+                                ) ,
+                                ( :FixedNamedGraph
+                                  :InstanceNamedGraph
+                                ) ;
+            rdfs:comment "A SPARQL named graph used by PAC operations. Named graphs can be historical, live, fixed by URI, or resolved from runtime bindings."@en ;
+            rdfs:isDefinedBy <https://onto.vaimee.com/pac> ;
+            rdfs:label "Named Graph"@en .
+
+
+###  https://onto.vaimee.com/pac#MultipleForcedBindings
+:MultipleForcedBindings rdf:type owl:Class ;
+                        rdfs:comment "A collection of binding sets used to execute an update multiple times, replacing the same template variables with different values for each execution."@en ;
+                        rdfs:isDefinedBy <https://onto.vaimee.com/pac> ;
+                        rdfs:label "Multiple Forced Bindings"@en .
 
 
 ###  https://onto.vaimee.com/pac#Operation
@@ -308,15 +491,16 @@
 ###  https://onto.vaimee.com/pac#Producer
 :Producer rdf:type owl:Class ;
           owl:equivalentClass [ owl:intersectionOf ( :PacComponent
-                                                     [ rdf:type owl:Restriction ;
-                                                       owl:onProperty :performsUpdate ;
-                                                       owl:someValuesFrom :Update
-                                                     ]
-                                                   ) ;
-                                rdf:type owl:Class
-                              ] ;
+                                                      [ rdf:type owl:Restriction ;
+                                                        owl:onProperty :performsUpdate ;
+                                                        owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                        owl:onClass :Update
+                                                      ]
+                                                    ) ;
+                                 rdf:type owl:Class
+                               ] ;
           rdfs:subClassOf :PacComponent ;
-          rdfs:comment "A component of the PAC architecture that makes exactly one SPARQL update and no subscription."@en ;
+          rdfs:comment "A reusable PAC component bound to one SPARQL update."@en ;
           rdfs:isDefinedBy <https://onto.vaimee.com/pac> ;
           rdfs:label "Producer"@en .
 
@@ -358,6 +542,14 @@
          rdfs:comment "Represents a reusable SPARQL code fragment that can be included in one or more operations."@en ;
          rdfs:isDefinedBy <https://onto.vaimee.com/pac> ;
          rdfs:label "Snippet"@en .
+
+
+###  https://onto.vaimee.com/pac#Template
+:Template rdf:type owl:Class ;
+          rdfs:subClassOf :SparqlFragment ;
+          rdfs:comment "Reusable SPARQL query or update text containing variables that can be replaced by forced bindings at runtime."@en ;
+          rdfs:isDefinedBy <https://onto.vaimee.com/pac> ;
+          rdfs:label "Template"@en .
 
 
 ###  https://onto.vaimee.com/pac#Update

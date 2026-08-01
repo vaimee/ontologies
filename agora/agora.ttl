@@ -3,11 +3,17 @@
 @prefix fsm: <http://onto.vaimee.com/fsm#> .
 @prefix geo: <http://www.opengis.net/ont/geosparql#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix pac: <https://onto.vaimee.com/pac#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix auth: <https://auth.vaimee.com/profile#> .
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix paca: <https://onto.vaimee.com/pac/aggregator#> .
+@prefix pacc: <https://onto.vaimee.com/pac/consumer#> .
+@prefix pacp: <https://onto.vaimee.com/pac/producer#> .
+@prefix pacq: <https://onto.vaimee.com/pac/query#> .
+@prefix pacu: <https://onto.vaimee.com/pac/update#> .
 @prefix prov: <http://www.w3.org/ns/prov#> .
 @prefix qudt: <http://qudt.org/schema/qudt/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
@@ -215,6 +221,14 @@ foaf:name rdf:type owl:AnnotationProperty .
           rdfs:range :State .
 
 
+###  http://onto.vaimee.com/agora#usesPacComponent
+:usesPacComponent rdf:type owl:ObjectProperty ;
+                  rdfs:domain prov:SoftwareAgent ;
+                  rdfs:range pac:PacComponent ;
+                  rdfs:comment "Links a software agent to one reusable PAC component used to query, subscribe to, or update the digital twin knowledge base." ;
+                  rdfs:label "uses PAC component" .
+
+
 ###  http://onto.vaimee.com/agora/criteria#hasCropCycle
 criteria:hasCropCycle rdf:type owl:ObjectProperty ;
                       rdfs:subPropertyOf criteria:hasModelComponent ;
@@ -308,6 +322,46 @@ sosa:observedProperty rdf:type owl:ObjectProperty .
 
 ###  http://www.w3.org/ns/sosa/observes
 sosa:observes rdf:type owl:ObjectProperty .
+
+
+###  https://onto.vaimee.com/pac#graphTemplateBinding
+pac:graphTemplateBinding rdf:type owl:ObjectProperty ;
+                         rdfs:isDefinedBy pac: .
+
+
+###  https://onto.vaimee.com/pac#hasForcedBinding
+pac:hasForcedBinding rdf:type owl:ObjectProperty ;
+                     rdfs:isDefinedBy pac: .
+
+
+###  https://onto.vaimee.com/pac#performsQuery
+pac:performsQuery rdf:type owl:ObjectProperty ;
+                  rdfs:isDefinedBy pac: .
+
+
+###  https://onto.vaimee.com/pac#performsSubscription
+pac:performsSubscription rdf:type owl:ObjectProperty ;
+                         rdfs:isDefinedBy pac: .
+
+
+###  https://onto.vaimee.com/pac#performsUpdate
+pac:performsUpdate rdf:type owl:ObjectProperty ;
+                   rdfs:isDefinedBy pac: .
+
+
+###  https://onto.vaimee.com/pac#readsFromGraph
+pac:readsFromGraph rdf:type owl:ObjectProperty ;
+                   rdfs:isDefinedBy pac: .
+
+
+###  https://onto.vaimee.com/pac#subscribesToGraph
+pac:subscribesToGraph rdf:type owl:ObjectProperty ;
+                      rdfs:isDefinedBy pac: .
+
+
+###  https://onto.vaimee.com/pac#writesToGraph
+pac:writesToGraph rdf:type owl:ObjectProperty ;
+                  rdfs:isDefinedBy pac: .
 
 
 #################################################################
@@ -704,6 +758,31 @@ fsm:stateName rdf:type owl:DatatypeProperty .
 fsm:symbolValue rdf:type owl:DatatypeProperty .
 
 
+###  https://onto.vaimee.com/pac#defaultValue
+pac:defaultValue rdf:type owl:DatatypeProperty ;
+                 rdfs:isDefinedBy pac: .
+
+
+###  https://onto.vaimee.com/pac#graphUri
+pac:graphUri rdf:type owl:DatatypeProperty ;
+             rdfs:isDefinedBy pac: .
+
+
+###  https://onto.vaimee.com/pac#graphUriTemplate
+pac:graphUriTemplate rdf:type owl:DatatypeProperty ;
+                     rdfs:isDefinedBy pac: .
+
+
+###  https://onto.vaimee.com/pac#name
+pac:name rdf:type owl:DatatypeProperty ;
+         rdfs:isDefinedBy pac: .
+
+
+###  https://onto.vaimee.com/pac#sparql
+pac:sparql rdf:type owl:DatatypeProperty ;
+           rdfs:isDefinedBy pac: .
+
+
 #################################################################
 #    Classes
 #################################################################
@@ -836,6 +915,14 @@ fsm:symbolValue rdf:type owl:DatatypeProperty .
                                          [ rdf:type owl:Restriction ;
                                            owl:onProperty :hasFiniteStateMachine ;
                                            owl:hasValue :DigitalTwinSynchronizerFSM
+                                         ] ,
+                                         [ rdf:type owl:Restriction ;
+                                           owl:onProperty :usesPacComponent ;
+                                           owl:hasValue paca:DigitalTwinActivityState
+                                         ] ,
+                                         [ rdf:type owl:Restriction ;
+                                           owl:onProperty :usesPacComponent ;
+                                           owl:hasValue pacp:DigitalTwinRunActivity
                                          ] ;
                          rdfs:comment "Software agent responsible for coordinating digital twin activities and triggering model runs after prerequisite activities complete." ;
                          rdfs:label "Digital twin synchronizer" .
@@ -922,6 +1009,10 @@ fsm:symbolValue rdf:type owl:DatatypeProperty .
                                   [ rdf:type owl:Restriction ;
                                     owl:onProperty :hasFiniteStateMachine ;
                                     owl:hasValue :FieldDigitalTwinFSM
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty :usesPacComponent ;
+                                    owl:hasValue paca:FieldDigitalTwinRun
                                   ] ;
                   rdfs:comment "Digital twin specialization for an agricultural field." ;
                   rdfs:label "FieldDT" .
@@ -1166,6 +1257,14 @@ fsm:symbolValue rdf:type owl:DatatypeProperty .
                                 owl:hasValue :WeatherAgentFSM
                               ] ,
                               [ rdf:type owl:Restriction ;
+                                owl:onProperty :usesPacComponent ;
+                                owl:hasValue pacc:WeatherAtmosphere
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty :usesPacComponent ;
+                                owl:hasValue pacp:WeatherAgent
+                              ] ,
+                              [ rdf:type owl:Restriction ;
                                 owl:onProperty sosa:observes ;
                                 owl:hasValue :precipitation
                               ] ;
@@ -1331,9 +1430,82 @@ sosa:Sensor rdf:type owl:Class ;
             rdfs:label "Sensor" .
 
 
+###  https://onto.vaimee.com/pac#Aggregator
+pac:Aggregator rdf:type owl:Class ;
+               rdfs:isDefinedBy pac: .
+
+
+###  https://onto.vaimee.com/pac#Consumer
+pac:Consumer rdf:type owl:Class ;
+             rdfs:isDefinedBy pac: .
+
+
+###  https://onto.vaimee.com/pac#FixedNamedGraph
+pac:FixedNamedGraph rdf:type owl:Class ;
+                    rdfs:isDefinedBy pac: .
+
+
+###  https://onto.vaimee.com/pac#ForcedBinding
+pac:ForcedBinding rdf:type owl:Class ;
+                  rdfs:isDefinedBy pac: .
+
+
+###  https://onto.vaimee.com/pac#HistoricalGraph
+pac:HistoricalGraph rdf:type owl:Class ;
+                    rdfs:isDefinedBy pac: .
+
+
+###  https://onto.vaimee.com/pac#InstanceNamedGraph
+pac:InstanceNamedGraph rdf:type owl:Class ;
+                       rdfs:isDefinedBy pac: .
+
+
+###  https://onto.vaimee.com/pac#LiteralForcedBinding
+pac:LiteralForcedBinding rdf:type owl:Class ;
+                         rdfs:isDefinedBy pac: .
+
+
+###  https://onto.vaimee.com/pac#LiveGraph
+pac:LiveGraph rdf:type owl:Class ;
+              rdfs:isDefinedBy pac: .
+
+
+###  https://onto.vaimee.com/pac#PacComponent
+pac:PacComponent rdf:type owl:Class ;
+                 rdfs:isDefinedBy pac: .
+
+
+###  https://onto.vaimee.com/pac#Producer
+pac:Producer rdf:type owl:Class ;
+             rdfs:isDefinedBy pac: .
+
+
+###  https://onto.vaimee.com/pac#Query
+pac:Query rdf:type owl:Class ;
+          rdfs:isDefinedBy pac: .
+
+
+###  https://onto.vaimee.com/pac#Update
+pac:Update rdf:type owl:Class ;
+           rdfs:isDefinedBy pac: .
+
+
+###  https://onto.vaimee.com/pac#UriForcedBinding
+pac:UriForcedBinding rdf:type owl:Class ;
+                     rdfs:isDefinedBy pac: .
+
+
 #################################################################
 #    Individuals
 #################################################################
+
+###  http://onto.vaimee.com/agora#ActivityBinding
+:ActivityBinding rdf:type owl:NamedIndividual ,
+                          pac:UriForcedBinding ;
+                 pac:name "activity" ;
+                 rdfs:comment "Runtime URI binding for the digital twin run activity handled by a PAC operation." ;
+                 rdfs:label "activity binding" .
+
 
 ###  http://onto.vaimee.com/agora#ApiFetchFailedSymbol
 :ApiFetchFailedSymbol rdf:type owl:NamedIndividual ,
@@ -1349,17 +1521,25 @@ sosa:Sensor rdf:type owl:Class ;
                          rdfs:label "api fetch succeeded" .
 
 
+###  http://onto.vaimee.com/agora#AtmosphereBinding
+:AtmosphereBinding rdf:type owl:NamedIndividual ,
+                            pac:UriForcedBinding ;
+                   pac:name "atmosphere" ;
+                   rdfs:comment "Runtime URI binding for the atmosphere targeted by a weather update operation." ;
+                   rdfs:label "atmosphere binding" .
+
+
 ###  http://onto.vaimee.com/agora#AtmosphereTemperatureResultShape
 :AtmosphereTemperatureResultShape rdf:type owl:NamedIndividual ,
                                            shacl:NodeShape ;
                                   shacl:property [ shacl:datatype xsd:decimal ;
                                                    shacl:maxCount 1 ;
-                                                   shacl:minCount 1 ;
-                                                   shacl:path :maxDailyTemperature
+                                                   shacl:path :avgDailyTemperature
                                                  ] ,
                                                  [ shacl:datatype xsd:decimal ;
                                                    shacl:maxCount 1 ;
-                                                   shacl:path :avgDailyTemperature
+                                                   shacl:minCount 1 ;
+                                                   shacl:path :maxDailyTemperature
                                                  ] ,
                                                  [ shacl:datatype xsd:decimal ;
                                                    shacl:lessThan :maxDailyTemperature ;
@@ -1382,6 +1562,52 @@ sosa:Sensor rdf:type owl:Class ;
                                        fsm:Symbol ;
                               fsm:symbolValue "atmosphere update failed" ;
                               rdfs:label "atmosphere update failed" .
+
+
+###  http://onto.vaimee.com/agora#DigitalTwinActivityHistoricalGraph
+:DigitalTwinActivityHistoricalGraph rdf:type owl:NamedIndividual ,
+                                             pac:FixedNamedGraph ,
+                                             pac:HistoricalGraph ;
+                                    pac:graphUri "http://onto.vaimee.com/agora/graphs/activities"^^xsd:anyURI ;
+                                    rdfs:comment "Fixed historical named graph containing persisted digital twin activities and their state." ;
+                                    rdfs:label "Digital twin activity historical graph" .
+
+
+###  http://onto.vaimee.com/agora#DigitalTwinActivityLiveGraph
+:DigitalTwinActivityLiveGraph rdf:type owl:NamedIndividual ,
+                                       pac:FixedNamedGraph ,
+                                       pac:LiveGraph ;
+                              pac:graphUri "http://onto.vaimee.com/agora/graphs/live/activities"^^xsd:anyURI ;
+                              rdfs:comment "Fixed live named graph used to notify digital twin activity changes." ;
+                              rdfs:label "Digital twin activity live graph" .
+
+
+###  http://onto.vaimee.com/agora#DigitalTwinBinding
+:DigitalTwinBinding rdf:type owl:NamedIndividual ,
+                             pac:UriForcedBinding ;
+                    pac:name "digitalTwin" ;
+                    rdfs:comment "Runtime URI binding used to resolve digital-twin-scoped graph URI templates." ;
+                    rdfs:label "digital twin binding" .
+
+
+###  http://onto.vaimee.com/agora#DigitalTwinInstanceHistoricalGraph
+:DigitalTwinInstanceHistoricalGraph rdf:type owl:NamedIndividual ,
+                                             pac:HistoricalGraph ,
+                                             pac:InstanceNamedGraph ;
+                                    pac:graphTemplateBinding :DigitalTwinBinding ;
+                                    pac:graphUriTemplate "http://onto.vaimee.com/agora/graphs/digital-twin/{digitalTwin}" ;
+                                    rdfs:comment "Historical named graph scoped to a digital twin instance. It stores observations and model outputs for the field, crop, and soil represented by that digital twin." ;
+                                    rdfs:label "Digital twin instance historical graph" .
+
+
+###  http://onto.vaimee.com/agora#DigitalTwinInstanceLiveGraph
+:DigitalTwinInstanceLiveGraph rdf:type owl:NamedIndividual ,
+                                       pac:InstanceNamedGraph ,
+                                       pac:LiveGraph ;
+                              pac:graphTemplateBinding :DigitalTwinBinding ;
+                              pac:graphUriTemplate "http://onto.vaimee.com/agora/graphs/live/digital-twin/{digitalTwin}" ;
+                              rdfs:comment "Live named graph scoped to a digital twin instance and used to notify changes in observations and model outputs." ;
+                              rdfs:label "Digital twin instance live graph" .
 
 
 ###  http://onto.vaimee.com/agora#DigitalTwinSynchronizerAlphabet
@@ -1429,6 +1655,14 @@ sosa:Sensor rdf:type owl:Class ;
                                fsm:Symbol ;
                       fsm:symbolValue "fetch requested" ;
                       rdfs:label "fetch requested" .
+
+
+###  http://onto.vaimee.com/agora#FieldBinding
+:FieldBinding rdf:type owl:NamedIndividual ,
+                       pac:UriForcedBinding ;
+              pac:name "field" ;
+              rdfs:comment "Runtime URI binding for the field handled by a PAC operation." ;
+              rdfs:label "field binding" .
 
 
 ###  http://onto.vaimee.com/agora#FieldDigitalTwinAlphabet
@@ -1697,6 +1931,14 @@ sosa:Sensor rdf:type owl:Class ;
                             rdfs:label "observation published" .
 
 
+###  http://onto.vaimee.com/agora#ObservationTimeBinding
+:ObservationTimeBinding rdf:type owl:NamedIndividual ,
+                                 pac:LiteralForcedBinding ;
+                        pac:name "time" ;
+                        rdfs:comment "Runtime literal binding for an observation result time." ;
+                        rdfs:label "observation time binding" .
+
+
 ###  http://onto.vaimee.com/agora#OutputPublishedSymbol
 :OutputPublishedSymbol rdf:type owl:NamedIndividual ,
                                 fsm:Symbol ;
@@ -1740,7 +1982,7 @@ sosa:Sensor rdf:type owl:Class ;
                         shacl:property [ shacl:datatype xsd:decimal ;
                                          shacl:maxCount 1 ;
                                          shacl:minCount 1 ;
-                                         shacl:path :sand
+                                         shacl:path :silt
                                        ] ,
                                        [ shacl:datatype xsd:decimal ;
                                          shacl:maxCount 1 ;
@@ -1750,7 +1992,7 @@ sosa:Sensor rdf:type owl:Class ;
                                        [ shacl:datatype xsd:decimal ;
                                          shacl:maxCount 1 ;
                                          shacl:minCount 1 ;
-                                         shacl:path :silt
+                                         shacl:path :sand
                                        ] ;
                         shacl:sparql [ shacl:message "Soil texture fractions clay, sand, and silt must sum to 100." ;
                                        shacl:select """
@@ -2040,6 +2282,14 @@ sosa:Sensor rdf:type owl:Class ;
                             rdfs:label "weather data validated" .
 
 
+###  http://onto.vaimee.com/agora#WeatherValueBinding
+:WeatherValueBinding rdf:type owl:NamedIndividual ,
+                              pac:LiteralForcedBinding ;
+                     pac:name "value" ;
+                     rdfs:comment "Runtime literal binding for a weather observation value." ;
+                     rdfs:label "weather value binding" .
+
+
 ###  http://onto.vaimee.com/agora#availableWater
 :availableWater rdf:type owl:NamedIndividual ,
                          sosa:ObservableProperty ;
@@ -2201,6 +2451,118 @@ sosa:Sensor rdf:type owl:Class ;
 :waterContent rdf:type owl:NamedIndividual ,
                        sosa:ObservableProperty ;
               rdfs:label "WATER_CONTENT" .
+
+
+###  https://onto.vaimee.com/pac/aggregator#DigitalTwinActivityState
+paca:DigitalTwinActivityState rdf:type owl:NamedIndividual ,
+                                       pac:Aggregator ;
+                              pac:performsSubscription pacq:DigitalTwinActivityState ;
+                              pac:performsUpdate pacu:DigitalTwinSynchronizationState ;
+                              rdfs:comment "PAC aggregator used by the digital twin synchronizer to react to activity state notifications and update orchestration state." ;
+                              rdfs:label "Digital twin activity state aggregator" .
+
+
+###  https://onto.vaimee.com/pac/aggregator#FieldDigitalTwinRun
+paca:FieldDigitalTwinRun rdf:type owl:NamedIndividual ,
+                                  pac:Aggregator ;
+                         pac:performsSubscription pacq:FieldDigitalTwinRunActivity ;
+                         pac:performsUpdate pacu:FieldDigitalTwinOutput ;
+                         rdfs:comment "PAC aggregator used by the field digital twin to react to run activities and produce updated field, crop, soil, and model outputs." ;
+                         rdfs:label "Field digital twin run aggregator" .
+
+
+###  https://onto.vaimee.com/pac/consumer#WeatherAtmosphere
+pacc:WeatherAtmosphere rdf:type owl:NamedIndividual ,
+                                pac:Consumer ;
+                       pac:performsQuery pacq:ListAtmospheresForWeatherUpdate ;
+                       rdfs:comment "PAC consumer used by the weather agent to retrieve the atmospheres that need weather updates." ;
+                       rdfs:label "Weather atmosphere consumer" .
+
+
+###  https://onto.vaimee.com/pac/producer#DigitalTwinRunActivity
+pacp:DigitalTwinRunActivity rdf:type owl:NamedIndividual ,
+                                     pac:Producer ;
+                            pac:performsUpdate pacu:CreateFieldDigitalTwinRunActivity ;
+                            rdfs:comment "PAC producer used by the digital twin synchronizer to create field digital twin run activities." ;
+                            rdfs:label "Digital twin run activity producer" .
+
+
+###  https://onto.vaimee.com/pac/producer#WeatherAgent
+pacp:WeatherAgent rdf:type owl:NamedIndividual ,
+                           pac:Producer ;
+                  pac:performsUpdate pacu:AtmosphereObservation ;
+                  rdfs:comment "PAC producer used by the weather agent to publish atmosphere observations fetched from weather APIs." ;
+                  rdfs:label "Weather agent PAC producer" .
+
+
+###  https://onto.vaimee.com/pac/query#DigitalTwinActivityState
+pacq:DigitalTwinActivityState rdf:type owl:NamedIndividual ,
+                                       pac:Query ;
+                              pac:subscribesToGraph :DigitalTwinActivityLiveGraph ;
+                              pac:sparql "SELECT ?activity ?state WHERE { ?activity a <http://www.w3.org/ns/prov#Activity> ; <http://onto.vaimee.com/agora#hasState> ?state . }" ;
+                              rdfs:comment "Subscription query used by the synchronizer to observe activity state changes." ;
+                              rdfs:label "Digital twin activity state subscription" .
+
+
+###  https://onto.vaimee.com/pac/query#FieldDigitalTwinRunActivity
+pacq:FieldDigitalTwinRunActivity rdf:type owl:NamedIndividual ,
+                                          pac:Query ;
+                                 pac:subscribesToGraph :DigitalTwinActivityLiveGraph ;
+                                 pac:sparql "SELECT ?activity ?field WHERE { ?activity a <http://onto.vaimee.com/agora#RunFieldDigitalTwinActivity> ; <http://www.w3.org/ns/prov#used> ?field . }" ;
+                                 rdfs:comment "Subscription query used by the field digital twin to detect run activities concerning fields." ;
+                                 rdfs:label "Field digital twin run activity subscription" .
+
+
+###  https://onto.vaimee.com/pac/query#ListAtmospheresForWeatherUpdate
+pacq:ListAtmospheresForWeatherUpdate rdf:type owl:NamedIndividual ,
+                                              pac:Query ;
+                                     pac:readsFromGraph :DigitalTwinInstanceHistoricalGraph ;
+                                     pac:sparql "SELECT ?field ?atmosphere WHERE { ?field <http://onto.vaimee.com/agora#hasAtmosphere> ?atmosphere . }" ;
+                                     rdfs:comment "SPARQL query used by the weather agent to discover atmospheres associated with fields." ;
+                                     rdfs:label "List atmospheres for weather update query" .
+
+
+###  https://onto.vaimee.com/pac/update#AtmosphereObservation
+pacu:AtmosphereObservation rdf:type owl:NamedIndividual ,
+                                    pac:Update ;
+                           pac:hasForcedBinding :AtmosphereBinding ,
+                                                :ObservationTimeBinding ,
+                                                :WeatherValueBinding ;
+                           pac:writesToGraph :DigitalTwinInstanceHistoricalGraph ;
+                           pac:sparql "INSERT { ?observation a <http://www.w3.org/ns/sosa/Observation> ; <http://www.w3.org/ns/sosa/hasFeatureOfInterest> ?atmosphere ; <http://www.w3.org/ns/sosa/resultTime> ?time ; <http://www.w3.org/ns/sosa/hasSimpleResult> ?value . } WHERE { BIND(IRI(CONCAT(\"http://onto.vaimee.com/agora#weather-observation-\", STRUUID())) AS ?observation) }" ;
+                           rdfs:comment "SPARQL update template used by the weather agent to publish atmosphere observations. Atmosphere, time, and weather value are forced bindings supplied at runtime." ;
+                           rdfs:label "Upsert atmosphere observation update" .
+
+
+###  https://onto.vaimee.com/pac/update#CreateFieldDigitalTwinRunActivity
+pacu:CreateFieldDigitalTwinRunActivity rdf:type owl:NamedIndividual ,
+                                                pac:Update ;
+                                       pac:hasForcedBinding :FieldBinding ;
+                                       pac:writesToGraph :DigitalTwinActivityHistoricalGraph ;
+                                       pac:sparql "INSERT { ?activity a <http://www.w3.org/ns/prov#Activity>, <http://onto.vaimee.com/agora#RunFieldDigitalTwinActivity> ; <http://www.w3.org/ns/prov#used> ?field . } WHERE { BIND(IRI(CONCAT(\"http://onto.vaimee.com/agora#run-\", STRUUID())) AS ?activity) }" ;
+                                       rdfs:comment "SPARQL update template used to create a run activity for a field. The field binding is supplied at runtime by the synchronizer." ;
+                                       rdfs:label "Create field digital twin run activity update" .
+
+
+###  https://onto.vaimee.com/pac/update#DigitalTwinSynchronizationState
+pacu:DigitalTwinSynchronizationState rdf:type owl:NamedIndividual ,
+                                              pac:Update ;
+                                     pac:hasForcedBinding :ActivityBinding ;
+                                     pac:writesToGraph :DigitalTwinActivityHistoricalGraph ;
+                                     pac:sparql "INSERT { ?activity <http://onto.vaimee.com/agora#hasState> ?nextState . } WHERE { }" ;
+                                     rdfs:comment "SPARQL update template used by the synchronizer to write the next orchestration state after receiving activity notifications." ;
+                                     rdfs:label "Update digital twin synchronization state" .
+
+
+###  https://onto.vaimee.com/pac/update#FieldDigitalTwinOutput
+pacu:FieldDigitalTwinOutput rdf:type owl:NamedIndividual ,
+                                     pac:Update ;
+                            pac:hasForcedBinding :ActivityBinding ,
+                                                 :FieldBinding ;
+                            pac:writesToGraph :DigitalTwinInstanceHistoricalGraph ;
+                            pac:sparql "INSERT { ?field <http://www.w3.org/ns/prov#wasGeneratedBy> ?activity . } WHERE { }" ;
+                            rdfs:comment "SPARQL update template used by the field digital twin after CRITERIA1D execution to write generated output triples. Runtime bindings identify the run activity, field, and computed values." ;
+                            rdfs:label "Update field digital twin output" .
 
 
 [ shacl:datatype xsd:decimal ;

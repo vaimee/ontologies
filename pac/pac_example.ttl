@@ -1,5 +1,10 @@
 @prefix : <https://onto.vaimee.com/pac-instance#> .
 @prefix pac: <https://onto.vaimee.com/pac#> .
+@prefix paca: <https://onto.vaimee.com/pac/aggregator#> .
+@prefix pacc: <https://onto.vaimee.com/pac/consumer#> .
+@prefix pacp: <https://onto.vaimee.com/pac/producer#> .
+@prefix pacq: <https://onto.vaimee.com/pac/query#> .
+@prefix pacu: <https://onto.vaimee.com/pac/update#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
 
