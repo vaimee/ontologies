@@ -11,7 +11,7 @@ A collection of ontologies developed by VAIMEE, integrating classes and properti
 
 ## Ontology Requirements
 
-The renderer discovers ontology sources automatically from first-level ontology folders such as `agora/`, `jsap/`, `msg/`, `users/`, and `fsm/`.
+The renderer discovers ontology sources automatically from first-level ontology folders such as `agora/`, `pac/`, `msg/`, `users/`, and `fsm/`.
 
 Each ontology source should:
 

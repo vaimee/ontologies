@@ -1,0 +1,68 @@
+@prefix : <https://onto.vaimee.com/pac-instance#> .
+@prefix pac: <https://onto.vaimee.com/pac#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+
+#################################################################
+#    PAC instance
+#################################################################
+
+:pac1 a pac:Pac ;
+    pac:hasNamespace <http://example.org> ;
+    pac:includesOperation :op1, :op2, :op3 .
+
+<http://example.org> a pac:Namespace ;
+    pac:prefix "ex"^^xsd:string .
+
+#################################################################
+#    Operations
+#################################################################
+
+:op1 a pac:Query ;
+    pac:sparql "SELECT ?s WHERE { ?s a <http://example.org/Class> }" ;
+    pac:usesSnippet :snippet1 ;
+    pac:hasForcedBinding :fb1 .
+
+:op2 a pac:Update ;
+    pac:sparql "INSERT DATA { <http://example.org/inst1> a <http://example.org/Class> }" ;
+    pac:hasForcedBinding :fb2 .
+
+:op3 a pac:Rule ;
+    pac:text "pac:performsSubscription(?comp, ?query) ^ pac:includesOperation(?pac, ?query) → pac:hasComponent(?pac, ?comp)" .
+
+#################################################################
+#    Snippet
+#################################################################
+
+:snippet1 a pac:Snippet ;
+    pac:snippetBody "FILTER (?value > 10)"^^xsd:string .
+
+#################################################################
+#    Forced Bindings
+#################################################################
+
+:fb1 a pac:LiteralForcedBinding ;
+    pac:name "età" ;
+    pac:defaultValue "42"^^xsd:integer ;
+    pac:dataType xsd:integer . 
+
+:fb2 a pac:UriForcedBinding ;
+    pac:name "resource" ;
+    pac:defaultValue  "http://onto.vaimee.com/unit"^^xsd:anyURI .
+
+#################################################################
+#    PAC Components
+#################################################################
+
+:producer1 a pac:Producer ;
+    foaf:name "Producer Agent" ;
+    pac:performsUpdate :op2 .
+
+:consumer1 a pac:Consumer ;
+    foaf:name "Consumer Agent" ;
+    pac:performsSubscription :op1 .
+
+:aggregator1 a pac:Aggregator ;
+    foaf:name "Aggregator Agent" ;
+    pac:performsSubscription :op1 ;
+    pac:performsUpdate :op2 .

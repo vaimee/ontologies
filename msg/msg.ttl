@@ -4,7 +4,7 @@
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix jsap: <https://onto.vaimee.com/jsap#> .
+@prefix pac: <https://onto.vaimee.com/pac#> .
 @prefix dct: <http://purl.org/dc/terms/> .
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
 @base <https://onto.vaimee.com/msg#> .
@@ -48,7 +48,7 @@
 ###  https://onto.vaimee.com/msg#source
 <https://onto.vaimee.com/msg#source> rdf:type owl:ObjectProperty ;
                                      rdfs:domain <https://schema.org/CreativeWork> ;
-                                     rdfs:range jsap:Aggregator ;
+                                     rdfs:range pac:Aggregator ;
                                      rdfs:comment "Indicates the entity responsible for generating the message."@en ;
                                      rdfs:isDefinedBy <https://onto.vaimee.com/msg> ;
                                      rdfs:label "source"@en .

@@ -1,5 +1,5 @@
 @prefix : <https://onto.vaimee.com/msg#> .
-@prefix jsap: <https://onto.vaimee.com/jsap#> .
+@prefix pac: <https://onto.vaimee.com/pac#> .
 @prefix query: <https://onto.vaimee.com/query#> .
 @prefix schema: <https://schema.org/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
@@ -15,7 +15,7 @@
           schema:toRecipient :webid1 ; 
           schema:messageAttachment :textContent1 ; 
           :about query:queryId123 ; 
-          :source jsap:aggregatorId123 . 
+          :source pac:aggregatorId123 . 
 
 :textContent1 rdf:type :TextContent ;
               :text "Hi!"^^xsd:string .
@@ -30,7 +30,7 @@
           schema:toRecipient :webid2 ;  
           schema:messageAttachment :templateContent1 ;  
           :about query:queryId456 ; 
-          :source jsap:aggregatorId456 .  
+          :source pac:aggregatorId456 .  
 
 :templateContent1 rdf:type :TemplateContent ;
                   :usesTemplate :template1 ;  
@@ -59,7 +59,7 @@
           :toMultipleRecipients :group1 ;  
           schema:messageAttachment :textContent2 ;  
           :about query:queryId789 ; 
-          :source jsap:aggregatorId789 .  
+          :source pac:aggregatorId789 .  
 
 :textContent2 rdf:type :TextContent ;
               :text "Hello group!"^^xsd:string .

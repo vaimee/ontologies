@@ -1,5 +1,5 @@
 @prefix : <https://onto.vaimee.com/users#> .
-@prefix jsap: <https://onto.vaimee.com/jsap#> .
+@prefix pac: <https://onto.vaimee.com/pac#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
@@ -29,8 +29,8 @@
 #################################################################
 
 :preference1 rdf:type :NotificationPreference ;
-             :notificationTopic jsap:query1 ;
-             :notificationSource jsap:aggregator1 ;
+             :notificationTopic pac:query1 ;
+             :notificationSource pac:aggregator1 ;
              :notificationChannel :contact1 .
 
 #################################################################

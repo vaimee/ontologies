@@ -4,9 +4,11 @@
     <uri id="Imports Wizard Entry" name="http://www.w3.org/ns/sosa/" uri="https://raw.githubusercontent.com/w3c/sdw/refs/heads/gh-pages/ssn/integrated/sosa.ttl"/>
     <uri id="Imports Wizard Entry" name="http://w3id.org/glosis/model/1.5.1" uri="https://raw.githubusercontent.com/glosis-ld/glosis/refs/heads/master/glosis_main.ttl"/>
     <uri id="Imports Wizard Entry" name="http://w3id.org/glosis/model/codelists/v1.5.1" uri="https://raw.githubusercontent.com/glosis-ld/glosis/refs/heads/master/glosis_cl.ttl"/>
-    <uri id="Imports Wizard Entry" name="http://onto.vaimee.com/agora/api/0.1" uri="file:/Users/luca/Documents/VAIMEEWorkspace/ontologies/api/api.ttl"/>
+    <uri id="Imports Wizard Entry" name="http://onto.vaimee.com/agora/api/0.1" uri="../api/api.ttl"/>
     <uri name="http://onto.vaimee.com/fsm/1.0.19" uri="../fsm/fsm.ttl"/>
     <uri name="http://onto.vaimee.com/fsm/1.0.20" uri="../fsm/fsm.ttl"/>
     <uri name="http://onto.vaimee.com/fsm/1.0.21" uri="../fsm/fsm.ttl"/>
     <uri name="http://onto.vaimee.com/fsm/1.0.17" uri="../fsm/fsm.ttl"/>
+    <uri name="https://onto.vaimee.com/fsm/fsm.ttl" uri="../fsm/fsm.ttl"/>
+    <uri name="http://onto.vaimee.com/fsm/1.0.24" uri="../fsm/fsm.ttl"/>
 </catalog>

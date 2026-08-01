@@ -1,15 +1,25 @@
 @prefix : <http://onto.vaimee.com/agora#> .
 @prefix api: <http://onto.vaimee.com/agora/api#> .
+@prefix fsm: <http://onto.vaimee.com/fsm#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix auth: <https://auth.vaimee.com/profile#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
 @prefix qudt: <http://qudt.org/schema/qudt/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix sosa: <http://www.w3.org/ns/sosa/> .
+@prefix swrl: <http://www.w3.org/2003/11/swrl#> .
+@prefix time: <http://www.w3.org/2006/time#> .
 @prefix shacl: <http://www.w3.org/ns/shacl#> .
+@prefix swrlb: <http://www.w3.org/2003/11/swrlb#> .
+@prefix schema: <http://schema.org/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix criteria: <http://onto.vaimee.com/agora/criteria#> .
-@prefix fsm: <http://onto.vaimee.com/fsm#> .
 @base <http://onto.vaimee.com/agora#> .
 
 <http://onto.vaimee.com/agora#> rdf:type owl:Ontology ;
@@ -18,12 +28,12 @@
                                              <http://www.w3.org/ns/prov-20130430> ,
                                              sosa: ,
                                              <https://onto.vaimee.com/fsm/fsm.ttl> ;
-                                 <http://purl.org/dc/terms/abstract> "This ontology designed for farmers to monitor and optimize irrigation procedures and, in the future, other activities related to precision agriculture." ;
-                                 <http://purl.org/dc/terms/contributor> "Bita Alaee" ,
-                                                                        "Gregorio Monari" ;
-                                 <http://purl.org/dc/terms/creator> "Luca Roffia" ;
-                                 <http://purl.org/dc/terms/description> "This ontology manages the relationship between weather observations, crop growth parameters, and soil horizons for precision irrigation." ;
-                                 <http://purl.org/dc/terms/title> "Agorà Ontology" ;
+                                 dcterms:abstract "This ontology designed for farmers to monitor and optimize irrigation procedures and, in the future, other activities related to precision agriculture." ;
+                                 dcterms:contributor "Bita Alaee" ,
+                                                     "Gregorio Monari" ;
+                                 dcterms:creator "Luca Roffia" ;
+                                 dcterms:description "This ontology manages the relationship between weather observations, crop growth parameters, and soil horizons for precision irrigation." ;
+                                 dcterms:title "Agorà Ontology" ;
                                  rdfs:comment "Implementation note: a Protege plugin should be developed to visualize and edit the finite-state machines of the software agents." ;
                                  owl:title "Agorà Ontology" ;
                                  owl:versionInfo "1.0.24" .
@@ -33,19 +43,19 @@
 #################################################################
 
 ###  http://purl.org/dc/terms/abstract
-<http://purl.org/dc/terms/abstract> rdf:type owl:AnnotationProperty .
+dcterms:abstract rdf:type owl:AnnotationProperty .
 
 
 ###  http://purl.org/dc/terms/contributor
-<http://purl.org/dc/terms/contributor> rdf:type owl:AnnotationProperty .
+dcterms:contributor rdf:type owl:AnnotationProperty .
 
 
 ###  http://purl.org/dc/terms/description
-<http://purl.org/dc/terms/description> rdf:type owl:AnnotationProperty .
+dcterms:description rdf:type owl:AnnotationProperty .
 
 
 ###  http://purl.org/dc/terms/title
-<http://purl.org/dc/terms/title> rdf:type owl:AnnotationProperty .
+dcterms:title rdf:type owl:AnnotationProperty .
 
 
 ###  http://www.w3.org/2000/01/rdf-schema#comment
@@ -65,19 +75,19 @@ owl:title rdf:type owl:AnnotationProperty .
 
 
 ###  http://www.w3.org/2004/02/skos/core#broadMatch
-<http://www.w3.org/2004/02/skos/core#broadMatch> rdf:type owl:AnnotationProperty .
+skos:broadMatch rdf:type owl:AnnotationProperty .
 
 
 ###  http://www.w3.org/2004/02/skos/core#closeMatch
-<http://www.w3.org/2004/02/skos/core#closeMatch> rdf:type owl:AnnotationProperty .
+skos:closeMatch rdf:type owl:AnnotationProperty .
 
 
 ###  http://www.w3.org/2004/02/skos/core#exactMatch
-<http://www.w3.org/2004/02/skos/core#exactMatch> rdf:type owl:AnnotationProperty .
+skos:exactMatch rdf:type owl:AnnotationProperty .
 
 
 ###  http://www.w3.org/2004/02/skos/core#relatedMatch
-<http://www.w3.org/2004/02/skos/core#relatedMatch> rdf:type owl:AnnotationProperty .
+skos:relatedMatch rdf:type owl:AnnotationProperty .
 
 
 ###  http://www.w3.org/ns/shacl#datatype
@@ -125,15 +135,15 @@ shacl:targetClass rdf:type owl:AnnotationProperty .
 
 
 ###  http://xmlns.com/foaf/0.1/homepage
-<http://xmlns.com/foaf/0.1/homepage> rdf:type owl:AnnotationProperty .
+foaf:homepage rdf:type owl:AnnotationProperty .
 
 
 ###  http://xmlns.com/foaf/0.1/member
-<http://xmlns.com/foaf/0.1/member> rdf:type owl:AnnotationProperty .
+foaf:member rdf:type owl:AnnotationProperty .
 
 
 ###  http://xmlns.com/foaf/0.1/name
-<http://xmlns.com/foaf/0.1/name> rdf:type owl:AnnotationProperty .
+foaf:name rdf:type owl:AnnotationProperty .
 
 
 #################################################################
@@ -162,20 +172,20 @@ shacl:targetClass rdf:type owl:AnnotationProperty .
          rdfs:range :Crop .
 
 
+###  http://onto.vaimee.com/agora#hasFiniteStateMachine
+:hasFiniteStateMachine rdf:type owl:ObjectProperty ;
+                       rdfs:domain prov:SoftwareAgent ;
+                       rdfs:range fsm:FiniteStateMachine ;
+                       rdfs:comment "Links a software agent to the finite-state machine that describes and traces its runtime behaviour." ;
+                       rdfs:label "has finite-state machine" .
+
+
 ###  http://onto.vaimee.com/agora#hasModel
 :hasModel rdf:type owl:ObjectProperty ;
           rdfs:domain :FieldDigitalTwin ;
           rdfs:range :AgrohydrologicalModel ;
           rdfs:comment "Links a DigitalTwin to a model used by the twin." ;
           rdfs:label "hasModel" .
-
-
-###  http://onto.vaimee.com/agora#hasFiniteStateMachine
-:hasFiniteStateMachine rdf:type owl:ObjectProperty ;
-                       rdfs:domain <http://www.w3.org/ns/prov#SoftwareAgent> ;
-                       rdfs:range fsm:FiniteStateMachine ;
-                       rdfs:comment "Links a software agent to the finite-state machine that describes and traces its runtime behaviour." ;
-                       rdfs:label "has finite-state machine" .
 
 
 ###  http://onto.vaimee.com/agora#hasSoil
@@ -201,7 +211,7 @@ shacl:targetClass rdf:type owl:AnnotationProperty .
 
 ###  http://onto.vaimee.com/agora#hasState
 :hasState rdf:type owl:ObjectProperty ;
-          rdfs:domain <http://www.w3.org/ns/prov#SoftwareAgent> ;
+          rdfs:domain prov:SoftwareAgent ;
           rdfs:range :State .
 
 
@@ -238,6 +248,42 @@ criteria:hasRootDevelopment rdf:type owl:ObjectProperty ;
                             rdfs:range criteria:RootDevelopment ;
                             rdfs:comment "Links a CRITERIA1D model to its root development component." ;
                             rdfs:label "hasRootDevelopment" .
+
+
+###  http://onto.vaimee.com/fsm#fromState
+fsm:fromState rdf:type owl:ObjectProperty .
+
+
+###  http://onto.vaimee.com/fsm#hasAcceptingState
+fsm:hasAcceptingState rdf:type owl:ObjectProperty .
+
+
+###  http://onto.vaimee.com/fsm#hasAlphabet
+fsm:hasAlphabet rdf:type owl:ObjectProperty .
+
+
+###  http://onto.vaimee.com/fsm#hasInitialState
+fsm:hasInitialState rdf:type owl:ObjectProperty .
+
+
+###  http://onto.vaimee.com/fsm#hasState
+fsm:hasState rdf:type owl:ObjectProperty .
+
+
+###  http://onto.vaimee.com/fsm#hasSymbol
+fsm:hasSymbol rdf:type owl:ObjectProperty .
+
+
+###  http://onto.vaimee.com/fsm#hasTransition
+fsm:hasTransition rdf:type owl:ObjectProperty .
+
+
+###  http://onto.vaimee.com/fsm#onSymbol
+fsm:onSymbol rdf:type owl:ObjectProperty .
+
+
+###  http://onto.vaimee.com/fsm#toState
+fsm:toState rdf:type owl:ObjectProperty .
 
 
 ###  http://www.w3.org/ns/sosa/hasFeatureOfInterest
@@ -294,6 +340,21 @@ sosa:observes rdf:type owl:ObjectProperty .
                     rdfs:label "daily precipitation" .
 
 
+###  http://onto.vaimee.com/agora#degreeDaysEmergence
+:degreeDaysEmergence rdf:type owl:DatatypeProperty ;
+                     rdfs:subPropertyOf owl:topDataProperty ;
+                     rdfs:domain :Crop ;
+                     rdfs:range xsd:integer .
+
+
+###  http://onto.vaimee.com/agora#kcMax
+:kcMax rdf:type owl:DatatypeProperty ;
+       rdfs:subPropertyOf owl:topDataProperty ;
+       rdfs:domain :Crop ;
+       rdfs:range xsd:decimal ;
+       rdfs:seeAlso "https://www.fao.org/4/x0490e/x0490e0b.htm" .
+
+
 ###  http://onto.vaimee.com/agora#lowerDepth
 :lowerDepth rdf:type owl:DatatypeProperty ;
             rdfs:subPropertyOf owl:topDataProperty ;
@@ -331,6 +392,28 @@ sosa:observes rdf:type owl:ObjectProperty .
                rdfs:label "observed depth" .
 
 
+###  http://onto.vaimee.com/agora#plantCycleMaxDuration
+:plantCycleMaxDuration rdf:type owl:DatatypeProperty ;
+                       rdfs:subPropertyOf owl:topDataProperty ;
+                       rdfs:domain :Crop ;
+                       rdfs:range xsd:string .
+
+
+###  http://onto.vaimee.com/agora#rawFraction
+:rawFraction rdf:type owl:DatatypeProperty ;
+             rdfs:subPropertyOf owl:topDataProperty ;
+             rdfs:domain :Crop ;
+             rdfs:range xsd:decimal ;
+             rdfs:seeAlso "https://www.fao.org/4/x0490e/x0490e0e.htm" .
+
+
+###  http://onto.vaimee.com/agora#rootDepthMax
+:rootDepthMax rdf:type owl:DatatypeProperty ;
+              rdfs:subPropertyOf owl:topDataProperty ;
+              rdfs:domain :Crop ;
+              rdfs:range xsd:decimal .
+
+
 ###  http://onto.vaimee.com/agora#sand
 :sand rdf:type owl:DatatypeProperty ;
       rdfs:subPropertyOf owl:topDataProperty ;
@@ -347,6 +430,20 @@ sosa:observes rdf:type owl:ObjectProperty .
       rdfs:label "Limo"@it .
 
 
+###  http://onto.vaimee.com/agora#sowingDoy
+:sowingDoy rdf:type owl:DatatypeProperty ;
+           rdfs:subPropertyOf owl:topDataProperty ;
+           rdfs:domain :Crop ;
+           rdfs:range xsd:integer .
+
+
+###  http://onto.vaimee.com/agora#thermalThreshold
+:thermalThreshold rdf:type owl:DatatypeProperty ;
+                  rdfs:subPropertyOf owl:topDataProperty ;
+                  rdfs:domain :Crop ;
+                  rdfs:range xsd:decimal .
+
+
 ###  http://onto.vaimee.com/agora#upperDepth
 :upperDepth rdf:type owl:DatatypeProperty ;
             rdfs:subPropertyOf owl:topDataProperty ;
@@ -354,18 +451,18 @@ sosa:observes rdf:type owl:ObjectProperty .
             rdfs:range xsd:decimal .
 
 
+###  http://onto.vaimee.com/agora#upperThermalThreshold
+:upperThermalThreshold rdf:type owl:DatatypeProperty ;
+                       rdfs:subPropertyOf owl:topDataProperty ;
+                       rdfs:domain :Crop ;
+                       rdfs:range xsd:decimal .
+
+
 ###  http://onto.vaimee.com/agora/criteria#computeLateralDrainage
 criteria:computeLateralDrainage rdf:type owl:DatatypeProperty ;
                                 rdfs:subPropertyOf owl:topDataProperty ;
                                 rdfs:domain :Criteria1DPlan ;
                                 rdfs:range xsd:boolean .
-
-
-###  http://onto.vaimee.com/agora/criteria#degreeDaysEmergence
-criteria:degreeDaysEmergence rdf:type owl:DatatypeProperty ;
-                             rdfs:subPropertyOf owl:topDataProperty ;
-                             rdfs:domain criteria:CropCycle ;
-                             rdfs:range xsd:integer .
 
 
 ###  http://onto.vaimee.com/agora/criteria#degreeDaysEndIrrigation
@@ -445,13 +542,6 @@ criteria:irrigationVolume rdf:type owl:DatatypeProperty ;
                           rdfs:range xsd:decimal .
 
 
-###  http://onto.vaimee.com/agora/criteria#kcMax
-criteria:kcMax rdf:type owl:DatatypeProperty ;
-               rdfs:subPropertyOf owl:topDataProperty ;
-               rdfs:domain criteria:CropCycle ;
-               rdfs:range xsd:decimal .
-
-
 ###  http://onto.vaimee.com/agora/criteria#laiCurveFactorA
 criteria:laiCurveFactorA rdf:type owl:DatatypeProperty ;
                          rdfs:subPropertyOf owl:topDataProperty ;
@@ -508,25 +598,11 @@ criteria:optimalIrrigation rdf:type owl:DatatypeProperty ;
                            rdfs:range xsd:boolean .
 
 
-###  http://onto.vaimee.com/agora/criteria#plantCycleMaxDuration
-criteria:plantCycleMaxDuration rdf:type owl:DatatypeProperty ;
-                               rdfs:subPropertyOf owl:topDataProperty ;
-                               rdfs:domain criteria:CropCycle ;
-                               rdfs:range xsd:string .
-
-
 ###  http://onto.vaimee.com/agora/criteria#psiLeaf
 criteria:psiLeaf rdf:type owl:DatatypeProperty ;
                  rdfs:subPropertyOf owl:topDataProperty ;
                  rdfs:domain criteria:CropCycle ;
                  rdfs:range xsd:integer .
-
-
-###  http://onto.vaimee.com/agora/criteria#rawFraction
-criteria:rawFraction rdf:type owl:DatatypeProperty ;
-                     rdfs:subPropertyOf owl:topDataProperty ;
-                     rdfs:domain criteria:CropCycle ;
-                     rdfs:range xsd:decimal .
 
 
 ###  http://onto.vaimee.com/agora/criteria#restartDate
@@ -541,13 +617,6 @@ criteria:restartState rdf:type owl:DatatypeProperty ;
                       rdfs:subPropertyOf owl:topDataProperty ;
                       rdfs:domain :Criteria1DPlan ;
                       rdfs:range xsd:boolean .
-
-
-###  http://onto.vaimee.com/agora/criteria#rootDepthMax
-criteria:rootDepthMax rdf:type owl:DatatypeProperty ;
-                      rdfs:subPropertyOf owl:topDataProperty ;
-                      rdfs:domain criteria:RootDevelopment ;
-                      rdfs:range xsd:decimal .
 
 
 ###  http://onto.vaimee.com/agora/criteria#rootDepthZero
@@ -592,32 +661,11 @@ criteria:slope rdf:type owl:DatatypeProperty ;
                rdfs:range xsd:decimal .
 
 
-###  http://onto.vaimee.com/agora/criteria#sowingDoy
-criteria:sowingDoy rdf:type owl:DatatypeProperty ;
-                   rdfs:subPropertyOf owl:topDataProperty ;
-                   rdfs:domain criteria:CropCycle ;
-                   rdfs:range xsd:integer .
-
-
 ###  http://onto.vaimee.com/agora/criteria#stressTolerance
 criteria:stressTolerance rdf:type owl:DatatypeProperty ;
                          rdfs:subPropertyOf owl:topDataProperty ;
                          rdfs:domain criteria:CropCycle ;
                          rdfs:range xsd:decimal .
-
-
-###  http://onto.vaimee.com/agora/criteria#thermalThreshold
-criteria:thermalThreshold rdf:type owl:DatatypeProperty ;
-                          rdfs:subPropertyOf owl:topDataProperty ;
-                          rdfs:domain criteria:CropCycle ;
-                          rdfs:range xsd:decimal .
-
-
-###  http://onto.vaimee.com/agora/criteria#upperThermalThreshold
-criteria:upperThermalThreshold rdf:type owl:DatatypeProperty ;
-                               rdfs:subPropertyOf owl:topDataProperty ;
-                               rdfs:domain criteria:CropCycle ;
-                               rdfs:range xsd:decimal .
 
 
 ###  http://onto.vaimee.com/agora/criteria#useWaterRetentionFitting
@@ -648,6 +696,14 @@ criteria:waterPotentialDepth rdf:type owl:DatatypeProperty ;
                              rdfs:range xsd:string .
 
 
+###  http://onto.vaimee.com/fsm#stateName
+fsm:stateName rdf:type owl:DatatypeProperty .
+
+
+###  http://onto.vaimee.com/fsm#symbolValue
+fsm:symbolValue rdf:type owl:DatatypeProperty .
+
+
 #################################################################
 #    Classes
 #################################################################
@@ -661,11 +717,11 @@ criteria:waterPotentialDepth rdf:type owl:DatatypeProperty ;
 
 ###  http://onto.vaimee.com/agora#Atmosphere
 :Atmosphere rdf:type owl:Class ;
-            rdfs:subClassOf <http://www.opengis.net/ont/geosparql#Feature> ,
-                            <http://www.w3.org/ns/prov#Entity> ,
+            rdfs:subClassOf geo:Feature ,
+                            prov:Entity ,
                             sosa:FeatureOfInterest ,
                             [ rdf:type owl:Restriction ;
-                              owl:onProperty <http://www.w3.org/ns/prov#wasGeneratedBy> ;
+                              owl:onProperty prov:wasGeneratedBy ;
                               owl:someValuesFrom :UpdateAtmosphereActivity
                             ] ,
                             [ rdf:type owl:Restriction ;
@@ -728,17 +784,17 @@ criteria:waterPotentialDepth rdf:type owl:DatatypeProperty ;
 
 ###  http://onto.vaimee.com/agora#Criteria1DPlan
 :Criteria1DPlan rdf:type owl:Class ;
-                rdfs:subClassOf <http://www.w3.org/ns/prov#Plan> ;
+                rdfs:subClassOf prov:Plan ;
                 rdfs:comment "PROV plan describing how CRITERIA1D is executed within the digital twin workflow." ;
                 rdfs:label "CRITERIA1D plan" .
 
 
 ###  http://onto.vaimee.com/agora#Crop
 :Crop rdf:type owl:Class ;
-      rdfs:subClassOf <http://www.w3.org/ns/prov#Entity> ,
+      rdfs:subClassOf prov:Entity ,
                       sosa:FeatureOfInterest ,
                       [ rdf:type owl:Restriction ;
-                        owl:onProperty <http://www.w3.org/ns/prov#wasGeneratedBy> ;
+                        owl:onProperty prov:wasGeneratedBy ;
                         owl:someValuesFrom :RunFieldDigitalTwinActivity
                       ] ,
                       [ rdf:type owl:Restriction ;
@@ -776,7 +832,7 @@ criteria:waterPotentialDepth rdf:type owl:DatatypeProperty ;
 
 ###  http://onto.vaimee.com/agora#DigitalTwinSynchronizer
 :DigitalTwinSynchronizer rdf:type owl:Class ;
-                         rdfs:subClassOf <http://www.w3.org/ns/prov#SoftwareAgent> ,
+                         rdfs:subClassOf prov:SoftwareAgent ,
                                          [ rdf:type owl:Restriction ;
                                            owl:onProperty :hasFiniteStateMachine ;
                                            owl:hasValue :DigitalTwinSynchronizerFSM
@@ -787,27 +843,32 @@ criteria:waterPotentialDepth rdf:type owl:DatatypeProperty ;
 
 ###  http://onto.vaimee.com/agora#DigitalTwinSynchronizerAssociation
 :DigitalTwinSynchronizerAssociation rdf:type owl:Class ;
-                                    rdfs:subClassOf <http://www.w3.org/ns/prov#Association> ,
+                                    rdfs:subClassOf prov:Association ,
                                                     [ rdf:type owl:Restriction ;
-                                                      owl:onProperty <http://www.w3.org/ns/prov#agent> ;
+                                                      owl:onProperty prov:agent ;
                                                       owl:someValuesFrom :DigitalTwinSynchronizer
                                                     ] ,
                                                     [ rdf:type owl:Restriction ;
-                                                      owl:onProperty <http://www.w3.org/ns/prov#hadPlan> ;
+                                                      owl:onProperty prov:hadPlan ;
                                                       owl:someValuesFrom :Criteria1DPlan
                                                     ] ;
                                     rdfs:comment "Qualified PROV association linking a digital twin synchronizer to the plan used for an activity." ;
                                     rdfs:label "Digital twin synchronizer association" .
 
 
+###  http://onto.vaimee.com/agora#Farm
+:Farm rdf:type owl:Class ;
+      rdfs:comment "Agricultural holdings (often called farms): an economic unit of agricultural production under single management comprising all livestock kept and all land used wholly or partly for agricultural production purposes, without regard to title, legal form or size” (FAO, 2015)."@en .
+
+
 ###  http://onto.vaimee.com/agora#Field
 :Field rdf:type owl:Class ;
        rdfs:subClassOf :PhysicalSystem ,
-                       <http://www.opengis.net/ont/geosparql#Feature> ,
-                       <http://www.w3.org/ns/prov#Entity> ,
+                       geo:Feature ,
+                       prov:Entity ,
                        sosa:FeatureOfInterest ,
                        [ rdf:type owl:Restriction ;
-                         owl:onProperty <http://www.w3.org/ns/prov#wasGeneratedBy> ;
+                         owl:onProperty prov:wasGeneratedBy ;
                          owl:someValuesFrom :RunFieldDigitalTwinActivity
                        ] ,
                        [ rdf:type owl:Restriction ;
@@ -847,21 +908,21 @@ criteria:waterPotentialDepth rdf:type owl:DatatypeProperty ;
 ###  http://onto.vaimee.com/agora#FieldDigitalTwin
 :FieldDigitalTwin rdf:type owl:Class ;
                   rdfs:subClassOf :DigitalTwin ,
-                                  <http://www.w3.org/ns/prov#Entity> ,
-                                  <http://www.w3.org/ns/prov#SoftwareAgent> ,
+                                  prov:Entity ,
+                                  prov:SoftwareAgent ,
                                   sosa:Sensor ,
                                   [ rdf:type owl:Restriction ;
                                     owl:onProperty :digitalTwinOf ;
                                     owl:someValuesFrom :Field
                                   ] ,
-                                   [ rdf:type owl:Restriction ;
-                                     owl:onProperty :hasModel ;
-                                     owl:someValuesFrom :AgrohydrologicalModel
-                                   ] ,
-                                   [ rdf:type owl:Restriction ;
-                                     owl:onProperty :hasFiniteStateMachine ;
-                                     owl:hasValue :FieldDigitalTwinFSM
-                                   ] ;
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty :hasModel ;
+                                    owl:someValuesFrom :AgrohydrologicalModel
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty :hasFiniteStateMachine ;
+                                    owl:hasValue :FieldDigitalTwinFSM
+                                  ] ;
                   rdfs:comment "Digital twin specialization for an agricultural field." ;
                   rdfs:label "FieldDT" .
 
@@ -888,30 +949,30 @@ criteria:waterPotentialDepth rdf:type owl:DatatypeProperty ;
 
 ###  http://onto.vaimee.com/agora#RunFieldDigitalTwinActivity
 :RunFieldDigitalTwinActivity rdf:type owl:Class ;
-                             rdfs:subClassOf <http://www.w3.org/ns/prov#Create> ,
-                                             <http://www.w3.org/ns/prov#Modify> ,
+                             rdfs:subClassOf prov:Create ,
+                                             prov:Modify ,
                                              [ rdf:type owl:Restriction ;
-                                               owl:onProperty <http://www.w3.org/ns/prov#generated> ;
+                                               owl:onProperty prov:generated ;
                                                owl:someValuesFrom :Crop
                                              ] ,
                                              [ rdf:type owl:Restriction ;
-                                               owl:onProperty <http://www.w3.org/ns/prov#generated> ;
+                                               owl:onProperty prov:generated ;
                                                owl:someValuesFrom :Field
                                              ] ,
                                              [ rdf:type owl:Restriction ;
-                                               owl:onProperty <http://www.w3.org/ns/prov#generated> ;
+                                               owl:onProperty prov:generated ;
                                                owl:someValuesFrom :Soil
                                              ] ,
                                              [ rdf:type owl:Restriction ;
-                                               owl:onProperty <http://www.w3.org/ns/prov#qualifiedAssociation> ;
+                                               owl:onProperty prov:qualifiedAssociation ;
                                                owl:someValuesFrom :DigitalTwinSynchronizerAssociation
                                              ] ,
                                              [ rdf:type owl:Restriction ;
-                                               owl:onProperty <http://www.w3.org/ns/prov#used> ;
+                                               owl:onProperty prov:used ;
                                                owl:someValuesFrom :FieldDigitalTwin
                                              ] ,
                                              [ rdf:type owl:Restriction ;
-                                               owl:onProperty <http://www.w3.org/ns/prov#wasAssociatedWith> ;
+                                               owl:onProperty prov:wasAssociatedWith ;
                                                owl:someValuesFrom :DigitalTwinSynchronizer
                                              ] ;
                              rdfs:comment "PROV activity that runs a field digital twin and generates updated field, crop, or soil entities." ;
@@ -920,10 +981,10 @@ criteria:waterPotentialDepth rdf:type owl:DatatypeProperty ;
 
 ###  http://onto.vaimee.com/agora#Soil
 :Soil rdf:type owl:Class ;
-      rdfs:subClassOf <http://www.w3.org/ns/prov#Entity> ,
+      rdfs:subClassOf prov:Entity ,
                       sosa:FeatureOfInterest ,
                       [ rdf:type owl:Restriction ;
-                        owl:onProperty <http://www.w3.org/ns/prov#wasGeneratedBy> ;
+                        owl:onProperty prov:wasGeneratedBy ;
                         owl:someValuesFrom :RunFieldDigitalTwinActivity
                       ] ,
                       [ rdf:type owl:Restriction ;
@@ -954,7 +1015,7 @@ criteria:waterPotentialDepth rdf:type owl:DatatypeProperty ;
 
 ###  http://onto.vaimee.com/agora#SoilHorizon
 :SoilHorizon rdf:type owl:Class ;
-             rdfs:subClassOf <http://www.w3.org/ns/prov#Entity> ,
+             rdfs:subClassOf prov:Entity ,
                              sosa:FeatureOfInterest ,
                              [ rdf:type owl:Restriction ;
                                owl:onProperty sosa:isFeatureOfInterestOf ;
@@ -1066,26 +1127,26 @@ criteria:waterPotentialDepth rdf:type owl:DatatypeProperty ;
 
 ###  http://onto.vaimee.com/agora#State
 :State rdf:type owl:Class ;
-       rdfs:subClassOf <http://onto.vaimee.com/fsm#State> ,
-                       <http://www.w3.org/2006/time#TemporalEntity> ;
+       rdfs:subClassOf fsm:State ,
+                       time:TemporalEntity ;
        rdfs:comment "State of a software agent or finite-state machine at a temporal instant or interval." ;
        rdfs:label "State" .
 
 
 ###  http://onto.vaimee.com/agora#UpdateAtmosphereActivity
 :UpdateAtmosphereActivity rdf:type owl:Class ;
-                          rdfs:subClassOf <http://www.w3.org/ns/prov#Create> ,
-                                          <http://www.w3.org/ns/prov#Modify> ,
+                          rdfs:subClassOf prov:Create ,
+                                          prov:Modify ,
                                           [ rdf:type owl:Restriction ;
-                                            owl:onProperty <http://www.w3.org/ns/prov#generated> ;
+                                            owl:onProperty prov:generated ;
                                             owl:someValuesFrom :Atmosphere
                                           ] ,
                                           [ rdf:type owl:Restriction ;
-                                            owl:onProperty <http://www.w3.org/ns/prov#used> ;
+                                            owl:onProperty prov:used ;
                                             owl:someValuesFrom api:WeatherAPI
                                           ] ,
                                           [ rdf:type owl:Restriction ;
-                                            owl:onProperty <http://www.w3.org/ns/prov#wasAssociatedWith> ;
+                                            owl:onProperty prov:wasAssociatedWith ;
                                             owl:someValuesFrom :WeatherAgent
                                           ] ;
                           rdfs:comment "PROV activity that updates the atmosphere using data from a weather API and is associated with a weather agent." ;
@@ -1094,26 +1155,27 @@ criteria:waterPotentialDepth rdf:type owl:DatatypeProperty ;
 
 ###  http://onto.vaimee.com/agora#WeatherAgent
 :WeatherAgent rdf:type owl:Class ;
-              rdfs:subClassOf <http://www.w3.org/ns/prov#SoftwareAgent> ,
+              rdfs:subClassOf prov:SoftwareAgent ,
                               sosa:Sensor ,
                               [ rdf:type owl:Restriction ;
                                 owl:onProperty sosa:madeObservation ;
                                 owl:allValuesFrom :AtmosphereObservation
                               ] ,
                               [ rdf:type owl:Restriction ;
-                                owl:onProperty sosa:observes ;
-                                owl:hasValue :precipitation
-                              ] ,
-                              [ rdf:type owl:Restriction ;
                                 owl:onProperty :hasFiniteStateMachine ;
                                 owl:hasValue :WeatherAgentFSM
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty sosa:observes ;
+                                owl:hasValue :precipitation
                               ] ;
               rdfs:comment "A software agent acting as a virtual sensor. It observes daily precipitation and maximum, minimum, and average daily temperature, fetching them from external WeatherAPIs and producing AtmosphereObservations for the Atmosphere of a Field." ;
               rdfs:label "WeatherAgent" .
 
 
 ###  http://onto.vaimee.com/agora/api#WeatherAPI
-api:WeatherAPI rdfs:subClassOf <http://www.w3.org/ns/prov#Entity> .
+api:WeatherAPI rdf:type owl:Class ;
+               rdfs:subClassOf prov:Entity .
 
 
 ###  http://onto.vaimee.com/agora/criteria#AgroHydrologicalModelComponent
@@ -1163,10 +1225,38 @@ criteria:RootDevelopment rdf:type owl:Class ;
                          rdfs:label "Root development" .
 
 
+###  http://onto.vaimee.com/fsm#AcceptingState
+fsm:AcceptingState rdf:type owl:Class .
+
+
+###  http://onto.vaimee.com/fsm#Alphabet
+fsm:Alphabet rdf:type owl:Class .
+
+
+###  http://onto.vaimee.com/fsm#DeterministicFiniteStateMachine
+fsm:DeterministicFiniteStateMachine rdf:type owl:Class .
+
+
+###  http://onto.vaimee.com/fsm#DeterministicTransition
+fsm:DeterministicTransition rdf:type owl:Class .
+
+
+###  http://onto.vaimee.com/fsm#FiniteStateMachine
+fsm:FiniteStateMachine rdf:type owl:Class .
+
+
+###  http://onto.vaimee.com/fsm#InitialState
+fsm:InitialState rdf:type owl:Class .
+
+
 ###  http://onto.vaimee.com/fsm#State
-<http://onto.vaimee.com/fsm#State> rdf:type owl:Class ;
-                                   rdfs:comment "State class imported from the VAIMEE finite-state machine ontology." ;
-                                   rdfs:label "FSM state" .
+fsm:State rdf:type owl:Class ;
+          rdfs:comment "State class imported from the VAIMEE finite-state machine ontology." ;
+          rdfs:label "FSM state" .
+
+
+###  http://onto.vaimee.com/fsm#Symbol
+fsm:Symbol rdf:type owl:Class .
 
 
 ###  http://qudt.org/schema/qudt/QuantityValue
@@ -1176,21 +1266,21 @@ qudt:QuantityValue rdf:type owl:Class ;
 
 
 ###  http://www.opengis.net/ont/geosparql#Feature
-<http://www.opengis.net/ont/geosparql#Feature> rdf:type owl:Class ;
-                                               rdfs:comment "GeoSPARQL class for spatial features." ;
-                                               rdfs:label "GeoSPARQL feature" .
+geo:Feature rdf:type owl:Class ;
+            rdfs:comment "GeoSPARQL class for spatial features." ;
+            rdfs:label "GeoSPARQL feature" .
 
 
 ###  http://www.w3.org/2006/time#TemporalEntity
-<http://www.w3.org/2006/time#TemporalEntity> rdf:type owl:Class ;
-                                             rdfs:comment "OWL-Time class for temporal entities such as instants and intervals." ;
-                                             rdfs:label "Temporal entity" .
+time:TemporalEntity rdf:type owl:Class ;
+                    rdfs:comment "OWL-Time class for temporal entities such as instants and intervals." ;
+                    rdfs:label "Temporal entity" .
 
 
 ###  http://www.w3.org/ns/prov#SoftwareAgent
-<http://www.w3.org/ns/prov#SoftwareAgent> rdf:type owl:Class ;
-                                          rdfs:comment "PROV class for agents implemented as software." ;
-                                          rdfs:label "Software agent" .
+prov:SoftwareAgent rdf:type owl:Class ;
+                   rdfs:comment "PROV class for agents implemented as software." ;
+                   rdfs:label "Software agent" .
 
 
 ###  http://www.w3.org/ns/shacl#NodeShape
@@ -1245,114 +1335,39 @@ sosa:Sensor rdf:type owl:Class ;
 #    Individuals
 #################################################################
 
+###  http://onto.vaimee.com/agora#ApiFetchFailedSymbol
+:ApiFetchFailedSymbol rdf:type owl:NamedIndividual ,
+                               fsm:Symbol ;
+                      fsm:symbolValue "api fetch failed" ;
+                      rdfs:label "api fetch failed" .
+
+
+###  http://onto.vaimee.com/agora#ApiFetchSucceededSymbol
+:ApiFetchSucceededSymbol rdf:type owl:NamedIndividual ,
+                                  fsm:Symbol ;
+                         fsm:symbolValue "api fetch succeeded" ;
+                         rdfs:label "api fetch succeeded" .
+
+
 ###  http://onto.vaimee.com/agora#AtmosphereTemperatureResultShape
 :AtmosphereTemperatureResultShape rdf:type owl:NamedIndividual ,
                                            shacl:NodeShape ;
                                   shacl:property [ shacl:datatype xsd:decimal ;
-                                                   shacl:lessThan :maxDailyTemperature ;
                                                    shacl:maxCount 1 ;
                                                    shacl:minCount 1 ;
-                                                   shacl:path :minDailyTemperature
+                                                   shacl:path :maxDailyTemperature
                                                  ] ,
                                                  [ shacl:datatype xsd:decimal ;
                                                    shacl:maxCount 1 ;
                                                    shacl:path :avgDailyTemperature
                                                  ] ,
                                                  [ shacl:datatype xsd:decimal ;
+                                                   shacl:lessThan :maxDailyTemperature ;
                                                    shacl:maxCount 1 ;
                                                    shacl:minCount 1 ;
-                                                   shacl:path :maxDailyTemperature
+                                                   shacl:path :minDailyTemperature
                                                  ] ;
                                   shacl:targetClass :AtmosphereTemperatureResult .
-
-
-###  http://onto.vaimee.com/agora#DigitalTwinSynchronizerFSM
-:DigitalTwinSynchronizerFSM rdf:type owl:NamedIndividual ,
-                                     fsm:DeterministicFiniteStateMachine ;
-                            fsm:hasAlphabet :DigitalTwinSynchronizerAlphabet ;
-                            fsm:hasInitialState :SynchronizerIdleState ;
-                            fsm:hasState :SynchronizerIdleState ,
-                                         :SynchronizerWaitingAtmosphereState ,
-                                         :SynchronizerStartingFieldTwinState ,
-                                         :SynchronizerWaitingFieldTwinState ,
-                                         :SynchronizerCompletedState ,
-                                         :SynchronizerFailedState ;
-                            fsm:hasAcceptingState :SynchronizerCompletedState ,
-                                                  :SynchronizerFailedState ;
-                            fsm:hasTransition :SynchronizerRunRequestedTransition ,
-                                              :SynchronizerAtmosphereUpdatedTransition ,
-                                              :SynchronizerAtmosphereFailedTransition ,
-                                              :SynchronizerFieldTwinStartedTransition ,
-                                              :SynchronizerFieldTwinStartFailedTransition ,
-                                              :SynchronizerFieldTwinCompletedTransition ,
-                                              :SynchronizerFieldTwinFailedTransition ,
-                                              :SynchronizerResetAfterCompletedTransition ,
-                                              :SynchronizerResetAfterFailedTransition ;
-                            rdfs:comment "Finite-state machine used to trace orchestration of weather updates and field digital twin execution." ;
-                            rdfs:label "Digital twin synchronizer FSM" .
-
-
-###  http://onto.vaimee.com/agora#DigitalTwinSynchronizerAlphabet
-:DigitalTwinSynchronizerAlphabet rdf:type owl:NamedIndividual ,
-                                          fsm:Alphabet ;
-                                 fsm:hasSymbol :RunRequestedSymbol ,
-                                               :AtmosphereUpdateCompletedSymbol ,
-                                               :AtmosphereUpdateFailedSymbol ,
-                                               :FieldTwinStartedSymbol ,
-                                               :FieldTwinStartFailedSymbol ,
-                                               :FieldTwinCompletedSymbol ,
-                                               :FieldTwinFailedSymbol ,
-                                               :ResetSymbol ;
-                                 rdfs:label "Digital twin synchronizer alphabet" .
-
-
-###  http://onto.vaimee.com/agora#SynchronizerIdleState
-:SynchronizerIdleState rdf:type owl:NamedIndividual ,
-                                fsm:InitialState ;
-                       fsm:stateName "idle" ;
-                       rdfs:label "Synchronizer idle" .
-
-
-###  http://onto.vaimee.com/agora#SynchronizerWaitingAtmosphereState
-:SynchronizerWaitingAtmosphereState rdf:type owl:NamedIndividual ,
-                                             fsm:State ;
-                                    fsm:stateName "waiting atmosphere update" ;
-                                    rdfs:label "Synchronizer waiting atmosphere update" .
-
-
-###  http://onto.vaimee.com/agora#SynchronizerStartingFieldTwinState
-:SynchronizerStartingFieldTwinState rdf:type owl:NamedIndividual ,
-                                             fsm:State ;
-                                    fsm:stateName "starting field digital twin" ;
-                                    rdfs:label "Synchronizer starting field digital twin" .
-
-
-###  http://onto.vaimee.com/agora#SynchronizerWaitingFieldTwinState
-:SynchronizerWaitingFieldTwinState rdf:type owl:NamedIndividual ,
-                                            fsm:State ;
-                                   fsm:stateName "waiting field digital twin" ;
-                                   rdfs:label "Synchronizer waiting field digital twin" .
-
-
-###  http://onto.vaimee.com/agora#SynchronizerCompletedState
-:SynchronizerCompletedState rdf:type owl:NamedIndividual ,
-                                     fsm:AcceptingState ;
-                            fsm:stateName "completed" ;
-                            rdfs:label "Synchronizer completed" .
-
-
-###  http://onto.vaimee.com/agora#SynchronizerFailedState
-:SynchronizerFailedState rdf:type owl:NamedIndividual ,
-                                  fsm:AcceptingState ;
-                         fsm:stateName "failed" ;
-                         rdfs:label "Synchronizer failed" .
-
-
-###  http://onto.vaimee.com/agora#RunRequestedSymbol
-:RunRequestedSymbol rdf:type owl:NamedIndividual ,
-                             fsm:Symbol ;
-                    fsm:symbolValue "run requested" ;
-                    rdfs:label "run requested" .
 
 
 ###  http://onto.vaimee.com/agora#AtmosphereUpdateCompletedSymbol
@@ -1369,18 +1384,213 @@ sosa:Sensor rdf:type owl:Class ;
                               rdfs:label "atmosphere update failed" .
 
 
-###  http://onto.vaimee.com/agora#FieldTwinStartedSymbol
-:FieldTwinStartedSymbol rdf:type owl:NamedIndividual ,
-                                 fsm:Symbol ;
-                        fsm:symbolValue "field twin started" ;
-                        rdfs:label "field twin started" .
+###  http://onto.vaimee.com/agora#DigitalTwinSynchronizerAlphabet
+:DigitalTwinSynchronizerAlphabet rdf:type owl:NamedIndividual ,
+                                          fsm:Alphabet ;
+                                 fsm:hasSymbol :AtmosphereUpdateCompletedSymbol ,
+                                               :AtmosphereUpdateFailedSymbol ,
+                                               :FieldTwinCompletedSymbol ,
+                                               :FieldTwinFailedSymbol ,
+                                               :FieldTwinStartFailedSymbol ,
+                                               :FieldTwinStartedSymbol ,
+                                               :ResetSymbol ,
+                                               :RunRequestedSymbol ;
+                                 rdfs:label "Digital twin synchronizer alphabet" .
 
 
-###  http://onto.vaimee.com/agora#FieldTwinStartFailedSymbol
-:FieldTwinStartFailedSymbol rdf:type owl:NamedIndividual ,
-                                     fsm:Symbol ;
-                            fsm:symbolValue "field twin start failed" ;
-                            rdfs:label "field twin start failed" .
+###  http://onto.vaimee.com/agora#DigitalTwinSynchronizerFSM
+:DigitalTwinSynchronizerFSM rdf:type owl:NamedIndividual ,
+                                     fsm:DeterministicFiniteStateMachine ;
+                            fsm:hasAcceptingState :SynchronizerCompletedState ,
+                                                  :SynchronizerFailedState ;
+                            fsm:hasAlphabet :DigitalTwinSynchronizerAlphabet ;
+                            fsm:hasInitialState :SynchronizerIdleState ;
+                            fsm:hasState :SynchronizerCompletedState ,
+                                         :SynchronizerFailedState ,
+                                         :SynchronizerIdleState ,
+                                         :SynchronizerStartingFieldTwinState ,
+                                         :SynchronizerWaitingAtmosphereState ,
+                                         :SynchronizerWaitingFieldTwinState ;
+                            fsm:hasTransition :SynchronizerAtmosphereFailedTransition ,
+                                              :SynchronizerAtmosphereUpdatedTransition ,
+                                              :SynchronizerFieldTwinCompletedTransition ,
+                                              :SynchronizerFieldTwinFailedTransition ,
+                                              :SynchronizerFieldTwinStartFailedTransition ,
+                                              :SynchronizerFieldTwinStartedTransition ,
+                                              :SynchronizerResetAfterCompletedTransition ,
+                                              :SynchronizerResetAfterFailedTransition ,
+                                              :SynchronizerRunRequestedTransition ;
+                            rdfs:comment "Finite-state machine used to trace orchestration of weather updates and field digital twin execution." ;
+                            rdfs:label "Digital twin synchronizer FSM" .
+
+
+###  http://onto.vaimee.com/agora#FetchRequestedSymbol
+:FetchRequestedSymbol rdf:type owl:NamedIndividual ,
+                               fsm:Symbol ;
+                      fsm:symbolValue "fetch requested" ;
+                      rdfs:label "fetch requested" .
+
+
+###  http://onto.vaimee.com/agora#FieldDigitalTwinAlphabet
+:FieldDigitalTwinAlphabet rdf:type owl:NamedIndividual ,
+                                   fsm:Alphabet ;
+                          fsm:hasSymbol :InputReadySymbol ,
+                                        :ModelExecutionFailedSymbol ,
+                                        :ModelExecutionSucceededSymbol ,
+                                        :ModelStartFailedSymbol ,
+                                        :ModelStartedSymbol ,
+                                        :OutputPublishedSymbol ,
+                                        :ResetSymbol ,
+                                        :RunRequestedSymbol ;
+                          rdfs:label "Field digital twin alphabet" .
+
+
+###  http://onto.vaimee.com/agora#FieldDigitalTwinCompletedState
+:FieldDigitalTwinCompletedState rdf:type owl:NamedIndividual ,
+                                         fsm:AcceptingState ;
+                                fsm:stateName "completed" ;
+                                rdfs:label "Field digital twin completed" .
+
+
+###  http://onto.vaimee.com/agora#FieldDigitalTwinFSM
+:FieldDigitalTwinFSM rdf:type owl:NamedIndividual ,
+                              fsm:DeterministicFiniteStateMachine ;
+                     fsm:hasAcceptingState :FieldDigitalTwinCompletedState ,
+                                           :FieldDigitalTwinFailedState ;
+                     fsm:hasAlphabet :FieldDigitalTwinAlphabet ;
+                     fsm:hasInitialState :FieldDigitalTwinIdleState ;
+                     fsm:hasState :FieldDigitalTwinCompletedState ,
+                                  :FieldDigitalTwinFailedState ,
+                                  :FieldDigitalTwinIdleState ,
+                                  :FieldDigitalTwinPublishingOutputState ,
+                                  :FieldDigitalTwinRunningModelState ,
+                                  :FieldDigitalTwinStartingModelState ,
+                                  :FieldDigitalTwinWaitingInputState ;
+                     fsm:hasTransition :FieldDigitalTwinInputReadyTransition ,
+                                       :FieldDigitalTwinModelFailedTransition ,
+                                       :FieldDigitalTwinModelStartFailedTransition ,
+                                       :FieldDigitalTwinModelStartedTransition ,
+                                       :FieldDigitalTwinModelSucceededTransition ,
+                                       :FieldDigitalTwinOutputPublishedTransition ,
+                                       :FieldDigitalTwinResetAfterCompletedTransition ,
+                                       :FieldDigitalTwinResetAfterFailedTransition ,
+                                       :FieldDigitalTwinRunRequestedTransition ;
+                     rdfs:comment "Finite-state machine used to trace field digital twin model execution and distinguish model start failures from runtime failures." ;
+                     rdfs:label "Field digital twin FSM" .
+
+
+###  http://onto.vaimee.com/agora#FieldDigitalTwinFailedState
+:FieldDigitalTwinFailedState rdf:type owl:NamedIndividual ,
+                                      fsm:AcceptingState ;
+                             fsm:stateName "failed" ;
+                             rdfs:label "Field digital twin failed" .
+
+
+###  http://onto.vaimee.com/agora#FieldDigitalTwinIdleState
+:FieldDigitalTwinIdleState rdf:type owl:NamedIndividual ,
+                                    fsm:InitialState ;
+                           fsm:stateName "idle" ;
+                           rdfs:label "Field digital twin idle" .
+
+
+###  http://onto.vaimee.com/agora#FieldDigitalTwinInputReadyTransition
+:FieldDigitalTwinInputReadyTransition rdf:type owl:NamedIndividual ,
+                                               fsm:DeterministicTransition ;
+                                      fsm:fromState :FieldDigitalTwinWaitingInputState ;
+                                      fsm:onSymbol :InputReadySymbol ;
+                                      fsm:toState :FieldDigitalTwinStartingModelState .
+
+
+###  http://onto.vaimee.com/agora#FieldDigitalTwinModelFailedTransition
+:FieldDigitalTwinModelFailedTransition rdf:type owl:NamedIndividual ,
+                                                fsm:DeterministicTransition ;
+                                       fsm:fromState :FieldDigitalTwinRunningModelState ;
+                                       fsm:onSymbol :ModelExecutionFailedSymbol ;
+                                       fsm:toState :FieldDigitalTwinFailedState .
+
+
+###  http://onto.vaimee.com/agora#FieldDigitalTwinModelStartFailedTransition
+:FieldDigitalTwinModelStartFailedTransition rdf:type owl:NamedIndividual ,
+                                                     fsm:DeterministicTransition ;
+                                            fsm:fromState :FieldDigitalTwinStartingModelState ;
+                                            fsm:onSymbol :ModelStartFailedSymbol ;
+                                            fsm:toState :FieldDigitalTwinFailedState .
+
+
+###  http://onto.vaimee.com/agora#FieldDigitalTwinModelStartedTransition
+:FieldDigitalTwinModelStartedTransition rdf:type owl:NamedIndividual ,
+                                                 fsm:DeterministicTransition ;
+                                        fsm:fromState :FieldDigitalTwinStartingModelState ;
+                                        fsm:onSymbol :ModelStartedSymbol ;
+                                        fsm:toState :FieldDigitalTwinRunningModelState .
+
+
+###  http://onto.vaimee.com/agora#FieldDigitalTwinModelSucceededTransition
+:FieldDigitalTwinModelSucceededTransition rdf:type owl:NamedIndividual ,
+                                                   fsm:DeterministicTransition ;
+                                          fsm:fromState :FieldDigitalTwinRunningModelState ;
+                                          fsm:onSymbol :ModelExecutionSucceededSymbol ;
+                                          fsm:toState :FieldDigitalTwinPublishingOutputState .
+
+
+###  http://onto.vaimee.com/agora#FieldDigitalTwinOutputPublishedTransition
+:FieldDigitalTwinOutputPublishedTransition rdf:type owl:NamedIndividual ,
+                                                    fsm:DeterministicTransition ;
+                                           fsm:fromState :FieldDigitalTwinPublishingOutputState ;
+                                           fsm:onSymbol :OutputPublishedSymbol ;
+                                           fsm:toState :FieldDigitalTwinCompletedState .
+
+
+###  http://onto.vaimee.com/agora#FieldDigitalTwinPublishingOutputState
+:FieldDigitalTwinPublishingOutputState rdf:type owl:NamedIndividual ,
+                                                fsm:State ;
+                                       fsm:stateName "publishing output" ;
+                                       rdfs:label "Field digital twin publishing output" .
+
+
+###  http://onto.vaimee.com/agora#FieldDigitalTwinResetAfterCompletedTransition
+:FieldDigitalTwinResetAfterCompletedTransition rdf:type owl:NamedIndividual ,
+                                                        fsm:DeterministicTransition ;
+                                               fsm:fromState :FieldDigitalTwinCompletedState ;
+                                               fsm:onSymbol :ResetSymbol ;
+                                               fsm:toState :FieldDigitalTwinIdleState .
+
+
+###  http://onto.vaimee.com/agora#FieldDigitalTwinResetAfterFailedTransition
+:FieldDigitalTwinResetAfterFailedTransition rdf:type owl:NamedIndividual ,
+                                                     fsm:DeterministicTransition ;
+                                            fsm:fromState :FieldDigitalTwinFailedState ;
+                                            fsm:onSymbol :ResetSymbol ;
+                                            fsm:toState :FieldDigitalTwinIdleState .
+
+
+###  http://onto.vaimee.com/agora#FieldDigitalTwinRunRequestedTransition
+:FieldDigitalTwinRunRequestedTransition rdf:type owl:NamedIndividual ,
+                                                 fsm:DeterministicTransition ;
+                                        fsm:fromState :FieldDigitalTwinIdleState ;
+                                        fsm:onSymbol :RunRequestedSymbol ;
+                                        fsm:toState :FieldDigitalTwinWaitingInputState .
+
+
+###  http://onto.vaimee.com/agora#FieldDigitalTwinRunningModelState
+:FieldDigitalTwinRunningModelState rdf:type owl:NamedIndividual ,
+                                            fsm:State ;
+                                   fsm:stateName "running model" ;
+                                   rdfs:label "Field digital twin running model" .
+
+
+###  http://onto.vaimee.com/agora#FieldDigitalTwinStartingModelState
+:FieldDigitalTwinStartingModelState rdf:type owl:NamedIndividual ,
+                                             fsm:State ;
+                                    fsm:stateName "starting model" ;
+                                    rdfs:label "Field digital twin starting model" .
+
+
+###  http://onto.vaimee.com/agora#FieldDigitalTwinWaitingInputState
+:FieldDigitalTwinWaitingInputState rdf:type owl:NamedIndividual ,
+                                            fsm:State ;
+                                   fsm:stateName "waiting input" ;
+                                   rdfs:label "Field digital twin waiting input" .
 
 
 ###  http://onto.vaimee.com/agora#FieldTwinCompletedSymbol
@@ -1397,196 +1607,18 @@ sosa:Sensor rdf:type owl:Class ;
                        rdfs:label "field twin failed" .
 
 
-###  http://onto.vaimee.com/agora#ResetSymbol
-:ResetSymbol rdf:type owl:NamedIndividual ,
-                      fsm:Symbol ;
-             fsm:symbolValue "reset" ;
-             rdfs:label "reset" .
+###  http://onto.vaimee.com/agora#FieldTwinStartFailedSymbol
+:FieldTwinStartFailedSymbol rdf:type owl:NamedIndividual ,
+                                     fsm:Symbol ;
+                            fsm:symbolValue "field twin start failed" ;
+                            rdfs:label "field twin start failed" .
 
 
-:SynchronizerRunRequestedTransition rdf:type owl:NamedIndividual , fsm:DeterministicTransition ;
-                                    fsm:fromState :SynchronizerIdleState ;
-                                    fsm:onSymbol :RunRequestedSymbol ;
-                                    fsm:toState :SynchronizerWaitingAtmosphereState .
-
-:SynchronizerAtmosphereUpdatedTransition rdf:type owl:NamedIndividual , fsm:DeterministicTransition ;
-                                         fsm:fromState :SynchronizerWaitingAtmosphereState ;
-                                         fsm:onSymbol :AtmosphereUpdateCompletedSymbol ;
-                                         fsm:toState :SynchronizerStartingFieldTwinState .
-
-:SynchronizerAtmosphereFailedTransition rdf:type owl:NamedIndividual , fsm:DeterministicTransition ;
-                                        fsm:fromState :SynchronizerWaitingAtmosphereState ;
-                                        fsm:onSymbol :AtmosphereUpdateFailedSymbol ;
-                                        fsm:toState :SynchronizerFailedState .
-
-:SynchronizerFieldTwinStartedTransition rdf:type owl:NamedIndividual , fsm:DeterministicTransition ;
-                                        fsm:fromState :SynchronizerStartingFieldTwinState ;
-                                        fsm:onSymbol :FieldTwinStartedSymbol ;
-                                        fsm:toState :SynchronizerWaitingFieldTwinState .
-
-:SynchronizerFieldTwinStartFailedTransition rdf:type owl:NamedIndividual , fsm:DeterministicTransition ;
-                                            fsm:fromState :SynchronizerStartingFieldTwinState ;
-                                            fsm:onSymbol :FieldTwinStartFailedSymbol ;
-                                            fsm:toState :SynchronizerFailedState .
-
-:SynchronizerFieldTwinCompletedTransition rdf:type owl:NamedIndividual , fsm:DeterministicTransition ;
-                                          fsm:fromState :SynchronizerWaitingFieldTwinState ;
-                                          fsm:onSymbol :FieldTwinCompletedSymbol ;
-                                          fsm:toState :SynchronizerCompletedState .
-
-:SynchronizerFieldTwinFailedTransition rdf:type owl:NamedIndividual , fsm:DeterministicTransition ;
-                                       fsm:fromState :SynchronizerWaitingFieldTwinState ;
-                                       fsm:onSymbol :FieldTwinFailedSymbol ;
-                                       fsm:toState :SynchronizerFailedState .
-
-:SynchronizerResetAfterCompletedTransition rdf:type owl:NamedIndividual , fsm:DeterministicTransition ;
-                                           fsm:fromState :SynchronizerCompletedState ;
-                                           fsm:onSymbol :ResetSymbol ;
-                                           fsm:toState :SynchronizerIdleState .
-
-:SynchronizerResetAfterFailedTransition rdf:type owl:NamedIndividual , fsm:DeterministicTransition ;
-                                        fsm:fromState :SynchronizerFailedState ;
-                                        fsm:onSymbol :ResetSymbol ;
-                                        fsm:toState :SynchronizerIdleState .
-
-
-###  http://onto.vaimee.com/agora#FieldDigitalTwinFSM
-:FieldDigitalTwinFSM rdf:type owl:NamedIndividual ,
-                              fsm:DeterministicFiniteStateMachine ;
-                     fsm:hasAlphabet :FieldDigitalTwinAlphabet ;
-                     fsm:hasInitialState :FieldDigitalTwinIdleState ;
-                     fsm:hasState :FieldDigitalTwinIdleState ,
-                                  :FieldDigitalTwinWaitingInputState ,
-                                  :FieldDigitalTwinStartingModelState ,
-                                  :FieldDigitalTwinRunningModelState ,
-                                  :FieldDigitalTwinPublishingOutputState ,
-                                  :FieldDigitalTwinCompletedState ,
-                                  :FieldDigitalTwinFailedState ;
-                     fsm:hasAcceptingState :FieldDigitalTwinCompletedState ,
-                                           :FieldDigitalTwinFailedState ;
-                     fsm:hasTransition :FieldDigitalTwinRunRequestedTransition ,
-                                       :FieldDigitalTwinInputReadyTransition ,
-                                       :FieldDigitalTwinModelStartedTransition ,
-                                       :FieldDigitalTwinModelStartFailedTransition ,
-                                       :FieldDigitalTwinModelSucceededTransition ,
-                                       :FieldDigitalTwinModelFailedTransition ,
-                                       :FieldDigitalTwinOutputPublishedTransition ,
-                                       :FieldDigitalTwinResetAfterCompletedTransition ,
-                                       :FieldDigitalTwinResetAfterFailedTransition ;
-                     rdfs:comment "Finite-state machine used to trace field digital twin model execution and distinguish model start failures from runtime failures." ;
-                     rdfs:label "Field digital twin FSM" .
-
-
-###  http://onto.vaimee.com/agora#FieldDigitalTwinAlphabet
-:FieldDigitalTwinAlphabet rdf:type owl:NamedIndividual ,
-                                   fsm:Alphabet ;
-                          fsm:hasSymbol :RunRequestedSymbol ,
-                                        :InputReadySymbol ,
-                                        :ModelStartedSymbol ,
-                                        :ModelStartFailedSymbol ,
-                                        :ModelExecutionSucceededSymbol ,
-                                        :ModelExecutionFailedSymbol ,
-                                        :OutputPublishedSymbol ,
-                                        :ResetSymbol ;
-                          rdfs:label "Field digital twin alphabet" .
-
-
-:FieldDigitalTwinIdleState rdf:type owl:NamedIndividual , fsm:InitialState ;
-                           fsm:stateName "idle" ;
-                           rdfs:label "Field digital twin idle" .
-
-:FieldDigitalTwinWaitingInputState rdf:type owl:NamedIndividual , fsm:State ;
-                                   fsm:stateName "waiting input" ;
-                                   rdfs:label "Field digital twin waiting input" .
-
-:FieldDigitalTwinStartingModelState rdf:type owl:NamedIndividual , fsm:State ;
-                                    fsm:stateName "starting model" ;
-                                    rdfs:label "Field digital twin starting model" .
-
-:FieldDigitalTwinRunningModelState rdf:type owl:NamedIndividual , fsm:State ;
-                                   fsm:stateName "running model" ;
-                                   rdfs:label "Field digital twin running model" .
-
-:FieldDigitalTwinPublishingOutputState rdf:type owl:NamedIndividual , fsm:State ;
-                                       fsm:stateName "publishing output" ;
-                                       rdfs:label "Field digital twin publishing output" .
-
-:FieldDigitalTwinCompletedState rdf:type owl:NamedIndividual , fsm:AcceptingState ;
-                                fsm:stateName "completed" ;
-                                rdfs:label "Field digital twin completed" .
-
-:FieldDigitalTwinFailedState rdf:type owl:NamedIndividual , fsm:AcceptingState ;
-                             fsm:stateName "failed" ;
-                             rdfs:label "Field digital twin failed" .
-
-:InputReadySymbol rdf:type owl:NamedIndividual , fsm:Symbol ;
-                  fsm:symbolValue "input ready" ;
-                  rdfs:label "input ready" .
-
-:ModelStartedSymbol rdf:type owl:NamedIndividual , fsm:Symbol ;
-                    fsm:symbolValue "model started" ;
-                    rdfs:label "model started" .
-
-:ModelStartFailedSymbol rdf:type owl:NamedIndividual , fsm:Symbol ;
-                        fsm:symbolValue "model start failed" ;
-                        rdfs:label "model start failed" .
-
-:ModelExecutionSucceededSymbol rdf:type owl:NamedIndividual , fsm:Symbol ;
-                               fsm:symbolValue "model execution succeeded" ;
-                               rdfs:label "model execution succeeded" .
-
-:ModelExecutionFailedSymbol rdf:type owl:NamedIndividual , fsm:Symbol ;
-                            fsm:symbolValue "model execution failed" ;
-                            rdfs:label "model execution failed" .
-
-:OutputPublishedSymbol rdf:type owl:NamedIndividual , fsm:Symbol ;
-                       fsm:symbolValue "output published" ;
-                       rdfs:label "output published" .
-
-:FieldDigitalTwinRunRequestedTransition rdf:type owl:NamedIndividual , fsm:DeterministicTransition ;
-                                        fsm:fromState :FieldDigitalTwinIdleState ;
-                                        fsm:onSymbol :RunRequestedSymbol ;
-                                        fsm:toState :FieldDigitalTwinWaitingInputState .
-
-:FieldDigitalTwinInputReadyTransition rdf:type owl:NamedIndividual , fsm:DeterministicTransition ;
-                                      fsm:fromState :FieldDigitalTwinWaitingInputState ;
-                                      fsm:onSymbol :InputReadySymbol ;
-                                      fsm:toState :FieldDigitalTwinStartingModelState .
-
-:FieldDigitalTwinModelStartedTransition rdf:type owl:NamedIndividual , fsm:DeterministicTransition ;
-                                        fsm:fromState :FieldDigitalTwinStartingModelState ;
-                                        fsm:onSymbol :ModelStartedSymbol ;
-                                        fsm:toState :FieldDigitalTwinRunningModelState .
-
-:FieldDigitalTwinModelStartFailedTransition rdf:type owl:NamedIndividual , fsm:DeterministicTransition ;
-                                            fsm:fromState :FieldDigitalTwinStartingModelState ;
-                                            fsm:onSymbol :ModelStartFailedSymbol ;
-                                            fsm:toState :FieldDigitalTwinFailedState .
-
-:FieldDigitalTwinModelSucceededTransition rdf:type owl:NamedIndividual , fsm:DeterministicTransition ;
-                                          fsm:fromState :FieldDigitalTwinRunningModelState ;
-                                          fsm:onSymbol :ModelExecutionSucceededSymbol ;
-                                          fsm:toState :FieldDigitalTwinPublishingOutputState .
-
-:FieldDigitalTwinModelFailedTransition rdf:type owl:NamedIndividual , fsm:DeterministicTransition ;
-                                       fsm:fromState :FieldDigitalTwinRunningModelState ;
-                                       fsm:onSymbol :ModelExecutionFailedSymbol ;
-                                       fsm:toState :FieldDigitalTwinFailedState .
-
-:FieldDigitalTwinOutputPublishedTransition rdf:type owl:NamedIndividual , fsm:DeterministicTransition ;
-                                           fsm:fromState :FieldDigitalTwinPublishingOutputState ;
-                                           fsm:onSymbol :OutputPublishedSymbol ;
-                                           fsm:toState :FieldDigitalTwinCompletedState .
-
-:FieldDigitalTwinResetAfterCompletedTransition rdf:type owl:NamedIndividual , fsm:DeterministicTransition ;
-                                               fsm:fromState :FieldDigitalTwinCompletedState ;
-                                               fsm:onSymbol :ResetSymbol ;
-                                               fsm:toState :FieldDigitalTwinIdleState .
-
-:FieldDigitalTwinResetAfterFailedTransition rdf:type owl:NamedIndividual , fsm:DeterministicTransition ;
-                                            fsm:fromState :FieldDigitalTwinFailedState ;
-                                            fsm:onSymbol :ResetSymbol ;
-                                            fsm:toState :FieldDigitalTwinIdleState .
+###  http://onto.vaimee.com/agora#FieldTwinStartedSymbol
+:FieldTwinStartedSymbol rdf:type owl:NamedIndividual ,
+                                 fsm:Symbol ;
+                        fsm:symbolValue "field twin started" ;
+                        rdfs:label "field twin started" .
 
 
 ###  http://onto.vaimee.com/agora#ForecastObservationShape
@@ -1623,19 +1655,82 @@ sosa:Sensor rdf:type owl:Class ;
                             shacl:targetClass :HistoricalWeatherObservation .
 
 
+###  http://onto.vaimee.com/agora#InputReadySymbol
+:InputReadySymbol rdf:type owl:NamedIndividual ,
+                           fsm:Symbol ;
+                  fsm:symbolValue "input ready" ;
+                  rdfs:label "input ready" .
+
+
+###  http://onto.vaimee.com/agora#ModelExecutionFailedSymbol
+:ModelExecutionFailedSymbol rdf:type owl:NamedIndividual ,
+                                     fsm:Symbol ;
+                            fsm:symbolValue "model execution failed" ;
+                            rdfs:label "model execution failed" .
+
+
+###  http://onto.vaimee.com/agora#ModelExecutionSucceededSymbol
+:ModelExecutionSucceededSymbol rdf:type owl:NamedIndividual ,
+                                        fsm:Symbol ;
+                               fsm:symbolValue "model execution succeeded" ;
+                               rdfs:label "model execution succeeded" .
+
+
+###  http://onto.vaimee.com/agora#ModelStartFailedSymbol
+:ModelStartFailedSymbol rdf:type owl:NamedIndividual ,
+                                 fsm:Symbol ;
+                        fsm:symbolValue "model start failed" ;
+                        rdfs:label "model start failed" .
+
+
+###  http://onto.vaimee.com/agora#ModelStartedSymbol
+:ModelStartedSymbol rdf:type owl:NamedIndividual ,
+                             fsm:Symbol ;
+                    fsm:symbolValue "model started" ;
+                    rdfs:label "model started" .
+
+
+###  http://onto.vaimee.com/agora#ObservationPublishedSymbol
+:ObservationPublishedSymbol rdf:type owl:NamedIndividual ,
+                                     fsm:Symbol ;
+                            fsm:symbolValue "observation published" ;
+                            rdfs:label "observation published" .
+
+
+###  http://onto.vaimee.com/agora#OutputPublishedSymbol
+:OutputPublishedSymbol rdf:type owl:NamedIndividual ,
+                                fsm:Symbol ;
+                       fsm:symbolValue "output published" ;
+                       rdfs:label "output published" .
+
+
+###  http://onto.vaimee.com/agora#ResetSymbol
+:ResetSymbol rdf:type owl:NamedIndividual ,
+                      fsm:Symbol ;
+             fsm:symbolValue "reset" ;
+             rdfs:label "reset" .
+
+
+###  http://onto.vaimee.com/agora#RunRequestedSymbol
+:RunRequestedSymbol rdf:type owl:NamedIndividual ,
+                             fsm:Symbol ;
+                    fsm:symbolValue "run requested" ;
+                    rdfs:label "run requested" .
+
+
 ###  http://onto.vaimee.com/agora#SoilHorizonShape
 :SoilHorizonShape rdf:type owl:NamedIndividual ,
                            shacl:NodeShape ;
                   shacl:property [ shacl:datatype xsd:decimal ;
-                                   shacl:maxCount 1 ;
-                                   shacl:minCount 1 ;
-                                   shacl:path :lowerDepth
-                                 ] ,
-                                 [ shacl:datatype xsd:decimal ;
                                    shacl:lessThan :lowerDepth ;
                                    shacl:maxCount 1 ;
                                    shacl:minCount 1 ;
                                    shacl:path :upperDepth
+                                 ] ,
+                                 [ shacl:datatype xsd:decimal ;
+                                   shacl:maxCount 1 ;
+                                   shacl:minCount 1 ;
+                                   shacl:path :lowerDepth
                                  ] .
 
 
@@ -1673,131 +1768,276 @@ sosa:Sensor rdf:type owl:Class ;
                         shacl:targetClass :SoilTextureResult .
 
 
-###  http://onto.vaimee.com/agora#WeatherAgentFSM
-:WeatherAgentFSM rdf:type owl:NamedIndividual ,
-                          fsm:DeterministicFiniteStateMachine ;
-                 fsm:hasAlphabet :WeatherAgentAlphabet ;
-                 fsm:hasInitialState :WeatherAgentIdleState ;
-                 fsm:hasState :WeatherAgentIdleState ,
-                              :WeatherAgentFetchingState ,
-                              :WeatherAgentValidatingState ,
-                              :WeatherAgentPublishingState ,
-                              :WeatherAgentCompletedState ,
-                              :WeatherAgentFailedState ;
-                 fsm:hasAcceptingState :WeatherAgentCompletedState ,
-                                       :WeatherAgentFailedState ;
-                 fsm:hasTransition :WeatherAgentFetchRequestedTransition ,
-                                   :WeatherAgentFetchSucceededTransition ,
-                                   :WeatherAgentFetchFailedTransition ,
-                                   :WeatherAgentValidationSucceededTransition ,
-                                   :WeatherAgentValidationFailedTransition ,
-                                   :WeatherAgentObservationPublishedTransition ,
-                                   :WeatherAgentResetAfterCompletedTransition ,
-                                   :WeatherAgentResetAfterFailedTransition ;
-                 rdfs:comment "Finite-state machine used to trace weather data acquisition, validation, publication, and API fetch errors." ;
-                 rdfs:label "Weather agent FSM" .
+###  http://onto.vaimee.com/agora#SynchronizerAtmosphereFailedTransition
+:SynchronizerAtmosphereFailedTransition rdf:type owl:NamedIndividual ,
+                                                 fsm:DeterministicTransition ;
+                                        fsm:fromState :SynchronizerWaitingAtmosphereState ;
+                                        fsm:onSymbol :AtmosphereUpdateFailedSymbol ;
+                                        fsm:toState :SynchronizerFailedState .
+
+
+###  http://onto.vaimee.com/agora#SynchronizerAtmosphereUpdatedTransition
+:SynchronizerAtmosphereUpdatedTransition rdf:type owl:NamedIndividual ,
+                                                  fsm:DeterministicTransition ;
+                                         fsm:fromState :SynchronizerWaitingAtmosphereState ;
+                                         fsm:onSymbol :AtmosphereUpdateCompletedSymbol ;
+                                         fsm:toState :SynchronizerStartingFieldTwinState .
+
+
+###  http://onto.vaimee.com/agora#SynchronizerCompletedState
+:SynchronizerCompletedState rdf:type owl:NamedIndividual ,
+                                     fsm:AcceptingState ;
+                            fsm:stateName "completed" ;
+                            rdfs:label "Synchronizer completed" .
+
+
+###  http://onto.vaimee.com/agora#SynchronizerFailedState
+:SynchronizerFailedState rdf:type owl:NamedIndividual ,
+                                  fsm:AcceptingState ;
+                         fsm:stateName "failed" ;
+                         rdfs:label "Synchronizer failed" .
+
+
+###  http://onto.vaimee.com/agora#SynchronizerFieldTwinCompletedTransition
+:SynchronizerFieldTwinCompletedTransition rdf:type owl:NamedIndividual ,
+                                                   fsm:DeterministicTransition ;
+                                          fsm:fromState :SynchronizerWaitingFieldTwinState ;
+                                          fsm:onSymbol :FieldTwinCompletedSymbol ;
+                                          fsm:toState :SynchronizerCompletedState .
+
+
+###  http://onto.vaimee.com/agora#SynchronizerFieldTwinFailedTransition
+:SynchronizerFieldTwinFailedTransition rdf:type owl:NamedIndividual ,
+                                                fsm:DeterministicTransition ;
+                                       fsm:fromState :SynchronizerWaitingFieldTwinState ;
+                                       fsm:onSymbol :FieldTwinFailedSymbol ;
+                                       fsm:toState :SynchronizerFailedState .
+
+
+###  http://onto.vaimee.com/agora#SynchronizerFieldTwinStartFailedTransition
+:SynchronizerFieldTwinStartFailedTransition rdf:type owl:NamedIndividual ,
+                                                     fsm:DeterministicTransition ;
+                                            fsm:fromState :SynchronizerStartingFieldTwinState ;
+                                            fsm:onSymbol :FieldTwinStartFailedSymbol ;
+                                            fsm:toState :SynchronizerFailedState .
+
+
+###  http://onto.vaimee.com/agora#SynchronizerFieldTwinStartedTransition
+:SynchronizerFieldTwinStartedTransition rdf:type owl:NamedIndividual ,
+                                                 fsm:DeterministicTransition ;
+                                        fsm:fromState :SynchronizerStartingFieldTwinState ;
+                                        fsm:onSymbol :FieldTwinStartedSymbol ;
+                                        fsm:toState :SynchronizerWaitingFieldTwinState .
+
+
+###  http://onto.vaimee.com/agora#SynchronizerIdleState
+:SynchronizerIdleState rdf:type owl:NamedIndividual ,
+                                fsm:InitialState ;
+                       fsm:stateName "idle" ;
+                       rdfs:label "Synchronizer idle" .
+
+
+###  http://onto.vaimee.com/agora#SynchronizerResetAfterCompletedTransition
+:SynchronizerResetAfterCompletedTransition rdf:type owl:NamedIndividual ,
+                                                    fsm:DeterministicTransition ;
+                                           fsm:fromState :SynchronizerCompletedState ;
+                                           fsm:onSymbol :ResetSymbol ;
+                                           fsm:toState :SynchronizerIdleState .
+
+
+###  http://onto.vaimee.com/agora#SynchronizerResetAfterFailedTransition
+:SynchronizerResetAfterFailedTransition rdf:type owl:NamedIndividual ,
+                                                 fsm:DeterministicTransition ;
+                                        fsm:fromState :SynchronizerFailedState ;
+                                        fsm:onSymbol :ResetSymbol ;
+                                        fsm:toState :SynchronizerIdleState .
+
+
+###  http://onto.vaimee.com/agora#SynchronizerRunRequestedTransition
+:SynchronizerRunRequestedTransition rdf:type owl:NamedIndividual ,
+                                             fsm:DeterministicTransition ;
+                                    fsm:fromState :SynchronizerIdleState ;
+                                    fsm:onSymbol :RunRequestedSymbol ;
+                                    fsm:toState :SynchronizerWaitingAtmosphereState .
+
+
+###  http://onto.vaimee.com/agora#SynchronizerStartingFieldTwinState
+:SynchronizerStartingFieldTwinState rdf:type owl:NamedIndividual ,
+                                             fsm:State ;
+                                    fsm:stateName "starting field digital twin" ;
+                                    rdfs:label "Synchronizer starting field digital twin" .
+
+
+###  http://onto.vaimee.com/agora#SynchronizerWaitingAtmosphereState
+:SynchronizerWaitingAtmosphereState rdf:type owl:NamedIndividual ,
+                                             fsm:State ;
+                                    fsm:stateName "waiting atmosphere update" ;
+                                    rdfs:label "Synchronizer waiting atmosphere update" .
+
+
+###  http://onto.vaimee.com/agora#SynchronizerWaitingFieldTwinState
+:SynchronizerWaitingFieldTwinState rdf:type owl:NamedIndividual ,
+                                            fsm:State ;
+                                   fsm:stateName "waiting field digital twin" ;
+                                   rdfs:label "Synchronizer waiting field digital twin" .
 
 
 ###  http://onto.vaimee.com/agora#WeatherAgentAlphabet
 :WeatherAgentAlphabet rdf:type owl:NamedIndividual ,
                                fsm:Alphabet ;
-                      fsm:hasSymbol :FetchRequestedSymbol ,
+                      fsm:hasSymbol :ApiFetchFailedSymbol ,
                                     :ApiFetchSucceededSymbol ,
-                                    :ApiFetchFailedSymbol ,
-                                    :WeatherDataValidatedSymbol ,
-                                    :WeatherDataInvalidSymbol ,
+                                    :FetchRequestedSymbol ,
                                     :ObservationPublishedSymbol ,
-                                    :ResetSymbol ;
+                                    :ResetSymbol ,
+                                    :WeatherDataInvalidSymbol ,
+                                    :WeatherDataValidatedSymbol ;
                       rdfs:label "Weather agent alphabet" .
 
 
-:WeatherAgentIdleState rdf:type owl:NamedIndividual , fsm:InitialState ;
-                       fsm:stateName "idle" ;
-                       rdfs:label "Weather agent idle" .
-
-:WeatherAgentFetchingState rdf:type owl:NamedIndividual , fsm:State ;
-                           fsm:stateName "fetching weather data" ;
-                           rdfs:label "Weather agent fetching weather data" .
-
-:WeatherAgentValidatingState rdf:type owl:NamedIndividual , fsm:State ;
-                             fsm:stateName "validating weather data" ;
-                             rdfs:label "Weather agent validating weather data" .
-
-:WeatherAgentPublishingState rdf:type owl:NamedIndividual , fsm:State ;
-                             fsm:stateName "publishing atmosphere observation" ;
-                             rdfs:label "Weather agent publishing atmosphere observation" .
-
-:WeatherAgentCompletedState rdf:type owl:NamedIndividual , fsm:AcceptingState ;
+###  http://onto.vaimee.com/agora#WeatherAgentCompletedState
+:WeatherAgentCompletedState rdf:type owl:NamedIndividual ,
+                                     fsm:AcceptingState ;
                             fsm:stateName "completed" ;
                             rdfs:label "Weather agent completed" .
 
-:WeatherAgentFailedState rdf:type owl:NamedIndividual , fsm:AcceptingState ;
+
+###  http://onto.vaimee.com/agora#WeatherAgentFSM
+:WeatherAgentFSM rdf:type owl:NamedIndividual ,
+                          fsm:DeterministicFiniteStateMachine ;
+                 fsm:hasAcceptingState :WeatherAgentCompletedState ,
+                                       :WeatherAgentFailedState ;
+                 fsm:hasAlphabet :WeatherAgentAlphabet ;
+                 fsm:hasInitialState :WeatherAgentIdleState ;
+                 fsm:hasState :WeatherAgentCompletedState ,
+                              :WeatherAgentFailedState ,
+                              :WeatherAgentFetchingState ,
+                              :WeatherAgentIdleState ,
+                              :WeatherAgentPublishingState ,
+                              :WeatherAgentValidatingState ;
+                 fsm:hasTransition :WeatherAgentFetchFailedTransition ,
+                                   :WeatherAgentFetchRequestedTransition ,
+                                   :WeatherAgentFetchSucceededTransition ,
+                                   :WeatherAgentObservationPublishedTransition ,
+                                   :WeatherAgentResetAfterCompletedTransition ,
+                                   :WeatherAgentResetAfterFailedTransition ,
+                                   :WeatherAgentValidationFailedTransition ,
+                                   :WeatherAgentValidationSucceededTransition ;
+                 rdfs:comment "Finite-state machine used to trace weather data acquisition, validation, publication, and API fetch errors." ;
+                 rdfs:label "Weather agent FSM" .
+
+
+###  http://onto.vaimee.com/agora#WeatherAgentFailedState
+:WeatherAgentFailedState rdf:type owl:NamedIndividual ,
+                                  fsm:AcceptingState ;
                          fsm:stateName "failed" ;
                          rdfs:label "Weather agent failed" .
 
-:FetchRequestedSymbol rdf:type owl:NamedIndividual , fsm:Symbol ;
-                      fsm:symbolValue "fetch requested" ;
-                      rdfs:label "fetch requested" .
 
-:ApiFetchSucceededSymbol rdf:type owl:NamedIndividual , fsm:Symbol ;
-                         fsm:symbolValue "api fetch succeeded" ;
-                         rdfs:label "api fetch succeeded" .
-
-:ApiFetchFailedSymbol rdf:type owl:NamedIndividual , fsm:Symbol ;
-                      fsm:symbolValue "api fetch failed" ;
-                      rdfs:label "api fetch failed" .
-
-:WeatherDataValidatedSymbol rdf:type owl:NamedIndividual , fsm:Symbol ;
-                            fsm:symbolValue "weather data validated" ;
-                            rdfs:label "weather data validated" .
-
-:WeatherDataInvalidSymbol rdf:type owl:NamedIndividual , fsm:Symbol ;
-                          fsm:symbolValue "weather data invalid" ;
-                          rdfs:label "weather data invalid" .
-
-:ObservationPublishedSymbol rdf:type owl:NamedIndividual , fsm:Symbol ;
-                            fsm:symbolValue "observation published" ;
-                            rdfs:label "observation published" .
-
-:WeatherAgentFetchRequestedTransition rdf:type owl:NamedIndividual , fsm:DeterministicTransition ;
-                                      fsm:fromState :WeatherAgentIdleState ;
-                                      fsm:onSymbol :FetchRequestedSymbol ;
-                                      fsm:toState :WeatherAgentFetchingState .
-
-:WeatherAgentFetchSucceededTransition rdf:type owl:NamedIndividual , fsm:DeterministicTransition ;
-                                      fsm:fromState :WeatherAgentFetchingState ;
-                                      fsm:onSymbol :ApiFetchSucceededSymbol ;
-                                      fsm:toState :WeatherAgentValidatingState .
-
-:WeatherAgentFetchFailedTransition rdf:type owl:NamedIndividual , fsm:DeterministicTransition ;
+###  http://onto.vaimee.com/agora#WeatherAgentFetchFailedTransition
+:WeatherAgentFetchFailedTransition rdf:type owl:NamedIndividual ,
+                                            fsm:DeterministicTransition ;
                                    fsm:fromState :WeatherAgentFetchingState ;
                                    fsm:onSymbol :ApiFetchFailedSymbol ;
                                    fsm:toState :WeatherAgentFailedState .
 
-:WeatherAgentValidationSucceededTransition rdf:type owl:NamedIndividual , fsm:DeterministicTransition ;
-                                           fsm:fromState :WeatherAgentValidatingState ;
-                                           fsm:onSymbol :WeatherDataValidatedSymbol ;
-                                           fsm:toState :WeatherAgentPublishingState .
 
-:WeatherAgentValidationFailedTransition rdf:type owl:NamedIndividual , fsm:DeterministicTransition ;
-                                        fsm:fromState :WeatherAgentValidatingState ;
-                                        fsm:onSymbol :WeatherDataInvalidSymbol ;
-                                        fsm:toState :WeatherAgentFailedState .
+###  http://onto.vaimee.com/agora#WeatherAgentFetchRequestedTransition
+:WeatherAgentFetchRequestedTransition rdf:type owl:NamedIndividual ,
+                                               fsm:DeterministicTransition ;
+                                      fsm:fromState :WeatherAgentIdleState ;
+                                      fsm:onSymbol :FetchRequestedSymbol ;
+                                      fsm:toState :WeatherAgentFetchingState .
 
-:WeatherAgentObservationPublishedTransition rdf:type owl:NamedIndividual , fsm:DeterministicTransition ;
+
+###  http://onto.vaimee.com/agora#WeatherAgentFetchSucceededTransition
+:WeatherAgentFetchSucceededTransition rdf:type owl:NamedIndividual ,
+                                               fsm:DeterministicTransition ;
+                                      fsm:fromState :WeatherAgentFetchingState ;
+                                      fsm:onSymbol :ApiFetchSucceededSymbol ;
+                                      fsm:toState :WeatherAgentValidatingState .
+
+
+###  http://onto.vaimee.com/agora#WeatherAgentFetchingState
+:WeatherAgentFetchingState rdf:type owl:NamedIndividual ,
+                                    fsm:State ;
+                           fsm:stateName "fetching weather data" ;
+                           rdfs:label "Weather agent fetching weather data" .
+
+
+###  http://onto.vaimee.com/agora#WeatherAgentIdleState
+:WeatherAgentIdleState rdf:type owl:NamedIndividual ,
+                                fsm:InitialState ;
+                       fsm:stateName "idle" ;
+                       rdfs:label "Weather agent idle" .
+
+
+###  http://onto.vaimee.com/agora#WeatherAgentObservationPublishedTransition
+:WeatherAgentObservationPublishedTransition rdf:type owl:NamedIndividual ,
+                                                     fsm:DeterministicTransition ;
                                             fsm:fromState :WeatherAgentPublishingState ;
                                             fsm:onSymbol :ObservationPublishedSymbol ;
                                             fsm:toState :WeatherAgentCompletedState .
 
-:WeatherAgentResetAfterCompletedTransition rdf:type owl:NamedIndividual , fsm:DeterministicTransition ;
+
+###  http://onto.vaimee.com/agora#WeatherAgentPublishingState
+:WeatherAgentPublishingState rdf:type owl:NamedIndividual ,
+                                      fsm:State ;
+                             fsm:stateName "publishing atmosphere observation" ;
+                             rdfs:label "Weather agent publishing atmosphere observation" .
+
+
+###  http://onto.vaimee.com/agora#WeatherAgentResetAfterCompletedTransition
+:WeatherAgentResetAfterCompletedTransition rdf:type owl:NamedIndividual ,
+                                                    fsm:DeterministicTransition ;
                                            fsm:fromState :WeatherAgentCompletedState ;
                                            fsm:onSymbol :ResetSymbol ;
                                            fsm:toState :WeatherAgentIdleState .
 
-:WeatherAgentResetAfterFailedTransition rdf:type owl:NamedIndividual , fsm:DeterministicTransition ;
+
+###  http://onto.vaimee.com/agora#WeatherAgentResetAfterFailedTransition
+:WeatherAgentResetAfterFailedTransition rdf:type owl:NamedIndividual ,
+                                                 fsm:DeterministicTransition ;
                                         fsm:fromState :WeatherAgentFailedState ;
                                         fsm:onSymbol :ResetSymbol ;
                                         fsm:toState :WeatherAgentIdleState .
+
+
+###  http://onto.vaimee.com/agora#WeatherAgentValidatingState
+:WeatherAgentValidatingState rdf:type owl:NamedIndividual ,
+                                      fsm:State ;
+                             fsm:stateName "validating weather data" ;
+                             rdfs:label "Weather agent validating weather data" .
+
+
+###  http://onto.vaimee.com/agora#WeatherAgentValidationFailedTransition
+:WeatherAgentValidationFailedTransition rdf:type owl:NamedIndividual ,
+                                                 fsm:DeterministicTransition ;
+                                        fsm:fromState :WeatherAgentValidatingState ;
+                                        fsm:onSymbol :WeatherDataInvalidSymbol ;
+                                        fsm:toState :WeatherAgentFailedState .
+
+
+###  http://onto.vaimee.com/agora#WeatherAgentValidationSucceededTransition
+:WeatherAgentValidationSucceededTransition rdf:type owl:NamedIndividual ,
+                                                    fsm:DeterministicTransition ;
+                                           fsm:fromState :WeatherAgentValidatingState ;
+                                           fsm:onSymbol :WeatherDataValidatedSymbol ;
+                                           fsm:toState :WeatherAgentPublishingState .
+
+
+###  http://onto.vaimee.com/agora#WeatherDataInvalidSymbol
+:WeatherDataInvalidSymbol rdf:type owl:NamedIndividual ,
+                                   fsm:Symbol ;
+                          fsm:symbolValue "weather data invalid" ;
+                          rdfs:label "weather data invalid" .
+
+
+###  http://onto.vaimee.com/agora#WeatherDataValidatedSymbol
+:WeatherDataValidatedSymbol rdf:type owl:NamedIndividual ,
+                                     fsm:Symbol ;
+                            fsm:symbolValue "weather data validated" ;
+                            rdfs:label "weather data validated" .
 
 
 ###  http://onto.vaimee.com/agora#availableWater
@@ -1980,12 +2220,12 @@ sosa:Sensor rdf:type owl:Class ;
 #    Annotations
 #################################################################
 
-<https://vaimee.com> <http://xmlns.com/foaf/0.1/homepage> "https://vaimee.com" ;
-                      <http://xmlns.com/foaf/0.1/name> "VAIMEE srl" .
+<https://vaimee.com> foaf:homepage "https://vaimee.com" ;
+                      foaf:name "VAIMEE srl" .
 
 
-<https://qrfy.io/p/BJOemlfU0F> <http://xmlns.com/foaf/0.1/member> <https://vaimee.com> ;
-                               <http://xmlns.com/foaf/0.1/name> "Luca Roffia" .
+<https://qrfy.io/p/BJOemlfU0F> foaf:member <https://vaimee.com> ;
+                               foaf:name "Luca Roffia" .
 
 
 ###  Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi

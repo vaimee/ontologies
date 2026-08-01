@@ -18,8 +18,8 @@ const ontologies = [
         versionIri: `http://onto.vaimee.com/fsm/${version}`,
     },
     {
-        file: 'jsap/jsap.ttl',
-        versionIri: `https://onto.vaimee.com/jsap/${version}#`,
+        file: 'pac/pac.ttl',
+        versionIri: `https://onto.vaimee.com/pac/${version}#`,
     },
     {
         file: 'msg/msg.ttl',
