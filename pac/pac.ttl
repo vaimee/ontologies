@@ -11,8 +11,8 @@
 <https://onto.vaimee.com/pac#> rdf:type owl:Ontology ;
                                   owl:imports <http://xmlns.com/foaf/0.1/> ;
                                   rdfs:comment "This is an ontology for PAC applications developed by VAIMEE. It integrates some classes and properties from FOAF."@en ;
-                                  owl:versionIRI <https://onto.vaimee.com/pac/1.0.24#> ;
-                                  owl:versionInfo "1.0.24" ;
+                                  owl:versionIRI <https://onto.vaimee.com/pac/1.0.25#> ;
+                                  owl:versionInfo "1.0.25" ;
                                   owl:title "PAC Ontology"@en ;
                                   dct:abstract "Ontology to describe PAC files and related concepts."@en ;
                                   dct:description "Longer intro text shown in the Introduction section."@en ;
