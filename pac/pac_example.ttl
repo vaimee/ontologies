@@ -47,12 +47,12 @@
 #################################################################
 
 :fb1 a pac:LiteralForcedBinding ;
-    pac:name "età" ;
+    pac:variableName "età" ;
     pac:defaultValue "42"^^xsd:integer ;
     pac:dataType xsd:integer . 
 
 :fb2 a pac:UriForcedBinding ;
-    pac:name "resource" ;
+    pac:variableName "resource" ;
     pac:defaultValue  "http://onto.vaimee.com/unit"^^xsd:anyURI .
 
 #################################################################

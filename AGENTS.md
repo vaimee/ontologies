@@ -22,14 +22,17 @@
 - `Aggregator` reacts to one subscription query and performs one update.
 - Queries and updates can use templates/snippets and forced bindings, following SEPA/JSAP patterns.
 - Multiple forced bindings model repeated update execution with different runtime values.
+- Forced binding variables use `pac:variableName`, not `pac:name`.
 
 ## Named Graph Modeling
 
 - PAC includes named graph modeling.
 - A `NamedGraph` must be either `HistoricalGraph` or `LiveGraph`.
 - A `NamedGraph` must be either `FixedNamedGraph` or `InstanceNamedGraph`.
-- Historical graphs are used for query/update.
-- Live graphs are used for subscription.
+- `readsFromGraph` can target either historical or live graphs.
+- `writesToGraph` must target historical graphs.
+- `subscribesToGraph` must target live graphs.
+- SPARQL strings for PAC queries and updates should include explicit `GRAPH ... {}` clauses matching the graph individual linked by `readsFromGraph`, `writesToGraph`, or `subscribesToGraph`.
 - Fixed graphs have a stable URI.
 - Instance graphs derive their URI at runtime from bindings, e.g. one graph per digital twin.
 

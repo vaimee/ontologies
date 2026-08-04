@@ -166,8 +166,8 @@
 ###  https://onto.vaimee.com/pac#readsFromGraph
 :readsFromGraph rdf:type owl:ObjectProperty ;
                 rdfs:domain :Operation ;
-                rdfs:range :HistoricalGraph ;
-                rdfs:comment "Declares a historical named graph from which a query or update reads data."@en ;
+                rdfs:range :NamedGraph ;
+                rdfs:comment "Declares a named graph from which a query or update reads data. Reads can target either historical graphs or live graphs."@en ;
                 rdfs:isDefinedBy <https://onto.vaimee.com/pac> ;
                 rdfs:label "reads from graph"@en .
 
@@ -230,8 +230,8 @@
               rdfs:label "default value"@en .
 
 
-###  https://onto.vaimee.com/pac#name
-:name rdf:type owl:DatatypeProperty ;
+###  https://onto.vaimee.com/pac#variableName
+:variableName rdf:type owl:DatatypeProperty ;
       rdfs:domain [ rdf:type owl:Class ;
                     owl:unionOf ( :LiteralForcedBinding
                                   :UriForcedBinding
@@ -240,7 +240,7 @@
       rdfs:range xsd:string ;
       rdfs:comment "The name of the variable being bound."@en ;
       rdfs:isDefinedBy <https://onto.vaimee.com/pac> ;
-      rdfs:label "name"@en .
+      rdfs:label "variable name"@en .
 
 
 ###  https://onto.vaimee.com/pac#graphUri
@@ -436,7 +436,7 @@
                              owl:cardinality "1"^^xsd:nonNegativeInteger
                            ] ,
                            [ rdf:type owl:Restriction ;
-                             owl:onProperty :name ;
+                              owl:onProperty :variableName ;
                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                              owl:onDataRange xsd:string
                            ] ;
@@ -569,7 +569,7 @@
                          owl:onDataRange xsd:anyURI
                        ] ,
                        [ rdf:type owl:Restriction ;
-                         owl:onProperty :name ;
+                          owl:onProperty :variableName ;
                          owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
                          owl:onDataRange xsd:string
                        ] ;
