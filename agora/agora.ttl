@@ -804,7 +804,7 @@ pac:variableName rdf:type owl:DatatypeProperty ;
                             prov:Entity ,
                             sosa:FeatureOfInterest ,
                             [ rdf:type owl:Restriction ;
-                              owl:onProperty prov:wasGeneratedBy ;
+                              owl:onProperty prov:wasInfluencedBy ;
                               owl:someValuesFrom :UpdateAtmosphereActivity
                             ] ,
                             [ rdf:type owl:Restriction ;
@@ -909,7 +909,7 @@ pac:variableName rdf:type owl:DatatypeProperty ;
       rdfs:subClassOf prov:Entity ,
                       sosa:FeatureOfInterest ,
                       [ rdf:type owl:Restriction ;
-                        owl:onProperty prov:wasGeneratedBy ;
+                        owl:onProperty prov:wasInfluencedBy ;
                         owl:someValuesFrom :RunFieldDigitalTwinActivity
                       ] ,
                       [ rdf:type owl:Restriction ;
@@ -991,7 +991,7 @@ pac:variableName rdf:type owl:DatatypeProperty ;
                        prov:Entity ,
                        sosa:FeatureOfInterest ,
                        [ rdf:type owl:Restriction ;
-                         owl:onProperty prov:wasGeneratedBy ;
+                         owl:onProperty prov:wasInfluencedBy ;
                          owl:someValuesFrom :RunFieldDigitalTwinActivity
                        ] ,
                        [ rdf:type owl:Restriction ;
@@ -1111,7 +1111,7 @@ pac:variableName rdf:type owl:DatatypeProperty ;
       rdfs:subClassOf prov:Entity ,
                       sosa:FeatureOfInterest ,
                       [ rdf:type owl:Restriction ;
-                        owl:onProperty prov:wasGeneratedBy ;
+                        owl:onProperty prov:wasInfluencedBy ;
                         owl:someValuesFrom :RunFieldDigitalTwinActivity
                       ] ,
                       [ rdf:type owl:Restriction ;
