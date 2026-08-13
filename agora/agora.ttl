@@ -194,6 +194,14 @@ foaf:name rdf:type owl:AnnotationProperty .
           rdfs:label "hasModel" .
 
 
+###  http://onto.vaimee.com/agora#hasPlan
+:hasPlan rdf:type owl:ObjectProperty ;
+         rdfs:subPropertyOf owl:topObjectProperty ;
+         rdfs:domain sosa:FeatureOfInterest ;
+         rdfs:range prov:Plan ;
+         rdfs:comment "Associates a feature of interest with the plan governing its data acquisition or update process." .
+
+
 ###  http://onto.vaimee.com/agora#hasSoil
 :hasSoil rdf:type owl:ObjectProperty ;
          rdfs:subPropertyOf owl:topObjectProperty ;
@@ -377,6 +385,30 @@ pac:writesToGraph rdf:type owl:ObjectProperty ;
                      rdfs:label "average daily temperature" .
 
 
+###  http://onto.vaimee.com/agora#bulkEndTime
+:bulkEndTime rdf:type owl:DatatypeProperty ;
+             rdfs:subPropertyOf owl:topDataProperty ;
+             rdfs:domain :DailyWeatherPlan ;
+             rdfs:range xsd:dateTime ;
+             rdfs:comment "Specifies the end of the historical time interval to be acquired during bulk initialization." .
+
+
+###  http://onto.vaimee.com/agora#bulkInit
+:bulkInit rdf:type owl:DatatypeProperty ;
+          rdfs:subPropertyOf owl:topDataProperty ;
+          rdfs:domain :DailyWeatherPlan ;
+          rdfs:range xsd:boolean ;
+          rdfs:comment "Indicates whether the weather plan includes an initial bulk acquisition of historical weather data." .
+
+
+###  http://onto.vaimee.com/agora#bulkStartTime
+:bulkStartTime rdf:type owl:DatatypeProperty ;
+               rdfs:subPropertyOf owl:topDataProperty ;
+               rdfs:domain :DailyWeatherPlan ;
+               rdfs:range xsd:dateTime ;
+               rdfs:comment "Specifies the beginning of the historical time interval to be acquired during bulk initialization." .
+
+
 ###  http://onto.vaimee.com/agora#clay
 :clay rdf:type owl:DatatypeProperty ;
       rdfs:subPropertyOf owl:topDataProperty ;
@@ -399,6 +431,22 @@ pac:writesToGraph rdf:type owl:ObjectProperty ;
                      rdfs:subPropertyOf owl:topDataProperty ;
                      rdfs:domain :Crop ;
                      rdfs:range xsd:integer .
+
+
+###  http://onto.vaimee.com/agora#forecastDays
+:forecastDays rdf:type owl:DatatypeProperty ;
+              rdfs:subPropertyOf owl:topDataProperty ;
+              rdfs:domain :DailyWeatherPlan ;
+              rdfs:range xsd:integer ;
+              rdfs:comment "Specifies the number of future days for which weather forecasts are acquired." .
+
+
+###  http://onto.vaimee.com/agora#hasForecast
+:hasForecast rdf:type owl:DatatypeProperty ;
+             rdfs:subPropertyOf owl:topDataProperty ;
+             rdfs:domain :DailyWeatherPlan ;
+             rdfs:range xsd:boolean ;
+             rdfs:comment "Indicates whether the weather plan includes the acquisition of weather forecast data." .
 
 
 ###  http://onto.vaimee.com/agora#kcMax
@@ -804,10 +852,6 @@ pac:variableName rdf:type owl:DatatypeProperty ;
                             prov:Entity ,
                             sosa:FeatureOfInterest ,
                             [ rdf:type owl:Restriction ;
-                              owl:onProperty prov:wasInfluencedBy ;
-                              owl:someValuesFrom :UpdateAtmosphereActivity
-                            ] ,
-                            [ rdf:type owl:Restriction ;
                               owl:onProperty sosa:isFeatureOfInterestOf ;
                               owl:allValuesFrom [ owl:intersectionOf ( sosa:Observation
                                                                        [ rdf:type owl:Restriction ;
@@ -897,6 +941,13 @@ pac:variableName rdf:type owl:DatatypeProperty ;
                              rdfs:label "Atmosphere temperature result" .
 
 
+###  http://onto.vaimee.com/agora#BulkFetchHystoricalWeather
+:BulkFetchHystoricalWeather rdf:type owl:Class ;
+                            rdfs:subClassOf :WeatherActivity ;
+                            rdfs:comment "A weather activity that initializes an atmosphere with a bulk set of historical weather data over a specified time interval." ;
+                            rdfs:label "BulkFetchHystoricalWeather" .
+
+
 ###  http://onto.vaimee.com/agora#Criteria1DPlan
 :Criteria1DPlan rdf:type owl:Class ;
                 rdfs:subClassOf prov:Plan ;
@@ -937,6 +988,13 @@ pac:variableName rdf:type owl:DatatypeProperty ;
                       ] ;
       rdfs:comment "Crop associated with a field, including crop-related observable properties produced or consumed by the digital twin." ;
       rdfs:label "Crop" .
+
+
+###  http://onto.vaimee.com/agora#DailyWeatherPlan
+:DailyWeatherPlan rdf:type owl:Class ;
+                  rdfs:subClassOf :WeatherPlan ;
+                  rdfs:comment "A weather plan that specifies a daily update strategy for weather information associated with an atmosphere." ;
+                  rdfs:label "DailyWeatherPlan" .
 
 
 ###  http://onto.vaimee.com/agora#DigitalTwin
@@ -982,6 +1040,20 @@ pac:variableName rdf:type owl:DatatypeProperty ;
 ###  http://onto.vaimee.com/agora#Farm
 :Farm rdf:type owl:Class ;
       rdfs:comment "Agricultural holdings (often called farms): an economic unit of agricultural production under single management comprising all livestock kept and all land used wholly or partly for agricultural production purposes, without regard to title, legal form or size” (FAO, 2015)."@en .
+
+
+###  http://onto.vaimee.com/agora#FetchObservedWeather
+:FetchObservedWeather rdf:type owl:Class ;
+                      rdfs:subClassOf :WeatherActivity ;
+                      rdfs:comment "A weather activity that acquires and updates observed weather information for an atmosphere." ;
+                      rdfs:label "FetchObservedWeather" .
+
+
+###  http://onto.vaimee.com/agora#FetchWeatherForecast
+:FetchWeatherForecast rdf:type owl:Class ;
+                      rdfs:subClassOf :WeatherActivity ;
+                      rdfs:comment "A weather activity that acquires and updates forecast weather information for an atmosphere over a specified forecast horizon." ;
+                      rdfs:label "FetchWeatherForecast" .
 
 
 ###  http://onto.vaimee.com/agora#Field
@@ -1076,8 +1148,7 @@ pac:variableName rdf:type owl:DatatypeProperty ;
 
 ###  http://onto.vaimee.com/agora#RunFieldDigitalTwinActivity
 :RunFieldDigitalTwinActivity rdf:type owl:Class ;
-                             rdfs:subClassOf prov:Create ,
-                                             prov:Modify ,
+                             rdfs:subClassOf :RunModelActivity ,
                                              [ rdf:type owl:Restriction ;
                                                owl:onProperty prov:generated ;
                                                owl:someValuesFrom :Crop
@@ -1104,6 +1175,13 @@ pac:variableName rdf:type owl:DatatypeProperty ;
                                              ] ;
                              rdfs:comment "PROV activity that runs a field digital twin and generates updated field, crop, or soil entities." ;
                              rdfs:label "Run field digital twin activity" .
+
+
+###  http://onto.vaimee.com/agora#RunModelActivity
+:RunModelActivity rdf:type owl:Class ;
+                  rdfs:subClassOf prov:Modify ;
+                  rdfs:comment "An activity in which a computational model is executed according to a specified plan and input data to produce model outputs." ;
+                  rdfs:label "RunModelActivity" .
 
 
 ###  http://onto.vaimee.com/agora#Soil
@@ -1260,24 +1338,18 @@ pac:variableName rdf:type owl:DatatypeProperty ;
        rdfs:label "State" .
 
 
-###  http://onto.vaimee.com/agora#UpdateAtmosphereActivity
-:UpdateAtmosphereActivity rdf:type owl:Class ;
-                          rdfs:subClassOf prov:Create ,
-                                          prov:Modify ,
-                                          [ rdf:type owl:Restriction ;
-                                            owl:onProperty prov:generated ;
-                                            owl:someValuesFrom :Atmosphere
-                                          ] ,
-                                          [ rdf:type owl:Restriction ;
-                                            owl:onProperty prov:used ;
-                                            owl:someValuesFrom api:WeatherAPI
-                                          ] ,
-                                          [ rdf:type owl:Restriction ;
-                                            owl:onProperty prov:wasAssociatedWith ;
-                                            owl:someValuesFrom :AtmosphereDigitalTwin
-                                          ] ;
-                          rdfs:comment "PROV activity that updates the atmosphere using data from a weather API and is associated with a weather agent." ;
-                          rdfs:label "Update atmosphere activity" .
+###  http://onto.vaimee.com/agora#WeatherActivity
+:WeatherActivity rdf:type owl:Class ;
+                 rdfs:subClassOf prov:Modify ;
+                 rdfs:comment "An activity performed by a weather agent to acquire, generate, or update weather information associated with an atmosphere." ;
+                 rdfs:label "WeatherActivity" .
+
+
+###  http://onto.vaimee.com/agora#WeatherPlan
+:WeatherPlan rdf:type owl:Class ;
+             rdfs:subClassOf prov:Plan ;
+             rdfs:label "A plan that specifies the operational policy used by a weather agent to update weather information associated with an atmosphere" ,
+                        "WeatherPlan" .
 
 
 ###  http://onto.vaimee.com/agora/api#WeatherAPI
@@ -1546,15 +1618,15 @@ pac:UriForcedBinding rdf:type owl:Class ;
                                                    shacl:path :maxDailyTemperature
                                                  ] ,
                                                  [ shacl:datatype xsd:decimal ;
-                                                   shacl:maxCount 1 ;
-                                                   shacl:minCount 1 ;
-                                                   shacl:path :avgDailyTemperature
-                                                 ] ,
-                                                 [ shacl:datatype xsd:decimal ;
                                                    shacl:lessThan :maxDailyTemperature ;
                                                    shacl:maxCount 1 ;
                                                    shacl:minCount 1 ;
                                                    shacl:path :minDailyTemperature
+                                                 ] ,
+                                                 [ shacl:datatype xsd:decimal ;
+                                                   shacl:maxCount 1 ;
+                                                   shacl:minCount 1 ;
+                                                   shacl:path :avgDailyTemperature
                                                  ] ;
                                   shacl:targetClass :AtmosphereTemperatureResult .
 
@@ -1981,15 +2053,15 @@ pac:UriForcedBinding rdf:type owl:Class ;
 :SoilHorizonShape rdf:type owl:NamedIndividual ,
                            shacl:NodeShape ;
                   shacl:property [ shacl:datatype xsd:decimal ;
-                                   shacl:maxCount 1 ;
-                                   shacl:minCount 1 ;
-                                   shacl:path :lowerDepth
-                                 ] ,
-                                 [ shacl:datatype xsd:decimal ;
                                    shacl:lessThan :lowerDepth ;
                                    shacl:maxCount 1 ;
                                    shacl:minCount 1 ;
                                    shacl:path :upperDepth
+                                 ] ,
+                                 [ shacl:datatype xsd:decimal ;
+                                   shacl:maxCount 1 ;
+                                   shacl:minCount 1 ;
+                                   shacl:path :lowerDepth
                                  ] .
 
 
@@ -1999,12 +2071,12 @@ pac:UriForcedBinding rdf:type owl:Class ;
                         shacl:property [ shacl:datatype xsd:decimal ;
                                          shacl:maxCount 1 ;
                                          shacl:minCount 1 ;
-                                         shacl:path :silt
+                                         shacl:path :sand
                                        ] ,
                                        [ shacl:datatype xsd:decimal ;
                                          shacl:maxCount 1 ;
                                          shacl:minCount 1 ;
-                                         shacl:path :sand
+                                         shacl:path :silt
                                        ] ,
                                        [ shacl:datatype xsd:decimal ;
                                          shacl:maxCount 1 ;

@@ -1,0 +1,35 @@
+@prefix : <http://vaimee.com/example#> .
+@prefix agora: <http://onto.vaimee.com/agora#> .
+@prefix criteria: <http://onto.vaimee.com/criteria#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix sosa: <http://www.w3.org/ns/sosa/> .
+
+
+# Atmosphere Digital Twin
+:uuid_atmodt a agora:AtmosphereDigitalTwin, sosa:Sensor;
+    agora:digitalTwinOf :uuid_atmosphere ;
+    agora:hasAgent :uuid_weather_agent .
+
+
+:uuid_atmosphere a agora:Atmosphere, sosa:FeatureOfInterest .
+
+:uuid_weather_agent a agora:WeatherAgent, prov:SoftwareAgent, sosa:Sensor .
+
+
+# Configurazioni con activity prodotta da scheduler scritto ad hoc per questa app. Quindi cambiando app cambia il codice annesso del sistema agent. 
+# WEATHER AGENT IS A SLAVE OF THE SCHEDULER HERE.
+# We can either make the scheduler configurable, or hardcode the logic into the code. I think it is a weird supplementary passage.
+:uuid_activity_1 a agora:FetchDailyHystoricalWeather ;
+    prov:startedAtTime "2026-01-01T00:00:00" ;
+    prov:wasInfluencedBy :uuid_atmosphere ;
+    prov:endedAtTime "2026-01-01T00:04:12" .
+
+:uuid_activity_2 a agora:FetchDailyWeather ; #o meglio forse "FetchObservedWeather"
+    prov:startedAtTime "2026-01-01T00:00:00" ;
+    prov:wasInfluencedBy :uuid_atmosphere ;
+    prov:endedAtTime "2026-01-01T00:04:12" .
+
+:uuid_activity_3 a agora:FetchDailyForecastWeather ;
+    prov:startedAtTime "2026-01-01T00:00:00" ;
+    prov:wasInfluencedBy :uuid_atmosphere ;
+    prov:endedAtTime "2026-01-01T00:04:12" .

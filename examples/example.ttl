@@ -1,0 +1,65 @@
+@prefix : <http://vaimee.com/example#> .
+@prefix agora: <http://onto.vaimee.com/agora#> .
+@prefix criteria: <http://onto.vaimee.com/criteria#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix sosa: <http://www.w3.org/ns/sosa/> .
+
+
+#Field Digital Twin
+:uuid_dt a agora:FieldDigitalTwin; #also a sosa:Sensor
+    agora:digitalTwinOf :uuid_field ;
+    agora:hasAgent :uuid_model_runner .
+
+:uuid_field a agora:Field ;
+    agora:hasAtmosphere :uuid_atmosphere ;
+    agora:hasCrop :uuid_crop ;
+    agora:hasSoil :uuid_soil .
+
+:uuid_soil a agora:Soil ;
+    agora:hasHorizon :uuid_horizon_1 .
+
+:uuid_horizon_1 a agora:SoilHorizon .
+
+
+# Atmosphere Digital Twin
+:uuid_atmodt a agora:AtmosphereDigitalTwin ; #also a sosa:Sensor
+    agora:digitalTwinOf :uuid_atmosphere ;
+    agora:hasAgent :uuid_weather_agent .
+
+:uuid_atmosphere a agora:Atmosphere .
+
+
+# Agents
+:uuid_fieldDT_logic a agora:DigitalTwinAgent, prov:SoftwareAgent, sosa:Sensor .
+
+:uuid_weather_agent a agora:WeatherAgent, prov:SoftwareAgent, sosa:Sensor .
+
+:uuid_model_runner a agora:ModelRunner, prov:SoftwareAgent, sosa:Sensor .
+
+
+# Models
+:uuid_criteria1d a sosa:Procedure .
+
+:uuid_acquacrop a sosa:Procedure .
+
+
+# Activity
+:uuid_plan_1 a criteria:Criteria1DPlan, prov:Plan ;
+    criteria:useWaterTable true ;
+    criteria:numerical true ;
+    agora:hasModelConfiguration :uuid_criteria1d .
+
+:uuid_activity_1 a agora:RunFieldDigitalTwinIrrigationModel ;
+    prov:startedAtTime "2026-01-01T00:00:00" ;
+    prov:wasInfluencedBy :uuid_atmosphere ;
+    prov:wasInfluencedBy :uuid_crop ;
+    prov:wasInfluencedBy :uuid_soil ;
+    #Link plan with association
+    prov:qualifiedAssociation :uuid_blank_1 ;
+    #Aggiornato alla fine della activity.
+    prov:endedAtTime "2026-01-01T00:04:12" .
+
+# Link plan
+:uuid_blank_1 a prov:Association ;
+    prov:agent :uuid_model_runner ;
+    prov:hadPlan :uuid_plan_1 .

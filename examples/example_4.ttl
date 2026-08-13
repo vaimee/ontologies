@@ -1,0 +1,71 @@
+@prefix : <http://vaimee.com/example#> .
+@prefix agora: <http://onto.vaimee.com/agora#> .
+@prefix criteria: <http://onto.vaimee.com/criteria#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix sosa: <http://www.w3.org/ns/sosa/> .
+
+
+# Atmosphere Digital Twin
+:uuid_atmodt a agora:AtmosphereDigitalTwin, sosa:Sensor;
+    agora:digitalTwinOf :uuid_atmosphere ;
+    agora:hasAgent :uuid_weather_agent .
+
+:uuid_atmosphere a agora:Atmosphere, sosa:FeatureOfInterest .
+
+# What other agent could we use?
+:uuid_weather_agent a agora:WeatherAgent, prov:SoftwareAgent, sosa:Sensor .
+
+
+# This data has to exist somewhere!!!
+# L'agent cerca i plan attaccati a una atmosfera e decide come aggiornarla.
+# Specifica in che modo l'atmosfera va aggiornata. casi:
+# - manual upload, nessun plan attaccato
+# - only bulk
+# - only live
+# - bulk + live
+# - bulk + live + forecast
+# Se è lo scheduler del digital twin che crea l'atmosfera, allora può anche creare il plan corretto a lei annesso
+:uuid_plan_1 a agora:DailyHystoricalWeatherPlan, prov:Plan ;
+    agora:forFeatureOfInterest :uuid_atmosphere ;
+    agora:startTime "2025-01-01T00:00:00" ;
+    agora:endTime "2026-01-01T00:00:00" .
+
+:uuid_plan_2 a agora:DailyWeatherPlan, prov:Plan ; #yesterday
+    agora:forFeatureOfInterest :uuid_atmosphere .
+
+:uuid_plan_3 a agora:DailyForecastWeatherPlan, prov:Plan ; #today, tomorrow and the day after tomorrow
+    agora:forFeatureOfInterest :uuid_atmosphere ;
+    agora:forecastDays 3 . #between 1 and n
+
+
+
+
+# Report activity after it has been completed, as a sort of log
+:uuid_activity_1 a agora:FetchDailyHystoricalWeather ;
+    prov:startedAtTime "2026-01-01T00:00:00" ;
+    prov:wasInfluencedBy :uuid_atmosphere ;
+    prov:qualifiedAssociation :uuid_blank_1 ;
+    prov:endedAtTime "2026-01-01T00:04:12" .
+:uuid_blank_1 a prov:Association ;
+    prov:agent :uuid_weather_agent ;
+    prov:hadPlan :uuid_plan_1 .
+
+
+:uuid_activity_2 a agora:FetchDailyWeather ;
+    prov:startedAtTime "2026-01-01T00:00:00" ;
+    prov:wasInfluencedBy :uuid_atmosphere ;
+    prov:qualifiedAssociation :uuid_blank_2 ;
+    prov:endedAtTime "2026-01-01T00:04:12" .
+:uuid_blank_2 a prov:Association ;
+    prov:agent :uuid_weather_agent ;
+    prov:hadPlan :uuid_plan_2 .
+
+
+:uuid_activity_3 a agora:FetchDailyForecastWeather ;
+    prov:startedAtTime "2026-01-01T00:00:00" ;
+    prov:wasInfluencedBy :uuid_atmosphere ;
+    prov:qualifiedAssociation :uuid_blank_3 ;
+    prov:endedAtTime "2026-01-01T00:04:12" .
+:uuid_blank_3 a prov:Association ;
+    prov:agent :uuid_weather_agent ;
+    prov:hadPlan :uuid_plan_3 .
