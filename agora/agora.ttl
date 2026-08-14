@@ -197,7 +197,7 @@ foaf:name rdf:type owl:AnnotationProperty .
 ###  http://onto.vaimee.com/agora#hasPlan
 :hasPlan rdf:type owl:ObjectProperty ;
          rdfs:subPropertyOf owl:topObjectProperty ;
-         rdfs:domain sosa:FeatureOfInterest ;
+         rdfs:domain :DigitalTwin ;
          rdfs:range prov:Plan ;
          rdfs:comment "Associates a feature of interest with the plan governing its data acquisition or update process." .
 
