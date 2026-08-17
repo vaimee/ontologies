@@ -848,8 +848,8 @@ pac:variableName rdf:type owl:DatatypeProperty ;
 
 ###  http://onto.vaimee.com/agora#Atmosphere
 :Atmosphere rdf:type owl:Class ;
-            rdfs:subClassOf geo:Feature ,
-                            prov:Entity ,
+            rdfs:subClassOf :PhysicalSystem ,
+                            geo:Feature ,
                             sosa:FeatureOfInterest ,
                             [ rdf:type owl:Restriction ;
                               owl:onProperty sosa:isFeatureOfInterestOf ;
@@ -872,23 +872,20 @@ pac:variableName rdf:type owl:DatatypeProperty ;
 
 ###  http://onto.vaimee.com/agora#AtmosphereDigitalTwin
 :AtmosphereDigitalTwin rdf:type owl:Class ;
-                       rdfs:subClassOf prov:SoftwareAgent ,
+                       rdfs:subClassOf :DigitalTwin ,
+                                       prov:Entity ,
                                        sosa:Sensor ,
+                                       [ rdf:type owl:Restriction ;
+                                         owl:onProperty :digitalTwinOf ;
+                                         owl:someValuesFrom :Atmosphere
+                                       ] ,
                                        [ rdf:type owl:Restriction ;
                                          owl:onProperty sosa:madeObservation ;
                                          owl:allValuesFrom :AtmosphereTemperatureObservation
                                        ] ,
                                        [ rdf:type owl:Restriction ;
                                          owl:onProperty :hasFiniteStateMachine ;
-                                         owl:hasValue :WeatherAgentFSM
-                                       ] ,
-                                       [ rdf:type owl:Restriction ;
-                                         owl:onProperty :usesPacComponent ;
-                                         owl:hasValue pacc:WeatherAtmosphere
-                                       ] ,
-                                       [ rdf:type owl:Restriction ;
-                                         owl:onProperty :usesPacComponent ;
-                                         owl:hasValue pacp:WeatherAgent
+                                         owl:hasValue :AtmosphereDigitalTwinFSM
                                        ] ,
                                        [ rdf:type owl:Restriction ;
                                          owl:onProperty sosa:observes ;
@@ -898,7 +895,7 @@ pac:variableName rdf:type owl:DatatypeProperty ;
                                          owl:onProperty sosa:observes ;
                                          owl:hasValue :temperature
                                        ] ;
-                       rdfs:comment "A software agent acting as a virtual sensor. It observes daily precipitation and maximum, minimum, and average daily temperature, fetching them from external WeatherAPIs and producing AtmosphereObservations for the Atmosphere of a Field." ;
+                       rdfs:comment "The digital representation of the atmospere acting as a virtual sensor. It observes daily precipitation and maximum, minimum, and average daily temperature, fetching them from external WeatherAPIs and producing AtmosphereObservations for an Atmosphere (the physical object)." ;
                        rdfs:label "WeatherAgent" .
 
 
@@ -950,15 +947,54 @@ pac:variableName rdf:type owl:DatatypeProperty ;
 
 ###  http://onto.vaimee.com/agora#Criteria1DPlan
 :Criteria1DPlan rdf:type owl:Class ;
-                rdfs:subClassOf prov:Plan ;
+                rdfs:subClassOf prov:Plan ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty criteria:computeLateralDrainage ;
+                                  owl:someValuesFrom xsd:boolean
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty criteria:numericalSolution ;
+                                  owl:someValuesFrom xsd:boolean
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty criteria:optimalIrrigation ;
+                                  owl:someValuesFrom xsd:boolean
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty criteria:restartDate ;
+                                  owl:someValuesFrom xsd:dateTime
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty criteria:restartState ;
+                                  owl:someValuesFrom xsd:boolean
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty criteria:saveDate ;
+                                  owl:someValuesFrom xsd:boolean
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty criteria:saveState ;
+                                  owl:someValuesFrom xsd:boolean
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty criteria:slope ;
+                                  owl:allValuesFrom xsd:positiveInteger
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty criteria:useWaterRetentionFitting ;
+                                  owl:allValuesFrom xsd:boolean
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty criteria:useWaterTable ;
+                                  owl:allValuesFrom xsd:boolean
+                                ] ;
                 rdfs:comment "PROV plan describing how CRITERIA1D is executed within the digital twin workflow." ;
                 rdfs:label "CRITERIA1D plan" .
 
 
 ###  http://onto.vaimee.com/agora#Crop
 :Crop rdf:type owl:Class ;
-      rdfs:subClassOf prov:Entity ,
-                      sosa:FeatureOfInterest ,
+      rdfs:subClassOf sosa:FeatureOfInterest ,
                       [ rdf:type owl:Restriction ;
                         owl:onProperty prov:wasInfluencedBy ;
                         owl:someValuesFrom :RunFieldDigitalTwinActivity
@@ -999,7 +1035,7 @@ pac:variableName rdf:type owl:DatatypeProperty ;
 
 ###  http://onto.vaimee.com/agora#DigitalTwin
 :DigitalTwin rdf:type owl:Class ;
-             rdfs:comment "Software representation of a physical system that can observe, compute, and coordinate activities through internal agents and models." ;
+             rdfs:comment "Digital representation of a physical system that can observe, compute, and coordinate activities through internal agents and models." ;
              rdfs:label "Digital twin" .
 
 
@@ -1060,12 +1096,7 @@ pac:variableName rdf:type owl:DatatypeProperty ;
 :Field rdf:type owl:Class ;
        rdfs:subClassOf :PhysicalSystem ,
                        geo:Feature ,
-                       prov:Entity ,
                        sosa:FeatureOfInterest ,
-                       [ rdf:type owl:Restriction ;
-                         owl:onProperty prov:wasInfluencedBy ;
-                         owl:someValuesFrom :RunFieldDigitalTwinActivity
-                       ] ,
                        [ rdf:type owl:Restriction ;
                          owl:onProperty sosa:isFeatureOfInterestOf ;
                          owl:allValuesFrom [ owl:intersectionOf ( sosa:Observation
@@ -1104,7 +1135,6 @@ pac:variableName rdf:type owl:DatatypeProperty ;
 :FieldDigitalTwin rdf:type owl:Class ;
                   rdfs:subClassOf :DigitalTwin ,
                                   prov:Entity ,
-                                  prov:SoftwareAgent ,
                                   sosa:Sensor ,
                                   [ rdf:type owl:Restriction ;
                                     owl:onProperty :digitalTwinOf ;
@@ -1119,8 +1149,84 @@ pac:variableName rdf:type owl:DatatypeProperty ;
                                     owl:hasValue :FieldDigitalTwinFSM
                                   ] ,
                                   [ rdf:type owl:Restriction ;
-                                    owl:onProperty :usesPacComponent ;
-                                    owl:hasValue paca:FieldDigitalTwinRun
+                                    owl:onProperty sosa:observes ;
+                                    owl:hasValue :availableWater
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty sosa:observes ;
+                                    owl:hasValue :balance
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty sosa:observes ;
+                                    owl:hasValue :capillaryRise
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty sosa:observes ;
+                                    owl:hasValue :drainage
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty sosa:observes ;
+                                    owl:hasValue :et0
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty sosa:observes ;
+                                    owl:hasValue :evap
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty sosa:observes ;
+                                    owl:hasValue :evapMax
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty sosa:observes ;
+                                    owl:hasValue :fractionAvailableWater
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty sosa:observes ;
+                                    owl:hasValue :irrigation
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty sosa:observes ;
+                                    owl:hasValue :lai
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty sosa:observes ;
+                                    owl:hasValue :lateralDrainage
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty sosa:observes ;
+                                    owl:hasValue :readilyAvailableWater
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty sosa:observes ;
+                                    owl:hasValue :rootDepth
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty sosa:observes ;
+                                    owl:hasValue :runoff
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty sosa:observes ;
+                                    owl:hasValue :soilWaterContent
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty sosa:observes ;
+                                    owl:hasValue :soilWaterPotential
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty sosa:observes ;
+                                    owl:hasValue :surfaceWaterContent
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty sosa:observes ;
+                                    owl:hasValue :transp
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty sosa:observes ;
+                                    owl:hasValue :transpMax
+                                  ] ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty sosa:observes ;
+                                    owl:hasValue :waterContent
                                   ] ;
                   rdfs:comment "Digital twin specialization for an agricultural field." ;
                   rdfs:label "FieldDT" .
@@ -1179,15 +1285,15 @@ pac:variableName rdf:type owl:DatatypeProperty ;
 
 ###  http://onto.vaimee.com/agora#RunModelActivity
 :RunModelActivity rdf:type owl:Class ;
-                  rdfs:subClassOf prov:Modify ;
+                  rdfs:subClassOf prov:Create ,
+                                  prov:Modify ;
                   rdfs:comment "An activity in which a computational model is executed according to a specified plan and input data to produce model outputs." ;
                   rdfs:label "RunModelActivity" .
 
 
 ###  http://onto.vaimee.com/agora#Soil
 :Soil rdf:type owl:Class ;
-      rdfs:subClassOf prov:Entity ,
-                      sosa:FeatureOfInterest ,
+      rdfs:subClassOf sosa:FeatureOfInterest ,
                       [ rdf:type owl:Restriction ;
                         owl:onProperty prov:wasInfluencedBy ;
                         owl:someValuesFrom :RunFieldDigitalTwinActivity
@@ -1220,8 +1326,7 @@ pac:variableName rdf:type owl:DatatypeProperty ;
 
 ###  http://onto.vaimee.com/agora#SoilHorizon
 :SoilHorizon rdf:type owl:Class ;
-             rdfs:subClassOf prov:Entity ,
-                             sosa:FeatureOfInterest ,
+             rdfs:subClassOf sosa:FeatureOfInterest ,
                              [ rdf:type owl:Restriction ;
                                owl:onProperty sosa:isFeatureOfInterestOf ;
                                owl:allValuesFrom [ owl:intersectionOf ( sosa:Observation
@@ -1607,6 +1712,31 @@ pac:UriForcedBinding rdf:type owl:Class ;
                    pac:variableName "atmosphere" ;
                    rdfs:comment "Runtime URI binding for the atmosphere targeted by a weather update operation." ;
                    rdfs:label "atmosphere binding" .
+
+
+###  http://onto.vaimee.com/agora#AtmosphereDigitalTwinFSM
+:AtmosphereDigitalTwinFSM rdf:type owl:NamedIndividual ,
+                                   fsm:DeterministicFiniteStateMachine ;
+                          fsm:hasAcceptingState :WeatherAgentCompletedState ,
+                                                :WeatherAgentFailedState ;
+                          fsm:hasAlphabet :WeatherAgentAlphabet ;
+                          fsm:hasInitialState :WeatherAgentIdleState ;
+                          fsm:hasState :WeatherAgentCompletedState ,
+                                       :WeatherAgentFailedState ,
+                                       :WeatherAgentFetchingState ,
+                                       :WeatherAgentIdleState ,
+                                       :WeatherAgentPublishingState ,
+                                       :WeatherAgentValidatingState ;
+                          fsm:hasTransition :WeatherAgentFetchFailedTransition ,
+                                            :WeatherAgentFetchRequestedTransition ,
+                                            :WeatherAgentFetchSucceededTransition ,
+                                            :WeatherAgentObservationPublishedTransition ,
+                                            :WeatherAgentResetAfterCompletedTransition ,
+                                            :WeatherAgentResetAfterFailedTransition ,
+                                            :WeatherAgentValidationFailedTransition ,
+                                            :WeatherAgentValidationSucceededTransition ;
+                          rdfs:comment "Finite-state machine used to trace weather data acquisition, validation, publication, and API fetch errors." ;
+                          rdfs:label "Weather agent FSM" .
 
 
 ###  http://onto.vaimee.com/agora#AtmosphereTemperatureResultShape
@@ -2231,31 +2361,6 @@ pac:UriForcedBinding rdf:type owl:Class ;
                                      fsm:AcceptingState ;
                             fsm:stateName "completed" ;
                             rdfs:label "Weather agent completed" .
-
-
-###  http://onto.vaimee.com/agora#WeatherAgentFSM
-:WeatherAgentFSM rdf:type owl:NamedIndividual ,
-                          fsm:DeterministicFiniteStateMachine ;
-                 fsm:hasAcceptingState :WeatherAgentCompletedState ,
-                                       :WeatherAgentFailedState ;
-                 fsm:hasAlphabet :WeatherAgentAlphabet ;
-                 fsm:hasInitialState :WeatherAgentIdleState ;
-                 fsm:hasState :WeatherAgentCompletedState ,
-                              :WeatherAgentFailedState ,
-                              :WeatherAgentFetchingState ,
-                              :WeatherAgentIdleState ,
-                              :WeatherAgentPublishingState ,
-                              :WeatherAgentValidatingState ;
-                 fsm:hasTransition :WeatherAgentFetchFailedTransition ,
-                                   :WeatherAgentFetchRequestedTransition ,
-                                   :WeatherAgentFetchSucceededTransition ,
-                                   :WeatherAgentObservationPublishedTransition ,
-                                   :WeatherAgentResetAfterCompletedTransition ,
-                                   :WeatherAgentResetAfterFailedTransition ,
-                                   :WeatherAgentValidationFailedTransition ,
-                                   :WeatherAgentValidationSucceededTransition ;
-                 rdfs:comment "Finite-state machine used to trace weather data acquisition, validation, publication, and API fetch errors." ;
-                 rdfs:label "Weather agent FSM" .
 
 
 ###  http://onto.vaimee.com/agora#WeatherAgentFailedState
