@@ -63,9 +63,11 @@ function findOntologies(root) {
                 .map(file => {
                     const source = path.join(dir, file);
                     const html = source.replace(/\.ttl$/, '.html');
+                    const slug = file.replace(/\.ttl$/, '');
 
                     return {
                         name: entry.name,
+                        slug,
                         source,
                         html,
                         namespace: getOntologyNamespace(source),
@@ -250,7 +252,7 @@ function renderIndex(ontologies) {
     const links = ontologies
         .map(ontology => {
             const href = `${ontology.name}/${path.basename(ontology.html)}`;
-            return `                    <li>
+            return `                    <li data-ontology="${escapeHtml(ontology.slug)}">
                         <article class="ontology-card">
                             <a href="${href}">
                             <span class="card-title">${escapeHtml(ontology.title)}</span>
@@ -461,11 +463,26 @@ ${links}
             <footer>Copyright © 2026 VAIMEE srl – Via Adelaide Ristori 11, 40127, Bologna, Italy – CF/PIVA: 03859291209 – REA: BO-551672</footer>
         </main>
         <script>
-            var webvowlBaseUrl = window.WEBVOWL_BASE_URL || 'https://service.tib.eu/webvowl/';
+            var webvowlBaseUrl = window.WEBVOWL_BASE_URL || 'http://127.0.0.1:8083/';
+            var isStudio = window.parent !== window;
+
+            if (isStudio) {
+                var STUDIO_KEEP = ['agora', 'api', 'fsm', 'pac'];
+                document.querySelectorAll('[data-ontology]').forEach(function (li) {
+                    if (STUDIO_KEEP.indexOf(li.dataset.ontology) === -1) li.remove();
+                });
+                var footer = document.querySelector('footer');
+                if (footer) footer.remove();
+                var apiTitle = document.querySelector('[data-ontology="api"] .card-title');
+                if (apiTitle) apiTitle.textContent = 'Weather API Ontology';
+                var hero = document.querySelector('.hero');
+                if (hero) hero.remove();
+            }
 
             document.querySelectorAll('[data-webvowl-path]').forEach(function (frame) {
                 var ontologyUrl = new URL(frame.dataset.webvowlPath, window.location.href).href;
-                frame.src = webvowlBaseUrl + '#iri=' + encodeURIComponent(ontologyUrl);
+                var dockerIri = ontologyUrl.replace('127.0.0.1', 'host.docker.internal');
+                frame.src = webvowlBaseUrl + '#iri=' + encodeURIComponent(dockerIri);
             });
         </script>
     </body>
