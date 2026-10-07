@@ -16,5 +16,7 @@ FROM nginx:1.27-alpine
 
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=build /app/public /usr/share/nginx/html
+RUN find /usr/share/nginx/html -name '*.ttl' -exec chmod 644 {} + && \
+    find /usr/share/nginx/html -name '*.html' -exec chmod 644 {} +
 
 EXPOSE 80
