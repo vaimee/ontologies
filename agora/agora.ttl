@@ -945,6 +945,16 @@ pac:variableName rdf:type owl:DatatypeProperty ;
                             rdfs:label "BulkFetchHystoricalWeather" .
 
 
+###  http://onto.vaimee.com/agora#CreateAtmosphereDigitalTwinActivity
+:CreateAtmosphereDigitalTwinActivity rdf:type owl:Class ;
+                                     rdfs:subClassOf prov:Create .
+
+
+###  http://onto.vaimee.com/agora#CreateFieldDigitalTwinActivity
+:CreateFieldDigitalTwinActivity rdf:type owl:Class ;
+                                rdfs:subClassOf prov:Create .
+
+
 ###  http://onto.vaimee.com/agora#Criteria1DPlan
 :Criteria1DPlan rdf:type owl:Class ;
                 rdfs:subClassOf prov:Plan ,
