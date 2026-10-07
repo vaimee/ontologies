@@ -29,7 +29,7 @@
 @base <http://onto.vaimee.com/agora#> .
 
 <http://onto.vaimee.com/agora#> rdf:type owl:Ontology ;
-                                 owl:versionIRI <http://onto.vaimee.com/agora/1.0.24#> ;
+                                 owl:versionIRI <http://onto.vaimee.com/agora/1.0.25#> ;
                                  owl:imports <http://onto.vaimee.com/agora/api/0.1> ,
                                              <http://www.w3.org/ns/prov-20130430> ,
                                              sosa: ,
@@ -42,7 +42,7 @@
                                  dcterms:title "Agorà Ontology" ;
                                  rdfs:comment "Implementation note: a Protege plugin should be developed to visualize and edit the finite-state machines of the software agents." ;
                                  owl:title "Agorà Ontology" ;
-                                 owl:versionInfo "1.0.24" .
+                                 owl:versionInfo "1.0.25" .
 
 #################################################################
 #    Annotation properties
@@ -372,6 +372,44 @@ pac:writesToGraph rdf:type owl:ObjectProperty ;
                   rdfs:isDefinedBy pac: .
 
 
+###  ---- Field profile terms (agora-frontend issue #37) ----
+
+###  http://onto.vaimee.com/agora#hasFruitTreeStand
+:hasFruitTreeStand rdf:type owl:ObjectProperty ;
+                   rdfs:subPropertyOf owl:topObjectProperty ;
+                   rdfs:domain :Orchard ;
+                   rdfs:range :FruitTreeStand ;
+                   rdfs:comment "Links an orchard to one of the fruit tree types planted in it (one stand per type)." ;
+                   rdfs:label "has fruit tree stand" .
+
+
+###  http://onto.vaimee.com/agora#hasIrrigationSystem
+:hasIrrigationSystem rdf:type owl:ObjectProperty ;
+                     rdfs:subPropertyOf owl:topObjectProperty ;
+                     rdfs:domain :Field ;
+                     rdfs:range :IrrigationSystem ;
+                     rdfs:comment "Links a field to the irrigation system installed in it, as described by the farmer." ;
+                     rdfs:label "has irrigation system" .
+
+
+###  http://onto.vaimee.com/agora#hasWaterSource
+:hasWaterSource rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf owl:topObjectProperty ;
+                rdfs:domain :IrrigationSystem ;
+                rdfs:range :WaterSource ;
+                rdfs:comment "Links an irrigation system to the source that supplies its water (gravity canal or pumping)." ;
+                rdfs:label "has water source" .
+
+
+###  http://onto.vaimee.com/agora#irrigationType
+:irrigationType rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf owl:topObjectProperty ;
+                rdfs:domain :IrrigationSystem ;
+                rdfs:range skos:Concept ;
+                rdfs:comment "Physical type of the irrigation system, from the IrrigationTypeScheme concept scheme (e.g. inline dripline, furrow, centre pivot)." ;
+                rdfs:label "irrigation type" .
+
+
 #################################################################
 #    Data properties
 #################################################################
@@ -498,7 +536,8 @@ pac:writesToGraph rdf:type owl:ObjectProperty ;
 :plantCycleMaxDuration rdf:type owl:DatatypeProperty ;
                        rdfs:subPropertyOf owl:topDataProperty ;
                        rdfs:domain :Crop ;
-                       rdfs:range xsd:string .
+                       rdfs:range xsd:integer ;
+                       rdfs:comment "Maximum duration of the crop cycle, in days (expected harvest date minus sowing date)." .
 
 
 ###  http://onto.vaimee.com/agora#rawFraction
@@ -833,6 +872,368 @@ pac:sparql rdf:type owl:DatatypeProperty ;
 ###  https://onto.vaimee.com/pac#variableName
 pac:variableName rdf:type owl:DatatypeProperty ;
                  rdfs:isDefinedBy pac: .
+
+
+###  ---- Field profile terms (agora-frontend issue #37) ----
+
+###  http://onto.vaimee.com/agora#placeName
+:placeName rdf:type owl:DatatypeProperty ;
+           rdfs:subPropertyOf owl:topDataProperty ;
+           rdfs:domain :Field ;
+           rdfs:range xsd:string ;
+           rdfs:comment "Human-readable name of the place where the field is (e.g. reverse-geocoded municipality)." ;
+           rdfs:label "place name" .
+
+
+###  http://onto.vaimee.com/agora#fieldArea
+:fieldArea rdf:type owl:DatatypeProperty ;
+           rdfs:subPropertyOf owl:topDataProperty ;
+           rdfs:domain :Field ;
+           rdfs:range xsd:decimal ;
+           rdfs:comment "Total area of the field, in hectares (ha)." ;
+           rdfs:label "field area" .
+
+
+###  http://onto.vaimee.com/agora#waterTableDepth
+:waterTableDepth rdf:type owl:DatatypeProperty ;
+                 rdfs:subPropertyOf owl:topDataProperty ;
+                 rdfs:domain :Field ;
+                 rdfs:range xsd:decimal ;
+                 rdfs:comment "Depth of the water table below the soil surface reported by the farmer, in metres (m)." ;
+                 rdfs:label "water table depth" .
+
+
+###  http://onto.vaimee.com/agora#limitingLayerDepth
+:limitingLayerDepth rdf:type owl:DatatypeProperty ;
+                    rdfs:subPropertyOf owl:topDataProperty ;
+                    rdfs:domain :Soil ;
+                    rdfs:range xsd:decimal ;
+                    rdfs:comment "Depth of a soil layer that limits root growth or drainage, in centimetres (cm)." ;
+                    rdfs:label "limiting layer depth" .
+
+
+###  http://onto.vaimee.com/agora#sowingDate
+:sowingDate rdf:type owl:DatatypeProperty ;
+            rdfs:subPropertyOf owl:topDataProperty ;
+            rdfs:domain :Crop ;
+            rdfs:range xsd:date ;
+            rdfs:comment "Sowing date entered by the farmer; sowingDoy is derived from it." ;
+            rdfs:label "sowing date" .
+
+
+###  http://onto.vaimee.com/agora#emergenceDate
+:emergenceDate rdf:type owl:DatatypeProperty ;
+               rdfs:subPropertyOf owl:topDataProperty ;
+               rdfs:domain :Crop ;
+               rdfs:range xsd:date ;
+               rdfs:comment "Germination (emergence) date entered by the farmer; degreeDaysEmergence is derived from it with the crop thermal threshold." ;
+               rdfs:label "emergence date" .
+
+
+###  http://onto.vaimee.com/agora#expectedHarvestDate
+:expectedHarvestDate rdf:type owl:DatatypeProperty ;
+                     rdfs:subPropertyOf owl:topDataProperty ;
+                     rdfs:domain :Crop ;
+                     rdfs:range xsd:date ;
+                     rdfs:comment "Expected harvest date entered by the farmer; plantCycleMaxDuration is derived from it." ;
+                     rdfs:label "expected harvest date" .
+
+
+###  http://onto.vaimee.com/agora#irrigationStartDate
+:irrigationStartDate rdf:type owl:DatatypeProperty ;
+                     rdfs:subPropertyOf owl:topDataProperty ;
+                     rdfs:domain :Crop ;
+                     rdfs:range xsd:date ;
+                     rdfs:comment "First irrigation date of the season entered by the farmer; criteria:degreeDaysStartIrrigation is derived from it." ;
+                     rdfs:label "irrigation start date" .
+
+
+###  http://onto.vaimee.com/agora#fruitTreeSpecies
+:fruitTreeSpecies rdf:type owl:DatatypeProperty ;
+                  rdfs:subPropertyOf owl:topDataProperty ;
+                  rdfs:domain :FruitTreeStand ;
+                  rdfs:range xsd:string ;
+                  rdfs:comment "Fruit tree species of the stand (e.g. apple, pear)." ;
+                  rdfs:label "fruit tree species" .
+
+
+###  http://onto.vaimee.com/agora#rootstock
+:rootstock rdf:type owl:DatatypeProperty ;
+           rdfs:subPropertyOf owl:topDataProperty ;
+           rdfs:domain :FruitTreeStand ;
+           rdfs:range xsd:string ;
+           rdfs:comment "Rootstock name (e.g. M9)." ;
+           rdfs:label "rootstock" .
+
+
+###  http://onto.vaimee.com/agora#orchardAge
+:orchardAge rdf:type owl:DatatypeProperty ;
+            rdfs:subPropertyOf owl:topDataProperty ;
+            rdfs:domain :FruitTreeStand ;
+            rdfs:range xsd:integer ;
+            rdfs:comment "Age of the trees, in years." ;
+            rdfs:label "orchard age" .
+
+
+###  http://onto.vaimee.com/agora#standArea
+:standArea rdf:type owl:DatatypeProperty ;
+           rdfs:subPropertyOf owl:topDataProperty ;
+           rdfs:domain :FruitTreeStand ;
+           rdfs:range xsd:decimal ;
+           rdfs:comment "Area planted with the stand, in hectares (ha)." ;
+           rdfs:label "stand area" .
+
+
+###  http://onto.vaimee.com/agora#oneYearShootGrowth
+:oneYearShootGrowth rdf:type owl:DatatypeProperty ;
+                    rdfs:subPropertyOf owl:topDataProperty ;
+                    rdfs:domain :FruitTreeStand ;
+                    rdfs:range xsd:decimal ;
+                    rdfs:comment "Length of one-year shoots, in metres (m)." ;
+                    rdfs:label "one-year shoot growth" .
+
+
+###  http://onto.vaimee.com/agora#interRowVegetationCover
+:interRowVegetationCover rdf:type owl:DatatypeProperty ;
+                         rdfs:subPropertyOf owl:topDataProperty ;
+                         rdfs:domain :FruitTreeStand ;
+                         rdfs:range xsd:string ;
+                         rdfs:comment "Vegetation between trees and rows (e.g. weeds, grass, cover crop). Collected for analysis; it does not change model parameters." ;
+                         rdfs:label "inter-row vegetation cover" .
+
+
+###  http://onto.vaimee.com/agora#treeSpacing
+:treeSpacing rdf:type owl:DatatypeProperty ;
+             rdfs:subPropertyOf owl:topDataProperty ;
+             rdfs:domain :IrrigationSystem ;
+             rdfs:range xsd:decimal ;
+             rdfs:comment "Distance between plants within a row, in metres (m)." ;
+             rdfs:label "tree spacing" .
+
+
+###  http://onto.vaimee.com/agora#rowSpacing
+:rowSpacing rdf:type owl:DatatypeProperty ;
+            rdfs:subPropertyOf owl:topDataProperty ;
+            rdfs:domain :IrrigationSystem ;
+            rdfs:range xsd:decimal ;
+            rdfs:comment "Distance between rows, in metres (m)." ;
+            rdfs:label "row spacing" .
+
+
+###  http://onto.vaimee.com/agora#rowLength
+:rowLength rdf:type owl:DatatypeProperty ;
+           rdfs:subPropertyOf owl:topDataProperty ;
+           rdfs:domain :IrrigationSystem ;
+           rdfs:range xsd:decimal ;
+           rdfs:comment "Average length of an irrigation row or furrow, in metres (m)." ;
+           rdfs:label "row length" .
+
+
+###  http://onto.vaimee.com/agora#rowsIrrigatedSimultaneously
+:rowsIrrigatedSimultaneously rdf:type owl:DatatypeProperty ;
+                             rdfs:subPropertyOf owl:topDataProperty ;
+                             rdfs:domain :IrrigationSystem ;
+                             rdfs:range xsd:integer ;
+                             rdfs:comment "Number of rows irrigated at the same time." ;
+                             rdfs:label "rows irrigated simultaneously" .
+
+
+###  http://onto.vaimee.com/agora#areaIrrigatedSimultaneously
+:areaIrrigatedSimultaneously rdf:type owl:DatatypeProperty ;
+                             rdfs:subPropertyOf owl:topDataProperty ;
+                             rdfs:domain :IrrigationSystem ;
+                             rdfs:range xsd:decimal ;
+                             rdfs:comment "Area irrigated at the same time, in hectares (ha)." ;
+                             rdfs:label "area irrigated simultaneously" .
+
+
+###  http://onto.vaimee.com/agora#wettedWidth
+:wettedWidth rdf:type owl:DatatypeProperty ;
+             rdfs:subPropertyOf owl:topDataProperty ;
+             rdfs:domain :IrrigationSystem ;
+             rdfs:range xsd:decimal ;
+             rdfs:comment "Width of the soil wetted along each row, in metres (m)." ;
+             rdfs:label "wetted width" .
+
+
+###  http://onto.vaimee.com/agora#areaPerPlant
+:areaPerPlant rdf:type owl:DatatypeProperty ;
+              rdfs:subPropertyOf owl:topDataProperty ;
+              rdfs:domain :SurfaceIrrigationSystem ;
+              rdfs:range xsd:decimal ;
+              rdfs:comment "Basin area around each plant, in square metres (m2)." ;
+              rdfs:label "area per plant" .
+
+
+###  http://onto.vaimee.com/agora#plantsIrrigatedSimultaneously
+:plantsIrrigatedSimultaneously rdf:type owl:DatatypeProperty ;
+                               rdfs:subPropertyOf owl:topDataProperty ;
+                               rdfs:domain :SurfaceIrrigationSystem ;
+                               rdfs:range xsd:integer ;
+                               rdfs:comment "Number of plant basins irrigated at the same time." ;
+                               rdfs:label "plants irrigated simultaneously" .
+
+
+###  http://onto.vaimee.com/agora#irrigationEventDuration
+:irrigationEventDuration rdf:type owl:DatatypeProperty ;
+                         rdfs:subPropertyOf owl:topDataProperty ;
+                         rdfs:domain :IrrigationSystem ;
+                         rdfs:range xsd:decimal ;
+                         rdfs:comment "Usual duration of one irrigation event during hot days, in hours (h)." ;
+                         rdfs:label "irrigation event duration" .
+
+
+###  http://onto.vaimee.com/agora#irrigationInterval
+:irrigationInterval rdf:type owl:DatatypeProperty ;
+                    rdfs:subPropertyOf owl:topDataProperty ;
+                    rdfs:domain :IrrigationSystem ;
+                    rdfs:range xsd:integer ;
+                    rdfs:comment "Usual number of days between irrigation events during hot days." ;
+                    rdfs:label "irrigation interval" .
+
+
+###  http://onto.vaimee.com/agora#pressureCompensating
+:pressureCompensating rdf:type owl:DatatypeProperty ;
+                      rdfs:subPropertyOf owl:topDataProperty ;
+                      rdfs:domain :DripIrrigationSystem ;
+                      rdfs:range xsd:boolean ;
+                      rdfs:comment "Whether the drip emitters are pressure compensating." ;
+                      rdfs:label "pressure compensating" .
+
+
+###  http://onto.vaimee.com/agora#emitterFlowRate
+:emitterFlowRate rdf:type owl:DatatypeProperty ;
+                 rdfs:subPropertyOf owl:topDataProperty ;
+                 rdfs:domain :DripIrrigationSystem ;
+                 rdfs:range xsd:decimal ;
+                 rdfs:comment "Flow rate of one emitter, in litres per hour (L/h)." ;
+                 rdfs:label "emitter flow rate" .
+
+
+###  http://onto.vaimee.com/agora#emittersPerPlant
+:emittersPerPlant rdf:type owl:DatatypeProperty ;
+                  rdfs:subPropertyOf owl:topDataProperty ;
+                  rdfs:domain :DripIrrigationSystem ;
+                  rdfs:range xsd:integer ;
+                  rdfs:comment "Number of emitters serving each plant." ;
+                  rdfs:label "emitters per plant" .
+
+
+###  http://onto.vaimee.com/agora#emitterSpacing
+:emitterSpacing rdf:type owl:DatatypeProperty ;
+                rdfs:subPropertyOf owl:topDataProperty ;
+                rdfs:domain :DripIrrigationSystem ;
+                rdfs:range xsd:decimal ;
+                rdfs:comment "Distance between emitters along a line, in metres (m)." ;
+                rdfs:label "emitter spacing" .
+
+
+###  http://onto.vaimee.com/agora#dripLineSpacing
+:dripLineSpacing rdf:type owl:DatatypeProperty ;
+                 rdfs:subPropertyOf owl:topDataProperty ;
+                 rdfs:domain :DripIrrigationSystem ;
+                 rdfs:range xsd:decimal ;
+                 rdfs:comment "Distance between drip lines, in metres (m)." ;
+                 rdfs:label "drip line spacing" .
+
+
+###  http://onto.vaimee.com/agora#sprinklerFlowRate
+:sprinklerFlowRate rdf:type owl:DatatypeProperty ;
+                   rdfs:subPropertyOf owl:topDataProperty ;
+                   rdfs:domain :SprinklerIrrigationSystem ;
+                   rdfs:range xsd:decimal ;
+                   rdfs:comment "Flow rate of one sprinkler, in litres per hour (L/h)." ;
+                   rdfs:label "sprinkler flow rate" .
+
+
+###  http://onto.vaimee.com/agora#sprinklersOperatingSimultaneously
+:sprinklersOperatingSimultaneously rdf:type owl:DatatypeProperty ;
+                                   rdfs:subPropertyOf owl:topDataProperty ;
+                                   rdfs:domain :SprinklerIrrigationSystem ;
+                                   rdfs:range xsd:integer ;
+                                   rdfs:comment "Number of sprinklers operating at the same time." ;
+                                   rdfs:label "sprinklers operating simultaneously" .
+
+
+###  http://onto.vaimee.com/agora#sprinklerSpacing
+:sprinklerSpacing rdf:type owl:DatatypeProperty ;
+                  rdfs:subPropertyOf owl:topDataProperty ;
+                  rdfs:domain :SprinklerIrrigationSystem ;
+                  rdfs:range xsd:decimal ;
+                  rdfs:comment "Distance between sprinklers, in metres (m)." ;
+                  rdfs:label "sprinkler spacing" .
+
+
+###  http://onto.vaimee.com/agora#inletWidth
+:inletWidth rdf:type owl:DatatypeProperty ;
+            rdfs:subPropertyOf owl:topDataProperty ;
+            rdfs:domain :CanalWaterSource ;
+            rdfs:range xsd:decimal ;
+            rdfs:comment "Width of the canal inlet, in metres (m)." ;
+            rdfs:label "inlet width" .
+
+
+###  http://onto.vaimee.com/agora#inletDepth
+:inletDepth rdf:type owl:DatatypeProperty ;
+            rdfs:subPropertyOf owl:topDataProperty ;
+            rdfs:domain :CanalWaterSource ;
+            rdfs:range xsd:decimal ;
+            rdfs:comment "Water depth at the canal inlet, in metres (m)." ;
+            rdfs:label "inlet depth" .
+
+
+###  http://onto.vaimee.com/agora#waterVelocity
+:waterVelocity rdf:type owl:DatatypeProperty ;
+               rdfs:subPropertyOf owl:topDataProperty ;
+               rdfs:domain :CanalWaterSource ;
+               rdfs:range xsd:decimal ;
+               rdfs:comment "Water velocity at the inlet, in metres per second (m/s); entered or measured with the float method." ;
+               rdfs:label "water velocity" .
+
+
+###  http://onto.vaimee.com/agora#velocityMeasurementDistance
+:velocityMeasurementDistance rdf:type owl:DatatypeProperty ;
+                             rdfs:subPropertyOf owl:topDataProperty ;
+                             rdfs:domain :CanalWaterSource ;
+                             rdfs:range xsd:decimal ;
+                             rdfs:comment "Distance travelled by the float in the float method, in metres (m)." ;
+                             rdfs:label "velocity measurement distance" .
+
+
+###  http://onto.vaimee.com/agora#velocityMeasurementTime
+:velocityMeasurementTime rdf:type owl:DatatypeProperty ;
+                         rdfs:subPropertyOf owl:topDataProperty ;
+                         rdfs:domain :CanalWaterSource ;
+                         rdfs:range xsd:decimal ;
+                         rdfs:comment "Time taken by the float in the float method, in seconds (s); waterVelocity = distance / time." ;
+                         rdfs:label "velocity measurement time" .
+
+
+###  http://onto.vaimee.com/agora#pumpFlowRate
+:pumpFlowRate rdf:type owl:DatatypeProperty ;
+              rdfs:subPropertyOf owl:topDataProperty ;
+              rdfs:domain :PumpedWaterSource ;
+              rdfs:range xsd:decimal ;
+              rdfs:comment "Flow rate delivered by the pump, in litres per hour (L/h)." ;
+              rdfs:label "pump flow rate" .
+
+
+###  http://onto.vaimee.com/agora#pumpPressure
+:pumpPressure rdf:type owl:DatatypeProperty ;
+              rdfs:subPropertyOf owl:topDataProperty ;
+              rdfs:domain :PumpedWaterSource ;
+              rdfs:range xsd:decimal ;
+              rdfs:comment "Pump pressure, in bar." ;
+              rdfs:label "pump pressure" .
+
+
+###  http://onto.vaimee.com/agora#pumpOutletDiameter
+:pumpOutletDiameter rdf:type owl:DatatypeProperty ;
+                    rdfs:subPropertyOf owl:topDataProperty ;
+                    rdfs:domain :PumpedWaterSource ;
+                    rdfs:range xsd:decimal ;
+                    rdfs:comment "Diameter of the pump outlet, in millimetres (mm)." ;
+                    rdfs:label "pump outlet diameter" .
 
 
 #################################################################
@@ -1690,6 +2091,87 @@ pac:UriForcedBinding rdf:type owl:Class ;
                      rdfs:isDefinedBy pac: .
 
 
+###  ---- Field profile terms (agora-frontend issue #37) ----
+
+###  http://onto.vaimee.com/agora#Orchard
+:Orchard rdf:type owl:Class ;
+         rdfs:subClassOf :Crop ;
+         rdfs:comment "Crop made of fruit trees, possibly of several types (fruit tree stands). The stands are collected for analysis and model validation; the simulated crop parameters stay those of the Crop." ;
+         rdfs:label "Orchard" .
+
+
+###  http://onto.vaimee.com/agora#FruitTreeStand
+:FruitTreeStand rdf:type owl:Class ;
+                rdfs:subClassOf sosa:FeatureOfInterest ;
+                rdfs:comment "Part of an orchard planted with one fruit tree type, with its rootstock, age and area." ;
+                rdfs:label "Fruit tree stand" .
+
+
+###  http://onto.vaimee.com/agora#IrrigationSystem
+:IrrigationSystem rdf:type owl:Class ;
+                  rdfs:subClassOf sosa:Platform ;
+                  rdfs:comment "Physical irrigation system installed in a field, as described by the farmer (layout, emitters, water source, usual schedule). Distinct from criteria:Irrigation, which holds the model parameters." ;
+                  rdfs:label "Irrigation system" .
+
+
+###  http://onto.vaimee.com/agora#DripIrrigationSystem
+:DripIrrigationSystem rdf:type owl:Class ;
+                      rdfs:subClassOf :IrrigationSystem ;
+                      rdfs:comment "Irrigation system delivering water through drip emitters (inline dripline, online dripper, drip tape, sub-surface drip line)." ;
+                      rdfs:label "Drip irrigation system" .
+
+
+###  http://onto.vaimee.com/agora#SurfaceIrrigationSystem
+:SurfaceIrrigationSystem rdf:type owl:Class ;
+                         rdfs:subClassOf :IrrigationSystem ;
+                         rdfs:comment "Irrigation system distributing water over the soil surface by gravity (furrow, basin, flood, border)." ;
+                         rdfs:label "Surface irrigation system" .
+
+
+###  http://onto.vaimee.com/agora#SprinklerIrrigationSystem
+:SprinklerIrrigationSystem rdf:type owl:Class ;
+                           rdfs:subClassOf :IrrigationSystem ;
+                           rdfs:comment "Irrigation system spraying water through sprinklers (solid set, big gun, centre pivot, linear move, travelling gun)." ;
+                           rdfs:label "Sprinkler irrigation system" .
+
+
+###  http://onto.vaimee.com/agora#WaterSource
+:WaterSource rdf:type owl:Class ;
+             rdfs:subClassOf sosa:FeatureOfInterest ;
+             rdfs:comment "Source supplying water to an irrigation system." ;
+             rdfs:label "Water source" .
+
+
+###  http://onto.vaimee.com/agora#CanalWaterSource
+:CanalWaterSource rdf:type owl:Class ;
+                  rdfs:subClassOf :WaterSource ;
+                  rdfs:comment "Water flowing by gravity from a canal or river." ;
+                  rdfs:label "Canal water source" .
+
+
+###  http://onto.vaimee.com/agora#PumpedWaterSource
+:PumpedWaterSource rdf:type owl:Class ;
+                   rdfs:subClassOf :WaterSource ;
+                   rdfs:comment "Water pumped from a well or another source." ;
+                   rdfs:label "Pumped water source" .
+
+
+###  http://www.w3.org/ns/sosa/Platform
+sosa:Platform rdf:type owl:Class ;
+              rdfs:comment "SOSA class for entities that host sensors, actuators and other platforms." ;
+              rdfs:label "Platform" .
+
+
+###  http://www.w3.org/2004/02/skos/core#Concept
+skos:Concept rdf:type owl:Class ;
+             rdfs:label "Concept" .
+
+
+###  http://www.w3.org/2004/02/skos/core#ConceptScheme
+skos:ConceptScheme rdf:type owl:Class ;
+                   rdfs:label "Concept scheme" .
+
+
 #################################################################
 #    Individuals
 #################################################################
@@ -2192,6 +2674,7 @@ pac:UriForcedBinding rdf:type owl:Class ;
 ###  http://onto.vaimee.com/agora#SoilHorizonShape
 :SoilHorizonShape rdf:type owl:NamedIndividual ,
                            shacl:NodeShape ;
+                  shacl:targetClass :SoilHorizon ;
                   shacl:property [ shacl:datatype xsd:decimal ;
                                    shacl:lessThan :lowerDepth ;
                                    shacl:maxCount 1 ;
@@ -2784,6 +3267,168 @@ pacu:FieldDigitalTwinOutput rdf:type owl:NamedIndividual ,
 
 [ owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger
  ] .
+
+###  ---- Field profile terms (agora-frontend issue #37) ----
+
+###  http://onto.vaimee.com/agora#IrrigationTypeScheme
+:IrrigationTypeScheme rdf:type owl:NamedIndividual ,
+                               skos:ConceptScheme ;
+                      rdfs:comment "Physical types of irrigation systems, used as values of :irrigationType." ;
+                      rdfs:label "Irrigation types" .
+
+
+###  http://onto.vaimee.com/agora#InlineDripline
+:InlineDripline rdf:type owl:NamedIndividual ,
+                         skos:Concept ;
+                skos:inScheme :IrrigationTypeScheme ;
+                rdfs:comment "Emitters built into the irrigation pipe." ;
+                rdfs:label "inline dripline" .
+
+
+###  http://onto.vaimee.com/agora#OnlineDripper
+:OnlineDripper rdf:type owl:NamedIndividual ,
+                        skos:Concept ;
+               skos:inScheme :IrrigationTypeScheme ;
+               rdfs:comment "Emitters attached externally to the pipe." ;
+               rdfs:label "online dripper" .
+
+
+###  http://onto.vaimee.com/agora#DripTape
+:DripTape rdf:type owl:NamedIndividual ,
+                   skos:Concept ;
+          skos:inScheme :IrrigationTypeScheme ;
+          rdfs:comment "Irrigation tape placed on the soil surface." ;
+          rdfs:label "drip tape" .
+
+
+###  http://onto.vaimee.com/agora#SubsurfaceDripLine
+:SubsurfaceDripLine rdf:type owl:NamedIndividual ,
+                             skos:Concept ;
+                    skos:inScheme :IrrigationTypeScheme ;
+                    rdfs:comment "Drip line buried below the soil surface." ;
+                    rdfs:label "sub-surface drip line" .
+
+
+###  http://onto.vaimee.com/agora#FurrowIrrigation
+:FurrowIrrigation rdf:type owl:NamedIndividual ,
+                           skos:Concept ;
+                  skos:inScheme :IrrigationTypeScheme ;
+                  rdfs:comment "Water flows in furrows between crop rows." ;
+                  rdfs:label "furrow irrigation" .
+
+
+###  http://onto.vaimee.com/agora#BasinIrrigation
+:BasinIrrigation rdf:type owl:NamedIndividual ,
+                          skos:Concept ;
+                 skos:inScheme :IrrigationTypeScheme ;
+                 rdfs:comment "Water applied to level basins, e.g. around each tree." ;
+                 rdfs:label "basin irrigation" .
+
+
+###  http://onto.vaimee.com/agora#FloodIrrigation
+:FloodIrrigation rdf:type owl:NamedIndividual ,
+                          skos:Concept ;
+                 skos:inScheme :IrrigationTypeScheme ;
+                 rdfs:comment "Water flooding the whole field surface." ;
+                 rdfs:label "flood irrigation" .
+
+
+###  http://onto.vaimee.com/agora#BorderIrrigation
+:BorderIrrigation rdf:type owl:NamedIndividual ,
+                           skos:Concept ;
+                  skos:inScheme :IrrigationTypeScheme ;
+                  rdfs:comment "Water flowing over long border strips." ;
+                  rdfs:label "border irrigation" .
+
+
+###  http://onto.vaimee.com/agora#SolidSetSprinkler
+:SolidSetSprinkler rdf:type owl:NamedIndividual ,
+                            skos:Concept ;
+                   skos:inScheme :IrrigationTypeScheme ;
+                   rdfs:comment "Fixed sprinklers covering the field." ;
+                   rdfs:label "solid set" .
+
+
+###  http://onto.vaimee.com/agora#BigGunSprinkler
+:BigGunSprinkler rdf:type owl:NamedIndividual ,
+                          skos:Concept ;
+                 skos:inScheme :IrrigationTypeScheme ;
+                 rdfs:comment "Single large-volume sprinkler." ;
+                 rdfs:label "big gun" .
+
+
+###  http://onto.vaimee.com/agora#CentrePivot
+:CentrePivot rdf:type owl:NamedIndividual ,
+                      skos:Concept ;
+             skos:inScheme :IrrigationTypeScheme ;
+             rdfs:comment "Sprinkler line rotating around a pivot." ;
+             rdfs:label "centre pivot" .
+
+
+###  http://onto.vaimee.com/agora#LinearMove
+:LinearMove rdf:type owl:NamedIndividual ,
+                     skos:Concept ;
+            skos:inScheme :IrrigationTypeScheme ;
+            rdfs:comment "Sprinkler line moving across the field." ;
+            rdfs:label "linear move" .
+
+
+###  http://onto.vaimee.com/agora#TravellingGun
+:TravellingGun rdf:type owl:NamedIndividual ,
+                        skos:Concept ;
+               skos:inScheme :IrrigationTypeScheme ;
+               rdfs:comment "Large sprinkler on a reel moving along the field." ;
+               rdfs:label "travelling gun" .
+
+
+###  http://onto.vaimee.com/agora#OtherIrrigationType
+:OtherIrrigationType rdf:type owl:NamedIndividual ,
+                              skos:Concept ;
+                     skos:inScheme :IrrigationTypeScheme ;
+                     rdfs:comment "Irrigation type not listed in the scheme." ;
+                     rdfs:label "other" .
+
+
+###  http://onto.vaimee.com/agora#SoilShape
+:SoilShape rdf:type owl:NamedIndividual ,
+                    shacl:NodeShape ;
+           shacl:targetClass :Soil ;
+           shacl:sparql [ shacl:message "The first soil horizon must start at 0 cm." ;
+                          shacl:select """SELECT $this WHERE {
+  FILTER NOT EXISTS {
+    $this <http://onto.vaimee.com/agora#hasSoilHorizon>/<http://onto.vaimee.com/agora#upperDepth> ?u .
+    FILTER(?u = 0)
+  }
+}"""
+                        ] ,
+                        [ shacl:message "Soil horizons must be continuous: each horizon must start where another one ends." ;
+                          shacl:select """SELECT $this ?value WHERE {
+  $this <http://onto.vaimee.com/agora#hasSoilHorizon> ?value .
+  ?value <http://onto.vaimee.com/agora#upperDepth> ?u .
+  FILTER(?u != 0)
+  FILTER NOT EXISTS {
+    $this <http://onto.vaimee.com/agora#hasSoilHorizon>/<http://onto.vaimee.com/agora#lowerDepth> ?l .
+    FILTER(?l = ?u)
+  }
+}"""
+                        ] ;
+           rdfs:comment "Validates the soil profile entered in the unit creation wizard (agora-frontend issue #37)." .
+
+
+###  http://onto.vaimee.com/agora#SoilHorizonOrganicMatterShape
+:SoilHorizonOrganicMatterShape rdf:type owl:NamedIndividual ,
+                                        shacl:NodeShape ;
+                               shacl:targetClass :SoilHorizon ;
+                               shacl:sparql [ shacl:message "Organic matter is required for every soil horizon." ;
+                                              shacl:select """SELECT $this WHERE {
+  FILTER NOT EXISTS {
+    ?obs <http://www.w3.org/ns/sosa/hasFeatureOfInterest> $this ;
+         <http://www.w3.org/ns/sosa/observedProperty> <http://onto.vaimee.com/agora#organicMatter> .
+  }
+}"""
+                                            ] ;
+                               rdfs:comment "Organic matter is a required input of the soil profile (agora-frontend issue #37)." .
+
 
 #################################################################
 #    Annotations

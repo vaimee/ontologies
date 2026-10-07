@@ -1,0 +1,100 @@
+@prefix : <http://onto.vaimee.com/agora#> .
+@prefix criteria: <http://onto.vaimee.com/agora/criteria#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix sosa: <http://www.w3.org/ns/sosa/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ex: <https://vaimee.com#> .
+
+# Field profile collected by the unit creation wizard (agora-frontend issue #37):
+# an orchard near Borghetto (PR) with two soil horizons, a crop calendar,
+# two fruit tree stands and a drip irrigation system fed by a pump.
+
+ex:MyOrchard rdf:type :Field ;
+    :placeName "Borghetto, Parma, Italy" ;
+    :fieldArea "3.5"^^xsd:decimal ;
+    :waterTableDepth "1.5"^^xsd:decimal ;
+    geo:hasGeometry ex:MyOrchard_geometry ;
+    :hasSoil ex:MyOrchard_soil ;
+    :hasCrop ex:MyOrchard_crop ;
+    :hasIrrigationSystem ex:MyOrchard_irrigation .
+
+ex:MyOrchard_geometry rdf:type geo:Geometry ;
+    geo:asWKT "POINT(10.2213 44.8732)"^^geo:wktLiteral .
+
+# --- Soil: two continuous horizons, texture and organic matter observed per horizon
+ex:MyOrchard_soil rdf:type :Soil ;
+    :limitingLayerDepth "80"^^xsd:decimal ;
+    :hasSoilHorizon ex:MyOrchard_h1 , ex:MyOrchard_h2 .
+
+ex:MyOrchard_h1 rdf:type :SoilHorizon ;
+    :upperDepth "0"^^xsd:decimal ;
+    :lowerDepth "50"^^xsd:decimal .
+
+ex:MyOrchard_h2 rdf:type :SoilHorizon ;
+    :upperDepth "50"^^xsd:decimal ;
+    :lowerDepth "80"^^xsd:decimal .
+
+ex:MyOrchard_h1_texture rdf:type :SoilTextureObservation ;
+    sosa:observedProperty :soilTexture ;
+    sosa:hasFeatureOfInterest ex:MyOrchard_h1 ;
+    :hasSoilTexture [ rdf:type :SoilTextureResult ;
+                      :sand "40"^^xsd:decimal ; :silt "30"^^xsd:decimal ; :clay "30"^^xsd:decimal ] .
+
+ex:MyOrchard_h2_texture rdf:type :SoilTextureObservation ;
+    sosa:observedProperty :soilTexture ;
+    sosa:hasFeatureOfInterest ex:MyOrchard_h2 ;
+    :hasSoilTexture [ rdf:type :SoilTextureResult ;
+                      :sand "35"^^xsd:decimal ; :silt "35"^^xsd:decimal ; :clay "30"^^xsd:decimal ] .
+
+ex:MyOrchard_h1_om rdf:type sosa:Observation ;
+    sosa:observedProperty :organicMatter ;
+    sosa:hasFeatureOfInterest ex:MyOrchard_h1 ;
+    sosa:hasSimpleResult "2.1"^^xsd:decimal .
+
+ex:MyOrchard_h2_om rdf:type sosa:Observation ;
+    sosa:observedProperty :organicMatter ;
+    sosa:hasFeatureOfInterest ex:MyOrchard_h2 ;
+    sosa:hasSimpleResult "1.8"^^xsd:decimal .
+
+# --- Crop: dates entered by the farmer and the CRITERIA parameters derived from them
+ex:MyOrchard_crop rdf:type :Orchard ;
+    :sowingDate "2025-03-10"^^xsd:date ;
+    :emergenceDate "2025-03-25"^^xsd:date ;
+    :expectedHarvestDate "2025-08-12"^^xsd:date ;
+    :irrigationStartDate "2025-05-15"^^xsd:date ;
+    :sowingDoy 69 ;
+    :degreeDaysEmergence 33 ;
+    :plantCycleMaxDuration 155 ;
+    :hasFruitTreeStand ex:MyOrchard_apple , ex:MyOrchard_pear .
+
+ex:MyOrchard_apple rdf:type :FruitTreeStand ;
+    :fruitTreeSpecies "apple" ;
+    :rootstock "M9" ;
+    :orchardAge 6 ;
+    :standArea "1.5"^^xsd:decimal ;
+    :oneYearShootGrowth "0.6"^^xsd:decimal ;
+    :interRowVegetationCover "grass" .
+
+ex:MyOrchard_pear rdf:type :FruitTreeStand ;
+    :fruitTreeSpecies "pear" ;
+    :rootstock "OHxF87" ;
+    :orchardAge 8 ;
+    :standArea "2.0"^^xsd:decimal .
+
+# --- Irrigation system: drip, pressure compensating, fed by a pump
+ex:MyOrchard_irrigation rdf:type :DripIrrigationSystem ;
+    :irrigationType :InlineDripline ;
+    :pressureCompensating true ;
+    :emitterFlowRate "2.0"^^xsd:decimal ;
+    :emittersPerPlant 2 ;
+    :emitterSpacing "0.5"^^xsd:decimal ;
+    :treeSpacing "4.0"^^xsd:decimal ;
+    :rowSpacing "5.0"^^xsd:decimal ;
+    :wettedWidth "1.2"^^xsd:decimal ;
+    :areaIrrigatedSimultaneously "1.0"^^xsd:decimal ;
+    :irrigationEventDuration "6"^^xsd:decimal ;
+    :irrigationInterval 3 ;
+    :hasWaterSource [ rdf:type :PumpedWaterSource ;
+                      :pumpFlowRate "12000"^^xsd:decimal ;
+                      :pumpPressure "3.0"^^xsd:decimal ] .
