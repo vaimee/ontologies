@@ -7,8 +7,9 @@
 @prefix ex: <https://vaimee.com#> .
 
 # Field profile collected by the unit creation wizard (agora-frontend issue #37):
-# an orchard near Borghetto (PR) with two soil horizons, a crop calendar,
-# two fruit tree stands and a drip irrigation system fed by a pump.
+# an orchard near Borghetto (PR) with two soil horizons, the previous and the
+# current season, two fruit tree stands and a drip irrigation system fed by a
+# pump, in manual mode with one irrigation entered by the farmer.
 
 ex:MyOrchard rdf:type :Field ;
     :placeName "Borghetto, Parma, Italy" ;
@@ -16,6 +17,7 @@ ex:MyOrchard rdf:type :Field ;
     :waterTableDepth "1.5"^^xsd:decimal ;
     geo:hasGeometry ex:MyOrchard_geometry ;
     :hasSoil ex:MyOrchard_soil ;
+    :operatingMode :ManualMode ;
     :hasCrop ex:MyOrchard_crop ;
     :hasIrrigationSystem ex:MyOrchard_irrigation .
 
@@ -57,16 +59,26 @@ ex:MyOrchard_h2_om rdf:type sosa:Observation ;
     sosa:hasFeatureOfInterest ex:MyOrchard_h2 ;
     sosa:hasSimpleResult "1.8"^^xsd:decimal .
 
-# --- Crop: dates entered by the farmer and the CRITERIA parameters derived from them
+# --- Crop: the seasons entered by the farmer and the CRITERIA parameters derived
+# from the current one (from the previous one until the farmer sets it)
 ex:MyOrchard_crop rdf:type :Orchard ;
-    :sowingDate "2025-03-10"^^xsd:date ;
-    :emergenceDate "2025-03-25"^^xsd:date ;
-    :expectedHarvestDate "2025-08-12"^^xsd:date ;
-    :irrigationStartDate "2025-05-15"^^xsd:date ;
+    :previousSeason ex:MyOrchard_crop_previous ;
+    :currentSeason ex:MyOrchard_crop_current ;
     :sowingDoy 69 ;
     :degreeDaysEmergence 33 ;
     :plantCycleMaxDuration 155 ;
     :hasFruitTreeStand ex:MyOrchard_apple , ex:MyOrchard_pear .
+
+ex:MyOrchard_crop_previous rdf:type :CropSeason ;
+    :sowingDate "2025-03-10"^^xsd:date ;
+    :emergenceDate "2025-03-25"^^xsd:date ;
+    :expectedHarvestDate "2025-08-12"^^xsd:date ;
+    :irrigationStartDate "2025-05-15"^^xsd:date .
+
+ex:MyOrchard_crop_current rdf:type :CropSeason ;
+    :sowingDate "2026-03-12"^^xsd:date ;
+    :emergenceDate "2026-03-26"^^xsd:date ;
+    :expectedHarvestDate "2026-08-10"^^xsd:date .
 
 ex:MyOrchard_apple rdf:type :FruitTreeStand ;
     :fruitTreeSpecies "apple" ;
@@ -98,3 +110,10 @@ ex:MyOrchard_irrigation rdf:type :DripIrrigationSystem ;
     :hasWaterSource [ rdf:type :PumpedWaterSource ;
                       :pumpFlowRate "12000"^^xsd:decimal ;
                       :pumpPressure "3.0"^^xsd:decimal ] .
+
+# --- An irrigation entered by the farmer (manual mode): 12 mm on 2 June 2026
+ex:MyOrchard_irrigation_2026-06-02 rdf:type sosa:Observation ;
+    sosa:observedProperty :irrigation ;
+    sosa:hasFeatureOfInterest ex:MyOrchard ;
+    sosa:resultTime "2026-06-02T00:00:00Z"^^xsd:dateTime ;
+    sosa:hasSimpleResult "12"^^xsd:decimal .

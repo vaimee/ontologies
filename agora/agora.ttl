@@ -42,7 +42,7 @@
                                  dcterms:title "Agorà Ontology" ;
                                  rdfs:comment "Implementation note: a Protege plugin should be developed to visualize and edit the finite-state machines of the software agents." ;
                                  owl:title "Agorà Ontology" ;
-                                 owl:versionInfo "1.0.25" .
+                                 owl:versionInfo "1.0.26" .
 
 #################################################################
 #    Annotation properties
@@ -408,6 +408,36 @@ pac:writesToGraph rdf:type owl:ObjectProperty ;
                 rdfs:range skos:Concept ;
                 rdfs:comment "Physical type of the irrigation system, from the IrrigationTypeScheme concept scheme (e.g. inline dripline, furrow, centre pivot)." ;
                 rdfs:label "irrigation type" .
+
+
+###  http://onto.vaimee.com/agora#previousSeason
+:previousSeason rdf:type owl:ObjectProperty ,
+                         owl:FunctionalProperty ;
+                rdfs:subPropertyOf owl:topObjectProperty ;
+                rdfs:domain :Crop ;
+                rdfs:range :CropSeason ;
+                rdfs:comment "The last completed season of the crop, entered by the farmer when the unit is created; the CRITERIA crop parameters are first derived from it." ;
+                rdfs:label "previous season" .
+
+
+###  http://onto.vaimee.com/agora#currentSeason
+:currentSeason rdf:type owl:ObjectProperty ,
+                        owl:FunctionalProperty ;
+               rdfs:subPropertyOf owl:topObjectProperty ;
+               rdfs:domain :Crop ;
+               rdfs:range :CropSeason ;
+               rdfs:comment "The season in progress or about to start, set by the farmer during the year; once set, the CRITERIA crop parameters are derived from it instead of the previous season." ;
+               rdfs:label "current season" .
+
+
+###  http://onto.vaimee.com/agora#operatingMode
+:operatingMode rdf:type owl:ObjectProperty ,
+                        owl:FunctionalProperty ;
+               rdfs:subPropertyOf owl:topObjectProperty ;
+               rdfs:domain :Field ;
+               rdfs:range skos:Concept ;
+               rdfs:comment "How irrigation is handled for the field, from the OperatingModeScheme concept scheme: planned by the app, entered by the farmer, or only simulated." ;
+               rdfs:label "operating mode" .
 
 
 #################################################################
@@ -915,36 +945,36 @@ pac:variableName rdf:type owl:DatatypeProperty ;
 ###  http://onto.vaimee.com/agora#sowingDate
 :sowingDate rdf:type owl:DatatypeProperty ;
             rdfs:subPropertyOf owl:topDataProperty ;
-            rdfs:domain :Crop ;
+            rdfs:domain :CropSeason ;
             rdfs:range xsd:date ;
-            rdfs:comment "Sowing date entered by the farmer; sowingDoy is derived from it." ;
+            rdfs:comment "Sowing date of the season, entered by the farmer; sowingDoy is derived from it." ;
             rdfs:label "sowing date" .
 
 
 ###  http://onto.vaimee.com/agora#emergenceDate
 :emergenceDate rdf:type owl:DatatypeProperty ;
                rdfs:subPropertyOf owl:topDataProperty ;
-               rdfs:domain :Crop ;
+               rdfs:domain :CropSeason ;
                rdfs:range xsd:date ;
-               rdfs:comment "Germination (emergence) date entered by the farmer; degreeDaysEmergence is derived from it with the crop thermal threshold." ;
+               rdfs:comment "Germination (emergence) date of the season, entered by the farmer; degreeDaysEmergence is derived from it with the crop thermal threshold." ;
                rdfs:label "emergence date" .
 
 
 ###  http://onto.vaimee.com/agora#expectedHarvestDate
 :expectedHarvestDate rdf:type owl:DatatypeProperty ;
                      rdfs:subPropertyOf owl:topDataProperty ;
-                     rdfs:domain :Crop ;
+                     rdfs:domain :CropSeason ;
                      rdfs:range xsd:date ;
-                     rdfs:comment "Expected harvest date entered by the farmer; plantCycleMaxDuration is derived from it." ;
+                     rdfs:comment "Expected harvest date of the season, entered by the farmer; plantCycleMaxDuration is derived from it." ;
                      rdfs:label "expected harvest date" .
 
 
 ###  http://onto.vaimee.com/agora#irrigationStartDate
 :irrigationStartDate rdf:type owl:DatatypeProperty ;
                      rdfs:subPropertyOf owl:topDataProperty ;
-                     rdfs:domain :Crop ;
+                     rdfs:domain :CropSeason ;
                      rdfs:range xsd:date ;
-                     rdfs:comment "First irrigation date of the season entered by the farmer; criteria:degreeDaysStartIrrigation is derived from it." ;
+                     rdfs:comment "First irrigation date of the season, entered by the farmer; criteria:degreeDaysStartIrrigation is derived from it." ;
                      rdfs:label "irrigation start date" .
 
 
@@ -1501,6 +1531,12 @@ pac:variableName rdf:type owl:DatatypeProperty ;
                       rdfs:subClassOf :WeatherActivity ;
                       rdfs:comment "A weather activity that acquires and updates forecast weather information for an atmosphere over a specified forecast horizon." ;
                       rdfs:label "FetchWeatherForecast" .
+
+
+###  http://onto.vaimee.com/agora#CropSeason
+:CropSeason rdf:type owl:Class ;
+            rdfs:comment "One growing season of the crop of a field: the sowing, germination, harvest and first irrigation dates the farmer entered for it. A crop has a previous season (the last completed one) and, once the farmer sets it, a current season." ;
+            rdfs:label "crop season" .
 
 
 ###  http://onto.vaimee.com/agora#Field
@@ -2671,6 +2707,40 @@ skos:ConceptScheme rdf:type owl:Class ;
                     rdfs:label "run requested" .
 
 
+###  http://onto.vaimee.com/agora#CropSeasonShape
+:CropSeasonShape rdf:type owl:NamedIndividual ,
+                          shacl:NodeShape ;
+                 shacl:targetClass :CropSeason ;
+                 shacl:property [ shacl:datatype xsd:date ;
+                                  shacl:lessThan :expectedHarvestDate ;
+                                  shacl:lessThanOrEquals :emergenceDate ;
+                                  shacl:maxCount 1 ;
+                                  shacl:path :sowingDate
+                                ] ,
+                                [ shacl:datatype xsd:date ;
+                                  shacl:maxCount 1 ;
+                                  shacl:path :emergenceDate
+                                ] ,
+                                [ shacl:datatype xsd:date ;
+                                  shacl:maxCount 1 ;
+                                  shacl:path :expectedHarvestDate
+                                ] ,
+                                [ shacl:datatype xsd:date ;
+                                  shacl:maxCount 1 ;
+                                  shacl:path :irrigationStartDate
+                                ] .
+
+
+###  http://onto.vaimee.com/agora#OperatingModeShape
+:OperatingModeShape rdf:type owl:NamedIndividual ,
+                             shacl:NodeShape ;
+                    shacl:targetSubjectsOf :operatingMode ;
+                    shacl:property [ shacl:in ( :AutomaticMode :ManualMode :OptimalMode ) ;
+                                     shacl:maxCount 1 ;
+                                     shacl:path :operatingMode
+                                   ] .
+
+
 ###  http://onto.vaimee.com/agora#SoilHorizonShape
 :SoilHorizonShape rdf:type owl:NamedIndividual ,
                            shacl:NodeShape ;
@@ -3269,6 +3339,37 @@ pacu:FieldDigitalTwinOutput rdf:type owl:NamedIndividual ,
  ] .
 
 ###  ---- Field profile terms (agora-frontend issue #37) ----
+
+###  http://onto.vaimee.com/agora#OperatingModeScheme
+:OperatingModeScheme rdf:type owl:NamedIndividual ,
+                              skos:ConceptScheme ;
+                     rdfs:comment "How irrigation is handled for a field, used as values of :operatingMode." ;
+                     rdfs:label "Operating modes" .
+
+
+###  http://onto.vaimee.com/agora#AutomaticMode
+:AutomaticMode rdf:type owl:NamedIndividual ,
+                         skos:Concept ;
+                skos:inScheme :OperatingModeScheme ;
+                rdfs:comment "The app plans each irrigation and the farmer confirms it." ;
+                rdfs:label "automatic" .
+
+
+###  http://onto.vaimee.com/agora#ManualMode
+:ManualMode rdf:type owl:NamedIndividual ,
+                         skos:Concept ;
+                skos:inScheme :OperatingModeScheme ;
+                rdfs:comment "The farmer enters when and how much was irrigated; the model takes the irrigations into account." ;
+                rdfs:label "manual" .
+
+
+###  http://onto.vaimee.com/agora#OptimalMode
+:OptimalMode rdf:type owl:NamedIndividual ,
+                         skos:Concept ;
+                skos:inScheme :OperatingModeScheme ;
+                rdfs:comment "The model simulates optimal irrigation without inputs from the farmer." ;
+                rdfs:label "optimal (simulation only)" .
+
 
 ###  http://onto.vaimee.com/agora#IrrigationTypeScheme
 :IrrigationTypeScheme rdf:type owl:NamedIndividual ,
