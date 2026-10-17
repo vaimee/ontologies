@@ -4,6 +4,7 @@
 @prefix sosa: <http://www.w3.org/ns/sosa/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix qudt: <http://qudt.org/schema/qudt#> .
 @prefix ex: <https://vaimee.com#> .
 
 # Field profile collected by the unit creation wizard (agora-frontend issue #37):
@@ -111,9 +112,15 @@ ex:MyOrchard_irrigation rdf:type :DripIrrigationSystem ;
                       :pumpFlowRate "12000"^^xsd:decimal ;
                       :pumpPressure "3.0"^^xsd:decimal ] .
 
-# --- An irrigation entered by the farmer (manual mode): 12 mm on 2 June 2026
+# --- An irrigation entered by the farmer (manual mode): 12 mm on 2 June 2026,
+# with the result shape the MDW agents read (the "appliedIrrigation" channel)
 ex:MyOrchard_irrigation_2026-06-02 rdf:type sosa:Observation ;
     sosa:observedProperty :irrigation ;
     sosa:hasFeatureOfInterest ex:MyOrchard ;
     sosa:resultTime "2026-06-02T00:00:00Z"^^xsd:dateTime ;
-    sosa:hasSimpleResult "12"^^xsd:decimal .
+    sosa:hasResult ex:MyOrchard_irrigation_2026-06-02_result .
+
+ex:MyOrchard_irrigation_2026-06-02_result rdf:type qudt:QuantityValue , sosa:Result ;
+    sosa:isResultOf ex:MyOrchard_irrigation_2026-06-02 ;
+    qudt:unit <http://qudt.org/vocab/unit/MilliM> ;
+    qudt:numericValue "12"^^xsd:decimal .
