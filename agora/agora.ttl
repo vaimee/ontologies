@@ -29,7 +29,7 @@
 @base <http://onto.vaimee.com/agora#> .
 
 <http://onto.vaimee.com/agora#> rdf:type owl:Ontology ;
-                                 owl:versionIRI <http://onto.vaimee.com/agora/1.0.25#> ;
+                                 owl:versionIRI <http://onto.vaimee.com/agora/1.0.27#> ;
                                  owl:imports <http://onto.vaimee.com/agora/api/0.1> ,
                                              <http://www.w3.org/ns/prov-20130430> ,
                                              sosa: ,
@@ -40,9 +40,10 @@
                                  dcterms:creator "Luca Roffia" ;
                                  dcterms:description "This ontology manages the relationship between weather observations, crop growth parameters, and soil horizons for precision irrigation." ;
                                  dcterms:title "Agorà Ontology" ;
-                                 rdfs:comment "Implementation note: a Protege plugin should be developed to visualize and edit the finite-state machines of the software agents." ;
+                                 rdfs:comment "Implementation note: a Protege plugin should be developed to visualize and edit the finite-state machines of the software agents." ,
+                                              "Modelling conventions shared by every Agorà component (JSAPs, API, Advisor, agents): instances are named with rdfs:label and described with rdfs:comment, not with schema.org terms; located features (:Field, :Atmosphere) are geo:Feature with geo:hasGeometry to a geo:Geometry whose geo:asWKT is a CRS84 POINT (longitude latitude); resources are linked directly (:hasSoil, :hasCrop, :hasAtmosphere) and carry no catalogue codes; only the values a model needs are stored, and soil horizon properties are SOSA observations of the horizon." ;
                                  owl:title "Agorà Ontology" ;
-                                 owl:versionInfo "1.0.26" .
+                                 owl:versionInfo "1.0.27" .
 
 #################################################################
 #    Annotation properties
@@ -450,7 +451,8 @@ pac:writesToGraph rdf:type owl:ObjectProperty ;
                      rdfs:domain :AtmosphereTemperatureResult ;
                      rdfs:range xsd:decimal ;
                      rdfs:comment "Average daily temperature value associated with an atmosphere observation result." ;
-                     rdfs:label "average daily temperature" .
+                     owl:deprecated true ;
+      rdfs:label "average daily temperature" .
 
 
 ###  http://onto.vaimee.com/agora#bulkEndTime
@@ -538,7 +540,8 @@ pac:writesToGraph rdf:type owl:ObjectProperty ;
                      rdfs:domain :AtmosphereTemperatureResult ;
                      rdfs:range xsd:decimal ;
                      rdfs:comment "Maximum daily temperature value associated with an atmosphere observation result." ;
-                     rdfs:label "maximum daily temperature" .
+                     owl:deprecated true ;
+      rdfs:label "maximum daily temperature" .
 
 
 ###  http://onto.vaimee.com/agora#minDailyTemperature
@@ -547,7 +550,8 @@ pac:writesToGraph rdf:type owl:ObjectProperty ;
                      rdfs:domain :AtmosphereTemperatureResult ;
                      rdfs:range xsd:decimal ;
                      rdfs:comment "Minimum daily temperature value associated with an atmosphere observation result." ;
-                     rdfs:label "minimum daily temperature" .
+                     owl:deprecated true ;
+      rdfs:label "minimum daily temperature" .
 
 
 ###  http://onto.vaimee.com/agora#observedDepth
@@ -613,6 +617,15 @@ pac:writesToGraph rdf:type owl:ObjectProperty ;
                   rdfs:subPropertyOf owl:topDataProperty ;
                   rdfs:domain :Crop ;
                   rdfs:range xsd:decimal .
+
+
+###  http://onto.vaimee.com/agora#upperDepth
+:horizonNumber rdf:type owl:DatatypeProperty ;
+               rdfs:subPropertyOf owl:topDataProperty ;
+               rdfs:domain :SoilHorizon ;
+               rdfs:range xsd:integer ;
+               rdfs:comment "Position of the horizon in its soil profile, 1 for the top one." ;
+               rdfs:label "horizon number" .
 
 
 ###  http://onto.vaimee.com/agora#upperDepth
@@ -823,6 +836,33 @@ criteria:saveState rdf:type owl:DatatypeProperty ;
                    rdfs:subPropertyOf owl:topDataProperty ;
                    rdfs:domain :Criteria1DPlan ;
                    rdfs:range xsd:boolean .
+
+
+###  http://onto.vaimee.com/agora/criteria#slope
+criteria:waterContentDepths rdf:type owl:DatatypeProperty ;
+                            rdfs:subPropertyOf owl:topDataProperty ;
+                            rdfs:domain :Criteria1DPlan ;
+                            rdfs:range xsd:string ;
+                            rdfs:comment "Comma-separated depths, in centimetres, at which the model outputs the soil water content (e.g. \"20,40,60\")." ;
+                            rdfs:label "water content output depths" .
+
+
+###  http://onto.vaimee.com/agora/criteria#waterPotentialDepths
+criteria:waterPotentialDepths rdf:type owl:DatatypeProperty ;
+                              rdfs:subPropertyOf owl:topDataProperty ;
+                              rdfs:domain :Criteria1DPlan ;
+                              rdfs:range xsd:string ;
+                              rdfs:comment "Comma-separated depths, in centimetres, at which the model outputs the soil water potential." ;
+                              rdfs:label "water potential output depths" .
+
+
+###  http://onto.vaimee.com/agora/criteria#waterRetentionFitting
+criteria:waterRetentionFitting rdf:type owl:DatatypeProperty ;
+                               rdfs:subPropertyOf owl:topDataProperty ;
+                               rdfs:domain :Criteria1DPlan ;
+                               rdfs:range xsd:boolean ;
+                               rdfs:comment "Whether the model fits the water retention curve of each horizon to its data." ;
+                               rdfs:label "water retention fitting" .
 
 
 ###  http://onto.vaimee.com/agora/criteria#slope
@@ -1283,12 +1323,19 @@ pac:variableName rdf:type owl:DatatypeProperty ;
                             geo:Feature ,
                             sosa:FeatureOfInterest ,
                             [ rdf:type owl:Restriction ;
+                              owl:onProperty geo:hasGeometry ;
+                              owl:someValuesFrom geo:Geometry
+                            ] ,
+                            [ rdf:type owl:Restriction ;
                               owl:onProperty sosa:isFeatureOfInterestOf ;
                               owl:allValuesFrom [ owl:intersectionOf ( sosa:Observation
                                                                        [ rdf:type owl:Restriction ;
                                                                          owl:onProperty sosa:observedProperty ;
                                                                          owl:allValuesFrom [ rdf:type owl:Class ;
-                                                                                             owl:oneOf ( :precipitation
+                                                                                             owl:oneOf ( :maxTemperature
+                                                                                                         :meanTemperature
+                                                                                                         :minTemperature
+                                                                                                         :precipitation
                                                                                                          :temperature
                                                                                                        )
                                                                                            ]
@@ -1344,7 +1391,8 @@ pac:variableName rdf:type owl:DatatypeProperty ;
                                                     owl:onClass :AtmosphereTemperatureResult
                                                   ] ;
                                   rdfs:comment "A daily atmospheric observation for a Field, including daily precipitation and maximum, minimum, and average daily temperature values." ;
-                                  rdfs:label "Atmosphere observation" .
+                                  owl:deprecated true ;
+      rdfs:label "Atmosphere observation" .
 
 
 ###  http://onto.vaimee.com/agora#AtmosphereTemperatureResult
@@ -1366,7 +1414,8 @@ pac:variableName rdf:type owl:DatatypeProperty ;
                                                owl:onDataRange xsd:decimal
                                              ] ;
                              rdfs:comment "Structured result of an AtmosphereObservation carrying daily maximum, minimum, and average temperature values." ;
-                             rdfs:label "Atmosphere temperature result" .
+                             owl:deprecated true ;
+      rdfs:label "Atmosphere temperature result" .
 
 
 ###  http://onto.vaimee.com/agora#BulkFetchHystoricalWeather
@@ -1451,6 +1500,7 @@ pac:variableName rdf:type owl:DatatypeProperty ;
                                                                                                    :evap
                                                                                                    :evapMax
                                                                                                    :fractionAvailableWater
+                                                                                                   :irrigationNeeds
                                                                                                    :lai
                                                                                                    :readilyAvailableWater
                                                                                                    :rootDepth
@@ -1544,6 +1594,10 @@ pac:variableName rdf:type owl:DatatypeProperty ;
        rdfs:subClassOf :PhysicalSystem ,
                        geo:Feature ,
                        sosa:FeatureOfInterest ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty geo:hasGeometry ;
+                         owl:someValuesFrom geo:Geometry
+                       ] ,
                        [ rdf:type owl:Restriction ;
                          owl:onProperty sosa:isFeatureOfInterestOf ;
                          owl:allValuesFrom [ owl:intersectionOf ( sosa:Observation
@@ -1994,6 +2048,27 @@ fsm:Symbol rdf:type owl:Class .
 qudt:QuantityValue rdf:type owl:Class ;
                    rdfs:comment "QUDT class for quantity values composed of numeric values and units." ;
                    rdfs:label "Quantity value" .
+
+
+###  http://www.opengis.net/ont/geosparql#Geometry
+geo:Geometry rdf:type owl:Class ;
+             rdfs:comment "GeoSPARQL geometry; Agorà geometries are CRS84 points given with geo:asWKT." ;
+             rdfs:label "GeoSPARQL geometry" .
+
+
+###  http://www.opengis.net/ont/geosparql#hasGeometry
+geo:hasGeometry rdf:type owl:ObjectProperty ;
+                rdfs:domain geo:Feature ;
+                rdfs:range geo:Geometry ;
+                rdfs:label "has geometry" .
+
+
+###  http://www.opengis.net/ont/geosparql#asWKT
+geo:asWKT rdf:type owl:DatatypeProperty ;
+          rdfs:domain geo:Geometry ;
+          rdfs:range geo:wktLiteral ;
+          rdfs:comment "Well-known text of the geometry, e.g. \"POINT(11.37 44.50)\"^^geo:wktLiteral (longitude latitude, CRS84)." ;
+          rdfs:label "as WKT" .
 
 
 ###  http://www.opengis.net/ont/geosparql#Feature
@@ -3138,6 +3213,13 @@ skos:ConceptScheme rdf:type owl:Class ;
 
 
 ###  http://onto.vaimee.com/agora#precipitation
+###  http://onto.vaimee.com/agora#irrigationNeeds
+:irrigationNeeds rdf:type owl:NamedIndividual ,
+                          sosa:ObservableProperty ;
+                 rdfs:comment "Irrigation the agrohydrological model advises for a day, in millimetres (qudt unit MilliM). It is a model output on the crop, unlike :irrigation, the water actually applied to the field." ;
+                 rdfs:label "irrigation needs" .
+
+
 :precipitation rdf:type owl:NamedIndividual ,
                         sosa:ObservableProperty .
 
@@ -3183,7 +3265,30 @@ skos:ConceptScheme rdf:type owl:Class ;
 
 ###  http://onto.vaimee.com/agora#temperature
 :temperature rdf:type owl:NamedIndividual ,
-                      sosa:ObservableProperty .
+                      sosa:ObservableProperty ;
+             owl:deprecated true ;
+             rdfs:comment "Deprecated since 1.0.27: one daily observation carrying maximum, minimum and average temperature together. Use :maxTemperature, :minTemperature and :meanTemperature, one value per observation." .
+
+
+###  http://onto.vaimee.com/agora#maxTemperature
+:maxTemperature rdf:type owl:NamedIndividual ,
+                         sosa:ObservableProperty ;
+                rdfs:comment "Maximum air temperature of a day at the atmosphere of a field, in degrees Celsius (qudt unit DEG_C). Daily weather observations and forecasts carry one value each." ;
+                rdfs:label "maximum temperature" .
+
+
+###  http://onto.vaimee.com/agora#minTemperature
+:minTemperature rdf:type owl:NamedIndividual ,
+                         sosa:ObservableProperty ;
+                rdfs:comment "Minimum air temperature of a day at the atmosphere of a field, in degrees Celsius (qudt unit DEG_C)." ;
+                rdfs:label "minimum temperature" .
+
+
+###  http://onto.vaimee.com/agora#meanTemperature
+:meanTemperature rdf:type owl:NamedIndividual ,
+                          sosa:ObservableProperty ;
+                 rdfs:comment "Mean air temperature of a day at the atmosphere of a field, in degrees Celsius (qudt unit DEG_C)." ;
+                 rdfs:label "mean temperature" .
 
 
 ###  http://onto.vaimee.com/agora#thetaSat

@@ -31,10 +31,12 @@ ex:MyOrchard_soil rdf:type :Soil ;
     :hasSoilHorizon ex:MyOrchard_h1 , ex:MyOrchard_h2 .
 
 ex:MyOrchard_h1 rdf:type :SoilHorizon ;
+    :horizonNumber "1"^^xsd:integer ;
     :upperDepth "0"^^xsd:decimal ;
     :lowerDepth "50"^^xsd:decimal .
 
 ex:MyOrchard_h2 rdf:type :SoilHorizon ;
+    :horizonNumber "2"^^xsd:integer ;
     :upperDepth "50"^^xsd:decimal ;
     :lowerDepth "80"^^xsd:decimal .
 
