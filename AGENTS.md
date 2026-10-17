@@ -59,3 +59,10 @@
 - Regenerate docs with `npm run --prefix rdf2html build` after ontology changes.
 - Remove generated untracked side files if created during verification and not intended: `agora/agora-dtdl.html`, `agora/dtdl-v4-metamodel.html`, `dtdl/dtdl.html`.
 - Run `git diff --check` before commit.
+
+## MDW and Agorà
+
+- `mdw/mdw.ttl` is the Milky Data Way ontology: horizontal and domain independent (agents, operations, channels, deployments, groundings, live/history graph bindings, derivations, agent states). Its terms keep the namespace already used in data: `semagent:` -> `http://onto.vaimee.com/semanticagentframework/0.1#`.
+- `agora/agora.ttl` is the vertical agritech ontology: every class and observed property specific to the domain (fields, soils, crops, weather, CRITERIA plans and outputs). Agents of the domain (e.g. CRITERIA, the weather agents) and their contracts reference Agorà terms; MDW never does.
+- Live and history graphs are `pac:LiveGraph` / `pac:HistoricalGraph`; MDW bindings (`semagent:liveGraph`, `semagent:historyGraph`) range over them. Subscriptions only on live graphs; history is read with queries.
+- Agent lifecycle states are `semagent:AgentState` (`fsm:State`): `semagent:Instantiated`, `semagent:Online`, `semagent:Offline`.

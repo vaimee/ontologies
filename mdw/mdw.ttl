@@ -1,0 +1,248 @@
+@prefix : <http://onto.vaimee.com/semanticagentframework/0.1#> .
+@prefix semagent: <http://onto.vaimee.com/semanticagentframework/0.1#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix fsm: <http://onto.vaimee.com/fsm#> .
+@prefix pac: <https://onto.vaimee.com/pac#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@base <http://onto.vaimee.com/semanticagentframework/0.1#> .
+
+<http://onto.vaimee.com/semanticagentframework/0.1> rdf:type owl:Ontology ;
+    owl:versionIRI <http://onto.vaimee.com/semanticagentframework/0.1/0.1.0> ;
+    owl:imports <http://www.w3.org/ns/prov-20130430> ,
+                <http://onto.vaimee.com/fsm> ;
+    owl:title "Milky Data Way (MDW) semantic agent framework" ;
+    dcterms:title "Milky Data Way (MDW) semantic agent framework" ;
+    dcterms:creator "Luca Roffia" ;
+    dcterms:abstract "Horizontal vocabulary of the Milky Data Way: software agents that publish contracts, are deployed on resources and named graphs, and record the provenance of each run in a SPARQL event broker (SEPA)." ;
+    dcterms:description "Domain independent: it describes agents, operations, channels, deployments, groundings, live and history graph bindings and derivations. The classes and observed properties a domain's agents read and write (for example soils, crops and weather of Agorà) belong to that domain's ontology and are referenced from contracts through semagent:hasType and semagent:hasValue." ;
+    rdfs:comment "Graphs: contracts, agent states and deployments are in the live graph semagent:Registry, which agents subscribe to; derivations are in the history graph semagent:Provenance, which is read with queries. Live graphs hold the current state of a channel and accept subscriptions; history graphs only grow and are read with queries (pac:LiveGraph, pac:HistoricalGraph)." ;
+    owl:versionInfo "0.1.0" .
+
+#################################################################
+#    Classes
+#################################################################
+
+:Agent rdf:type owl:Class ;
+    rdfs:subClassOf prov:SoftwareAgent ;
+    rdfs:comment "A software agent that publishes its contract (operations, channels it reads and writes, grounding constraints) in semagent:Registry and runs once per deployment." ;
+    rdfs:label "agent" .
+
+:Operation rdf:type owl:Class ;
+    rdfs:comment "What an agent does: the channels it reads and writes, and the SHACL shapes a deployment of it must satisfy." ;
+    rdfs:label "operation" .
+
+:Channel rdf:type owl:Class ;
+    rdfs:comment "An input or output of an operation. Either a resource grounded directly (semagent:hasType is its class) or a stream of observations made of channel parts, e.g. feature of interest and observed property." ;
+    rdfs:label "channel" .
+
+:ChannelPart rdf:type owl:Class ;
+    rdfs:comment "One component of a channel, e.g. its feature of interest or observed property: the role it plays (semagent:hasRole), its class (semagent:hasType) and either a fixed value (semagent:hasValue) or a grounding left to the deployment (semagent:requiresGrounding)." ;
+    rdfs:label "channel part" .
+
+:AgentDeployment rdf:type owl:Class ;
+    rdfs:comment "One instance of an agent at work: the values grounding its channels and parts, and the live and history graphs bound to its channels." ;
+    rdfs:label "agent deployment" .
+
+:AgentDeploymentGrounding rdf:type owl:Class ;
+    rdfs:comment "The value a deployment gives to a channel or channel part that requires grounding." ;
+    rdfs:label "deployment grounding" .
+
+:AgentDeploymentBinding rdf:type owl:Class ;
+    rdfs:comment "The live and history graphs a deployment reads or writes for one channel." ;
+    rdfs:label "deployment binding" .
+
+:Derivation rdf:type owl:Class ;
+    rdfs:subClassOf prov:Activity ;
+    rdfs:comment "One run of a deployment: when it was executed, the simulated time it reached and the observations it consumed and generated. Stored in semagent:Provenance." ;
+    rdfs:label "derivation" .
+
+:AgentState rdf:type owl:Class ;
+    rdfs:subClassOf fsm:State ;
+    rdfs:comment "Lifecycle state of an agent or deployment." ;
+    rdfs:label "agent state" .
+
+#################################################################
+#    Individuals
+#################################################################
+
+:Registry rdf:type owl:NamedIndividual , pac:LiveGraph , pac:FixedNamedGraph ;
+    rdfs:comment "Live graph of agent contracts, states and deployments. Agents subscribe to the deployments of their own agent." ;
+    rdfs:label "registry" .
+
+:Provenance rdf:type owl:NamedIndividual , pac:HistoricalGraph , pac:FixedNamedGraph ;
+    rdfs:comment "History graph of the derivations of every deployment, read with queries." ;
+    rdfs:label "provenance" .
+
+:Instantiated rdf:type owl:NamedIndividual , :AgentState ;
+    rdfs:comment "Deployment written in the registry, not yet taken up by its agent." ;
+    rdfs:label "instantiated" .
+
+:Online rdf:type owl:NamedIndividual , :AgentState ;
+    rdfs:comment "Agent running and subscribed to its deployments." ;
+    rdfs:label "online" .
+
+:Offline rdf:type owl:NamedIndividual , :AgentState ;
+    rdfs:comment "Agent stopped." ;
+    rdfs:label "offline" .
+
+#################################################################
+#    Object properties
+#################################################################
+
+:describesOperation rdf:type owl:ObjectProperty ;
+    rdfs:domain :Agent ;
+    rdfs:range :Operation ;
+    rdfs:label "describes operation" .
+
+:reads rdf:type owl:ObjectProperty ;
+    rdfs:domain :Operation ;
+    rdfs:range :Channel ;
+    rdfs:label "reads" .
+
+:writes rdf:type owl:ObjectProperty ;
+    rdfs:domain :Operation ;
+    rdfs:range :Channel ;
+    rdfs:label "writes" .
+
+:hasGroundingShape rdf:type owl:ObjectProperty ;
+    rdfs:domain :Operation ;
+    rdfs:range sh:NodeShape ;
+    rdfs:comment "SHACL shape (targeting semagent:AgentDeployment) that a deployment of the operation must satisfy." ;
+    rdfs:label "has grounding shape" .
+
+:hasPart rdf:type owl:ObjectProperty ;
+    owl:inverseOf :forPart ;
+    rdfs:domain :Channel ;
+    rdfs:range :ChannelPart ;
+    rdfs:label "has part" .
+
+:forPart rdf:type owl:ObjectProperty ;
+    rdfs:domain :ChannelPart ;
+    rdfs:range :Channel ;
+    rdfs:comment "The channel a part belongs to." ;
+    rdfs:label "for part" .
+
+:hasType rdf:type owl:ObjectProperty ;
+    rdfs:range rdfs:Class ;
+    rdfs:comment "Class of the resources a channel or channel part carries, taken from the domain ontology (e.g. sosa:Observation, a soil or crop class)." ;
+    rdfs:label "has type" .
+
+:hasRole rdf:type owl:ObjectProperty ;
+    rdfs:domain :ChannelPart ;
+    rdfs:range rdf:Property ;
+    rdfs:comment "Property through which the part relates to the channel's resources, e.g. sosa:hasFeatureOfInterest or sosa:observedProperty." ;
+    rdfs:label "has role" .
+
+:hasValue rdf:type rdf:Property ;
+    rdfs:comment "Fixed value of a channel part in a contract, or value a deployment grounding gives to a channel or part: an IRI or a literal." ;
+    rdfs:label "has value" .
+
+:forAgent rdf:type owl:ObjectProperty ;
+    rdfs:domain :AgentDeployment ;
+    rdfs:range :Agent ;
+    rdfs:label "for agent" .
+
+:hasGrounding rdf:type owl:ObjectProperty ;
+    rdfs:domain :AgentDeployment ;
+    rdfs:range :AgentDeploymentGrounding ;
+    rdfs:label "has grounding" .
+
+:forChannelPart rdf:type owl:ObjectProperty ;
+    rdfs:domain :AgentDeploymentGrounding ;
+    rdfs:range :ChannelPart ;
+    rdfs:label "for channel part" .
+
+:forChannel rdf:type owl:ObjectProperty ;
+    rdfs:range :Channel ;
+    rdfs:comment "Channel a grounding or binding of a deployment applies to." ;
+    rdfs:label "for channel" .
+
+:hasBinding rdf:type owl:ObjectProperty ;
+    rdfs:domain :AgentDeployment ;
+    rdfs:range :AgentDeploymentBinding ;
+    rdfs:label "has binding" .
+
+:liveGraph rdf:type owl:ObjectProperty ;
+    rdfs:domain :AgentDeploymentBinding ;
+    rdfs:range pac:LiveGraph ;
+    rdfs:comment "Graph with the current state of the channel (latest day and forecasts for observations): the one consumers subscribe to." ;
+    rdfs:label "live graph" .
+
+:historyGraph rdf:type owl:ObjectProperty ;
+    rdfs:domain :AgentDeploymentBinding ;
+    rdfs:range pac:HistoricalGraph ;
+    rdfs:comment "Graph with every past value of the channel, read with queries." ;
+    rdfs:label "history graph" .
+
+:hasState rdf:type owl:ObjectProperty ;
+    rdfs:range :AgentState ;
+    rdfs:comment "Current lifecycle state of an agent or deployment." ;
+    rdfs:label "has state" .
+
+:forDeployment rdf:type owl:ObjectProperty ;
+    rdfs:domain :Derivation ;
+    rdfs:range :AgentDeployment ;
+    rdfs:label "for deployment" .
+
+:consumedInput rdf:type owl:ObjectProperty ;
+    rdfs:subPropertyOf prov:used ;
+    rdfs:domain :Derivation ;
+    rdfs:label "consumed input" .
+
+:generatedOutput rdf:type owl:ObjectProperty ;
+    rdfs:subPropertyOf prov:generated ;
+    rdfs:domain :Derivation ;
+    rdfs:label "generated output" .
+
+:referenceTime rdf:type owl:ObjectProperty ;
+    rdfs:domain :Derivation ;
+    rdfs:range time:Instant ;
+    rdfs:comment "Simulated time the run reached (e.g. the last observed day), distinct from when it was executed." ;
+    rdfs:label "reference time" .
+
+#################################################################
+#    Datatype properties
+#################################################################
+
+:hasKey rdf:type owl:DatatypeProperty ;
+    rdfs:range xsd:string ;
+    rdfs:comment "Name by which an agent's code refers to a channel or channel part." ;
+    rdfs:label "has key" .
+
+:requiresGrounding rdf:type owl:DatatypeProperty ;
+    rdfs:range xsd:boolean ;
+    rdfs:comment "Whether each deployment must give the channel or part a value." ;
+    rdfs:label "requires grounding" .
+
+:qos rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Agent ;
+    rdfs:range xsd:decimal ;
+    rdfs:label "quality of service" .
+
+:registeredAt rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Agent ;
+    rdfs:range xsd:dateTime ;
+    rdfs:label "registered at" .
+
+:deployedAt rdf:type owl:DatatypeProperty ;
+    rdfs:domain :AgentDeployment ;
+    rdfs:range xsd:dateTime ;
+    rdfs:label "deployed at" .
+
+:updateIntervalSeconds rdf:type owl:DatatypeProperty ;
+    rdfs:domain :AgentDeployment ;
+    rdfs:range xsd:integer ;
+    rdfs:comment "How often, in seconds, the agent checks whether the deployment has new work (scheduling, not domain data)." ;
+    rdfs:label "update interval (s)" .
+
+:executedAt rdf:type owl:DatatypeProperty ;
+    rdfs:subPropertyOf prov:endedAtTime ;
+    rdfs:domain :Derivation ;
+    rdfs:range xsd:dateTime ;
+    rdfs:label "executed at" .
