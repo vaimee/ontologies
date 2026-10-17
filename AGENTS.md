@@ -30,7 +30,7 @@
 - A `NamedGraph` must be either `HistoricalGraph` or `LiveGraph`.
 - A `NamedGraph` must be either `FixedNamedGraph` or `InstanceNamedGraph`.
 - `readsFromGraph` can target either historical or live graphs.
-- `writesToGraph` must target historical graphs.
+- `writesToGraph` can target historical graphs (appended) or live graphs (kept at the current state, e.g. the latest day and the forecast).
 - `subscribesToGraph` must target live graphs.
 - SPARQL strings for PAC queries and updates should include explicit `GRAPH ... {}` clauses matching the graph individual linked by `readsFromGraph`, `writesToGraph`, or `subscribesToGraph`.
 - Fixed graphs have a stable URI.

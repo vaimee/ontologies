@@ -16,8 +16,8 @@
 <https://onto.vaimee.com/pac#> rdf:type owl:Ontology ;
                                   owl:imports <http://xmlns.com/foaf/0.1/> ;
                                   rdfs:comment "This is an ontology for PAC applications developed by VAIMEE. It integrates some classes and properties from FOAF."@en ;
-                                  owl:versionIRI <https://onto.vaimee.com/pac/1.0.24#> ;
-                                  owl:versionInfo "1.0.24" ;
+                                  owl:versionIRI <https://onto.vaimee.com/pac/1.0.25#> ;
+                                  owl:versionInfo "1.0.25" ;
                                   owl:title "PAC Ontology"@en ;
                                   rdfs:seeAlso paca: ,
                                                pacc: ,
@@ -211,8 +211,8 @@
 ###  https://onto.vaimee.com/pac#writesToGraph
 :writesToGraph rdf:type owl:ObjectProperty ;
                rdfs:domain :Update ;
-               rdfs:range :HistoricalGraph ;
-               rdfs:comment "Declares a historical named graph written by an update."@en ;
+               rdfs:range :NamedGraph ;
+               rdfs:comment "Declares a named graph written by an update. Updates append to historical graphs and keep live graphs at the current state (e.g. replacing the latest values), so both can be written; only live graphs can be subscribed to (pac:subscribesToGraph)."@en ;
                rdfs:isDefinedBy <https://onto.vaimee.com/pac> ;
                rdfs:label "writes to graph"@en .
 
