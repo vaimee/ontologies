@@ -30,7 +30,7 @@
 @base <http://onto.vaimee.com/agora#> .
 
 <http://onto.vaimee.com/agora#> rdf:type owl:Ontology ;
-                                 owl:versionIRI <http://onto.vaimee.com/agora/1.0.28#> ;
+                                 owl:versionIRI <http://onto.vaimee.com/agora/1.0.29#> ;
                                  owl:imports <http://onto.vaimee.com/agora/api/0.1> ,
                                              <http://www.w3.org/ns/prov-20130430> ,
                                              sosa: ,
@@ -44,7 +44,7 @@
                                  rdfs:comment "Implementation note: a Protege plugin should be developed to visualize and edit the finite-state machines of the software agents." ,
                                               "Modelling conventions shared by every Agorà component (JSAPs, API, Advisor, agents): instances are named with rdfs:label and described with rdfs:comment, not with schema.org terms; located features (:Field, :Atmosphere) are geo:Feature with geo:hasGeometry to a geo:Geometry whose geo:asWKT is a CRS84 POINT (longitude latitude); resources are linked directly (:hasSoil, :hasCrop, :hasAtmosphere) and carry no catalogue codes; only the values a model needs are stored, and soil horizon properties are SOSA observations of the horizon." ;
                                  owl:title "Agorà Ontology" ;
-                                 owl:versionInfo "1.0.28" .
+                                 owl:versionInfo "1.0.29" .
 
 #################################################################
 #    Annotation properties
@@ -3805,3 +3805,47 @@ semagent:historyGraph rdf:type owl:ObjectProperty .
 semagent:forDeployment rdf:type owl:ObjectProperty .
 semagent:Registry rdf:type owl:NamedIndividual .
 semagent:Provenance rdf:type owl:NamedIndividual .
+
+#################################################################
+#    Crop types (1.0.29)
+#################################################################
+
+:CropType rdf:type owl:Class ;
+          rdfs:comment "Kind of crop, as CRITERIA classifies it (skos:notation is its code). Catalogues and screens group crops by it; the model does not need it." ;
+          rdfs:label "crop type" .
+
+:cropType rdf:type owl:ObjectProperty ,
+                   owl:FunctionalProperty ;
+          rdfs:domain :Crop ;
+          rdfs:range :CropType ;
+          rdfs:label "crop type" .
+
+:herbaceous rdf:type owl:NamedIndividual , :CropType ;
+    skos:notation "herbaceous" ;
+    rdfs:comment "Field crop that completes its cycle within a season (cereals, maize, alfalfa…)." ;
+    rdfs:label "herbaceous crop" .
+
+:fruitTree rdf:type owl:NamedIndividual , :CropType ;
+    skos:notation "fruit_tree" ;
+    rdfs:comment "Tree crop of an orchard or vineyard; its stands are described by agora:FruitTreeStand." ;
+    rdfs:label "fruit tree" .
+
+:horticultural rdf:type owl:NamedIndividual , :CropType ;
+    skos:notation "horticultural" ;
+    rdfs:comment "Vegetable crop (tomato, potato, onion…)." ;
+    rdfs:label "horticultural crop" .
+
+:grass rdf:type owl:NamedIndividual , :CropType ;
+    skos:notation "grass" ;
+    rdfs:comment "Perennial grass." ;
+    rdfs:label "grass" .
+
+:grassFirstYear rdf:type owl:NamedIndividual , :CropType ;
+    skos:notation "grass_first_year" ;
+    rdfs:comment "Grass in its establishment year." ;
+    rdfs:label "grass, first year" .
+
+:fallow rdf:type owl:NamedIndividual , :CropType ;
+    skos:notation "fallow" ;
+    rdfs:comment "Fallow land with spontaneous vegetation." ;
+    rdfs:label "fallow" .
