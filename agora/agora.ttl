@@ -33,7 +33,7 @@
                                  owl:imports <http://onto.vaimee.com/agora/api/0.1> ,
                                              <http://www.w3.org/ns/prov-20130430> ,
                                              sosa: ,
-                                             <https://onto.vaimee.com/fsm/fsm.ttl> ;
+                                             <http://onto.vaimee.com/fsm> ;
                                  dcterms:abstract "This ontology designed for farmers to monitor and optimize irrigation procedures and, in the future, other activities related to precision agriculture." ;
                                  dcterms:contributor "Bita Alaee" ,
                                                      "Gregorio Monari" ;
