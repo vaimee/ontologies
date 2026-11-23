@@ -1,0 +1,1700 @@
+@prefix : <http://harmoni-project.eu/ontology#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix harmoni: <http://harmoni-project.eu/ontology#> .
+@base <http://harmoni-project.eu/ontology> .
+
+<http://harmoni-project.eu/ontology> rdf:type owl:Ontology ;
+                                      owl:versionIRI <http://harmoni-project.eu/ontology/1.0.0> ;
+                                      dcterms:abstract "Taxonomy of data sources for the HARMONI project, mapping open-access and institutional datasets, catalogues and services to use cases, hazards, publishers, data type families and access conditions."@en ;
+                                      dcterms:created "2026-06-24" ;
+                                      dcterms:creator "VAIMEE" ;
+                                      dcterms:description "Taxonomy of data type families relevant to HARMONI project, with the open-access and institutional data sources mapped to each of the six HARMONI use cases, their publishers, thematic classification and access conditions. Supports Figure 6.1 of Deliverable D1.1 and provides the initial structure for the HARMONI Knowledge Graph developed in T1.4."@en ;
+                                      dcterms:title "HARMONI Data Source Ontology"@en ;
+                                      owl:versionInfo "1.0.0" .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/terms/created
+dcterms:created rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/creator
+dcterms:creator rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/description
+dcterms:description rdf:type owl:AnnotationProperty ;
+                    rdfs:label "description"@en .
+
+
+###  http://purl.org/dc/terms/title
+dcterms:title rdf:type owl:AnnotationProperty ;
+              rdfs:label "title"@en .
+
+
+###  http://www.w3.org/2004/02/skos/core#definition
+skos:definition rdf:type owl:AnnotationProperty ;
+                rdfs:label "definition"@en .
+
+
+###  http://www.w3.org/2004/02/skos/core#prefLabel
+skos:prefLabel rdf:type owl:AnnotationProperty ;
+               rdfs:label "preferred label"@en .
+
+
+###  http://www.w3.org/ns/dcat#landingPage
+dcat:landingPage rdf:type owl:AnnotationProperty ;
+                 rdfs:label "landing page"@en .
+
+
+###  http://xmlns.com/foaf/0.1/homepage
+foaf:homepage rdf:type owl:AnnotationProperty ;
+              rdfs:label "homepage"@en .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://harmoni-project.eu/ontology#addressesHazard
+harmoni:addressesHazard rdf:type owl:ObjectProperty ;
+                        rdfs:domain harmoni:UseCase ;
+                        rdfs:range harmoni:Hazard ;
+                        rdfs:label "addresses hazard"@en .
+
+
+###  http://harmoni-project.eu/ontology#hasAccessTier
+harmoni:hasAccessTier rdf:type owl:ObjectProperty ;
+                      rdfs:domain dcat:Resource ;
+                      rdfs:range harmoni:AccessTier ;
+                      rdfs:comment "States the access and licensing condition of a data source, so that open, partially open and institutional sources can be distinguished."@en ;
+                      rdfs:label "has access tier"@en .
+
+
+###  http://harmoni-project.eu/ontology#relevantToHazard
+harmoni:relevantToHazard rdf:type owl:ObjectProperty ;
+                         rdfs:domain dcat:Resource ;
+                         rdfs:range harmoni:Hazard ;
+                         rdfs:comment "Links a data source to a hazard for which it is operationally relevant."@en ;
+                         rdfs:label "relevant to hazard"@en .
+
+
+###  http://harmoni-project.eu/ontology#usedInUseCase
+harmoni:usedInUseCase rdf:type owl:ObjectProperty ;
+                      rdfs:domain dcat:Resource ;
+                      rdfs:range harmoni:UseCase ;
+                      rdfs:comment "Links a data source to a HARMONI use case in which it is used."@en ;
+                      rdfs:label "used in use case"@en .
+
+
+###  http://purl.org/dc/terms/isPartOf
+dcterms:isPartOf rdf:type owl:ObjectProperty ;
+                 rdfs:label "is part of"@en .
+
+
+###  http://purl.org/dc/terms/publisher
+dcterms:publisher rdf:type owl:ObjectProperty ;
+                  rdfs:range foaf:Agent ;
+                  rdfs:label "publisher"@en .
+
+
+###  http://purl.org/dc/terms/spatial
+dcterms:spatial rdf:type owl:ObjectProperty ;
+                rdfs:range harmoni:Region ;
+                rdfs:label "spatial coverage"@en .
+
+
+###  http://www.w3.org/2004/02/skos/core#inScheme
+skos:inScheme rdf:type owl:ObjectProperty ;
+              rdfs:range skos:ConceptScheme ;
+              rdfs:label "in scheme"@en .
+
+
+###  http://www.w3.org/ns/dcat#catalog
+dcat:catalog rdf:type owl:ObjectProperty ;
+             rdfs:domain dcat:Catalog ;
+             rdfs:range dcat:Catalog ;
+             rdfs:label "has sub-catalogue"@en .
+
+
+###  http://www.w3.org/ns/dcat#dataset
+dcat:dataset rdf:type owl:ObjectProperty ;
+             rdfs:domain dcat:Catalog ;
+             rdfs:range dcat:Dataset ;
+             rdfs:label "has dataset"@en .
+
+
+###  http://www.w3.org/ns/dcat#servesDataset
+dcat:servesDataset rdf:type owl:ObjectProperty ;
+                   rdfs:domain dcat:DataService ;
+                   rdfs:range dcat:Dataset ;
+                   rdfs:label "serves dataset"@en .
+
+
+###  http://www.w3.org/ns/dcat#theme
+dcat:theme rdf:type owl:ObjectProperty ;
+           rdfs:domain dcat:Resource ;
+           rdfs:range skos:Concept ;
+           rdfs:label "theme"@en .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://harmoni-project.eu/ontology#AccessTier
+harmoni:AccessTier rdf:type owl:Class ;
+                   rdfs:comment "Access and licensing condition of a data source, following the verification criteria of Section 6.2.8 of D1.1."@en ;
+                   rdfs:label "access tier"@en .
+
+
+###  http://harmoni-project.eu/ontology#Country
+harmoni:Country rdf:type owl:Class ;
+                rdfs:subClassOf harmoni:Region ;
+                rdfs:label "country"@en .
+
+
+###  http://harmoni-project.eu/ontology#Hazard
+harmoni:Hazard rdf:type owl:Class ;
+               rdfs:label "hazard"@en .
+
+
+###  http://harmoni-project.eu/ontology#NaturalHazard
+harmoni:NaturalHazard rdf:type owl:Class ;
+                      rdfs:subClassOf harmoni:Hazard ;
+                      rdfs:label "natural hazard"@en .
+
+
+###  http://harmoni-project.eu/ontology#Region
+harmoni:Region rdf:type owl:Class ;
+               rdfs:comment "Geographic coverage of a data source or use case."@en ;
+               rdfs:label "region"@en .
+
+
+###  http://harmoni-project.eu/ontology#SubRegion
+harmoni:SubRegion rdf:type owl:Class ;
+                  rdfs:subClassOf harmoni:Region ;
+                  rdfs:comment "The pilot area within a country in which a use case is situated."@en ;
+                  rdfs:label "sub-region"@en .
+
+
+###  http://harmoni-project.eu/ontology#TechnologicalHazard
+harmoni:TechnologicalHazard rdf:type owl:Class ;
+                            rdfs:subClassOf harmoni:Hazard ;
+                            rdfs:label "technological hazard"@en .
+
+
+###  http://harmoni-project.eu/ontology#UseCase
+harmoni:UseCase rdf:type owl:Class ;
+                rdfs:comment "A HARMONI study case as defined in Chapter 5 of D1.1."@en ;
+                rdfs:label "use case"@en .
+
+
+###  http://www.w3.org/2004/02/skos/core#Concept
+skos:Concept rdf:type owl:Class ;
+             rdfs:label "concept"@en .
+
+
+###  http://www.w3.org/2004/02/skos/core#ConceptScheme
+skos:ConceptScheme rdf:type owl:Class ;
+                   rdfs:label "concept scheme"@en .
+
+
+###  http://www.w3.org/ns/dcat#Catalog
+dcat:Catalog rdf:type owl:Class ;
+             rdfs:subClassOf dcat:Resource ;
+             rdfs:label "catalogue"@en .
+
+
+###  http://www.w3.org/ns/dcat#DataService
+dcat:DataService rdf:type owl:Class ;
+                 rdfs:subClassOf dcat:Resource ;
+                 rdfs:label "data service"@en .
+
+
+###  http://www.w3.org/ns/dcat#Dataset
+dcat:Dataset rdf:type owl:Class ;
+             rdfs:subClassOf dcat:Resource ;
+             rdfs:label "dataset"@en .
+
+
+###  http://www.w3.org/ns/dcat#Resource
+dcat:Resource rdf:type owl:Class ;
+              rdfs:label "resource"@en .
+
+
+###  http://xmlns.com/foaf/0.1/Agent
+foaf:Agent rdf:type owl:Class ;
+           rdfs:label "agent"@en .
+
+
+###  http://xmlns.com/foaf/0.1/Organization
+foaf:Organization rdf:type owl:Class ;
+                  rdfs:subClassOf foaf:Agent ;
+                  rdfs:label "organisation"@en .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://harmoni-project.eu/ontology#AEMET
+harmoni:AEMET rdf:type owl:NamedIndividual ,
+                       foaf:Organization ;
+              rdfs:label "AEMET, Spanish State Meteorological Agency"@en ;
+              foaf:homepage <https://www.aemet.es/> .
+
+
+###  http://harmoni-project.eu/ontology#AEMETFireWeatherIndex
+harmoni:AEMETFireWeatherIndex rdf:type owl:NamedIndividual ,
+                                       dcat:Dataset ;
+                              harmoni:hasAccessTier harmoni:OpenAccess ;
+                              harmoni:relevantToHazard harmoni:Wildfire ;
+                              harmoni:usedInUseCase harmoni:UC1 ;
+                              dcterms:publisher harmoni:AEMET ;
+                              dcterms:spatial harmoni:Spain ;
+                              dcat:theme harmoni:WildfireFireWeather ;
+                              dcterms:title "AEMET Fire Weather Index products"@en .
+
+
+###  http://harmoni-project.eu/ontology#AEMETObservations
+harmoni:AEMETObservations rdf:type owl:NamedIndividual ,
+                                   dcat:Dataset ;
+                          harmoni:hasAccessTier harmoni:OpenAccess ;
+                          harmoni:usedInUseCase harmoni:UC1 ;
+                          dcterms:publisher harmoni:AEMET ;
+                          dcterms:spatial harmoni:Spain ;
+                          dcat:theme harmoni:MeteoObsForecast ;
+                          dcterms:title "AEMET observations, forecasts and meteorological warnings"@en .
+
+
+###  http://harmoni-project.eu/ontology#AEMETOpenData
+harmoni:AEMETOpenData rdf:type owl:NamedIndividual ,
+                               dcat:DataService ;
+                      harmoni:hasAccessTier harmoni:OpenAccess ;
+                      harmoni:usedInUseCase harmoni:UC1 ;
+                      dcterms:publisher harmoni:AEMET ;
+                      dcterms:spatial harmoni:Spain ;
+                      dcat:servesDataset harmoni:AEMETFireWeatherIndex ,
+                                         harmoni:AEMETObservations ;
+                      dcterms:title "AEMET OpenData"@en ;
+                      dcat:landingPage <https://opendata.aemet.es/> .
+
+
+###  http://harmoni-project.eu/ontology#AFAD
+harmoni:AFAD rdf:type owl:NamedIndividual ,
+                      foaf:Organization ;
+             rdfs:label "AFAD, Disaster and Emergency Management Presidency of Türkiye"@en ;
+             foaf:homepage <https://www.afad.gov.tr/> .
+
+
+###  http://harmoni-project.eu/ontology#AFADEarthquakeCatalogue
+harmoni:AFADEarthquakeCatalogue rdf:type owl:NamedIndividual ,
+                                         dcat:Dataset ;
+                                harmoni:hasAccessTier harmoni:OpenAccess ;
+                                harmoni:relevantToHazard harmoni:Earthquake ;
+                                harmoni:usedInUseCase harmoni:UC2 ;
+                                dcterms:publisher harmoni:AFAD ;
+                                dcterms:spatial harmoni:Turkiye ;
+                                dcat:theme harmoni:SeismicGroundMotion ;
+                                dcterms:title "AFAD national Earthquake Catalogue"@en ;
+                                dcat:landingPage <https://deprem.afad.gov.tr/> .
+
+
+###  http://harmoni-project.eu/ontology#ANAR
+harmoni:ANAR rdf:type owl:NamedIndividual ,
+                      foaf:Organization ;
+             rdfs:label "ANAR, National Administration Romanian Waters"@en ;
+             foaf:homepage <https://www.rowater.ro/> .
+
+
+###  http://harmoni-project.eu/ontology#ANM
+harmoni:ANM rdf:type owl:NamedIndividual ,
+                     foaf:Organization ;
+            rdfs:label "ANM, National Meteorological Administration, Romania"@en ;
+            foaf:homepage <https://www.meteoromania.ro/> .
+
+
+###  http://harmoni-project.eu/ontology#ANMMonitoringNetwork
+harmoni:ANMMonitoringNetwork rdf:type owl:NamedIndividual ,
+                                      dcat:Dataset ;
+                             harmoni:hasAccessTier harmoni:OpenAccess ;
+                             harmoni:relevantToHazard harmoni:Flood ;
+                             harmoni:usedInUseCase harmoni:UC3 ;
+                             dcterms:isPartOf harmoni:INSPIREGeoportal ;
+                             dcterms:publisher harmoni:ANM ;
+                             dcterms:spatial harmoni:Romania ;
+                             dcat:theme harmoni:MeteoObsForecast ;
+                             dcterms:title "Romanian Meteorological Monitoring Network"@en .
+
+
+###  http://harmoni-project.eu/ontology#AirQualityAtmosphere
+harmoni:AirQualityAtmosphere rdf:type owl:NamedIndividual ,
+                                      skos:Concept ;
+                             skos:inScheme harmoni:DataFamilyScheme ;
+                             skos:definition "Air quality forecasts and reanalyses, smoke and atmospheric transport."@en ;
+                             skos:prefLabel "atmospheric composition and air quality"@en .
+
+
+###  http://harmoni-project.eu/ontology#Bayrakli
+harmoni:Bayrakli rdf:type owl:NamedIndividual ,
+                          harmoni:SubRegion ;
+                 dcterms:isPartOf harmoni:Turkiye ;
+                 rdfs:label "İzmir, Bayraklı district"@en .
+
+
+###  http://harmoni-project.eu/ontology#C3S
+harmoni:C3S rdf:type owl:NamedIndividual ,
+                     dcat:Catalog ;
+            harmoni:hasAccessTier harmoni:OpenAccess ;
+            dcterms:isPartOf harmoni:CopernicusProgramme ;
+            dcterms:publisher harmoni:ECMWF ;
+            dcterms:spatial harmoni:Global ;
+            dcat:dataset harmoni:C3SSeasonalForecast ,
+                         harmoni:ERA5 ,
+                         harmoni:ERA5Land ;
+            dcterms:title "Copernicus Climate Change Service"@en ;
+            dcat:landingPage <https://climate.copernicus.eu/> .
+
+
+###  http://harmoni-project.eu/ontology#C3SSeasonalForecast
+harmoni:C3SSeasonalForecast rdf:type owl:NamedIndividual ,
+                                     dcat:Dataset ;
+                            harmoni:hasAccessTier harmoni:OpenAccess ;
+                            harmoni:usedInUseCase harmoni:UC3 ;
+                            dcterms:publisher harmoni:ECMWF ;
+                            dcterms:spatial harmoni:Global ;
+                            dcat:theme harmoni:MeteoObsForecast ;
+                            dcterms:title "C3S seasonal forecasts"@en .
+
+
+###  http://harmoni-project.eu/ontology#CAMS
+harmoni:CAMS rdf:type owl:NamedIndividual ,
+                      dcat:Catalog ;
+             harmoni:hasAccessTier harmoni:OpenAccess ;
+             dcterms:isPartOf harmoni:CopernicusProgramme ;
+             dcterms:publisher harmoni:ECMWF ;
+             dcterms:spatial harmoni:Global ;
+             dcat:dataset harmoni:CAMSAirQualityForecast ;
+             dcterms:title "Copernicus Atmosphere Monitoring Service"@en ;
+             dcat:landingPage <https://atmosphere.copernicus.eu/> .
+
+
+###  http://harmoni-project.eu/ontology#CAMSAirQualityForecast
+harmoni:CAMSAirQualityForecast rdf:type owl:NamedIndividual ,
+                                        dcat:Dataset ;
+                               harmoni:hasAccessTier harmoni:OpenAccess ;
+                               harmoni:relevantToHazard harmoni:Wildfire ;
+                               harmoni:usedInUseCase harmoni:UC1 ;
+                               dcterms:publisher harmoni:ECMWF ;
+                               dcterms:spatial harmoni:Europe ;
+                               dcat:theme harmoni:AirQualityAtmosphere ;
+                               dcterms:title "CAMS European Air Quality Forecasts"@en .
+
+
+###  http://harmoni-project.eu/ontology#CDSE
+harmoni:CDSE rdf:type owl:NamedIndividual ,
+                      dcat:Catalog ;
+             harmoni:hasAccessTier harmoni:OpenAccess ;
+             dcterms:isPartOf harmoni:CopernicusProgramme ;
+             dcterms:publisher harmoni:EuropeanCommission ;
+             dcterms:spatial harmoni:Global ;
+             dcat:dataset harmoni:Sentinel1 ,
+                          harmoni:Sentinel2 ,
+                          harmoni:Sentinel3 ;
+             dcterms:title "Copernicus Data Space Ecosystem"@en ;
+             dcat:landingPage <https://dataspace.copernicus.eu/> .
+
+
+###  http://harmoni-project.eu/ontology#CEMS
+harmoni:CEMS rdf:type owl:NamedIndividual ,
+                      dcat:Catalog ;
+             harmoni:hasAccessTier harmoni:OpenAccess ;
+             harmoni:usedInUseCase harmoni:UC1 ,
+                                   harmoni:UC2 ,
+                                   harmoni:UC3 ,
+                                   harmoni:UC4 ,
+                                   harmoni:UC5 ,
+                                   harmoni:UC6 ;
+             dcterms:isPartOf harmoni:CopernicusProgramme ;
+             dcterms:publisher harmoni:JRC ;
+             dcterms:spatial harmoni:Global ;
+             dcat:catalog harmoni:EDO ,
+                          harmoni:EFAS ,
+                          harmoni:EFFIS ;
+             dcat:dataset harmoni:EMSN184 ,
+                          harmoni:EMSR465 ,
+                          harmoni:EMSR692 ;
+             dcterms:title "Copernicus Emergency Management Service"@en ;
+             dcat:landingPage <https://emergency.copernicus.eu/> .
+
+
+###  http://harmoni-project.eu/ontology#CLMS
+harmoni:CLMS rdf:type owl:NamedIndividual ,
+                      dcat:Catalog ;
+             harmoni:hasAccessTier harmoni:OpenAccess ;
+             dcterms:isPartOf harmoni:CopernicusProgramme ;
+             dcterms:publisher harmoni:EEA ;
+             dcterms:spatial harmoni:Europe ;
+             dcat:dataset harmoni:CORINELandCover ,
+                          harmoni:CoastalZones ,
+                          harmoni:EGMS ,
+                          harmoni:HRLImperviousness ,
+                          harmoni:HRLWaterWetness ,
+                          harmoni:RiparianZones ,
+                          harmoni:UrbanAtlas ;
+             dcterms:title "Copernicus Land Monitoring Service"@en ;
+             dcat:landingPage <https://land.copernicus.eu/> .
+
+
+###  http://harmoni-project.eu/ontology#CMEMS
+harmoni:CMEMS rdf:type owl:NamedIndividual ,
+                       dcat:Catalog ;
+              harmoni:hasAccessTier harmoni:OpenAccess ;
+              dcterms:isPartOf harmoni:CopernicusProgramme ;
+              dcterms:publisher harmoni:MercatorOcean ;
+              dcterms:spatial harmoni:Global ;
+              dcat:dataset harmoni:MedSeaProducts ;
+              dcterms:title "Copernicus Marine Service"@en ;
+              dcat:landingPage <https://marine.copernicus.eu/> .
+
+
+###  http://harmoni-project.eu/ontology#CNAIR
+harmoni:CNAIR rdf:type owl:NamedIndividual ,
+                       foaf:Organization ;
+              rdfs:label "CNAIR, National Company for Road Infrastructure Administration, Romania"@en ;
+              foaf:homepage <https://www.andnet.ro/> .
+
+
+###  http://harmoni-project.eu/ontology#CNIG
+harmoni:CNIG rdf:type owl:NamedIndividual ,
+                      foaf:Organization ;
+             rdfs:label "CNIG, National Centre for Geographic Information, Spain"@en ;
+             foaf:homepage <https://centrodedescargas.cnig.es/> .
+
+
+###  http://harmoni-project.eu/ontology#CNIGDownloadCentre
+harmoni:CNIGDownloadCentre rdf:type owl:NamedIndividual ,
+                                    dcat:Catalog ;
+                           harmoni:hasAccessTier harmoni:OpenAccess ;
+                           dcterms:publisher harmoni:CNIG ;
+                           dcterms:spatial harmoni:Spain ;
+                           dcat:dataset harmoni:IGNTransportNetwork ,
+                                        harmoni:MDTPNOA ;
+                           dcterms:title "Centro de Descargas, CNIG"@en ;
+                           dcat:landingPage <https://centrodedescargas.cnig.es/> .
+
+
+###  http://harmoni-project.eu/ontology#CORINELandCover
+harmoni:CORINELandCover rdf:type owl:NamedIndividual ,
+                                 dcat:Dataset ;
+                        harmoni:hasAccessTier harmoni:OpenAccess ;
+                        harmoni:usedInUseCase harmoni:UC1 ,
+                                              harmoni:UC2 ,
+                                              harmoni:UC3 ,
+                                              harmoni:UC4 ,
+                                              harmoni:UC5 ;
+                        dcterms:publisher harmoni:EEA ;
+                        dcterms:spatial harmoni:Europe ;
+                        dcat:theme harmoni:LandCoverUse ;
+                        dcterms:title "CORINE Land Cover"@en .
+
+
+###  http://harmoni-project.eu/ontology#CRED
+harmoni:CRED rdf:type owl:NamedIndividual ,
+                      foaf:Organization ;
+             rdfs:label "Centre for Research on the Epidemiology of Disasters"@en ;
+             foaf:homepage <https://www.cred.be/> .
+
+
+###  http://harmoni-project.eu/ontology#ClimateReanalysisProjection
+harmoni:ClimateReanalysisProjection rdf:type owl:NamedIndividual ,
+                                             skos:Concept ;
+                                    skos:inScheme harmoni:DataFamilyScheme ;
+                                    skos:definition "Historical reanalysis and seasonal forecasts."@en ;
+                                    skos:prefLabel "climate reanalysis and projections"@en .
+
+
+###  http://harmoni-project.eu/ontology#CoastalMarine
+harmoni:CoastalMarine rdf:type owl:NamedIndividual ,
+                               skos:Concept ;
+                      skos:inScheme harmoni:DataFamilyScheme ;
+                      skos:definition "Sea level, sea state, currents and marine environmental monitoring."@en ;
+                      skos:prefLabel "coastal and marine data"@en .
+
+
+###  http://harmoni-project.eu/ontology#CoastalZones
+harmoni:CoastalZones rdf:type owl:NamedIndividual ,
+                              dcat:Dataset ;
+                     harmoni:hasAccessTier harmoni:OpenAccess ;
+                     harmoni:usedInUseCase harmoni:UC2 ;
+                     dcterms:publisher harmoni:EEA ;
+                     dcterms:spatial harmoni:Europe ;
+                     dcat:theme harmoni:CoastalMarine ;
+                     dcterms:title "Coastal Zones"@en .
+
+
+###  http://harmoni-project.eu/ontology#CopernicusProgramme
+harmoni:CopernicusProgramme rdf:type owl:NamedIndividual ,
+                                     dcat:Catalog ;
+                            harmoni:hasAccessTier harmoni:OpenAccess ;
+                            dcterms:publisher harmoni:EuropeanCommission ;
+                            dcterms:spatial harmoni:Global ;
+                            dcat:catalog harmoni:C3S ,
+                                         harmoni:CAMS ,
+                                         harmoni:CDSE ,
+                                         harmoni:CEMS ,
+                                         harmoni:CLMS ,
+                                         harmoni:CMEMS ;
+                            dcterms:title "Copernicus Programme"@en ;
+                            dcat:landingPage <https://www.copernicus.eu/> .
+
+
+###  http://harmoni-project.eu/ontology#CriticalInfrastructureInventory
+harmoni:CriticalInfrastructureInventory rdf:type owl:NamedIndividual ,
+                                                 skos:Concept ;
+                                        skos:inScheme harmoni:DataFamilyScheme ;
+                                        skos:definition "Road and rail networks, electricity networks, water and wastewater networks, and building stock."@en ;
+                                        skos:prefLabel "critical infrastructure inventories"@en .
+
+
+###  http://harmoni-project.eu/ontology#DataEuropaEU
+harmoni:DataEuropaEU rdf:type owl:NamedIndividual ,
+                              dcat:Catalog ;
+                     harmoni:hasAccessTier harmoni:OpenAccess ;
+                     harmoni:usedInUseCase harmoni:UC3 ;
+                     dcterms:publisher harmoni:PublicationsOfficeEU ;
+                     dcterms:spatial harmoni:Europe ;
+                     dcterms:title "data.europa.eu"@en ;
+                     dcat:landingPage <https://data.europa.eu/> .
+
+
+###  http://harmoni-project.eu/ontology#DataFamilyScheme
+harmoni:DataFamilyScheme rdf:type owl:NamedIndividual ,
+                                  skos:ConceptScheme ;
+                         skos:definition "Controlled vocabulary of the data type families relevant to NaTech risk management in HARMONI, as listed in Table 6.1 of D1.1."@en ;
+                         skos:prefLabel "HARMONI data type family scheme"@en .
+
+
+###  http://harmoni-project.eu/ontology#Drought
+harmoni:Drought rdf:type owl:NamedIndividual ,
+                         harmoni:NaturalHazard ;
+                rdfs:label "drought"@en .
+
+
+###  http://harmoni-project.eu/ontology#DroughtVegetation
+harmoni:DroughtVegetation rdf:type owl:NamedIndividual ,
+                                   skos:Concept ;
+                          skos:inScheme harmoni:DataFamilyScheme ;
+                          skos:definition "Drought indicators, vegetation condition and fire-risk drivers."@en ;
+                          skos:prefLabel "drought and vegetation status"@en .
+
+
+###  http://harmoni-project.eu/ontology#ECMWF
+harmoni:ECMWF rdf:type owl:NamedIndividual ,
+                       foaf:Organization ;
+              rdfs:label "European Centre for Medium-Range Weather Forecasts"@en ;
+              foaf:homepage <https://www.ecmwf.int/> .
+
+
+###  http://harmoni-project.eu/ontology#EDO
+harmoni:EDO rdf:type owl:NamedIndividual ,
+                     dcat:Catalog ;
+            harmoni:hasAccessTier harmoni:OpenAccess ;
+            dcterms:isPartOf harmoni:CEMS ;
+            dcterms:publisher harmoni:JRC ;
+            dcterms:spatial harmoni:Europe ;
+            dcat:dataset harmoni:EDODroughtIndicators ;
+            dcterms:title "European Drought Observatory"@en ;
+            dcat:landingPage <https://drought.emergency.copernicus.eu/> .
+
+
+###  http://harmoni-project.eu/ontology#EDODroughtIndicators
+harmoni:EDODroughtIndicators rdf:type owl:NamedIndividual ,
+                                      dcat:Dataset ;
+                             harmoni:hasAccessTier harmoni:OpenAccess ;
+                             harmoni:relevantToHazard harmoni:Drought ,
+                                                      harmoni:Wildfire ;
+                             harmoni:usedInUseCase harmoni:UC1 ,
+                                                   harmoni:UC5 ;
+                             dcterms:publisher harmoni:JRC ;
+                             dcterms:spatial harmoni:Europe ;
+                             dcat:theme harmoni:DroughtVegetation ;
+                             dcterms:description "Combined Drought Indicator, Standardised Precipitation Index, soil-moisture anomaly and fAPAR anomaly."@en ;
+                             dcterms:title "EDO European drought indicators"@en .
+
+
+###  http://harmoni-project.eu/ontology#EEA
+harmoni:EEA rdf:type owl:NamedIndividual ,
+                     foaf:Organization ;
+            rdfs:label "European Environment Agency"@en ;
+            foaf:homepage <https://www.eea.europa.eu/> .
+
+
+###  http://harmoni-project.eu/ontology#EFAS
+harmoni:EFAS rdf:type owl:NamedIndividual ,
+                      dcat:Catalog ;
+             harmoni:hasAccessTier harmoni:PartiallyOpenAccess ;
+             dcterms:isPartOf harmoni:CEMS ;
+             dcterms:publisher harmoni:JRC ;
+             dcterms:spatial harmoni:Europe ;
+             dcat:dataset harmoni:EFASForecast ;
+             dcterms:description "Real-time forecasts are restricted to registered national authorities; archived products older than one month are publicly accessible."@en ;
+             dcterms:title "European Flood Awareness System"@en ;
+             dcat:landingPage <https://european-flood.emergency.copernicus.eu/> .
+
+
+###  http://harmoni-project.eu/ontology#EFASForecast
+harmoni:EFASForecast rdf:type owl:NamedIndividual ,
+                              dcat:Dataset ;
+                     harmoni:hasAccessTier harmoni:PartiallyOpenAccess ;
+                     harmoni:relevantToHazard harmoni:Flood ;
+                     harmoni:usedInUseCase harmoni:UC3 ,
+                                           harmoni:UC4 ,
+                                           harmoni:UC5 ;
+                     dcterms:publisher harmoni:JRC ;
+                     dcterms:spatial harmoni:Europe ;
+                     dcat:theme harmoni:HydroObsFloodForecast ;
+                     dcterms:title "EFAS flood forecasting and early warning"@en .
+
+
+###  http://harmoni-project.eu/ontology#EFFIS
+harmoni:EFFIS rdf:type owl:NamedIndividual ,
+                       dcat:Catalog ;
+              harmoni:hasAccessTier harmoni:OpenAccess ;
+              dcterms:isPartOf harmoni:CEMS ;
+              dcterms:publisher harmoni:JRC ;
+              dcterms:spatial harmoni:Europe ;
+              dcat:dataset harmoni:EFFISActiveFires ,
+                           harmoni:EFFISBurntAreas ,
+                           harmoni:EFFISFireDanger ,
+                           harmoni:EFFISFireHistory ;
+              dcterms:title "European Forest Fire Information System"@en ;
+              dcat:landingPage <https://forest-fire.emergency.copernicus.eu/> .
+
+
+###  http://harmoni-project.eu/ontology#EFFISActiveFires
+harmoni:EFFISActiveFires rdf:type owl:NamedIndividual ,
+                                  dcat:Dataset ;
+                         harmoni:hasAccessTier harmoni:OpenAccess ;
+                         harmoni:relevantToHazard harmoni:Wildfire ;
+                         harmoni:usedInUseCase harmoni:UC1 ;
+                         dcterms:publisher harmoni:JRC ;
+                         dcterms:spatial harmoni:Europe ;
+                         dcat:theme harmoni:WildfireFireWeather ;
+                         dcterms:title "EFFIS active fire detection"@en .
+
+
+###  http://harmoni-project.eu/ontology#EFFISBurntAreas
+harmoni:EFFISBurntAreas rdf:type owl:NamedIndividual ,
+                                 dcat:Dataset ;
+                        harmoni:hasAccessTier harmoni:OpenAccess ;
+                        harmoni:relevantToHazard harmoni:Wildfire ;
+                        harmoni:usedInUseCase harmoni:UC1 ;
+                        dcterms:publisher harmoni:JRC ;
+                        dcterms:spatial harmoni:Europe ;
+                        dcat:theme harmoni:WildfireFireWeather ;
+                        dcterms:title "EFFIS Rapid Damage Assessment burnt-area mapping"@en .
+
+
+###  http://harmoni-project.eu/ontology#EFFISFireDanger
+harmoni:EFFISFireDanger rdf:type owl:NamedIndividual ,
+                                 dcat:Dataset ;
+                        harmoni:hasAccessTier harmoni:OpenAccess ;
+                        harmoni:relevantToHazard harmoni:Wildfire ;
+                        harmoni:usedInUseCase harmoni:UC1 ;
+                        dcterms:publisher harmoni:JRC ;
+                        dcterms:spatial harmoni:Europe ;
+                        dcat:theme harmoni:WildfireFireWeather ;
+                        dcterms:title "EFFIS Fire Danger Forecasts"@en .
+
+
+###  http://harmoni-project.eu/ontology#EFFISFireHistory
+harmoni:EFFISFireHistory rdf:type owl:NamedIndividual ,
+                                  dcat:Dataset ;
+                         harmoni:hasAccessTier harmoni:OpenAccess ;
+                         harmoni:relevantToHazard harmoni:Wildfire ;
+                         harmoni:usedInUseCase harmoni:UC1 ;
+                         dcterms:publisher harmoni:JRC ;
+                         dcterms:spatial harmoni:Europe ;
+                         dcat:theme harmoni:HistoricalDisasterRecords ;
+                         dcterms:title "European Fire History Database"@en .
+
+
+###  http://harmoni-project.eu/ontology#EGIF
+harmoni:EGIF rdf:type owl:NamedIndividual ,
+                      dcat:Dataset ;
+             harmoni:hasAccessTier harmoni:OpenAccess ;
+             harmoni:relevantToHazard harmoni:Wildfire ;
+             harmoni:usedInUseCase harmoni:UC1 ;
+             dcterms:publisher harmoni:MITECO ;
+             dcterms:spatial harmoni:Spain ;
+             dcat:theme harmoni:HistoricalDisasterRecords ;
+             dcterms:title "General Statistics of Forest Fires"@en .
+
+
+###  http://harmoni-project.eu/ontology#ELGA
+harmoni:ELGA rdf:type owl:NamedIndividual ,
+                      foaf:Organization ;
+             rdfs:label "ELGA, Hellenic Agricultural Insurance Organization"@en ;
+             foaf:homepage <https://www.elga.gr/> .
+
+
+###  http://harmoni-project.eu/ontology#ELGADamageRecords
+harmoni:ELGADamageRecords rdf:type owl:NamedIndividual ,
+                                   dcat:Dataset ;
+                          harmoni:hasAccessTier harmoni:PartiallyOpenAccess ;
+                          harmoni:relevantToHazard harmoni:Flood ;
+                          harmoni:usedInUseCase harmoni:UC5 ;
+                          dcterms:publisher harmoni:ELGA ;
+                          dcterms:spatial harmoni:Greece ;
+                          dcat:theme harmoni:HistoricalDisasterRecords ;
+                          dcterms:description "Aggregated and official damage statistics are publicly available. Detailed per-farm or per-claim data are subject to data-protection rules."@en ;
+                          dcterms:title "ELGA agricultural and livestock damage records"@en ;
+                          dcat:landingPage <https://www.elga.gr/> .
+
+
+###  http://harmoni-project.eu/ontology#EMARS
+harmoni:EMARS rdf:type owl:NamedIndividual ,
+                       dcat:Catalog ;
+              harmoni:hasAccessTier harmoni:OpenAccess ;
+              dcterms:publisher harmoni:EEA ;
+              dcterms:spatial harmoni:Europe ;
+              dcat:dataset harmoni:EMARSRecords ;
+              dcterms:title "EU Major Accident Reporting System"@en ;
+              dcat:landingPage <https://industry.eea.europa.eu/seveso/accidents> .
+
+
+###  http://harmoni-project.eu/ontology#EMARSRecords
+harmoni:EMARSRecords rdf:type owl:NamedIndividual ,
+                              dcat:Dataset ;
+                     harmoni:hasAccessTier harmoni:OpenAccess ;
+                     harmoni:relevantToHazard harmoni:IndustrialAccident ;
+                     harmoni:usedInUseCase harmoni:UC1 ,
+                                           harmoni:UC2 ,
+                                           harmoni:UC3 ,
+                                           harmoni:UC5 ;
+                     dcterms:publisher harmoni:EEA ;
+                     dcterms:spatial harmoni:Europe ;
+                     dcat:theme harmoni:IndustrialAccidentRecords ;
+                     dcterms:title "eMARS major industrial accident records"@en .
+
+
+###  http://harmoni-project.eu/ontology#EMDAT
+harmoni:EMDAT rdf:type owl:NamedIndividual ,
+                       dcat:Catalog ;
+              harmoni:hasAccessTier harmoni:OpenAccess ;
+              dcterms:publisher harmoni:CRED ;
+              dcterms:spatial harmoni:Global ;
+              dcat:dataset harmoni:EMDATRecords ;
+              dcterms:title "EM-DAT International Disaster Database"@en ;
+              dcat:landingPage <https://www.emdat.be/> .
+
+
+###  http://harmoni-project.eu/ontology#EMDATRecords
+harmoni:EMDATRecords rdf:type owl:NamedIndividual ,
+                              dcat:Dataset ;
+                     harmoni:hasAccessTier harmoni:OpenAccess ;
+                     harmoni:usedInUseCase harmoni:UC1 ,
+                                           harmoni:UC2 ,
+                                           harmoni:UC3 ,
+                                           harmoni:UC4 ,
+                                           harmoni:UC5 ;
+                     dcterms:publisher harmoni:CRED ;
+                     dcterms:spatial harmoni:Global ;
+                     dcat:theme harmoni:HistoricalDisasterRecords ;
+                     dcterms:title "EM-DAT disaster event records"@en .
+
+
+###  http://harmoni-project.eu/ontology#EMSC
+harmoni:EMSC rdf:type owl:NamedIndividual ,
+                      foaf:Organization ;
+             rdfs:label "EMSC, European-Mediterranean Seismological Centre"@en ;
+             foaf:homepage <https://www.emsc-csem.org/> .
+
+
+###  http://harmoni-project.eu/ontology#EMSCCatalogue
+harmoni:EMSCCatalogue rdf:type owl:NamedIndividual ,
+                               dcat:Dataset ;
+                      harmoni:hasAccessTier harmoni:OpenAccess ;
+                      harmoni:relevantToHazard harmoni:Earthquake ;
+                      harmoni:usedInUseCase harmoni:UC2 ;
+                      dcterms:publisher harmoni:EMSC ;
+                      dcterms:spatial harmoni:Europe ;
+                      dcat:theme harmoni:SeismicGroundMotion ;
+                      dcterms:title "EMSC real-time earthquake catalogue"@en ;
+                      dcat:landingPage <https://www.emsc-csem.org/> .
+
+
+###  http://harmoni-project.eu/ontology#EMSN184
+harmoni:EMSN184 rdf:type owl:NamedIndividual ,
+                         dcat:Dataset ;
+                harmoni:hasAccessTier harmoni:OpenAccess ;
+                harmoni:relevantToHazard harmoni:Flood ;
+                harmoni:usedInUseCase harmoni:UC5 ;
+                dcterms:publisher harmoni:JRC ;
+                dcterms:spatial harmoni:Greece ;
+                dcat:theme harmoni:OperationalDisasterMapping ;
+                dcterms:title "CEMS activation EMSN184, Lake Karla Risk and Recovery analysis"@en .
+
+
+###  http://harmoni-project.eu/ontology#EMSR465
+harmoni:EMSR465 rdf:type owl:NamedIndividual ,
+                         dcat:Dataset ;
+                harmoni:hasAccessTier harmoni:OpenAccess ;
+                harmoni:relevantToHazard harmoni:Flood ;
+                harmoni:usedInUseCase harmoni:UC5 ;
+                dcterms:publisher harmoni:JRC ;
+                dcterms:spatial harmoni:Greece ;
+                dcat:theme harmoni:OperationalDisasterMapping ;
+                dcterms:title "CEMS activation EMSR465, Storm Ianos 2020"@en .
+
+
+###  http://harmoni-project.eu/ontology#EMSR692
+harmoni:EMSR692 rdf:type owl:NamedIndividual ,
+                         dcat:Dataset ;
+                harmoni:hasAccessTier harmoni:OpenAccess ;
+                harmoni:relevantToHazard harmoni:Flood ;
+                harmoni:usedInUseCase harmoni:UC5 ;
+                dcterms:publisher harmoni:JRC ;
+                dcterms:spatial harmoni:Greece ;
+                dcat:theme harmoni:OperationalDisasterMapping ;
+                dcterms:title "CEMS activation EMSR692, Storm Daniel 2023"@en .
+
+
+###  http://harmoni-project.eu/ontology#EPOS
+harmoni:EPOS rdf:type owl:NamedIndividual ,
+                      foaf:Organization ;
+             rdfs:label "EPOS, European Plate Observing System"@en ;
+             foaf:homepage <https://www.epos-eu.org/> .
+
+
+###  http://harmoni-project.eu/ontology#EPOSICSC
+harmoni:EPOSICSC rdf:type owl:NamedIndividual ,
+                          dcat:DataService ;
+                 harmoni:hasAccessTier harmoni:OpenAccess ;
+                 harmoni:relevantToHazard harmoni:Earthquake ;
+                 harmoni:usedInUseCase harmoni:UC2 ;
+                 dcterms:publisher harmoni:EPOS ;
+                 dcterms:spatial harmoni:Europe ;
+                 dcat:theme harmoni:SeismicGroundMotion ;
+                 dcterms:description "Federated access to multidisciplinary geoscientific datasets including earthquake catalogues, seismic waveforms, strong-motion records, GNSS observations and ground deformation data."@en ;
+                 dcterms:title "EPOS Integrated Core Services Central Hub"@en ;
+                 dcat:landingPage <https://www.epos-eu.org/> .
+
+
+###  http://harmoni-project.eu/ontology#ERA5
+harmoni:ERA5 rdf:type owl:NamedIndividual ,
+                      dcat:Dataset ;
+             harmoni:hasAccessTier harmoni:OpenAccess ;
+             harmoni:usedInUseCase harmoni:UC3 ,
+                                   harmoni:UC4 ,
+                                   harmoni:UC5 ;
+             dcterms:publisher harmoni:ECMWF ;
+             dcterms:spatial harmoni:Global ;
+             dcat:theme harmoni:ClimateReanalysisProjection ;
+             dcterms:title "ERA5 climate reanalysis"@en .
+
+
+###  http://harmoni-project.eu/ontology#ERA5Land
+harmoni:ERA5Land rdf:type owl:NamedIndividual ,
+                          dcat:Dataset ;
+                 harmoni:hasAccessTier harmoni:OpenAccess ;
+                 harmoni:usedInUseCase harmoni:UC3 ,
+                                       harmoni:UC4 ;
+                 dcterms:publisher harmoni:ECMWF ;
+                 dcterms:spatial harmoni:Global ;
+                 dcat:theme harmoni:ClimateReanalysisProjection ;
+                 dcterms:title "ERA5-Land reanalysis"@en .
+
+
+###  http://harmoni-project.eu/ontology#Earthquake
+harmoni:Earthquake rdf:type owl:NamedIndividual ,
+                            harmoni:NaturalHazard ;
+                   rdfs:label "earthquake"@en .
+
+
+###  http://harmoni-project.eu/ontology#Europe
+harmoni:Europe rdf:type owl:NamedIndividual ,
+                        harmoni:Region ;
+               rdfs:label "Europe"@en .
+
+
+###  http://harmoni-project.eu/ontology#EuropeanCommission
+harmoni:EuropeanCommission rdf:type owl:NamedIndividual ,
+                                    foaf:Organization ;
+                           rdfs:label "European Commission"@en ;
+                           foaf:homepage <https://commission.europa.eu/> .
+
+
+###  http://harmoni-project.eu/ontology#Eurostat
+harmoni:Eurostat rdf:type owl:NamedIndividual ,
+                          foaf:Organization ;
+                 rdfs:label "Eurostat"@en ;
+                 foaf:homepage <https://ec.europa.eu/eurostat> .
+
+
+###  http://harmoni-project.eu/ontology#EurostatDatabase
+harmoni:EurostatDatabase rdf:type owl:NamedIndividual ,
+                                  dcat:Catalog ;
+                         harmoni:hasAccessTier harmoni:OpenAccess ;
+                         dcterms:publisher harmoni:Eurostat ;
+                         dcterms:spatial harmoni:Europe ;
+                         dcat:dataset harmoni:EurostatStatistics ;
+                         dcterms:title "Eurostat database"@en ;
+                         dcat:landingPage <https://ec.europa.eu/eurostat/data/database> .
+
+
+###  http://harmoni-project.eu/ontology#EurostatStatistics
+harmoni:EurostatStatistics rdf:type owl:NamedIndividual ,
+                                    dcat:Dataset ;
+                           harmoni:hasAccessTier harmoni:OpenAccess ;
+                           harmoni:usedInUseCase harmoni:UC1 ,
+                                                 harmoni:UC2 ,
+                                                 harmoni:UC3 ,
+                                                 harmoni:UC4 ,
+                                                 harmoni:UC5 ;
+                           dcterms:publisher harmoni:Eurostat ;
+                           dcterms:spatial harmoni:Europe ;
+                           dcat:theme harmoni:PopulationDemographics ;
+                           dcterms:title "Eurostat demographic and socio-economic statistics"@en .
+
+
+###  http://harmoni-project.eu/ontology#Flood
+harmoni:Flood rdf:type owl:NamedIndividual ,
+                       harmoni:NaturalHazard ;
+              rdfs:label "flood"@en .
+
+
+###  http://harmoni-project.eu/ontology#Galati
+harmoni:Galati rdf:type owl:NamedIndividual ,
+                        harmoni:SubRegion ;
+               dcterms:isPartOf harmoni:Romania ;
+               rdfs:label "Galați County"@en .
+
+
+###  http://harmoni-project.eu/ontology#Global
+harmoni:Global rdf:type owl:NamedIndividual ,
+                        harmoni:Region ;
+               rdfs:label "global coverage"@en .
+
+
+###  http://harmoni-project.eu/ontology#Greece
+harmoni:Greece rdf:type owl:NamedIndividual ,
+                        harmoni:Country ;
+               rdfs:label "Greece"@en .
+
+
+###  http://harmoni-project.eu/ontology#HCMR
+harmoni:HCMR rdf:type owl:NamedIndividual ,
+                      foaf:Organization ;
+             rdfs:label "HCMR, Hellenic Centre for Marine Research"@en ;
+             foaf:homepage <https://www.hcmr.gr/> .
+
+
+###  http://harmoni-project.eu/ontology#HNMS
+harmoni:HNMS rdf:type owl:NamedIndividual ,
+                      foaf:Organization ;
+             rdfs:label "EMY, Hellenic National Meteorological Service"@en ;
+             foaf:homepage <https://www.emy.gr/> .
+
+
+###  http://harmoni-project.eu/ontology#HNMSForecasts
+harmoni:HNMSForecasts rdf:type owl:NamedIndividual ,
+                               dcat:Dataset ;
+                      harmoni:hasAccessTier harmoni:OpenAccess ;
+                      harmoni:relevantToHazard harmoni:Flood ;
+                      harmoni:usedInUseCase harmoni:UC5 ;
+                      dcterms:publisher harmoni:HNMS ;
+                      dcterms:spatial harmoni:Greece ;
+                      dcat:theme harmoni:MeteoObsForecast ;
+                      dcterms:title "EMY forecasts, climatological data and meteorological warnings"@en ;
+                      dcat:landingPage <https://www.emy.gr/> .
+
+
+###  http://harmoni-project.eu/ontology#HRLImperviousness
+harmoni:HRLImperviousness rdf:type owl:NamedIndividual ,
+                                   dcat:Dataset ;
+                          harmoni:hasAccessTier harmoni:OpenAccess ;
+                          harmoni:usedInUseCase harmoni:UC2 ,
+                                                harmoni:UC3 ;
+                          dcterms:publisher harmoni:EEA ;
+                          dcterms:spatial harmoni:Europe ;
+                          dcat:theme harmoni:LandCoverUse ;
+                          dcterms:title "High Resolution Layer Imperviousness Density"@en .
+
+
+###  http://harmoni-project.eu/ontology#HRLWaterWetness
+harmoni:HRLWaterWetness rdf:type owl:NamedIndividual ,
+                                 dcat:Dataset ;
+                        harmoni:hasAccessTier harmoni:OpenAccess ;
+                        harmoni:relevantToHazard harmoni:Flood ;
+                        harmoni:usedInUseCase harmoni:UC3 ,
+                                              harmoni:UC4 ,
+                                              harmoni:UC5 ;
+                        dcterms:publisher harmoni:EEA ;
+                        dcterms:spatial harmoni:Europe ;
+                        dcat:theme harmoni:LandCoverUse ;
+                        dcterms:title "High Resolution Layer Water and Wetness"@en .
+
+
+###  http://harmoni-project.eu/ontology#HistoricalDisasterRecords
+harmoni:HistoricalDisasterRecords rdf:type owl:NamedIndividual ,
+                                           skos:Concept ;
+                                  skos:inScheme harmoni:DataFamilyScheme ;
+                                  skos:definition "International and EU-level historical event archives."@en ;
+                                  skos:prefLabel "historical disaster records"@en .
+
+
+###  http://harmoni-project.eu/ontology#HydroObsFloodForecast
+harmoni:HydroObsFloodForecast rdf:type owl:NamedIndividual ,
+                                       skos:Concept ;
+                              skos:inScheme harmoni:DataFamilyScheme ;
+                              skos:definition "River discharge, water levels, flood probability, flood hazard and risk maps."@en ;
+                              skos:prefLabel "hydrological observations and flood forecasting"@en .
+
+
+###  http://harmoni-project.eu/ontology#IGNTransportNetwork
+harmoni:IGNTransportNetwork rdf:type owl:NamedIndividual ,
+                                     dcat:Dataset ;
+                            harmoni:hasAccessTier harmoni:OpenAccess ;
+                            harmoni:usedInUseCase harmoni:UC1 ;
+                            dcterms:publisher harmoni:CNIG ;
+                            dcterms:spatial harmoni:Spain ;
+                            dcat:theme harmoni:CriticalInfrastructureInventory ;
+                            dcterms:title "IGN Transport Network Data"@en .
+
+
+###  http://harmoni-project.eu/ontology#INHGA
+harmoni:INHGA rdf:type owl:NamedIndividual ,
+                       foaf:Organization ;
+              rdfs:label "INHGA, National Institute of Hydrology and Water Management, Romania"@en ;
+              foaf:homepage <https://www.inhga.ro/> .
+
+
+###  http://harmoni-project.eu/ontology#INHGAHydrologicalData
+harmoni:INHGAHydrologicalData rdf:type owl:NamedIndividual ,
+                                       dcat:Dataset ;
+                              harmoni:hasAccessTier harmoni:OpenAccess ;
+                              harmoni:relevantToHazard harmoni:Flood ;
+                              harmoni:usedInUseCase harmoni:UC3 ;
+                              dcterms:publisher harmoni:INHGA ;
+                              dcterms:spatial harmoni:Romania ;
+                              dcat:theme harmoni:HydroObsFloodForecast ;
+                              dcterms:title "INHGA river level, flow and flood-wave data"@en ;
+                              dcat:landingPage <https://www.inhga.ro/> .
+
+
+###  http://harmoni-project.eu/ontology#INSPIREGeoportal
+harmoni:INSPIREGeoportal rdf:type owl:NamedIndividual ,
+                                  dcat:Catalog ;
+                         harmoni:hasAccessTier harmoni:OpenAccess ;
+                         dcterms:publisher harmoni:JRC ;
+                         dcterms:spatial harmoni:Europe ;
+                         dcat:dataset harmoni:ANMMonitoringNetwork ,
+                                      harmoni:RomanianElectricityTransmissionNetwork ,
+                                      harmoni:RomanianHydrographyNetwork ,
+                                      harmoni:RomanianRoadTransportNetwork ;
+                         dcterms:description "Federates standardised geospatial metadata published by EU Member States. Used as a discovery mechanism for national datasets."@en ;
+                         dcterms:title "INSPIRE Geoportal"@en ;
+                         dcat:landingPage <https://inspire-geoportal.ec.europa.eu/> .
+
+
+###  http://harmoni-project.eu/ontology#IndustrialAccident
+harmoni:IndustrialAccident rdf:type owl:NamedIndividual ,
+                                    harmoni:TechnologicalHazard ;
+                           rdfs:label "industrial accident"@en .
+
+
+###  http://harmoni-project.eu/ontology#IndustrialAccidentRecords
+harmoni:IndustrialAccidentRecords rdf:type owl:NamedIndividual ,
+                                           skos:Concept ;
+                                  skos:inScheme harmoni:DataFamilyScheme ;
+                                  skos:definition "EU Major Accident Reporting System and industrial accident databases."@en ;
+                                  skos:prefLabel "industrial and major-accident records"@en .
+
+
+###  http://harmoni-project.eu/ontology#InstitutionalAccess
+harmoni:InstitutionalAccess rdf:type owl:NamedIndividual ,
+                                     harmoni:AccessTier ;
+                            rdfs:comment "Held by the relevant national authorities and not openly catalogued. Access requires a specific agreement."@en ;
+                            rdfs:label "institutional access"@en .
+
+
+###  http://harmoni-project.eu/ontology#InundatiiPortal
+harmoni:InundatiiPortal rdf:type owl:NamedIndividual ,
+                                 dcat:Catalog ;
+                        harmoni:hasAccessTier harmoni:OpenAccess ;
+                        harmoni:relevantToHazard harmoni:Flood ;
+                        harmoni:usedInUseCase harmoni:UC3 ;
+                        dcterms:publisher harmoni:ANAR ;
+                        dcterms:spatial harmoni:Romania ;
+                        dcat:theme harmoni:HydroObsFloodForecast ;
+                        dcterms:title "Inundații.ro flood hazard and risk portal"@en ;
+                        dcat:landingPage <https://inundatii.ro/> .
+
+
+###  http://harmoni-project.eu/ontology#Italy
+harmoni:Italy rdf:type owl:NamedIndividual ,
+                       harmoni:Country ;
+              rdfs:label "Italy"@en .
+
+
+###  http://harmoni-project.eu/ontology#JRC
+harmoni:JRC rdf:type owl:NamedIndividual ,
+                     foaf:Organization ;
+            rdfs:label "Joint Research Centre"@en ;
+            foaf:homepage <https://joint-research-centre.ec.europa.eu/> .
+
+
+###  http://harmoni-project.eu/ontology#LandCoverUse
+harmoni:LandCoverUse rdf:type owl:NamedIndividual ,
+                              skos:Concept ;
+                     skos:inScheme harmoni:DataFamilyScheme ;
+                     skos:definition "European CORINE Land Cover, High Resolution Layers, Urban Atlas, Riparian Zones, Water and Wetness."@en ;
+                     skos:prefLabel "land cover and land use"@en .
+
+
+###  http://harmoni-project.eu/ontology#MDTPNOA
+harmoni:MDTPNOA rdf:type owl:NamedIndividual ,
+                         dcat:Dataset ;
+                harmoni:hasAccessTier harmoni:OpenAccess ;
+                harmoni:usedInUseCase harmoni:UC1 ;
+                dcterms:publisher harmoni:CNIG ;
+                dcterms:spatial harmoni:Spain ;
+                dcat:theme harmoni:TopographyElevation ;
+                dcterms:title "IGN Digital Terrain Model and PNOA LiDAR"@en .
+
+
+###  http://harmoni-project.eu/ontology#MITECO
+harmoni:MITECO rdf:type owl:NamedIndividual ,
+                        foaf:Organization ;
+               rdfs:label "MITECO, Ministry for Ecological Transition and the Demographic Challenge, Spain"@en ;
+               foaf:homepage <https://www.miteco.gob.es/> .
+
+
+###  http://harmoni-project.eu/ontology#Malaga
+harmoni:Malaga rdf:type owl:NamedIndividual ,
+                        harmoni:SubRegion ;
+               dcterms:isPartOf harmoni:Spain ;
+               rdfs:label "Málaga area"@en .
+
+
+###  http://harmoni-project.eu/ontology#MedSeaProducts
+harmoni:MedSeaProducts rdf:type owl:NamedIndividual ,
+                                dcat:Dataset ;
+                       harmoni:hasAccessTier harmoni:OpenAccess ;
+                       harmoni:usedInUseCase harmoni:UC5 ;
+                       dcterms:publisher harmoni:MercatorOcean ;
+                       dcterms:spatial harmoni:Europe ;
+                       dcat:theme harmoni:CoastalMarine ;
+                       dcterms:title "Mediterranean regional sea level, temperature, currents and waves"@en .
+
+
+###  http://harmoni-project.eu/ontology#MercatorOcean
+harmoni:MercatorOcean rdf:type owl:NamedIndividual ,
+                               foaf:Organization ;
+                      rdfs:label "Mercator Ocean International"@en ;
+                      foaf:homepage <https://www.mercator-ocean.eu/> .
+
+
+###  http://harmoni-project.eu/ontology#MeteoObsForecast
+harmoni:MeteoObsForecast rdf:type owl:NamedIndividual ,
+                                  skos:Concept ;
+                         skos:inScheme harmoni:DataFamilyScheme ;
+                         skos:definition "Real-time and historical observations of temperature, precipitation, wind, humidity and atmospheric pressure."@en ;
+                         skos:prefLabel "meteorological observations and forecasts"@en .
+
+
+###  http://harmoni-project.eu/ontology#NOA
+harmoni:NOA rdf:type owl:NamedIndividual ,
+                     foaf:Organization ;
+            rdfs:label "NOA, National Observatory of Athens"@en ;
+            foaf:homepage <https://www.noa.gr/> .
+
+
+###  http://harmoni-project.eu/ontology#NOAMeteoObservations
+harmoni:NOAMeteoObservations rdf:type owl:NamedIndividual ,
+                                      dcat:Dataset ;
+                             harmoni:hasAccessTier harmoni:OpenAccess ;
+                             harmoni:relevantToHazard harmoni:Flood ;
+                             harmoni:usedInUseCase harmoni:UC5 ;
+                             dcterms:publisher harmoni:NOA ;
+                             dcterms:spatial harmoni:Greece ;
+                             dcat:theme harmoni:MeteoObsForecast ;
+                             dcterms:title "NOA meteorological observations, radar nowcasting and lightning detection"@en ;
+                             dcat:landingPage <https://www.meteo.gr/> .
+
+
+###  http://harmoni-project.eu/ontology#OSMFoundation
+harmoni:OSMFoundation rdf:type owl:NamedIndividual ,
+                               foaf:Organization ;
+                      rdfs:label "OpenStreetMap Foundation"@en ;
+                      foaf:homepage <https://www.openstreetmap.org/> .
+
+
+###  http://harmoni-project.eu/ontology#OnDemandTacticalSAR
+harmoni:OnDemandTacticalSAR rdf:type owl:NamedIndividual ,
+                                     skos:Concept ;
+                            skos:inScheme harmoni:DataFamilyScheme ;
+                            skos:definition "Airborne and UAV SAR. Higher-frequency bands such as Ku-band, event-driven tasking, sub-metre resolution. Distinguished from spaceborne Earth observation because tasking, spectral band, resolution and access model differ."@en ;
+                            skos:prefLabel "on-demand tactical SAR"@en .
+
+
+###  http://harmoni-project.eu/ontology#OpenAccess
+harmoni:OpenAccess rdf:type owl:NamedIndividual ,
+                            harmoni:AccessTier ;
+                   rdfs:comment "Publicly available, in most cases under an open-data policy. Free user registration may be required for programmatic or bulk download."@en ;
+                   rdfs:label "open access"@en .
+
+
+###  http://harmoni-project.eu/ontology#OpenStreetMap
+harmoni:OpenStreetMap rdf:type owl:NamedIndividual ,
+                               dcat:Dataset ;
+                      harmoni:hasAccessTier harmoni:OpenAccess ;
+                      harmoni:relevantToHazard harmoni:Flood ;
+                      harmoni:usedInUseCase harmoni:UC5 ;
+                      dcterms:publisher harmoni:OSMFoundation ;
+                      dcterms:spatial harmoni:Global ;
+                      dcat:theme harmoni:CriticalInfrastructureInventory ;
+                      dcterms:title "OpenStreetMap road network, bridge and culvert features"@en ;
+                      dcat:landingPage <https://www.openstreetmap.org/> .
+
+
+###  http://harmoni-project.eu/ontology#OperationalDisasterMapping
+harmoni:OperationalDisasterMapping rdf:type owl:NamedIndividual ,
+                                            skos:Concept ;
+                                   skos:inScheme harmoni:DataFamilyScheme ;
+                                   skos:definition "Copernicus EMS Rapid Mapping and Risk and Recovery activations for specific events."@en ;
+                                   skos:prefLabel "operational disaster mapping"@en .
+
+
+###  http://harmoni-project.eu/ontology#POSEIDON
+harmoni:POSEIDON rdf:type owl:NamedIndividual ,
+                          dcat:DataService ;
+                 harmoni:hasAccessTier harmoni:OpenAccess ;
+                 harmoni:usedInUseCase harmoni:UC5 ;
+                 dcterms:publisher harmoni:HCMR ;
+                 dcterms:spatial harmoni:Greece ;
+                 dcat:theme harmoni:CoastalMarine ;
+                 dcterms:title "POSEIDON Marine Monitoring and Forecasting System"@en ;
+                 dcat:landingPage <https://poseidon.hcmr.gr/> .
+
+
+###  http://harmoni-project.eu/ontology#PartiallyOpenAccess
+harmoni:PartiallyOpenAccess rdf:type owl:NamedIndividual ,
+                                     harmoni:AccessTier ;
+                            rdfs:comment "A publicly accessible tier combined with restricted access to specific subsets."@en ;
+                            rdfs:label "partially open access"@en .
+
+
+###  http://harmoni-project.eu/ontology#PopulationDemographics
+harmoni:PopulationDemographics rdf:type owl:NamedIndividual ,
+                                        skos:Concept ;
+                               skos:inScheme harmoni:DataFamilyScheme ;
+                               skos:definition "Population density, household composition and socio-economic vulnerability."@en ;
+                               skos:prefLabel "population and demographics"@en .
+
+
+###  http://harmoni-project.eu/ontology#PublicationsOfficeEU
+harmoni:PublicationsOfficeEU rdf:type owl:NamedIndividual ,
+                                      foaf:Organization ;
+                             rdfs:label "Publications Office of the European Union"@en ;
+                             foaf:homepage <https://op.europa.eu/> .
+
+
+###  http://harmoni-project.eu/ontology#REDIAM
+harmoni:REDIAM rdf:type owl:NamedIndividual ,
+                        foaf:Organization ;
+               rdfs:label "REDIAM, Andalusian Environmental Information Network"@en ;
+               foaf:homepage <https://portalrediam.cica.es/> .
+
+
+###  http://harmoni-project.eu/ontology#REDIAMFirePerimeters
+harmoni:REDIAMFirePerimeters rdf:type owl:NamedIndividual ,
+                                      dcat:Dataset ;
+                             harmoni:hasAccessTier harmoni:OpenAccess ;
+                             harmoni:relevantToHazard harmoni:Wildfire ;
+                             harmoni:usedInUseCase harmoni:UC1 ;
+                             dcterms:publisher harmoni:REDIAM ;
+                             dcterms:spatial harmoni:Spain ;
+                             dcat:theme harmoni:WildfireFireWeather ;
+                             dcterms:title "REDIAM regional Forest Fire Perimeters"@en ;
+                             dcat:landingPage <https://portalrediam.cica.es/> .
+
+
+###  http://harmoni-project.eu/ontology#RiparianZones
+harmoni:RiparianZones rdf:type owl:NamedIndividual ,
+                               dcat:Dataset ;
+                      harmoni:hasAccessTier harmoni:OpenAccess ;
+                      harmoni:relevantToHazard harmoni:Flood ;
+                      harmoni:usedInUseCase harmoni:UC2 ,
+                                            harmoni:UC3 ,
+                                            harmoni:UC4 ;
+                      dcterms:publisher harmoni:EEA ;
+                      dcterms:spatial harmoni:Europe ;
+                      dcat:theme harmoni:LandCoverUse ;
+                      dcterms:title "Riparian Zones"@en .
+
+
+###  http://harmoni-project.eu/ontology#Romania
+harmoni:Romania rdf:type owl:NamedIndividual ,
+                         harmoni:Country ;
+                rdfs:label "Romania"@en .
+
+
+###  http://harmoni-project.eu/ontology#RomanianElectricityTransmissionNetwork
+harmoni:RomanianElectricityTransmissionNetwork rdf:type owl:NamedIndividual ,
+                                                        dcat:Dataset ;
+                                               harmoni:hasAccessTier harmoni:OpenAccess ;
+                                               harmoni:relevantToHazard harmoni:Flood ;
+                                               harmoni:usedInUseCase harmoni:UC3 ;
+                                               dcterms:isPartOf harmoni:INSPIREGeoportal ;
+                                               dcterms:publisher harmoni:Transelectrica ;
+                                               dcterms:spatial harmoni:Romania ;
+                                               dcat:theme harmoni:CriticalInfrastructureInventory ;
+                                               dcterms:title "Romanian Electricity Transmission Network"@en .
+
+
+###  http://harmoni-project.eu/ontology#RomanianHydrographyNetwork
+harmoni:RomanianHydrographyNetwork rdf:type owl:NamedIndividual ,
+                                            dcat:Dataset ;
+                                   harmoni:hasAccessTier harmoni:OpenAccess ;
+                                   harmoni:relevantToHazard harmoni:Flood ;
+                                   harmoni:usedInUseCase harmoni:UC3 ;
+                                   dcterms:isPartOf harmoni:INSPIREGeoportal ;
+                                   dcterms:publisher harmoni:ANAR ;
+                                   dcterms:spatial harmoni:Romania ;
+                                   dcat:theme harmoni:HydroObsFloodForecast ;
+                                   dcterms:title "Romanian Hydrography Network"@en .
+
+
+###  http://harmoni-project.eu/ontology#RomanianRoadTransportNetwork
+harmoni:RomanianRoadTransportNetwork rdf:type owl:NamedIndividual ,
+                                              dcat:Dataset ;
+                                     harmoni:hasAccessTier harmoni:OpenAccess ;
+                                     harmoni:relevantToHazard harmoni:Flood ;
+                                     harmoni:usedInUseCase harmoni:UC3 ;
+                                     dcterms:isPartOf harmoni:INSPIREGeoportal ;
+                                     dcterms:publisher harmoni:CNAIR ;
+                                     dcterms:spatial harmoni:Romania ;
+                                     dcat:theme harmoni:CriticalInfrastructureInventory ;
+                                     dcterms:title "Romanian Road Transport Network"@en .
+
+
+###  http://harmoni-project.eu/ontology#SeismicGroundMotion
+harmoni:SeismicGroundMotion rdf:type owl:NamedIndividual ,
+                                     skos:Concept ;
+                            skos:inScheme harmoni:DataFamilyScheme ;
+                            skos:definition "Earthquake catalogues, strong-motion records and seismic monitoring networks."@en ;
+                            skos:prefLabel "seismic activity and ground motion"@en .
+
+
+###  http://harmoni-project.eu/ontology#Sentinel1
+harmoni:Sentinel1 rdf:type owl:NamedIndividual ,
+                           dcat:Dataset ;
+                  harmoni:hasAccessTier harmoni:OpenAccess ;
+                  harmoni:usedInUseCase harmoni:UC1 ,
+                                        harmoni:UC2 ,
+                                        harmoni:UC5 ;
+                  dcterms:publisher harmoni:EuropeanCommission ;
+                  dcterms:spatial harmoni:Global ;
+                  dcat:theme harmoni:SpaceborneEarthObservation ;
+                  dcterms:title "Sentinel-1 SAR imagery"@en .
+
+
+###  http://harmoni-project.eu/ontology#Sentinel2
+harmoni:Sentinel2 rdf:type owl:NamedIndividual ,
+                           dcat:Dataset ;
+                  harmoni:hasAccessTier harmoni:OpenAccess ;
+                  harmoni:usedInUseCase harmoni:UC1 ,
+                                        harmoni:UC2 ,
+                                        harmoni:UC5 ;
+                  dcterms:publisher harmoni:EuropeanCommission ;
+                  dcterms:spatial harmoni:Global ;
+                  dcat:theme harmoni:SpaceborneEarthObservation ;
+                  dcterms:title "Sentinel-2 multispectral optical imagery"@en .
+
+
+###  http://harmoni-project.eu/ontology#Sentinel3
+harmoni:Sentinel3 rdf:type owl:NamedIndividual ,
+                           dcat:Dataset ;
+                  harmoni:hasAccessTier harmoni:OpenAccess ;
+                  harmoni:usedInUseCase harmoni:UC1 ,
+                                        harmoni:UC2 ;
+                  dcterms:publisher harmoni:EuropeanCommission ;
+                  dcterms:spatial harmoni:Global ;
+                  dcat:theme harmoni:SpaceborneEarthObservation ;
+                  dcterms:title "Sentinel-3 land and ocean products"@en .
+
+
+###  http://harmoni-project.eu/ontology#SimetoEtna
+harmoni:SimetoEtna rdf:type owl:NamedIndividual ,
+                            harmoni:SubRegion ;
+                   dcterms:isPartOf harmoni:Italy ;
+                   rdfs:label "Simeto-Etna and Catania plain"@en .
+
+
+###  http://harmoni-project.eu/ontology#SpaceborneEarthObservation
+harmoni:SpaceborneEarthObservation rdf:type owl:NamedIndividual ,
+                                            skos:Concept ;
+                                   skos:inScheme harmoni:DataFamilyScheme ;
+                                   skos:definition "Optical and SAR imagery from satellite platforms. C-band SAR, broad-area coverage, backbone monitoring and damage assessment."@en ;
+                                   skos:prefLabel "spaceborne Earth observation"@en .
+
+
+###  http://harmoni-project.eu/ontology#Spain
+harmoni:Spain rdf:type owl:NamedIndividual ,
+                       harmoni:Country ;
+              rdfs:label "Spain"@en .
+
+
+###  http://harmoni-project.eu/ontology#TADAS
+harmoni:TADAS rdf:type owl:NamedIndividual ,
+                       dcat:Dataset ;
+              harmoni:hasAccessTier harmoni:OpenAccess ;
+              harmoni:relevantToHazard harmoni:Earthquake ;
+              harmoni:usedInUseCase harmoni:UC2 ;
+              dcterms:publisher harmoni:AFAD ;
+              dcterms:spatial harmoni:Turkiye ;
+              dcat:theme harmoni:SeismicGroundMotion ;
+              dcterms:description "Requires free user registration."@en ;
+              dcterms:title "Turkish Accelerometric Database and Analysis System"@en ;
+              dcat:landingPage <https://tadas.afad.gov.tr/> .
+
+
+###  http://harmoni-project.eu/ontology#TacticalUAVSAR
+harmoni:TacticalUAVSAR rdf:type owl:NamedIndividual ,
+                                dcat:Dataset ;
+                       harmoni:hasAccessTier harmoni:InstitutionalAccess ;
+                       harmoni:relevantToHazard harmoni:Earthquake ;
+                       harmoni:usedInUseCase harmoni:UC2 ;
+                       dcterms:spatial harmoni:Turkiye ;
+                       dcat:theme harmoni:OnDemandTacticalSAR ;
+                       dcterms:description "On-demand tactical imagery in higher-frequency bands such as Ku-band, with event-driven tasking at sub-metre resolution. Held by the relevant national authorities and not openly catalogued."@en ;
+                       dcterms:title "Airborne and UAV SAR imagery, Bayraklı pilot area"@en .
+
+
+###  http://harmoni-project.eu/ontology#Thessaly
+harmoni:Thessaly rdf:type owl:NamedIndividual ,
+                          harmoni:SubRegion ;
+                 dcterms:isPartOf harmoni:Greece ;
+                 rdfs:label "Thessaly"@en .
+
+
+###  http://harmoni-project.eu/ontology#TopographyElevation
+harmoni:TopographyElevation rdf:type owl:NamedIndividual ,
+                                     skos:Concept ;
+                            skos:inScheme harmoni:DataFamilyScheme ;
+                            skos:definition "Digital terrain models, surface elevation and LiDAR point clouds."@en ;
+                            skos:prefLabel "topography and elevation"@en .
+
+
+###  http://harmoni-project.eu/ontology#Transelectrica
+harmoni:Transelectrica rdf:type owl:NamedIndividual ,
+                                foaf:Organization ;
+                       rdfs:label "Transelectrica, Romanian Electricity Transmission Company"@en ;
+                       foaf:homepage <https://www.transelectrica.ro/> .
+
+
+###  http://harmoni-project.eu/ontology#TurkStat
+harmoni:TurkStat rdf:type owl:NamedIndividual ,
+                          foaf:Organization ;
+                 rdfs:label "TurkStat, Turkish Statistical Institute"@en ;
+                 foaf:homepage <https://www.tuik.gov.tr/> .
+
+
+###  http://harmoni-project.eu/ontology#TurkStatMEDAS
+harmoni:TurkStatMEDAS rdf:type owl:NamedIndividual ,
+                               dcat:Dataset ;
+                      harmoni:hasAccessTier harmoni:OpenAccess ;
+                      harmoni:usedInUseCase harmoni:UC2 ;
+                      dcterms:publisher harmoni:TurkStat ;
+                      dcterms:spatial harmoni:Turkiye ;
+                      dcat:theme harmoni:PopulationDemographics ;
+                      dcterms:title "TurkStat MEDAS population, building and transport statistics"@en ;
+                      dcat:landingPage <https://www.tuik.gov.tr/> .
+
+
+###  http://harmoni-project.eu/ontology#Turkiye
+harmoni:Turkiye rdf:type owl:NamedIndividual ,
+                         harmoni:Country ;
+                rdfs:label "Türkiye"@en .
+
+
+###  http://harmoni-project.eu/ontology#UC1
+harmoni:UC1 rdf:type owl:NamedIndividual ,
+                     harmoni:UseCase ;
+            harmoni:addressesHazard harmoni:Wildfire ;
+            dcterms:spatial harmoni:Malaga ;
+            rdfs:label "UC1 Spain, Málaga, wildfire-driven transport and tunnel disruption"@en .
+
+
+###  http://harmoni-project.eu/ontology#UC2
+harmoni:UC2 rdf:type owl:NamedIndividual ,
+                     harmoni:UseCase ;
+            harmoni:addressesHazard harmoni:Earthquake ,
+                                    harmoni:IndustrialAccident ;
+            dcterms:spatial harmoni:Bayrakli ;
+            rdfs:label "UC2 Türkiye, İzmir Bayraklı, earthquake-induced NaTech and cascade scenario"@en .
+
+
+###  http://harmoni-project.eu/ontology#UC3
+harmoni:UC3 rdf:type owl:NamedIndividual ,
+                     harmoni:UseCase ;
+            harmoni:addressesHazard harmoni:Flood ,
+                                    harmoni:IndustrialAccident ;
+            dcterms:spatial harmoni:Galati ;
+            rdfs:label "UC3 Romania, Galați, flooding and cascading infrastructure disruption"@en .
+
+
+###  http://harmoni-project.eu/ontology#UC4
+harmoni:UC4 rdf:type owl:NamedIndividual ,
+                     harmoni:UseCase ;
+            harmoni:addressesHazard harmoni:Flood ;
+            dcterms:spatial harmoni:SimetoEtna ;
+            rdfs:label "UC4 Italy, Simeto-Etna and Catania plain, dam-related flood scenario"@en .
+
+
+###  http://harmoni-project.eu/ontology#UC5
+harmoni:UC5 rdf:type owl:NamedIndividual ,
+                     harmoni:UseCase ;
+            harmoni:addressesHazard harmoni:Flood ;
+            dcterms:spatial harmoni:Thessaly ;
+            rdfs:label "UC5 Greece, Thessaly, flood-driven NaTech and cascading infrastructure disruption"@en .
+
+
+###  http://harmoni-project.eu/ontology#UC6
+harmoni:UC6 rdf:type owl:NamedIndividual ,
+                     harmoni:UseCase ;
+            dcterms:spatial harmoni:Europe ;
+            rdfs:comment "Still under definition. Data requirements are cross-cutting rather than tied to a specific national territory."@en ;
+            rdfs:label "UC6 cross-border scenario"@en .
+
+
+###  http://harmoni-project.eu/ontology#UWWTD
+harmoni:UWWTD rdf:type owl:NamedIndividual ,
+                       dcat:Dataset ;
+              harmoni:hasAccessTier harmoni:OpenAccess ;
+              harmoni:relevantToHazard harmoni:Flood ;
+              harmoni:usedInUseCase harmoni:UC3 ;
+              dcterms:publisher harmoni:EEA ;
+              dcterms:spatial harmoni:Europe ;
+              dcat:theme harmoni:CriticalInfrastructureInventory ;
+              dcterms:title "Urban Wastewater Treatment Directive database"@en .
+
+
+###  http://harmoni-project.eu/ontology#UrbanAtlas
+harmoni:UrbanAtlas rdf:type owl:NamedIndividual ,
+                            dcat:Dataset ;
+                   harmoni:hasAccessTier harmoni:OpenAccess ;
+                   harmoni:usedInUseCase harmoni:UC2 ,
+                                         harmoni:UC3 ;
+                   dcterms:publisher harmoni:EEA ;
+                   dcterms:spatial harmoni:Europe ;
+                   dcat:theme harmoni:LandCoverUse ;
+                   dcterms:title "Urban Atlas"@en .
+
+
+###  http://harmoni-project.eu/ontology#VolcanicActivity
+harmoni:VolcanicActivity rdf:type owl:NamedIndividual ,
+                                  harmoni:NaturalHazard ;
+                         rdfs:label "volcanic activity"@en .
+
+
+###  http://harmoni-project.eu/ontology#WISE
+harmoni:WISE rdf:type owl:NamedIndividual ,
+                      dcat:Catalog ;
+             harmoni:hasAccessTier harmoni:OpenAccess ;
+             harmoni:usedInUseCase harmoni:UC3 ;
+             dcterms:publisher harmoni:EEA ;
+             dcterms:spatial harmoni:Europe ;
+             dcat:dataset harmoni:UWWTD ;
+             dcterms:title "Water Information System for Europe"@en ;
+             dcat:landingPage <https://water.europa.eu/> .
+
+
+###  http://harmoni-project.eu/ontology#Wildfire
+harmoni:Wildfire rdf:type owl:NamedIndividual ,
+                          harmoni:NaturalHazard ;
+                 rdfs:label "wildfire"@en .
+
+
+###  http://harmoni-project.eu/ontology#WildfireFireWeather
+harmoni:WildfireFireWeather rdf:type owl:NamedIndividual ,
+                                     skos:Concept ;
+                            skos:inScheme harmoni:DataFamilyScheme ;
+                            skos:definition "Active fire detection, burned-area mapping, fire danger forecasts and historical fire databases."@en ;
+                            skos:prefLabel "wildfire activity and fire weather"@en .
+
+
+###  Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi
+
+
+#################################################################
+#    Added 24 August 2026, dam safety monitoring family and sources
+#################################################################
+
+###  http://harmoni-project.eu/ontology#DamSafetyMonitoring
+harmoni:DamSafetyMonitoring rdf:type owl:NamedIndividual ,
+                                     skos:Concept ;
+                            skos:inScheme harmoni:DataFamilyScheme ;
+                            skos:definition "Dam registries and inventories, deformation and displacement measurements, reservoir levels, and periodic safety assessment records."@en ;
+                            skos:prefLabel "dam safety monitoring"@en .
+
+
+###  http://harmoni-project.eu/ontology#DGDighe
+harmoni:DGDighe rdf:type owl:NamedIndividual ,
+                         foaf:Organization ;
+                rdfs:label "Directorate General for Dams and Water Infrastructure, Ministry of Infrastructure and Transport, Italy"@en ;
+                foaf:homepage <https://dgdighe.mit.gov.it/> .
+
+
+###  http://harmoni-project.eu/ontology#EGMS
+harmoni:EGMS rdf:type owl:NamedIndividual ,
+                      dcat:Dataset ;
+             harmoni:hasAccessTier harmoni:OpenAccess ;
+             harmoni:relevantToHazard harmoni:Earthquake ,
+                                      harmoni:VolcanicActivity ;
+             harmoni:usedInUseCase harmoni:UC4 ;
+             dcterms:isPartOf harmoni:CLMS ;
+             dcterms:publisher harmoni:EEA ;
+             dcterms:spatial harmoni:Europe ;
+             dcat:theme harmoni:DamSafetyMonitoring ,
+                        harmoni:SeismicGroundMotion ;
+             dcterms:description "Ground-motion and displacement measurements derived from Sentinel-1 InSAR, used in UC4 for satellite-based deformation monitoring of the Ancipa and Pozzillo dams. Freely accessible under the Copernicus full, free and open-access policy."@en ;
+             dcterms:title "European Ground Motion Service (EGMS)"@en .
+
+
+###  http://harmoni-project.eu/ontology#ItalianDamRegistry
+harmoni:ItalianDamRegistry rdf:type owl:NamedIndividual ,
+                                    dcat:Dataset ;
+                           harmoni:hasAccessTier harmoni:OpenAccess ;
+                           harmoni:usedInUseCase harmoni:UC4 ;
+                           dcterms:publisher harmoni:DGDighe ;
+                           dcterms:spatial harmoni:Italy ;
+                           dcat:theme harmoni:DamSafetyMonitoring ;
+                           dcterms:description "Official register of large dams under state competence, published annually and publicly accessible as a downloadable document. No explicit open-data licence is attached to the published register."@en ;
+                           dcterms:title "Italian Registry of Large Dams (Registro Italiano delle Grandi Dighe)"@en .
+
+
+###  http://harmoni-project.eu/ontology#GrandiDigheItaliane
+harmoni:GrandiDigheItaliane rdf:type owl:NamedIndividual ,
+                                     dcat:Dataset ;
+                            harmoni:hasAccessTier harmoni:OpenAccess ;
+                            harmoni:usedInUseCase harmoni:UC4 ;
+                            dcterms:publisher harmoni:DGDighe ;
+                            dcterms:spatial harmoni:Italy ;
+                            dcat:theme harmoni:DamSafetyMonitoring ;
+                            dcterms:description "Ministry open-data dataset of Italian large dams, available in CSV and XLSX formats. Temporal coverage is older than the annual Registry. Licence to be confirmed on the MIT open-data portal."@en ;
+                            dcterms:title "Grandi dighe italiane"@en .
